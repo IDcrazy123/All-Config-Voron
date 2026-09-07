@@ -151,6 +151,14 @@ The uninstaller safely preserves user data, which is appropriate by default, but
 7. Add an opt-in backup-first config purge mode, or print an exact retained-artifact list at uninstall completion.
 8. Investigate Cartographer/mechanical repeatability for T2 and T3 at the same physical point before any further offset work. Do not relax the 0.010 mm gate to mask 0.7-1.05 mm spreads.
 
+## Post-audit standalone command event
+
+After the first final-state checkpoint, Moonraker's G-code store recorded a new `T2` command at `1788774631.699` and a separate `cartographer_touch_probe` command at `1788774636.260`. The probe ran after T2 was selected and failed the same three-samples-within-0.010-mm rule. The command source was not established.
+
+At this time `tool_calibrator` was `IDLE` and both TKC Z hooks were already `_TKC_Z_DISABLED`, so this was not a TKC calibration run or a TKC self-trigger. The standalone T2 touch failure strengthens the finding that T2's sample-repeatability problem occurs inside the Cartographer touch path before TKC offset arithmetic.
+
+The error again left toolchanger state uninitialized while the sensor detected T2. A normal `G28` initialized T2, and a normal `T0` restored the reference tool. Evidence: [post-audit command sequence and recovery](./26-post-audit-command-sequence.txt).
+
 ## Final state
 
 The experimental hooks were restored to `_TKC_Z_DISABLED` and the original config hash. A firmware restart and normal `G28` completed. The printer was left in this state:
@@ -159,7 +167,7 @@ The experimental hooks were restored to `_TKC_Z_DISABLED` and the original confi
 - Homed axes: `xyz`
 - Toolchanger: `ready`
 - Active and detected tool: T0
-- Position: approximately X175.4, Y163.7, Z10
+- Position: approximately X30.2, Y120, Z10
 - All hotend and bed targets: 0 °C
 - TKC: installed at exact upstream `a6bb715`, clean and current
 - kTAMV: still available on port 8086

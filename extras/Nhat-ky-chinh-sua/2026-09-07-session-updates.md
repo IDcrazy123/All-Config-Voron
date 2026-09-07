@@ -17,6 +17,7 @@
 - T0 chạm khoảng X174/Y168; T1-T4 chạm khoảng X174/Y163, không cùng một điểm.
 - Status polling không còn làm Klippy crash, nhưng `elapsed_sec` âm rất lớn do trộn Unix wall clock với Klipper monotonic clock.
 - Sau lỗi probe và cả lỗi chặn `ERR_Z_003`, tool thật vẫn được cảm biến nhận đúng nhưng trạng thái logic toolchanger thành `uninitialized`.
+- Sau checkpoint đầu tiên, G-code store ghi nhận thêm lệnh rời `T2` rồi `cartographer_touch_probe`; probe T2 tiếp tục lỗi repeatability trong khi TKC ở `IDLE` và các hook TKC đã tắt. Nguồn phát hai lệnh này không được xác định.
 
 ### Nguyên nhân gốc
 
@@ -34,6 +35,7 @@
 - Tạm bật hai hook Cartographer để đo có giám sát; mọi lệnh dùng `SAVE_CONFIG=0`, `CLEAN_NOZZLE=0`.
 - Chạy riêng T0→T3 và T0→T4 sau khi lượt T0-T4 bị dừng tại T2.
 - Khôi phục `touch_home_gcode` và `touch_probe_gcode` về `_TKC_Z_DISABLED`, firmware restart và `G28` bình thường.
+- Sau chuỗi lệnh rời phát sinh cuối phiên, chạy `G28` để khởi tạo T2 rồi `T0` để trả máy về tool tham chiếu.
 - Không sửa code TKC và không ghi bất kỳ offset thử nghiệm nào.
 
 ### Sao lưu
@@ -47,7 +49,7 @@
 - Install theo hướng dẫn thành công. Service active/enabled, port 8090 hoạt động, update manager sạch và không chậm commit; kTAMV port 8086 không xung đột.
 - Upstream tests: 112/112 đạt.
 - T1 cho kết quả thí nghiệm `+0,140 mm`; T4 `+0,097 mm`; T2 và T3 không đạt repeatability. Không kết quả nào được áp dụng.
-- Cuối phiên: Klipper ready, XYZ homed, toolchanger ready, active/detected T0, Z10, toàn bộ heater target 0.
+- Cuối phiên: Klipper ready, XYZ homed, toolchanger ready, active/detected T0, vị trí khoảng X30,2/Y120/Z10, toàn bộ heater target 0.
 - Hash cuối của `printer.cfg`, `tool-calibrator.cfg`, `tool_offsets.cfg` lần lượt là `959dfa72...ede4`, `158d91d7...073`, `99527383...9a49`; khớp cấu hình trước thử nghiệm.
 
 ### Phòng ngừa

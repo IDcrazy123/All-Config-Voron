@@ -1,0 +1,30 @@
+=== G-code events after the original final audit ===
+1788774631.6997068 command: T2
+1788774631.7275338 response: echo: Dropping off tool T0
+1788774635.8108234 response: // tool_crash: disabled
+1788774636.260246 command: cartographer_touch_probe
+1788774638.001194 response: // Activating extruder extruder2
+1788774639.683974 response: echo: Picking up tool T2
+1788774648.2880538 response: // Selected tool 2 (tool T2)
+1788774681.1351547 response: !! Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+1788774783.7216673 command: G28
+1788774783.7636535 response: // toolchanger initialized, active tool T2
+1788774794.538034 response: probe at 173.020,167.240 is z=511.519502
+
+1788774796.2843862 command: T0
+1788774796.3074083 response: echo: Dropping off tool T2
+1788774799.5987935 response: // tool_crash: disabled
+1788774802.4572713 response: // Activating extruder extruder
+1788774804.1386473 response: echo: Picking up tool T0
+1788774812.745764 response: // Selected tool 0 (tool T0)
+=== TKC restored config ===
+23:touch_home_gcode: _TKC_Z_DISABLED
+24:touch_probe_gcode: _TKC_Z_DISABLED
+=== State after recovery ===
+klipper=ready
+idle=Ready
+homed=xyz
+position=[30.2, 120.0, 10.0]
+toolchanger=ready active=0 detected=0
+tkc=IDLE last=UNINITIALIZED
+heater_targets=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]

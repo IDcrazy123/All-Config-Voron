@@ -1,0 +1,6 @@
+klipper=ready
+idle=Ready
+homed=xyz
+position=[30.2, 120.0, 10.0]
+toolchanger=ready active=0 detected=0
+heater_targets=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
