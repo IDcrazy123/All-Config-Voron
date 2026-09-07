@@ -1,0 +1,7 @@
+=== temporary hooks ===
+10:safe_z: 40
+22:z_backend: cartographer
+23:touch_home_gcode: CARTOGRAPHER_TOUCH_HOME
+24:touch_probe_gcode: CARTOGRAPHER_TOUCH_PROBE
+d7cb3a0f3af65af76b66d0509a3c96c8d62cda15961e39fa1757857d2b3b02bf  /home/voron/printer_data/config/Printer-Setup/tool-calibrator.cfg
+final=ready Ready ready 0 0

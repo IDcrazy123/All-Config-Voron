@@ -1,0 +1,6 @@
+d /home/voron/printer_data/config_backups/tkc-30abb5-z-20260907-174008/uninstaller-generated
+d /home/voron/printer_data/config_backups/tkc-30abb5-z-20260907-174008/uninstaller-generated/tkc_purge_20260907_174533
+f /home/voron/printer_data/config_backups/tkc-30abb5-z-20260907-174008/uninstaller-generated/moonraker.conf.uninstall.bak_20260907_174532
+f /home/voron/printer_data/config_backups/tkc-30abb5-z-20260907-174008/uninstaller-generated/printer.cfg.uninstall.bak_20260907_174532
+f /home/voron/printer_data/config_backups/tkc-30abb5-z-20260907-174008/uninstaller-generated/tkc_purge_20260907_174533/tool-calibrator.cfg
+f /home/voron/printer_data/config_backups/tkc-30abb5-z-20260907-174008/uninstaller-generated/tkc_purge_20260907_174533/tool_offsets.cfg

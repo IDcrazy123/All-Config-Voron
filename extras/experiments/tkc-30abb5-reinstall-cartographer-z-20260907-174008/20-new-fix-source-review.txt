@@ -1,0 +1,282 @@
+=== reconcile implementation ===
+855:    def _reconcile_toolchanger_state(self, initial_tool: int, gcmd=None) -> None:
+924:            needs_reconciliation = (
+930:            if needs_reconciliation and target_tool is not None:
+933:                if "INITIALIZE_TOOLCHANGER" in registered_cmds:
+935:                        self.gcode.run_script_from_command(f"INITIALIZE_TOOLCHANGER TOOL={target_tool}")
+936:                        logger.info(f"[tool_calibrator] Initialized toolchanger via INITIALIZE_TOOLCHANGER TOOL={target_tool}")
+938:                        logger.debug(f"[tool_calibrator] INITIALIZE_TOOLCHANGER command failed: {cmd_err}")
+956:                msg = f"[tool_calibrator] Toolchanger state reconciled to physical tool T{target_tool}."
+961:            logger.warning(f"[tool_calibrator] Failed to reconcile toolchanger state: {rec_err}")
+1174:        continue_on_error = gcmd.get_int("CONTINUE_ON_ERROR", 0) == 1
+1354:                    gcmd.respond_info(f"!! [tool_calibrator] CONTINUE_ON_ERROR=1 active. Recording failure and continuing to next tool.")
+1404:                gcmd.respond_info("\n-- Tool Errors Recorded (CONTINUE_ON_ERROR=1) --")
+1457:            self._reconcile_toolchanger_state(active_t, gcmd)
+1766:            self._reconcile_toolchanger_state(self.reference_tool, gcmd)
+1923:            self._reconcile_toolchanger_state(active_t, gcmd)
+   430	                    conf = float(resp.get("confidence", 1.0))
+   431	                    rad = float(resp.get("radius", resp.get("radius_px", 20.0)))
+   432	                    if conf >= self.min_detection_confidence and (self.min_nozzle_radius <= rad <= self.max_nozzle_radius):
+   433	                        valid_frames.append(resp)
+   434	                    else:
+   435	                        logger.warning(
+   436	                            f"[tool_calibrator] Frame rejected by quality gate: conf={conf*100:.1f}% (min {self.min_detection_confidence*100:.1f}%), "
+   437	                            f"radius={rad:.1f}px (bounds {self.min_nozzle_radius:.1f}-{self.max_nozzle_radius:.1f}px)"
+   438	                        )
+   439	            except Exception as ex:
+   440	                logger.debug(f"[tool_calibrator] Query vision burst exception: {ex}")
+   441	
+   442	        # Quality Gate 1: Require minimum valid frames in burst
+   443	        min_valid = max(1 if n_samples == 1 else 2, (n_samples // 2) + 1)
+   444	        if len(valid_frames) < min_valid:
+   445	            return {
+   446	                "found": False,
+   447	                "reason": f"Insufficient valid frames in burst ({len(valid_frames)}/{n_samples}, required min {min_valid})"
+   448	            }
+   449	
+   450	        u_raw = [float(f["center_uv"][0]) for f in valid_frames]
+   451	        v_raw = [float(f["center_uv"][1]) for f in valid_frames]
+   452	        raw_spread_px = 0.0
+   453	        if len(u_raw) > 1:
+   454	            raw_spread_px = round(max(max(u_raw) - min(u_raw), max(v_raw) - min(v_raw)), 2)
+   455	
+   456	        accepted_frames = valid_frames
+   457	        # Quality Gate 2: Physical dispersion threshold scaled by MPP (~0.08mm)
+   458	        mpp_val = self.calibrated_mpp or 0.040
+   459	        raw_spread_mm = round(raw_spread_px * mpp_val, 4)
+   460	        # Pixel limit derived strictly from physical limit, with a minimal quantization floor of 2.5px
+   461	        spread_px_limit = max(2.5, round(self.physical_spread_limit_mm / mpp_val, 2))
+   462	
+   463	        if len(valid_frames) > 1 and raw_spread_px > spread_px_limit:
+   464	            consensus_cluster = []
+   465	            for f in valid_frames:
+   466	                u0, v0 = float(f["center_uv"][0]), float(f["center_uv"][1])
+   467	                cluster = [
+   468	                    f_other for f_other in valid_frames
+   469	                    if math.hypot(float(f_other["center_uv"][0]) - u0, float(f_other["center_uv"][1]) - v0) <= spread_px_limit
+   470	                ]
+   471	                if len(cluster) > len(consensus_cluster):
+   472	                    consensus_cluster = cluster
+   473	
+   474	            # Strict majority required: strictly > total // 2 and >= 2
+   475	            if len(consensus_cluster) <= (len(valid_frames) // 2) or len(consensus_cluster) < 2:
+   476	                logger.warning(
+   477	                    f"[tool_calibrator] Inconsistent burst rejected: spread={raw_spread_px}px ({raw_spread_mm:.3f}mm, limit={self.physical_spread_limit_mm:.3f}mm / {spread_px_limit:.1f}px) across {len(valid_frames)} frames with no strict majority consensus ({len(consensus_cluster)}/{len(valid_frames)})."
+   478	                )
+   479	                return {
+   480	                    "found": False,
+   481	                    "reason": f"Inconsistent burst dispersion ({raw_spread_px}px / {raw_spread_mm:.3f}mm > {spread_px_limit:.1f}px / {self.physical_spread_limit_mm:.3f}mm) without strict majority consensus"
+   482	                }
+   483	            accepted_frames = consensus_cluster
+   484	
+   485	        u_vals = [float(f["center_uv"][0]) for f in accepted_frames]
+   486	        v_vals = [float(f["center_uv"][1]) for f in accepted_frames]
+   487	        r_vals = [float(f.get("radius_px", f.get("radius", 0.0))) for f in accepted_frames if f.get("radius_px") or f.get("radius")]
+   488	
+   489	        spread_px = 0.0
+   490	        if len(u_vals) > 1:
+   491	            spread_px = round(max(max(u_vals) - min(u_vals), max(v_vals) - min(v_vals)), 2)
+   492	        spread_mm = round(spread_px * mpp_val, 4)
+   493	
+   494	        med_u = float(statistics.median(u_vals))
+   495	        med_v = float(statistics.median(v_vals))
+   496	        med_r = float(statistics.median(r_vals)) if r_vals else 0.0
+   497	
+   498	        best_meta = accepted_frames[0]
+   499	        return {
+   500	            "found": True,
+   501	            "center_uv": [round(med_u, 2), round(med_v, 2)],
+   502	            "radius_px": round(med_r, 2),
+   503	            "confidence": best_meta.get("confidence", 0.0),
+   504	            "tier": best_meta.get("tier", 1),
+   505	            "combo": best_meta.get("combo", 0),
+   506	            "burst_count": len(accepted_frames),
+   507	            "burst_total": n_samples,
+   508	            "spread_px": spread_px,
+   509	            "spread_mm": spread_mm
+   510	        }
+   511	
+   512	
+   513	    def _recover_with_wiggle(self, toolhead, gcmd=None) -> Optional[Dict[str, Any]]:
+   514	        """
+   515	        Adaptive Wiggle Recovery:
+   516	        Executes 4 orthogonal micro-displacements around anchor position to break specular reflection / flare
+   517	        angles before giving up. Validates movement bounds against printer limits.
+   518	        """
+   519	        anchor_pos = toolhead.get_position()
+   520	        dist = self.wiggle_distance
+   521	        wiggle_moves = [
+   522	            (+dist, 0.0),
+   523	            (-dist, 0.0),
+   524	            (0.0, +dist),
+   525	            (0.0, -dist)
+   526	        ]
+   527	
+   528	        if gcmd:
+   529	            gcmd.respond_info(f"  [Wiggle Recovery] Optical lock lost at X{anchor_pos[0]:.3f} Y{anchor_pos[1]:.3f}. Executing micro-moves (±{dist:.2f}mm)...")
+   530	
+   531	        for idx, (dx, dy) in enumerate(wiggle_moves, 1):
+   532	            wx = anchor_pos[0] + dx
+   533	            wy = anchor_pos[1] + dy
+   534	            try:
+   535	                self.navigator.validate_coordinate_safety(x=wx, y=wy)
+   536	            except SafeNavigatorException:
+   537	                continue
+   538	
+   539	            toolhead.manual_move([wx, wy, None], self.navigator.approach_speed)
+   540	            toolhead.wait_moves()
+   541	            self.reactor.pause(self.reactor.monotonic() + 0.12)
+   542	
+   543	            burst = self._sample_burst(toolhead, gcmd, samples=max(2, self.centering_samples - 1))
+   544	            if burst and burst.get("found"):
+   545	                if gcmd:
+   546	                    gcmd.respond_info(f"  [Wiggle Recovery] Regained optical lock on attempt {idx}/4 at X{wx:.3f} Y{wy:.3f}!")
+   547	                return burst
+   548	
+   549	        # If all attempts fail, safely revert to anchor position
+   550	        toolhead.manual_move([anchor_pos[0], anchor_pos[1], None], self.navigator.approach_speed)
+   551	        toolhead.wait_moves()
+   552	        if gcmd:
+   553	            gcmd.respond_info("  [Wiggle Recovery] All micro-moves exhausted; optical lock could not be regained.")
+   554	        return None
+   555	
+   556	    def _center_nozzle(self, toolhead, gcmd=None, samples: Optional[int] = None, enable_wiggle: Optional[bool] = None) -> None:
+   557	        """
+   558	        Visual Servoing Centering Loop:
+   559	        Iteratively calculates pixel deviation from optical center and commands toolhead moves
+   560	        until nozzle center converges within `tolerance_mm`. Employs Burst Sampling,
+   561	        Dynamic Iteration Budgeting for large tool offsets, and Adaptive Wiggle Recovery on lost frames.
+   562	        """
+   563	        wiggle_enabled = enable_wiggle if enable_wiggle is not None else self.wiggle_on_failure
+   564	
+   565	        self._ensure_vision_sync()
+   566	
+   567	        dx, dy = 0.0, 0.0
+   568	        raw_dx, raw_dy = 0.0, 0.0
+   569	        max_steps = self.max_centering_iterations
+   570	
+=== coordinate implementation ===
+    20	            parts = [float(p.strip()) for p in val.split(",") if p.strip()]
+    21	            if len(parts) >= 2:
+    22	                return round(parts[0], 3), round(parts[1], 3)
+    23	    except (ValueError, TypeError):
+    24	        pass
+    25	    return None
+    26	
+    27	
+    28	class BaseZBackend(ABC):
+    29	    """
+    30	    Abstract interface for multi-backend Z probing (Switch vs Cartographer).
+    31	    """
+    32	
+    33	    measurement_reference: str = "nozzle"
+    34	
+    35	    def __init__(self, config) -> None:
+    36	        self.config = config
+    37	        self.printer = config.get_printer()
+    38	        self.gcode = self.printer.lookup_object("gcode")
+    39	
+    40	    def get_probe_xy(self) -> Tuple[float, float]:
+    41	        """
+    42	        Returns designated probing coordinates (X, Y).
+    43	        Prioritizes bed_mesh zero_reference_position across Klipper architecture variants:
+    44	          1. bed_mesh.zero_ref_pos
+    45	          2. bed_mesh.bmc.zero_ref_pos
+    46	          3. bed_mesh.bmc.probe_mgr.zero_ref_pos (modern Klipper)
+    47	          4. bed_mesh.probe_mgr.zero_ref_pos
+    48	          5. configfile [bed_mesh] zero_reference_position
+    49	        Otherwise falls back to the exact kinematic bed center to eliminate tilt bias.
+    50	        """
+    51	        # 1. Inspect bed_mesh runtime objects
+    52	        try:
+    53	            bed_mesh = self.printer.lookup_object("bed_mesh", None)
+    54	            if bed_mesh is not None:
+    55	                coords = _extract_coordinate_pair(getattr(bed_mesh, "zero_ref_pos", None))
+    56	                if coords:
+    57	                    logger.info(f"[z_backend] Resolved probe XY from bed_mesh.zero_ref_pos: {coords}")
+    58	                    return coords
+    59	
+    60	                bmc = getattr(bed_mesh, "bmc", None)
+    61	                if bmc is not None:
+    62	                    coords = _extract_coordinate_pair(getattr(bmc, "zero_ref_pos", None))
+    63	                    if coords:
+    64	                        logger.info(f"[z_backend] Resolved probe XY from bed_mesh.bmc.zero_ref_pos: {coords}")
+    65	                        return coords
+    66	
+    67	                    probe_mgr = getattr(bmc, "probe_mgr", None)
+    68	                    if probe_mgr is not None:
+    69	                        coords = _extract_coordinate_pair(getattr(probe_mgr, "zero_ref_pos", None))
+    70	                        if coords:
+    71	                            logger.info(f"[z_backend] Resolved probe XY from bed_mesh.bmc.probe_mgr.zero_ref_pos: {coords}")
+    72	                            return coords
+    73	
+    74	                probe_mgr = getattr(bed_mesh, "probe_mgr", None)
+    75	                if probe_mgr is not None:
+    76	                    coords = _extract_coordinate_pair(getattr(probe_mgr, "zero_ref_pos", None))
+    77	                    if coords:
+    78	                        logger.info(f"[z_backend] Resolved probe XY from bed_mesh.probe_mgr.zero_ref_pos: {coords}")
+    79	                        return coords
+    80	        except Exception as ex:
+    81	            logger.debug(f"[z_backend] bed_mesh runtime inspection skipped: {ex}")
+    82	
+    83	        # 2. Inspect configfile settings for [bed_mesh] zero_reference_position
+    84	        try:
+    85	            configfile = self.printer.lookup_object("configfile", None)
+    86	            if configfile is not None:
+    87	                settings = getattr(configfile, "settings", {})
+    88	                if isinstance(settings, dict):
+    89	                    bm_settings = settings.get("bed_mesh", {})
+    90	                    if isinstance(bm_settings, dict):
+    91	                        coords = _extract_coordinate_pair(bm_settings.get("zero_reference_position"))
+    92	                        if coords:
+    93	                            logger.info(f"[z_backend] Resolved probe XY from configfile settings [bed_mesh]: {coords}")
+    94	                            return coords
+    95	
+    96	                cfg = getattr(configfile, "config", {})
+    97	                if isinstance(cfg, dict):
+    98	                    bm_cfg = cfg.get("bed_mesh", {})
+    99	                    if isinstance(bm_cfg, dict):
+   100	                        coords = _extract_coordinate_pair(bm_cfg.get("zero_reference_position"))
+   101	                        if coords:
+   102	                            logger.info(f"[z_backend] Resolved probe XY from configfile config [bed_mesh]: {coords}")
+   103	                            return coords
+   104	        except Exception as ex:
+   105	            logger.debug(f"[z_backend] configfile inspection skipped: {ex}")
+   106	
+   107	        # 3. Kinematic bed center fallback
+   108	        try:
+   109	            toolhead = self.printer.lookup_object("toolhead")
+   110	            status = toolhead.get_status(self.printer.get_reactor().monotonic())
+   111	            axis_min = status.get("axis_minimum", [0.0, 0.0, 0.0])
+   112	            axis_max = status.get("axis_maximum", [300.0, 300.0, 300.0])
+   113	            cx = (axis_min[0] + axis_max[0]) / 2.0
+   114	            cy = (axis_min[1] + axis_max[1]) / 2.0
+   115	            logger.info(f"[z_backend] No zero_reference_position found; using bed center: ({cx:.3f}, {cy:.3f})")
+   116	            return round(cx, 3), round(cy, 3)
+   117	        except Exception:
+   118	            return 150.0, 150.0
+   119	
+   120	    @abstractmethod
+   121	    def probe_reference_tool(self, tool_number: int, gcmd) -> Dict[str, Any]:
+   122	        """
+   123	        Executes baseline probe measurement for Reference Tool (default T0).
+   124	
+   125	        Returns:
+=== runtime clock implementation ===
+126:            "start_monotonic": None,
+128:            "duration_sec": 0.0,
+1202:            "start_monotonic": start_mono,
+1204:            "duration_sec": 0.0,
+1445:            if self.run_record.get("start_monotonic"):
+1447:                    self.run_record["duration_sec"] = max(0.0, round(self.reactor.monotonic() - float(self.run_record["start_monotonic"]), 2))
+1449:                    self.run_record["duration_sec"] = 0.0
+1452:                    self.run_record["duration_sec"] = max(0.0, round(self.run_record["end_time"] - float(self.run_record["start_time"]), 2))
+1454:                    self.run_record["duration_sec"] = 0.0
+2003:                dur = rec.get("duration_sec", 0.0)
+2005:                    if rec.get("start_monotonic"):
+2007:                            dur = max(0.0, round(self.reactor.monotonic() - float(rec["start_monotonic"]), 1))
+2041:                    if rec.get("start_monotonic"):
+2043:                        rec["elapsed_sec"] = max(0.0, round(float(now) - float(rec["start_monotonic"]), 1))
+2046:                        rec["elapsed_sec"] = max(0.0, round(float(now) - float(rec["start_time"]), 1))
+2048:                        rec["elapsed_sec"] = 0.0
+2050:                    rec["elapsed_sec"] = 0.0

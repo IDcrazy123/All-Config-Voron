@@ -1,0 +1,12 @@
+=== post-cleanup uninstall checkpoint ===
+source=absent
+unit_file=absent
+unit_active=inactive
+port_8090=closed
+port_8086=listening
+--- TKC Klipper files ---
+--- live config artifacts ---
+--- active config references ---
+--- TKC object/updater ---
+[]
+[]

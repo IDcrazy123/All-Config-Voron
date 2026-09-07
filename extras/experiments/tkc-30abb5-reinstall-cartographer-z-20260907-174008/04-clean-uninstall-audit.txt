@@ -1,0 +1,23 @@
+=== clean uninstall audit ===
+klipper=ready
+source=absent
+unit_file=absent
+unit_active=inactive
+port_8090=closed
+port_8086=listening
+--- klipper extras ---
+f /home/voron/klipper/klippy/extras/__pycache__/tool_calibrator.cpython-311.pyc -> 
+f /home/voron/klipper/klippy/extras/__pycache__/tool_calibrator_station.cpython-311.pyc -> 
+--- config artifacts and references ---
+d /home/voron/printer_data/config/config_backups/tkc_purge_20260907_174533 -> 
+f /home/voron/printer_data/config/config_backups/tkc_purge_20260907_174533/tool-calibrator.cfg -> 
+f /home/voron/printer_data/config/config_backups/tkc_purge_20260907_174533/tool_offsets.cfg -> 
+/home/voron/printer_data/config/printer.cfg:19:# [include Printer-Setup/tool_calibrator/tool_calibrator_macros.cfg] # disabled by TKC uninstaller
+/home/voron/printer_data/config/printer.cfg:20:# [include Printer-Setup/tool_calibrator/safe_staging_macros.cfg] # disabled by TKC uninstaller
+/home/voron/printer_data/config/printer.cfg:21:# [include Printer-Setup/tool-calibrator.cfg] # disabled by TKC uninstaller
+/home/voron/printer_data/config/printer.cfg:22:# [include Printer-Setup/tool_offsets.cfg] # disabled by TKC uninstaller
+/home/voron/printer_data/config/moonraker.conf:112:# after an update with: systemctl --user restart tool_calibrator.service
+--- Moonraker updater ---
+[]
+--- Klipper object list ---
+['gcode_macro CALIBRATE_MOVE_OVER_PROBE', 'gcode_macro CALIBRATE_ALL_OFFSETS', 'gcode_macro CALIBRATE_NOZZLE_PROBE_OFFSET', 'gcode_macro _SAVE_TOOL_OFFSET', 'gcode_macro _SAVE_Z_TOOL_OFFSET', 'gcode_macro _CALIBRATION_SWITCH', 'gcode_macro TOOL_BED_MESH_CALIBRATE', 'gcode_macro CALIBRATION_STATUS', 'gcode_macro _SEXBALL_CALIBRATION_GUIDE', 'gcode_macro _SET_LED_STATUS_CALIBRATING', 'gcode_macro axes_map_calibration', 'gcode_macro axes_shaper_calibration']

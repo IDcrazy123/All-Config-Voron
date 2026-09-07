@@ -1,0 +1,161 @@
+== TKC reconciliation implementation (tool_calibrator.py 855-960) ==
+    def _reconcile_toolchanger_state(self, initial_tool: int, gcmd=None) -> None:
+        """
+        Reconciles toolchanger logical state to the physically active/detected tool
+        upon failure or aborted runs to prevent uninitialized toolchanger state (-1).
+        """
+        try:
+            tc = self.printer.lookup_object("toolchanger", None)
+            if tc is None:
+                return
+
+            target_tool = None
+
+            # 1. Query physical sensor detection if available on toolchanger
+            for det_method in ("detect_tool", "get_detected_tool"):
+                meth = getattr(tc, det_method, None)
+                if callable(meth):
+                    try:
+                        detected = meth()
+                        if detected is not None and detected != -1:
+                            if isinstance(detected, int):
+                                target_tool = detected
+                            elif hasattr(detected, "tool_number"):
+                                target_tool = int(detected.tool_number)
+                            break
+                    except Exception:
+                        pass
+
+            # 2. Check sensor attributes on tc
+            if target_tool is None:
+                for attr in ("detected_tool", "physical_tool", "current_tool"):
+                    val = getattr(tc, attr, None)
+                    if val is not None and val != -1:
+                        try:
+                            target_tool = int(val)
+                            break
+                        except (ValueError, TypeError):
+                            pass
+
+            # 3. Check toollock object if present
+            if target_tool is None:
+                toollock = self.printer.lookup_object("toollock", None)
+                if toollock is not None:
+                    for attr in ("detected_tool", "current_tool", "tool_current"):
+                        val = getattr(toollock, attr, None)
+                        if val is not None and val != -1:
+                            try:
+                                target_tool = int(val)
+                                break
+                            except (ValueError, TypeError):
+                                pass
+
+            # 4. Fallback to run_record or initial_tool
+            if target_tool is None:
+                rec_tool = self.run_record.get("physical_tool") or self.run_record.get("calibrating_tool")
+                if rec_tool is not None:
+                    try:
+                        target_tool = int(rec_tool)
+                    except (ValueError, TypeError):
+                        pass
+                if target_tool is None:
+                    try:
+                        target_tool = int(initial_tool)
+                    except (ValueError, TypeError):
+                        target_tool = self.reference_tool
+
+            tc_status = getattr(tc, "status", None)
+            tc_tool_num = getattr(tc, "tool_number", None)
+            tc_active = getattr(tc, "active_tool", None)
+
+            needs_reconciliation = (
+                tc_status == "uninitialized"
+                or tc_tool_num == -1
+                or tc_active is None
+            )
+
+            if needs_reconciliation and target_tool is not None:
+                logger.info(f"[tool_calibrator] Reconciling uninitialized toolchanger state to T{target_tool}")
+                registered_cmds = getattr(self.gcode, "commands", {})
+                if "INITIALIZE_TOOLCHANGER" in registered_cmds:
+                    try:
+                        self.gcode.run_script_from_command(f"INITIALIZE_TOOLCHANGER TOOL={target_tool}")
+                        logger.info(f"[tool_calibrator] Initialized toolchanger via INITIALIZE_TOOLCHANGER TOOL={target_tool}")
+                    except Exception as cmd_err:
+                        logger.debug(f"[tool_calibrator] INITIALIZE_TOOLCHANGER command failed: {cmd_err}")
+
+                # Direct object synchronization fallback if still uninitialized
+                if getattr(tc, "status", None) == "uninitialized" or getattr(tc, "tool_number", 0) == -1 or getattr(tc, "active_tool", None) is None:
+                    tools_dict = getattr(tc, "tools", {})
+                    tool_obj = tools_dict.get(target_tool) if isinstance(tools_dict, dict) else None
+                    if hasattr(tc, "set_tool") and tool_obj is not None:
+                        try:
+                            tc.set_tool(tool_obj)
+                        except Exception:
+                            pass
+                    if hasattr(tc, "active_tool"):
+                        tc.active_tool = tool_obj if tool_obj is not None else target_tool
+                    if hasattr(tc, "tool_number"):
+                        tc.tool_number = target_tool
+                    if hasattr(tc, "status") and tc.status == "uninitialized":
+                        tc.status = "ready"
+
+                msg = f"[tool_calibrator] Toolchanger state reconciled to physical tool T{target_tool}."
+                if gcmd is not None:
+                    gcmd.respond_info(msg)
+                logger.info(msg)
+        except Exception as rec_err:
+
+== Toolchanger command-error reset (toolchanger.py 139-159) ==
+    def _handle_command_error(self):
+        self.status = STATUS_UNINITALIZED
+        self.active_tool = None
+        self.gcode_transform.tool = None
+
+    def _handle_shutdown(self):
+        self.status = STATUS_UNINITALIZED
+        self.active_tool = None
+        self.gcode_transform.tool = None
+
+    def get_status(self, eventtime):
+        return {**self.params,
+                'name': self.name,
+                'status': self.status,
+                'tool': self.active_tool.name if self.active_tool else None,
+                'tool_number': self.active_tool.tool_number if self.active_tool else -1,
+                'detected_tool': self.detected_tool.name if self.detected_tool else None,
+                'detected_tool_number': self.detected_tool.tool_number if self.detected_tool else -1,
+                'tool_numbers': self.tool_numbers,
+                'tool_names': self.tool_names,
+                'has_detection': self.has_detection,
+
+== INITIALIZE_TOOLCHANGER parser (toolchanger.py 179-188) ==
+    cmd_INITIALIZE_TOOLCHANGER_help = "Initialize the toolchanger"
+
+    def cmd_INITIALIZE_TOOLCHANGER(self, gcmd):
+        tool = self.gcmd_tool(gcmd, self.detected_tool)
+        was_error  = self.status == STATUS_ERROR
+        self.initialize(tool)
+        if was_error and gcmd.get_int("RECOVER", default=0) == 1:
+            if not tool:
+                raise gcmd.error("Cannot recover, no tool")
+            self._recover_position(gcmd, tool)
+
+== Tool selection parser (toolchanger.py 657-673) ==
+    def gcmd_tool(self, gcmd, default=sentinel, extra_number_arg=None):
+        tool_name = gcmd.get('TOOL', None)
+        tool_number = gcmd.get_int('T', None)
+        if tool_number is None and extra_number_arg:
+            tool_number = gcmd.get_int(extra_number_arg, None)
+        tool = None
+        if tool_name:
+            tool = self.printer.lookup_object(tool_name)
+        if tool_number is not None:
+            tool = self.lookup_tool(tool_number)
+            if not tool:
+                raise gcmd.error('Tool #%d is not assigned' % (tool_number))
+        if tool is None:
+            if default == sentinel:
+                raise gcmd.error('Missing TOOL=<name> or T=<number>')
+            tool = default
+        return tool

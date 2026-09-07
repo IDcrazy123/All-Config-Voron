@@ -1,0 +1,220 @@
+[cartographer] Touch 10: -0.4465
+Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+[tool_calibrator] Starting Calibration Sequence across tools: [0, 3] (Order: XY_FIRST, Dry Run: False)
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_HOME on Reference Tool T0
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.4540
+[cartographer] Touch 2: -0.4520
+[cartographer] Touch 3: -0.4580
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T3
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.1140
+[cartographer] Touch 2: -0.1640
+[cartographer] Touch 3: 0.1600
+[cartographer] Touch 4: -0.1680
+[cartographer] Touch 5: 0.0040
+[cartographer] Touch 6: -0.1760
+[cartographer] Touch 7: -0.1900
+[cartographer] Touch 8: -0.1900
+[cartographer] Touch 9: -0.0260
+[cartographer] Touch 10: 0.5200
+Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+!! [tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+[tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+[tool_calibrator] Starting Calibration Sequence across tools: [0, 4] (Order: XY_FIRST, Dry Run: False)
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_HOME on Reference Tool T0
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.4406
+[cartographer] Touch 2: -0.4466
+[cartographer] Touch 3: -0.4426
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T4
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: 0.0886
+[cartographer] Touch 2: 0.0966
+[cartographer] Touch 3: 0.2866
+[cartographer] Touch 4: 0.1406
+[cartographer] Touch 5: 0.0966
+[cartographer] Result: at 174.001,162.999 estimate contact at z=0.096586
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.3700
+[cartographer] Touch 2: -0.7260
+[cartographer] Touch 3: -0.7760
+[cartographer] Touch 4: -0.4460
+[cartographer] Touch 5: -0.7800
+[cartographer] Touch 6: -0.6200
+[cartographer] Touch 7: -0.4020
+[cartographer] Touch 8: -0.5580
+[cartographer] Touch 9: -0.7920
+[cartographer] Touch 10: -0.2060
+Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.8155
+[cartographer] Touch 2: -0.8075
+[cartographer] Touch 3: -0.7355
+[cartographer] Touch 4: -0.8055
+[cartographer] Result: at 175.998,119.999 estimate contact at z=-0.807502
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.5855
+[cartographer] Touch 2: -0.0795
+[cartographer] Touch 3: -0.4135
+[cartographer] Touch 4: -0.5775
+[cartographer] Touch 5: -0.5495
+[cartographer] Touch 6: -0.5755
+[cartographer] Touch 7: -0.4815
+[cartographer] Touch 8: -0.2355
+[cartographer] Touch 9: -0.5675
+[cartographer] Touch 10: -0.5295
+Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.4795
+[cartographer] Touch 2: -0.2595
+[cartographer] Touch 3: -0.5255
+[cartographer] Touch 4: -0.5855
+[cartographer] Touch 5: -0.5515
+[cartographer] Touch 6: -0.5835
+[cartographer] Touch 7: -0.5895
+[cartographer] Result: at 249.498,119.999 estimate contact at z=-0.585502
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.5241
+[cartographer] Touch 2: -0.6121
+[cartographer] Touch 3: -0.4221
+[cartographer] Touch 4: -0.3541
+[cartographer] Touch 5: -0.5501
+[cartographer] Touch 6: -0.5541
+[cartographer] Touch 7: -0.1601
+[cartographer] Touch 8: -0.8201
+[cartographer] Touch 9: -0.6621
+[cartographer] Touch 10: -0.7501
+Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.2361
+[cartographer] Touch 2: -0.6881
+[cartographer] Touch 3: -0.8061
+[cartographer] Touch 4: -0.8201
+[cartographer] Touch 5: -0.8201
+[cartographer] Touch 6: -0.8201
+[cartographer] Result: at 176.001,119.999 estimate contact at z=-0.820057
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.7961
+[cartographer] Touch 2: -0.8041
+[cartographer] Touch 3: -0.8201
+[cartographer] Touch 4: -0.8041
+[cartographer] Result: at 176.001,119.999 estimate contact at z=-0.804057
+[tool_calibrator] Starting Calibration Sequence across tools: [0, 1] (Order: XY_FIRST, Dry Run: False, Continue-on-Error: False)
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_HOME on Reference Tool T0
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.4555
+[cartographer] Touch 2: -0.4515
+[cartographer] Touch 3: -0.4595
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T1
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: 0.2175
+[cartographer] Touch 2: 0.2195
+[cartographer] Touch 3: 0.2295
+[cartographer] Touch 4: 0.2175
+[cartographer] Result: at 174.000,168.000 estimate contact at z=0.217477
+[tool_calibrator] Starting Calibration Sequence across tools: [0, 2] (Order: XY_FIRST, Dry Run: False, Continue-on-Error: False)
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_HOME on Reference Tool T0
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.0125
+[cartographer] Touch 2: 0.0035
+[cartographer] Touch 3: 0.0055
+[cartographer] Touch 4: 0.0055
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T2
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.4115
+[cartographer] Touch 2: 0.1385
+[cartographer] Touch 3: -0.3935
+[cartographer] Touch 4: -0.0915
+[cartographer] Touch 5: -0.4075
+[cartographer] Touch 6: -0.3995
+[cartographer] Touch 7: -0.2255
+[cartographer] Touch 8: 0.2745
+[cartographer] Touch 9: -0.2255
+[cartographer] Touch 10: -0.2435
+Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+!! [tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+[tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+[tool_calibrator] Starting Calibration Sequence across tools: [0, 3] (Order: XY_FIRST, Dry Run: False, Continue-on-Error: False)
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_HOME on Reference Tool T0
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.4448
+[cartographer] Touch 2: -0.4608
+[cartographer] Touch 3: -0.4428
+[cartographer] Touch 4: -0.4608
+[cartographer] Touch 5: -0.4508
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T3
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.2612
+[cartographer] Touch 2: -0.2392
+[cartographer] Touch 3: -0.2392
+[cartographer] Touch 4: -0.1092
+[cartographer] Touch 5: -0.2392
+[cartographer] Result: at 173.998,167.999 estimate contact at z=-0.239219
+[tool_calibrator] Starting Calibration Sequence across tools: [0, 4] (Order: XY_FIRST, Dry Run: False, Continue-on-Error: False)
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_HOME on Reference Tool T0
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.0212
+[cartographer] Touch 2: -0.0112
+[cartographer] Touch 3: -0.0132
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T4
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: 0.0372
+[cartographer] Touch 2: 0.0472
+[cartographer] Touch 3: 0.0532
+[cartographer] Touch 4: 0.0772
+[cartographer] Touch 5: 0.0572
+[cartographer] Result: at 173.998,167.999 estimate contact at z=0.053219
+[tool_calibrator] Starting Calibration Sequence across tools: [0, 2] (Order: XY_FIRST, Dry Run: False, Continue-on-Error: False)
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_HOME on Reference Tool T0
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.0148
+[cartographer] Touch 2: -0.0108
+[cartographer] Touch 3: -0.0108
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T2
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.4092
+[cartographer] Touch 2: -0.4032
+[cartographer] Touch 3: -0.3612
+[cartographer] Touch 4: 0.0188
+[cartographer] Touch 5: -0.3992
+[cartographer] Result: at 173.998,167.999 estimate contact at z=-0.403219
+[tool_calibrator] Starting Calibration Sequence across tools: [0, 1, 2, 3, 4] (Order: XY_FIRST, Dry Run: False, Continue-on-Error: True)
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_HOME on Reference Tool T0
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: 0.0008
+[cartographer] Touch 2: 0.0088
+[cartographer] Touch 3: 0.0048
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T1
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: 0.1852
+[cartographer] Touch 2: 0.1992
+[cartographer] Touch 3: 0.1972
+[cartographer] Touch 4: 0.2132
+[cartographer] Touch 5: 0.1912
+[cartographer] Result: at 173.998,167.999 estimate contact at z=0.197219
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T2
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.4208
+[cartographer] Touch 2: -0.4128
+[cartographer] Touch 3: -0.4008
+[cartographer] Touch 4: -0.4048
+[cartographer] Touch 5: -0.4168
+[cartographer] Result: at 173.998,167.999 estimate contact at z=-0.416781
+[tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T3
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.2388
+[cartographer] Touch 2: -0.2228
+[cartographer] Touch 3: 0.0132
+[cartographer] Touch 4: -0.0548
+[cartographer] Touch 5: 0.5552
+[cartographer] Touch 6: 0.1952
+[cartographer] Touch 7: 0.2072
+[cartographer] Touch 8: -0.0928
+[cartographer] Touch 9: -0.2228
+[cartographer] Touch 10: -0.2188
+Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+!! [tool_calibrator] Tool T3 calibration failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+!! [tool_calibrator] CONTINUE_ON_ERROR=1 active. Recording failure and continuing to next tool.
+!! [tool_calibrator] Tool T4 calibration failed: Error evaluating 'gcode_macro _TKC_SAFE_TOOLCHANGE:gcode': gcode.CommandError: Active and detected tool must match
+!! [tool_calibrator] CONTINUE_ON_ERROR=1 active. Recording failure and continuing to next tool.

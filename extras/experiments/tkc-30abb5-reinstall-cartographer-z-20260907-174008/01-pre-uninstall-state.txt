@@ -1,0 +1,226 @@
+=== pre-uninstall printer state ===
+{
+    "result": {
+        "eventtime": 6884.760158711,
+        "status": {
+            "webhooks": {
+                "state": "ready",
+                "state_message": "Printer is ready"
+            },
+            "idle_timeout": {
+                "state": "Ready",
+                "printing_time": 0.0,
+                "idle_timeout": 1800.0
+            },
+            "toolhead": {
+                "homed_axes": "xyz",
+                "axis_minimum": [
+                    0.0,
+                    -10.0,
+                    -5.0,
+                    0
+                ],
+                "axis_maximum": [
+                    348.0,
+                    336.0,
+                    347.0,
+                    0
+                ],
+                "print_time": 3723.758730099118,
+                "stalls": 2,
+                "estimated_print_time": 3998.197608221154,
+                "extruder": "extruder",
+                "position": [
+                    30.2,
+                    120.0,
+                    10.0,
+                    0.0
+                ],
+                "max_velocity": 350.0,
+                "max_accel": 7000.0,
+                "minimum_cruise_ratio": 0.5,
+                "square_corner_velocity": 5.0,
+                "extra_axes": {
+                    "extruder": 3
+                }
+            },
+            "toolchanger": {
+                "params_safe_y": 120,
+                "params_close_y": 30,
+                "params_fast_speed": 15000,
+                "params_path_speed": 900,
+                "params_dropoff_path": [
+                    {
+                        "y": 9.5,
+                        "z": 3
+                    },
+                    {
+                        "y": 9.5,
+                        "z": 1.5
+                    },
+                    {
+                        "y": 5.5,
+                        "z": 0
+                    },
+                    {
+                        "z": 0,
+                        "y": 0,
+                        "f": 0.5
+                    },
+                    {
+                        "z": -12,
+                        "y": 0
+                    },
+                    {
+                        "z": -12,
+                        "y": 16
+                    }
+                ],
+                "params_pickup_path": [
+                    {
+                        "z": -12,
+                        "y": 16
+                    },
+                    {
+                        "z": -12,
+                        "y": 0
+                    },
+                    {
+                        "z": 0,
+                        "y": 0,
+                        "f": 0.5,
+                        "verify": 1
+                    },
+                    {
+                        "y": 5.5,
+                        "z": 0
+                    },
+                    {
+                        "y": 9.5,
+                        "z": 1.5
+                    },
+                    {
+                        "y": 9.5,
+                        "z": 3
+                    }
+                ],
+                "params_input_shaper_freq_x": 0,
+                "params_input_shaper_type_x": "mzv",
+                "params_input_shaper_damping_ratio_x": 0.1,
+                "params_input_shaper_freq_y": 0,
+                "params_input_shaper_type_y": "mzv",
+                "params_input_shaper_damping_ratio_y": 0.1,
+                "name": "toolchanger",
+                "status": "ready",
+                "tool": "tool T0",
+                "tool_number": 0,
+                "detected_tool": "tool T0",
+                "detected_tool_number": 0,
+                "tool_numbers": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                ],
+                "tool_names": [
+                    "tool T0",
+                    "tool T1",
+                    "tool T2",
+                    "tool T3",
+                    "tool T4"
+                ],
+                "has_detection": true
+            },
+            "tool_calibrator": {
+                "status": "IDLE",
+                "phase": "IDLE",
+                "last_run_status": "UNINITIALIZED",
+                "run_id": null,
+                "calibrating_tool": null,
+                "physical_tool": null,
+                "active_tool": null,
+                "run_valid": false,
+                "run_record": {
+                    "run_id": null,
+                    "state": "IDLE",
+                    "phase": "IDLE",
+                    "calibrating_tool": null,
+                    "physical_tool": null,
+                    "start_time": null,
+                    "end_time": null,
+                    "duration_sec": 0.0,
+                    "error": null,
+                    "completed_tools": [],
+                    "offsets": {},
+                    "valid": false
+                },
+                "reference_tool": 0,
+                "z_backend": "cartographer",
+                "safe_z": 40.0,
+                "cached_offsets": {}
+            },
+            "heater_bed": {
+                "temperature": 31.49,
+                "target": 0.0,
+                "power": 0.0
+            },
+            "extruder": {
+                "temperature": 32.43,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder1": {
+                "temperature": 36.43,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder2": {
+                "temperature": 32.58,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder3": {
+                "temperature": 32.19,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder4": {
+                "temperature": 32.23,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            }
+        }
+    }
+}
+=== installed source ===
+a6bb71564a982b867fb7c1a310a6b4eef764cfd6
+active
+enabled
+LISTEN 0      1024                       0.0.0.0:8086       0.0.0.0:*    users:(("python",pid=714,fd=7))          
+LISTEN 0      1024                     127.0.0.1:8090       0.0.0.0:*    users:(("python3",pid=3549,fd=6))        
+=== hashes ===
+959dfa72d4e981fd8691e092e44d8bf3cc55ce3097c50752aa672e14d9aaede4  /home/voron/printer_data/config/printer.cfg
+24064d7540f0b9e1f664a7574c4a7bb063ee397e8ac0be167ff24acf02b2464e  /home/voron/printer_data/config/moonraker.conf
+158d91d7aaa314cb68bcc6ef7443a11a177fe3c098b38f37d56128549253c073  /home/voron/printer_data/config/Printer-Setup/tool-calibrator.cfg
+9952738361e3150d0742248fb888089cec4b171a9a1f96dfe753666b3ea29a49  /home/voron/printer_data/config/Printer-Setup/tool_offsets.cfg

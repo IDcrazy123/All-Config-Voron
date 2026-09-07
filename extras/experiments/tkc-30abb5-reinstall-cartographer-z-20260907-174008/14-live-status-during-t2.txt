@@ -1,0 +1,47 @@
+{
+    "result": {
+        "eventtime": 7858.381989334,
+        "status": {
+            "tool_calibrator": {
+                "status": "RUNNING",
+                "phase": "PROBING_Z",
+                "last_run_status": "RUNNING",
+                "run_id": "run_1788778619",
+                "calibrating_tool": 0,
+                "physical_tool": 0,
+                "active_tool": 0,
+                "run_valid": false,
+                "run_record": {
+                    "run_id": "run_1788778619",
+                    "state": "RUNNING",
+                    "phase": "PROBING_Z",
+                    "calibrating_tool": 0,
+                    "physical_tool": 0,
+                    "active_tool": 0,
+                    "start_time": 1788778619.0270293,
+                    "start_monotonic": 7818.969873987,
+                    "end_time": null,
+                    "duration_sec": 0.0,
+                    "error": null,
+                    "completed_tools": [],
+                    "offsets": {},
+                    "valid": false,
+                    "tool_errors": {},
+                    "last_confirmed_tool": 0,
+                    "elapsed_sec": 39.4
+                },
+                "reference_tool": 0,
+                "z_backend": "cartographer",
+                "safe_z": 40.0,
+                "cached_offsets": {
+                    "0": {
+                        "z": 0.0
+                    },
+                    "1": {
+                        "z": 0.217
+                    }
+                }
+            }
+        }
+    }
+}

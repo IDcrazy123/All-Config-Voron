@@ -1,0 +1,301 @@
+=== command ===
+CALIBRATE_TOOL_OFFSETS TOOLS=0,4 CALIBRATE_XY=0 CALIBRATE_Z=1 ALLOW_SHUTTLE_Z=1 SAVE_CONFIG=0 DRY_RUN=0 CLEAN_NOZZLE=0
+start_time=1788778968.4677987
+monitor[0]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[5]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[10]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[15]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[20]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[25]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[30]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[35]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[40]=klipper=ready idle=Printing tkc=RUNNING phase=CHANGING_TOOL elapsed=0.0 physical=0 active=0 tc=changing/0/0
+monitor[45]=klipper=ready idle=Printing tkc=RUNNING phase=CHANGING_TOOL elapsed=0.0 physical=0 active=0 tc=changing/4/-1
+monitor[50]=klipper=ready idle=Printing tkc=RUNNING phase=CHANGING_TOOL elapsed=0.0 physical=0 active=0 tc=changing/4/4
+monitor[55]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=4 active=4 tc=ready/4/4
+monitor[60]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=4 active=4 tc=ready/4/4
+monitor[65]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=4 active=4 tc=ready/4/4
+monitor[70]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=4 active=4 tc=ready/4/4
+monitor[75]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=4 active=4 tc=ready/4/4
+monitor[80]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=4 active=4 tc=ready/4/4
+monitor[85]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=4 active=4 tc=ready/4/4
+monitor[90]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=4 active=4 tc=ready/4/4
+monitor[95]=klipper=ready idle=Printing tkc=RUNNING phase=RESTORING_REFERENCE elapsed=0.0 physical=4 active=4 tc=changing/4/4
+monitor[100]=klipper=ready idle=Printing tkc=RUNNING phase=RESTORING_REFERENCE elapsed=0.0 physical=4 active=4 tc=changing/0/-1
+monitor[105]=klipper=ready idle=Printing tkc=RUNNING phase=RESTORING_REFERENCE elapsed=0.0 physical=4 active=4 tc=changing/0/0
+=== HTTP response ===
+{"result":"ok"}
+http_status=200
+curl_rc=0
+=== final objects before recovery ===
+{
+    "result": {
+        "eventtime": 8283.636611118,
+        "status": {
+            "webhooks": {
+                "state": "ready",
+                "state_message": "Printer is ready"
+            },
+            "idle_timeout": {
+                "state": "Ready",
+                "printing_time": 0.0,
+                "idle_timeout": 1800.0
+            },
+            "toolhead": {
+                "homed_axes": "xyz",
+                "axis_minimum": [
+                    0.0,
+                    -10.0,
+                    -5.0,
+                    0
+                ],
+                "axis_maximum": [
+                    348.0,
+                    336.0,
+                    347.0,
+                    0
+                ],
+                "print_time": 729.9168838192307,
+                "stalls": 3,
+                "estimated_print_time": 730.9692009711539,
+                "extruder": "extruder",
+                "position": [
+                    30.2,
+                    120.0,
+                    40.0,
+                    0.0
+                ],
+                "max_velocity": 350.0,
+                "max_accel": 7000.0,
+                "minimum_cruise_ratio": 0.5,
+                "square_corner_velocity": 5.0,
+                "extra_axes": {
+                    "extruder": 3
+                }
+            },
+            "toolchanger": {
+                "params_safe_y": 120,
+                "params_close_y": 30,
+                "params_fast_speed": 15000,
+                "params_path_speed": 900,
+                "params_dropoff_path": [
+                    {
+                        "y": 9.5,
+                        "z": 3
+                    },
+                    {
+                        "y": 9.5,
+                        "z": 1.5
+                    },
+                    {
+                        "y": 5.5,
+                        "z": 0
+                    },
+                    {
+                        "z": 0,
+                        "y": 0,
+                        "f": 0.5
+                    },
+                    {
+                        "z": -12,
+                        "y": 0
+                    },
+                    {
+                        "z": -12,
+                        "y": 16
+                    }
+                ],
+                "params_pickup_path": [
+                    {
+                        "z": -12,
+                        "y": 16
+                    },
+                    {
+                        "z": -12,
+                        "y": 0
+                    },
+                    {
+                        "z": 0,
+                        "y": 0,
+                        "f": 0.5,
+                        "verify": 1
+                    },
+                    {
+                        "y": 5.5,
+                        "z": 0
+                    },
+                    {
+                        "y": 9.5,
+                        "z": 1.5
+                    },
+                    {
+                        "y": 9.5,
+                        "z": 3
+                    }
+                ],
+                "params_input_shaper_freq_x": 0,
+                "params_input_shaper_type_x": "mzv",
+                "params_input_shaper_damping_ratio_x": 0.1,
+                "params_input_shaper_freq_y": 0,
+                "params_input_shaper_type_y": "mzv",
+                "params_input_shaper_damping_ratio_y": 0.1,
+                "name": "toolchanger",
+                "status": "ready",
+                "tool": "tool T0",
+                "tool_number": 0,
+                "detected_tool": "tool T0",
+                "detected_tool_number": 0,
+                "tool_numbers": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                ],
+                "tool_names": [
+                    "tool T0",
+                    "tool T1",
+                    "tool T2",
+                    "tool T3",
+                    "tool T4"
+                ],
+                "has_detection": true
+            },
+            "tool_calibrator": {
+                "status": "SUCCESS",
+                "phase": "COMPLETED",
+                "last_run_status": "SUCCESS",
+                "run_id": "run_1788778968",
+                "calibrating_tool": null,
+                "physical_tool": 0,
+                "active_tool": 0,
+                "run_valid": true,
+                "run_record": {
+                    "run_id": "run_1788778968",
+                    "state": "SUCCESS",
+                    "phase": "COMPLETED",
+                    "calibrating_tool": null,
+                    "physical_tool": 0,
+                    "active_tool": 0,
+                    "start_time": 1788778968.5150783,
+                    "start_monotonic": 8168.46195939,
+                    "end_time": 1788779082.669368,
+                    "duration_sec": 114.16,
+                    "error": null,
+                    "completed_tools": [
+                        0,
+                        4
+                    ],
+                    "offsets": {
+                        "0": {
+                            "z": 0.0
+                        },
+                        "4": {
+                            "z": 0.053
+                        }
+                    },
+                    "valid": true,
+                    "tool_errors": {},
+                    "last_confirmed_tool": 4
+                },
+                "reference_tool": 0,
+                "z_backend": "cartographer",
+                "safe_z": 40.0,
+                "cached_offsets": {
+                    "0": {
+                        "z": 0.0
+                    },
+                    "4": {
+                        "z": 0.053
+                    }
+                }
+            },
+            "heater_bed": {
+                "temperature": 31.57,
+                "target": 0.0,
+                "power": 0.0
+            },
+            "extruder": {
+                "temperature": 32.33,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder1": {
+                "temperature": 36.2,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder2": {
+                "temperature": 32.56,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder3": {
+                "temperature": 32.14,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder4": {
+                "temperature": 32.04,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            }
+        }
+    }
+}
+=== G-code events for this pair ===
+1788778968.5139878 command: CALIBRATE_TOOL_OFFSETS TOOLS=0,4 CALIBRATE_XY=0 CALIBRATE_Z=1 ALLOW_SHUTTLE_Z=1 SAVE_CONFIG=0 DRY_RUN=0 CLEAN_NOZZLE=0
+1788778968.5179648 response: // [tool_calibrator] Starting Calibration Sequence across tools: [0, 4] (Order: XY_FIRST, Dry Run: False, Continue-on-Error: False)
+1788778968.5187669 response: // --- Calibrating Toolhead T0 ---
+1788778968.520424 response: // Tool tool T0 already selected
+1788778968.5213437 response: // [T0] Entering Z Probe Station...
+1788778968.5218208 response: // [T0] Moving to designated Z-probe coordinates: X174.000 Y168.000
+1788778973.85483 response: // [tool_calibrator] Running CARTOGRAPHER_TOUCH_HOME on Reference Tool T0
+1788779001.601793 response: Touch home at (173.998, 167.999) adjusted z by 0.013 mm
+
+1788779002.709313 response: // [T0] Reference Z baseline established at X173.998 Y167.999 (cartographer_touch_reference)
+1788779006.3285127 response: // --- Calibrating Toolhead T4 ---
+1788779006.343653 response: echo: Dropping off tool T0
+1788779010.042725 response: // tool_crash: disabled
+1788779012.2348287 response: // Activating extruder extruder4
+1788779013.9144409 response: echo: Picking up tool T4
+1788779022.7564635 response: // Selected tool 4 (tool T4)
+1788779023.7634964 response: // [T4] Entering Z Probe Station...
+1788779023.7640882 response: // [T4] Moving to same-point Z probe coordinates: X173.998 Y167.999 (Reference baseline was X173.998 Y167.999)
+1788779029.1972902 response: // [tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T4
+1788779059.7981496 response: Result: at 173.998,167.999 estimate contact at z=0.053219
+
+1788779061.3057775 response: // [T4] Calculated Z Offset: Z+0.053mm
+1788779064.9435735 response: echo: Dropping off tool T4
+1788779068.6401236 response: // tool_crash: disabled
+1788779070.830319 response: // Activating extruder extruder
+1788779072.5113478 response: echo: Picking up tool T0
+1788779081.3588054 response: // Selected tool 0 (tool T0)
+1788779082.668423 response: // [tool_calibrator] Note: Experimental ALLOW_SHUTTLE_Z=1 active. Offsets retained in memory only.
+1788779082.6688802 response: // ================ CALIBRATION SUMMARY ================
+1788779082.669436 response: // Tool T0: Z=+0.000mm [EXPERIMENTAL - NOT SAVED]
+1788779082.6696572 response: // Tool T4: Z=+0.053mm [EXPERIMENTAL - NOT SAVED]
+1788779082.6696858 response: // ✔ ================= CALIBRATION COMPLETE =================
+1788779082.6700172 response: // All configured tools calibrated safely and successfully.
+1788779082.6701028 response: // =====================================================
+recovery_required=no

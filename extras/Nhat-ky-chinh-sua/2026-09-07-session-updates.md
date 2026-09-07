@@ -63,3 +63,63 @@
 
 - Điều tra repeatability riêng của T2/T3 tại cùng một điểm đo bằng quy trình phù hợp.
 - Chờ upstream sửa lookup zero-reference, recovery toolchanger và elapsed clock trước khi thử lại TKC Z.
+
+---
+
+## 2. Gỡ bỏ hoàn toàn Tool-Klipper-Calibration (TKC) và đồng bộ trạng thái thực tế về PC & GitHub
+
+### Mục tiêu
+Đồng bộ trạng thái thực tế từ máy in Voron 2.4 (sau khi người vận hành đã gỡ bỏ hoàn toàn bộ công cụ Tool-Klipper-Calibration bằng lệnh `./scripts/uninstall.sh --purge-all`) về kho cấu hình PC và cập nhật lên GitHub.
+
+### Triệu chứng & Bối cảnh
+- Sau các thử nghiệm đo Z bằng Cartographer, Tool-Klipper-Calibration (TKC) vẫn chưa đáp ứng yêu cầu độ lặp và kiến trúc shuttle probe không đo trực tiếp nozzle offset.
+- Người vận hành đã thực hiện gỡ bỏ triệt để TKC trên máy in qua terminal:
+  - Chạy `./scripts/uninstall.sh --purge-all`
+  - Gỡ bỏ hoàn toàn dịch vụ người dùng `tool_calibrator.service`
+  - Xóa mã nguồn `~/Tool-Klipper-Calibration` và môi trường ảo `~/tkc-env`
+  - Dọn dẹp các file cấu hình và bản backup liên quan trong `printer_data/config`
+- Cần đồng bộ cấu hình sạch này về máy tính cá nhân để tránh lệch pha (configuration drift) và đẩy lên kho lưu trữ GitHub theo đúng quy chuẩn dự án.
+
+### File đã sửa đổi
+- `config/printer.cfg` — Loại bỏ các dòng include module TKC (`tool_calibrator_macros.cfg`, `safe_staging_macros.cfg`, `tool-calibrator.cfg`, `tool_offsets.cfg`), giữ lại dòng chú thích `# [include tool_calibrator/tool_calibrator.cfg]`.
+- `config/moonraker.conf` — Loại bỏ block `[update_manager tool_calibrator]`.
+- `config/Printer-Setup/tool-calibrator.cfg` — Xóa khỏi cấu hình vận hành (đã lưu trữ an toàn trong backup).
+- `config/Printer-Setup/tool_offsets.cfg` — Xóa khỏi cấu hình vận hành (các offset thực tế T1–T4 vẫn được quản lý đầy đủ trong block `#*# <SAVE_CONFIG>` của `printer.cfg`).
+
+### Sao lưu
+- [pre-sync-purge-tkc-20260907-211000](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-sync-purge-tkc-20260907-211000/)
+- [pre-tkc-30abb5-z-20260907-174008](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-tkc-30abb5-z-20260907-174008/)
+
+### Chi tiết thay đổi
+- Gỡ bỏ 4 dòng include TKC trong `printer.cfg`:
+  ```ini
+  -[include Printer-Setup/tool_calibrator/tool_calibrator_macros.cfg]
+  -[include Printer-Setup/tool_calibrator/safe_staging_macros.cfg]
+  -[include Printer-Setup/tool-calibrator.cfg]
+  -[include Printer-Setup/tool_offsets.cfg]
+  +# [include tool_calibrator/tool_calibrator.cfg]
+  ```
+- Gỡ bỏ section Moonraker update manager trong `moonraker.conf`:
+  ```ini
+  -[update_manager tool_calibrator]
+  -type: git_repo
+  -path: ~/Tool-Klipper-Calibration
+  -...
+  ```
+- Xóa 2 file cấu hình dư thừa của TKC trong `Printer-Setup/`.
+- Xác nhận block `#*# <SAVE_CONFIG>` trong `printer.cfg` khớp 100% với dữ liệu vận hành trên máy in thực tế.
+
+### Kiểm tra
+- Trạng thái máy in thực tế: Klipper `ready`, Moonraker `ready`.
+- Kiểm tra dịch vụ: `systemctl --user is-active tool_calibrator.service` trả về `inactive` (unit file không tồn tại).
+- Kiểm tra toàn vẹn (Verification): So sánh MD5/hash tất cả file trong `config/` (gồm `crowsnest.conf`, `KlipperScreen.conf`, `mainsail.cfg`, `moonraker.conf`, `printer.cfg`, toàn bộ `Printer-Setup/`, `toolchanger/`, `scripts/`) giữa PC và máy in thật: Đạt 100% (ALL MATCHED: True).
+- Kiểm tra Git: Cấu hình sạch sẽ, không còn file rác.
+
+### Kết quả
+- Toàn bộ hệ thống cấu hình trên PC đã đồng bộ tuyệt đối với máy in thực tế.
+- Trạng thái máy in hoạt động ổn định ở chế độ sản xuất chuẩn, không còn bất kỳ thành phần nào của TKC.
+- Git repository đã được cập nhật và push thành công lên GitHub `origin/main`.
+
+### Vấn đề còn lại
+- Hiệu chuẩn Z offset giữa các tool tiếp tục sử dụng phương pháp đo tiếp xúc qua công tắc vi mô Z-offset trên chân `PF2` (tại tọa độ X:68, Y:-10, Z:7) hoặc Axiscope, không dùng probe Cartographer gắn cố định trên shuttle.
+

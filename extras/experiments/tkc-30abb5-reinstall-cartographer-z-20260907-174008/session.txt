@@ -1,0 +1,4 @@
+stamp=20260907-174008
+experiment=.\extras\experiments\tkc-30abb5-reinstall-cartographer-z-20260907-174008
+local_backup=.\extras\backups\pre-tkc-30abb5-z-20260907-174008
+remote_backup=/home/voron/printer_data/config_backups/tkc-30abb5-z-20260907-174008

@@ -1,0 +1,331 @@
+=== command ===
+CALIBRATE_TOOL_OFFSETS TOOLS=0,1,2,3,4 CALIBRATE_XY=0 CALIBRATE_Z=1 ALLOW_SHUTTLE_Z=1 SAVE_CONFIG=0 DRY_RUN=0 CLEAN_NOZZLE=0 CONTINUE_ON_ERROR=1
+start_time=1788779332.5298405
+monitor[0]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.2 calibrating=0 physical=0 active=0 tc=ready/0/0
+monitor[10]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=10.5 calibrating=0 physical=0 active=0 tc=ready/0/0
+monitor[20]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=20.8 calibrating=0 physical=0 active=0 tc=ready/0/0
+monitor[30]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=31.0 calibrating=0 physical=0 active=0 tc=ready/0/0
+monitor[40]=klipper=ready idle=Printing tkc=RUNNING phase=CHANGING_TOOL elapsed=41.3 calibrating=1 physical=0 active=0 tc=changing/0/0
+monitor[50]=klipper=ready idle=Printing tkc=RUNNING phase=CHANGING_TOOL elapsed=51.6 calibrating=1 physical=0 active=0 tc=changing/1/1
+monitor[60]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=61.9 calibrating=1 physical=1 active=1 tc=ready/1/1
+monitor[70]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=72.1 calibrating=1 physical=1 active=1 tc=ready/1/1
+monitor[80]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=82.4 calibrating=1 physical=1 active=1 tc=ready/1/1
+monitor[90]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=92.7 calibrating=1 physical=1 active=1 tc=ready/1/1
+monitor[100]=klipper=ready idle=Printing tkc=RUNNING phase=CHANGING_TOOL elapsed=103.0 calibrating=2 physical=1 active=1 tc=changing/2/-1
+monitor[110]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=113.3 calibrating=2 physical=2 active=2 tc=ready/2/2
+monitor[120]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=123.6 calibrating=2 physical=2 active=2 tc=ready/2/2
+monitor[130]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=133.8 calibrating=2 physical=2 active=2 tc=ready/2/2
+monitor[140]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=144.1 calibrating=2 physical=2 active=2 tc=ready/2/2
+monitor[150]=klipper=ready idle=Printing tkc=RUNNING phase=CHANGING_TOOL elapsed=154.4 calibrating=3 physical=2 active=2 tc=changing/2/2
+monitor[160]=klipper=ready idle=Printing tkc=RUNNING phase=CHANGING_TOOL elapsed=164.7 calibrating=3 physical=2 active=2 tc=ready/3/3
+monitor[170]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=174.9 calibrating=3 physical=3 active=3 tc=ready/3/3
+monitor[180]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=185.2 calibrating=3 physical=3 active=3 tc=ready/3/3
+monitor[190]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=195.5 calibrating=3 physical=3 active=3 tc=ready/3/3
+monitor[200]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=205.8 calibrating=3 physical=3 active=3 tc=ready/3/3
+monitor[210]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=216.0 calibrating=3 physical=3 active=3 tc=uninitialized/-1/3
+=== HTTP response ===
+{"error":{"code":400,"message":"[tool_calibrator] Calibration Failed: Cannot select tool, toolchanger status is uninitialized, reason: ","traceback":"Traceback (most recent call last):\n\n  File \"/home/voron/moonraker/moonraker/components/application.py\", line 714, in _process_http_request\n    result = await self.api_defintion.request(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/home/voron/moonraker/moonraker/components/klippy_connection.py\", line 617, in request\n    return await self._request_standard(web_request)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/home/voron/moonraker/moonraker/components/klippy_connection.py\", line 714, in _request_standard\n    return await base_request.wait(timeout)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/home/voron/moonraker/moonraker/components/klippy_connection.py\", line 825, in wait\n    return await asyncio.wait_for(asyncio.shield(self._fut), to)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.11/asyncio/tasks.py\", line 479, in wait_for\n    return fut.result()\n           ^^^^^^^^^^^^\n\nmoonraker.utils.exceptions.ServerError: [tool_calibrator] Calibration Failed: Cannot select tool, toolchanger status is uninitialized, reason: \n\n\nThe above exception was the direct cause of the following exception:\n\n\nTraceback (most recent call last):\n\n  File \"/home/voron/moonraker-env/lib/python3.11/site-packages/tornado/web.py\", line 1886, in _execute\n    result = await result\n             ^^^^^^^^^^^^\n\n  File \"/home/voron/moonraker/moonraker/components/application.py\", line 700, in post\n    await self._process_http_request(RequestType.POST)\n\n  File \"/home/voron/moonraker/moonraker/components/application.py\", line 720, in _process_http_request\n    raise tornado.web.HTTPError(\n\ntornado.web.HTTPError: HTTP 400: [tool_calibrator] Calibration Failed: Cannot select tool, toolchanger status is uninitialized, reason: \n"}}
+http_status=400
+curl_rc=0
+=== final objects before recovery ===
+{
+    "result": {
+        "eventtime": 8751.071748709,
+        "status": {
+            "webhooks": {
+                "state": "ready",
+                "state_message": "Printer is ready"
+            },
+            "idle_timeout": {
+                "state": "Ready",
+                "printing_time": 0.0,
+                "idle_timeout": 1800.0
+            },
+            "toolhead": {
+                "homed_axes": "xyz",
+                "axis_minimum": [
+                    0.0,
+                    -10.0,
+                    -5.0,
+                    0
+                ],
+                "axis_maximum": [
+                    348.0,
+                    336.0,
+                    347.0,
+                    0
+                ],
+                "print_time": 1197.379197253846,
+                "stalls": 4,
+                "estimated_print_time": 1198.3901024096153,
+                "extruder": "extruder3",
+                "position": [
+                    173.99812499999533,
+                    167.9993749999954,
+                    40.0,
+                    0.0
+                ],
+                "max_velocity": 350.0,
+                "max_accel": 7000.0,
+                "minimum_cruise_ratio": 0.5,
+                "square_corner_velocity": 5.0,
+                "extra_axes": {
+                    "extruder3": 3
+                }
+            },
+            "toolchanger": {
+                "params_safe_y": 120,
+                "params_close_y": 30,
+                "params_fast_speed": 15000,
+                "params_path_speed": 900,
+                "params_dropoff_path": [
+                    {
+                        "y": 9.5,
+                        "z": 3
+                    },
+                    {
+                        "y": 9.5,
+                        "z": 1.5
+                    },
+                    {
+                        "y": 5.5,
+                        "z": 0
+                    },
+                    {
+                        "z": 0,
+                        "y": 0,
+                        "f": 0.5
+                    },
+                    {
+                        "z": -12,
+                        "y": 0
+                    },
+                    {
+                        "z": -12,
+                        "y": 16
+                    }
+                ],
+                "params_pickup_path": [
+                    {
+                        "z": -12,
+                        "y": 16
+                    },
+                    {
+                        "z": -12,
+                        "y": 0
+                    },
+                    {
+                        "z": 0,
+                        "y": 0,
+                        "f": 0.5,
+                        "verify": 1
+                    },
+                    {
+                        "y": 5.5,
+                        "z": 0
+                    },
+                    {
+                        "y": 9.5,
+                        "z": 1.5
+                    },
+                    {
+                        "y": 9.5,
+                        "z": 3
+                    }
+                ],
+                "params_input_shaper_freq_x": 0,
+                "params_input_shaper_type_x": "mzv",
+                "params_input_shaper_damping_ratio_x": 0.1,
+                "params_input_shaper_freq_y": 0,
+                "params_input_shaper_type_y": "mzv",
+                "params_input_shaper_damping_ratio_y": 0.1,
+                "name": "toolchanger",
+                "status": "uninitialized",
+                "tool": null,
+                "tool_number": -1,
+                "detected_tool": "tool T3",
+                "detected_tool_number": 3,
+                "tool_numbers": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                ],
+                "tool_names": [
+                    "tool T0",
+                    "tool T1",
+                    "tool T2",
+                    "tool T3",
+                    "tool T4"
+                ],
+                "has_detection": true
+            },
+            "tool_calibrator": {
+                "status": "FAILED",
+                "phase": "FAILED",
+                "last_run_status": "FAILED: Cannot select tool, toolchanger status is uninitialized, reason: ",
+                "run_id": "run_1788779332",
+                "calibrating_tool": 4,
+                "physical_tool": 3,
+                "active_tool": 3,
+                "run_valid": false,
+                "run_record": {
+                    "run_id": "run_1788779332",
+                    "state": "FAILED",
+                    "phase": "FAILED",
+                    "calibrating_tool": 4,
+                    "physical_tool": 3,
+                    "active_tool": 4,
+                    "start_time": 1788779332.586215,
+                    "start_monotonic": 8532.540435414,
+                    "end_time": 1788779550.1779416,
+                    "duration_sec": 217.6,
+                    "error": "Cannot select tool, toolchanger status is uninitialized, reason: ",
+                    "completed_tools": [
+                        0,
+                        1,
+                        2
+                    ],
+                    "offsets": {
+                        "0": {
+                            "z": 0.0
+                        },
+                        "1": {
+                            "z": 0.197
+                        },
+                        "2": {
+                            "z": -0.417
+                        }
+                    },
+                    "valid": false,
+                    "tool_errors": {
+                        "3": "Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches",
+                        "4": "Error evaluating 'gcode_macro _TKC_SAFE_TOOLCHANGE:gcode': gcode.CommandError: Active and detected tool must match\n"
+                    },
+                    "last_confirmed_tool": 3
+                },
+                "reference_tool": 0,
+                "z_backend": "cartographer",
+                "safe_z": 40.0,
+                "cached_offsets": {
+                    "0": {
+                        "z": 0.0
+                    },
+                    "2": {
+                        "z": -0.403
+                    }
+                }
+            },
+            "heater_bed": {
+                "temperature": 31.49,
+                "target": 0.0,
+                "power": 0.0
+            },
+            "extruder": {
+                "temperature": 32.3,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder1": {
+                "temperature": 36.15,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder2": {
+                "temperature": 32.55,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder3": {
+                "temperature": 32.18,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder4": {
+                "temperature": 32.1,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            }
+        }
+    }
+}
+=== G-code events for full run ===
+1788779332.5851583 command: CALIBRATE_TOOL_OFFSETS TOOLS=0,1,2,3,4 CALIBRATE_XY=0 CALIBRATE_Z=1 ALLOW_SHUTTLE_Z=1 SAVE_CONFIG=0 DRY_RUN=0 CLEAN_NOZZLE=0 CONTINUE_ON_ERROR=1
+1788779332.5890963 response: // [tool_calibrator] Starting Calibration Sequence across tools: [0, 1, 2, 3, 4] (Order: XY_FIRST, Dry Run: False, Continue-on-Error: True)
+1788779332.5898278 response: // --- Calibrating Toolhead T0 ---
+1788779332.5913937 response: // Tool tool T0 already selected
+1788779332.595329 response: // [T0] Entering Z Probe Station...
+1788779332.596113 response: // [T0] Moving to designated Z-probe coordinates: X174.000 Y168.000
+1788779337.9263792 response: // [tool_calibrator] Running CARTOGRAPHER_TOUCH_HOME on Reference Tool T0
+1788779365.7156365 response: Touch home at (173.998, 167.999) adjusted z by -0.005 mm
+
+1788779366.8230457 response: // [T0] Reference Z baseline established at X173.998 Y167.999 (cartographer_touch_reference)
+1788779370.446847 response: // --- Calibrating Toolhead T1 ---
+1788779370.4781938 response: echo: Dropping off tool T0
+1788779374.2029703 response: // tool_crash: disabled
+1788779376.3968656 response: // Activating extruder extruder1
+1788779378.0766537 response: echo: Picking up tool T1
+1788779386.0179298 response: // Selected tool 1 (tool T1)
+1788779387.0281222 response: // [T1] Entering Z Probe Station...
+1788779387.028754 response: // [T1] Moving to same-point Z probe coordinates: X173.998 Y167.999 (Reference baseline was X173.998 Y167.999)
+1788779390.1499574 response: // [tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T1
+1788779420.8623405 response: Result: at 173.998,167.999 estimate contact at z=0.197219
+
+1788779422.37316 response: // [T1] Calculated Z Offset: Z+0.197mm
+1788779425.9969387 response: // --- Calibrating Toolhead T2 ---
+1788779426.0126433 response: echo: Dropping off tool T1
+1788779429.5726564 response: // tool_crash: disabled
+1788779431.7679677 response: // Activating extruder extruder2
+1788779433.4489255 response: echo: Picking up tool T2
+1788779441.3902166 response: // Selected tool 2 (tool T2)
+1788779442.3956165 response: // [T2] Entering Z Probe Station...
+1788779442.7991078 response: // [T2] Moving to same-point Z probe coordinates: X173.998 Y167.999 (Reference baseline was X173.998 Y167.999)
+1788779444.7089853 response: // [tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T2
+1788779476.5451262 response: Result: at 173.998,167.999 estimate contact at z=-0.416781
+
+1788779478.0554543 response: // [T2] Calculated Z Offset: Z-0.417mm
+1788779481.6801195 response: // --- Calibrating Toolhead T3 ---
+1788779481.6960497 response: echo: Dropping off tool T2
+1788779485.2045994 response: // tool_crash: disabled
+1788779487.3978155 response: // Activating extruder extruder3
+1788779489.0807765 response: echo: Picking up tool T3
+1788779497.019613 response: // Selected tool 3 (tool T3)
+1788779498.0274177 response: // [T3] Entering Z Probe Station...
+1788779498.028571 response: // [T3] Moving to same-point Z probe coordinates: X173.998 Y167.999 (Reference baseline was X173.998 Y167.999)
+1788779501.3486266 response: // [tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T3
+1788779545.1356316 response: !! Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+1788779545.136378 response: // !! [tool_calibrator] Tool T3 calibration failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+1788779545.1367629 response: // !! [tool_calibrator] CONTINUE_ON_ERROR=1 active. Recording failure and continuing to next tool.
+1788779550.167039 response: // --- Calibrating Toolhead T4 ---
+1788779550.1751819 response: !! Error evaluating 'gcode_macro _TKC_SAFE_TOOLCHANGE:gcode': gcode.CommandError: Active and detected tool must match
+1788779550.177536 response: // !! [tool_calibrator] Tool T4 calibration failed: Error evaluating 'gcode_macro _TKC_SAFE_TOOLCHANGE:gcode': gcode.CommandError: Active and detected tool must match
+1788779550.1775734 response: // !! [tool_calibrator] CONTINUE_ON_ERROR=1 active. Recording failure and continuing to next tool.
+1788779550.1779912 response: !! Cannot select tool, toolchanger status is uninitialized, reason:
+1788779550.178023 response: !! Cannot select tool, toolchanger status is uninitialized, reason:
+1788779550.1788018 response: // !! [tool_calibrator] Calibration Failed: Cannot select tool, toolchanger status is uninitialized, reason:
+1788779550.1788373 response: // !! [tool_calibrator] Failure occurred while T3 was active. If using toolchanger, verify physical dock state before issuing further tool changes.
+1788779550.1795802 response: // [tool_calibrator] Toolchanger state reconciled to physical tool T3.
+1788779550.1800091 response: !! [tool_calibrator] Calibration Failed: Cannot select tool, toolchanger status is uninitialized, reason:
+=== recovery required: uninitialized -1 3 ===
+recovery_final=ready Ready ready 0 0

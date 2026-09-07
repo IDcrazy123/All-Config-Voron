@@ -1,0 +1,287 @@
+=== command ===
+CALIBRATE_TOOL_OFFSETS TOOLS=0,2 CALIBRATE_XY=0 CALIBRATE_Z=1 ALLOW_SHUTTLE_Z=1 SAVE_CONFIG=0 DRY_RUN=0 CLEAN_NOZZLE=0
+start_time=1788778618.977654
+monitor[0]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[5]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[10]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[15]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[20]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[25]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[30]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[35]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=0 active=0 tc=ready/0/0
+monitor[40]=klipper=ready idle=Printing tkc=RUNNING phase=CHANGING_TOOL elapsed=0.0 physical=0 active=0 tc=changing/0/0
+monitor[45]=klipper=ready idle=Printing tkc=RUNNING phase=CHANGING_TOOL elapsed=0.0 physical=0 active=0 tc=changing/2/-1
+monitor[50]=klipper=ready idle=Printing tkc=RUNNING phase=CHANGING_TOOL elapsed=0.0 physical=0 active=0 tc=changing/2/2
+monitor[55]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=2 active=2 tc=ready/2/2
+monitor[60]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=2 active=2 tc=ready/2/2
+monitor[65]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=2 active=2 tc=ready/2/2
+monitor[70]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=2 active=2 tc=ready/2/2
+monitor[75]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=2 active=2 tc=ready/2/2
+monitor[80]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=2 active=2 tc=ready/2/2
+monitor[85]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=2 active=2 tc=ready/2/2
+monitor[90]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=2 active=2 tc=ready/2/2
+monitor[95]=klipper=ready idle=Printing tkc=RUNNING phase=PROBING_Z elapsed=0.0 physical=2 active=2 tc=ready/2/2
+monitor[100]=klipper=ready idle=Printing tkc=FAILED phase=FAILED elapsed=0.0 physical=2 active=2 tc=uninitialized/-1/2
+=== HTTP response ===
+{"error":{"code":400,"message":"[tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches","traceback":"Traceback (most recent call last):\n\n  File \"/home/voron/moonraker/moonraker/components/application.py\", line 714, in _process_http_request\n    result = await self.api_defintion.request(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/home/voron/moonraker/moonraker/components/klippy_connection.py\", line 617, in request\n    return await self._request_standard(web_request)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/home/voron/moonraker/moonraker/components/klippy_connection.py\", line 714, in _request_standard\n    return await base_request.wait(timeout)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/home/voron/moonraker/moonraker/components/klippy_connection.py\", line 825, in wait\n    return await asyncio.wait_for(asyncio.shield(self._fut), to)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.11/asyncio/tasks.py\", line 479, in wait_for\n    return fut.result()\n           ^^^^^^^^^^^^\n\nmoonraker.utils.exceptions.ServerError: [tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches\n\n\nThe above exception was the direct cause of the following exception:\n\n\nTraceback (most recent call last):\n\n  File \"/home/voron/moonraker-env/lib/python3.11/site-packages/tornado/web.py\", line 1886, in _execute\n    result = await result\n             ^^^^^^^^^^^^\n\n  File \"/home/voron/moonraker/moonraker/components/application.py\", line 700, in post\n    await self._process_http_request(RequestType.POST)\n\n  File \"/home/voron/moonraker/moonraker/components/application.py\", line 720, in _process_http_request\n    raise tornado.web.HTTPError(\n\ntornado.web.HTTPError: HTTP 400: [tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches\n"}}
+http_status=400
+curl_rc=0
+=== final objects before recovery ===
+{
+    "result": {
+        "eventtime": 7928.797992792,
+        "status": {
+            "webhooks": {
+                "state": "ready",
+                "state_message": "Printer is ready"
+            },
+            "idle_timeout": {
+                "state": "Ready",
+                "printing_time": 0.0,
+                "idle_timeout": 1800.0
+            },
+            "toolhead": {
+                "homed_axes": "xyz",
+                "axis_minimum": [
+                    0.0,
+                    -10.0,
+                    -5.0,
+                    0
+                ],
+                "axis_maximum": [
+                    348.0,
+                    336.0,
+                    347.0,
+                    0
+                ],
+                "print_time": 375.16703768653844,
+                "stalls": 0,
+                "estimated_print_time": 376.1412631826923,
+                "extruder": "extruder2",
+                "position": [
+                    174.00000000000279,
+                    168.00000000000267,
+                    40.0,
+                    0.0
+                ],
+                "max_velocity": 350.0,
+                "max_accel": 7000.0,
+                "minimum_cruise_ratio": 0.5,
+                "square_corner_velocity": 5.0,
+                "extra_axes": {
+                    "extruder2": 3
+                }
+            },
+            "toolchanger": {
+                "params_safe_y": 120,
+                "params_close_y": 30,
+                "params_fast_speed": 15000,
+                "params_path_speed": 900,
+                "params_dropoff_path": [
+                    {
+                        "y": 9.5,
+                        "z": 3
+                    },
+                    {
+                        "y": 9.5,
+                        "z": 1.5
+                    },
+                    {
+                        "y": 5.5,
+                        "z": 0
+                    },
+                    {
+                        "z": 0,
+                        "y": 0,
+                        "f": 0.5
+                    },
+                    {
+                        "z": -12,
+                        "y": 0
+                    },
+                    {
+                        "z": -12,
+                        "y": 16
+                    }
+                ],
+                "params_pickup_path": [
+                    {
+                        "z": -12,
+                        "y": 16
+                    },
+                    {
+                        "z": -12,
+                        "y": 0
+                    },
+                    {
+                        "z": 0,
+                        "y": 0,
+                        "f": 0.5,
+                        "verify": 1
+                    },
+                    {
+                        "y": 5.5,
+                        "z": 0
+                    },
+                    {
+                        "y": 9.5,
+                        "z": 1.5
+                    },
+                    {
+                        "y": 9.5,
+                        "z": 3
+                    }
+                ],
+                "params_input_shaper_freq_x": 0,
+                "params_input_shaper_type_x": "mzv",
+                "params_input_shaper_damping_ratio_x": 0.1,
+                "params_input_shaper_freq_y": 0,
+                "params_input_shaper_type_y": "mzv",
+                "params_input_shaper_damping_ratio_y": 0.1,
+                "name": "toolchanger",
+                "status": "uninitialized",
+                "tool": null,
+                "tool_number": -1,
+                "detected_tool": "tool T2",
+                "detected_tool_number": 2,
+                "tool_numbers": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                ],
+                "tool_names": [
+                    "tool T0",
+                    "tool T1",
+                    "tool T2",
+                    "tool T3",
+                    "tool T4"
+                ],
+                "has_detection": true
+            },
+            "tool_calibrator": {
+                "status": "FAILED",
+                "phase": "FAILED",
+                "last_run_status": "FAILED: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches",
+                "run_id": "run_1788778619",
+                "calibrating_tool": 2,
+                "physical_tool": 2,
+                "active_tool": 2,
+                "run_valid": false,
+                "run_record": {
+                    "run_id": "run_1788778619",
+                    "state": "FAILED",
+                    "phase": "FAILED",
+                    "calibrating_tool": 2,
+                    "physical_tool": 2,
+                    "active_tool": 2,
+                    "start_time": 1788778619.0270293,
+                    "start_monotonic": 7818.969873987,
+                    "end_time": 1788778727.9449093,
+                    "duration_sec": 108.92,
+                    "error": "Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches",
+                    "completed_tools": [
+                        0
+                    ],
+                    "offsets": {
+                        "0": {
+                            "z": 0.0
+                        }
+                    },
+                    "valid": false,
+                    "tool_errors": {},
+                    "last_confirmed_tool": 2
+                },
+                "reference_tool": 0,
+                "z_backend": "cartographer",
+                "safe_z": 40.0,
+                "cached_offsets": {
+                    "0": {
+                        "z": 0.0
+                    },
+                    "1": {
+                        "z": 0.217
+                    }
+                }
+            },
+            "heater_bed": {
+                "temperature": 31.62,
+                "target": 0.0,
+                "power": 0.0
+            },
+            "extruder": {
+                "temperature": 32.41,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder1": {
+                "temperature": 36.18,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder2": {
+                "temperature": 32.65,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder3": {
+                "temperature": 32.21,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            },
+            "extruder4": {
+                "temperature": 32.12,
+                "target": 0.0,
+                "power": 0.0,
+                "can_extrude": false,
+                "pressure_advance": 0.0,
+                "smooth_time": 0.04,
+                "motion_queue": null
+            }
+        }
+    }
+}
+=== G-code events for this pair ===
+1788778619.0259526 command: CALIBRATE_TOOL_OFFSETS TOOLS=0,2 CALIBRATE_XY=0 CALIBRATE_Z=1 ALLOW_SHUTTLE_Z=1 SAVE_CONFIG=0 DRY_RUN=0 CLEAN_NOZZLE=0
+1788778619.0299277 response: // [tool_calibrator] Starting Calibration Sequence across tools: [0, 2] (Order: XY_FIRST, Dry Run: False, Continue-on-Error: False)
+1788778619.0314546 response: // --- Calibrating Toolhead T0 ---
+1788778619.0324137 response: // Tool tool T0 already selected
+1788778619.0332344 response: // [T0] Entering Z Probe Station...
+1788778619.033882 response: // [T0] Moving to designated Z-probe coordinates: X174.000 Y168.000
+1788778624.3686373 response: // [tool_calibrator] Running CARTOGRAPHER_TOUCH_HOME on Reference Tool T0
+1788778654.6245105 response: Touch home at (174.000, 168.000) adjusted z by -0.005 mm
+
+1788778655.7324784 response: // [T0] Reference Z baseline established at X174.000 Y168.000 (cartographer_touch_reference)
+1788778659.3559198 response: // --- Calibrating Toolhead T2 ---
+1788778659.371164 response: echo: Dropping off tool T0
+1788778663.0636697 response: // tool_crash: disabled
+1788778665.260649 response: // Activating extruder extruder2
+1788778666.938872 response: echo: Picking up tool T2
+1788778675.1742928 response: // Selected tool 2 (tool T2)
+1788778676.180967 response: // [T2] Entering Z Probe Station...
+1788778676.4832175 response: // [T2] Moving to same-point Z probe coordinates: X174.000 Y168.000 (Reference baseline was X174.000 Y168.000)
+1788778678.3938174 response: // [tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T2
+1788778722.9130864 response: !! Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+1788778727.944983 response: // !! [tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+1788778727.945716 response: // !! [tool_calibrator] Failure occurred while T2 was active. If using toolchanger, verify physical dock state before issuing further tool changes.
+1788778727.948239 response: // [tool_calibrator] Toolchanger state reconciled to physical tool T2.
+1788778727.9487143 response: !! [tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+=== recovery required: uninitialized -1 2 ===
+recovery_final=ready Ready ready 0 0
