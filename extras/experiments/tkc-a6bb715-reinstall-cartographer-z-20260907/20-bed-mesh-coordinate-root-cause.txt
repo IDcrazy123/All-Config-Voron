@@ -1,0 +1,332 @@
+=== configfile bed_mesh ===
+{'mesh_min': [20.0, 45.0],
+ 'mesh_max': [320.0, 325.0],
+ 'probe_count': [55, 55],
+ 'zero_reference_position': [174.0, 168.0],
+ 'speed': 600.0,
+ 'horizontal_move_z': 3.0,
+ 'adaptive_margin': 10.0,
+ 'mesh_pps': [0, 0],
+ 'algorithm': 'lagrange',
+ 'bicubic_tension': 0.2,
+ 'scan_overshoot': 0,
+ 'fade_start': 1.0,
+ 'fade_end': 0.0,
+ 'split_delta_z': 0.025,
+ 'move_check_distance': 5.0}
+{'mcu': 'cartographer',
+ 'x_offset': 0.0,
+ 'y_offset': 35.0,
+ 'z_backlash': 0.05,
+ 'travel_speed': 50,
+ 'lift_speed': 5,
+ 'verbose': False,
+ 'register_as_probe': True}
+=== Klipper zero_ref_pos source ===
+347-        self.gcode.register_command(
+348-            'BED_MESH_CALIBRATE', self.cmd_BED_MESH_CALIBRATE,
+349-            desc=self.cmd_BED_MESH_CALIBRATE_help)
+350-    def print_generated_points(self, print_func, truncate=False):
+351-        x_offset = y_offset = 0.
+352-        probe = self.printer.lookup_object('probe', None)
+353-        if probe is not None:
+354-            x_offset, y_offset = probe.get_offsets()[:2]
+355-        print_func("bed_mesh: generated points\nIndex"
+356-                   " |  Tool Adjusted  |   Probe")
+357-        points = self.probe_mgr.get_base_points()
+358-        for i, (x, y) in enumerate(points):
+359-            if i >= 50 and truncate:
+360-                end = len(points) - 1
+361-                print_func("...points %d through %d truncated" % (i, end))
+362-                break
+363-            adj_pt = "(%.1f, %.1f)" % (x - x_offset, y - y_offset)
+364-            mesh_pt = "(%.1f, %.1f)" % (x, y)
+365-            print_func(
+366-                "  %-4d| %-16s| %s" % (i, adj_pt, mesh_pt))
+367:        zero_ref_pos = self.probe_mgr.get_zero_ref_pos()
+368:        if zero_ref_pos is not None:
+369-            print_func(
+370-                "bed_mesh: zero_reference_position is (%.2f, %.2f)"
+371:                % (zero_ref_pos[0], zero_ref_pos[1])
+372-            )
+373-        substitutes = self.probe_mgr.get_substitutes()
+374-        if substitutes:
+375-            print_func("bed_mesh: faulty region points")
+376-            for i, v in substitutes.items():
+377-                pt = points[i]
+378-                print_func("%d (%.2f, %.2f), substituted points: %s"
+379-                           % (i, pt[0], pt[1], repr(v)))
+380-    def _init_mesh_config(self, config):
+381-        mesh_cfg = self.mesh_config
+382-        orig_cfg = self.orig_config
+383-        self.radius = config.getfloat('mesh_radius', None, above=0.)
+384-        if self.radius is not None:
+385-            self.origin = config.getfloatlist('mesh_origin', (0., 0.), count=2)
+386-            x_cnt = y_cnt = config.getint('round_probe_count', 5, minval=3)
+387-            # round beds must have an odd number of points along each axis
+388-            if not x_cnt & 1:
+389-                raise config.error(
+390-                    "bed_mesh: probe_count must be odd for round beds")
+391-            # radius may have precision to .1mm
+392-            self.radius = math.floor(self.radius * 10) / 10
+393-            orig_cfg['radius'] = self.radius
+394-            orig_cfg['origin'] = self.origin
+395-            min_x = min_y = -self.radius
+396-            max_x = max_y = self.radius
+397-        else:
+398-            # rectangular
+399-            x_cnt, y_cnt = parse_config_pair(config, 'probe_count', 3, minval=3)
+400-            min_x, min_y = config.getfloatlist('mesh_min', count=2)
+401-            max_x, max_y = config.getfloatlist('mesh_max', count=2)
+402-            if max_x <= min_x or max_y <= min_y:
+403-                raise config.error('bed_mesh: invalid min/max points')
+404-        orig_cfg['x_count'] = mesh_cfg['x_count'] = x_cnt
+405-        orig_cfg['y_count'] = mesh_cfg['y_count'] = y_cnt
+406-        orig_cfg['mesh_min'] = self.mesh_min = (min_x, min_y)
+407-        orig_cfg['mesh_max'] = self.mesh_max = (max_x, max_y)
+408-
+409-        pps = parse_config_pair(config, 'mesh_pps', 2, minval=0)
+410-        orig_cfg['mesh_x_pps'] = mesh_cfg['mesh_x_pps'] = pps[0]
+411-        orig_cfg['mesh_y_pps'] = mesh_cfg['mesh_y_pps'] = pps[1]
+412-        orig_cfg['algo'] = mesh_cfg['algo'] = \
+413-            config.get('algorithm', 'lagrange').strip().lower()
+414-        orig_cfg['tension'] = mesh_cfg['tension'] = config.getfloat(
+415-            'bicubic_tension', .2, minval=0., maxval=2.)
+416-        self._verify_algorithm(config.error)
+--
+763-                row[0:0] = left_buffer
+764-                row.extend(right_buffer)
+765-
+766-        #  make sure that the x-axis is the correct length
+767-        for row in probed_matrix:
+768-            if len(row) != x_cnt:
+769-                raise self.gcode.error(
+770-                    ("bed_mesh: invalid x-axis table length\n"
+771-                        "Probed table length: %d Probed Table:\n%s") %
+772-                    (len(probed_matrix), str(probed_matrix)))
+773-
+774-        z_mesh = ZMesh(params, self._profile_name)
+775-        try:
+776-            z_mesh.build_mesh(probed_matrix)
+777-        except BedMeshError as e:
+778-            raise self.gcode.error(str(e))
+779-        if self.probe_mgr.get_zero_ref_mode() == ZrefMode.IN_MESH:
+780-            # The reference can be anywhere in the mesh, therefore
+781-            # it is necessary to set the reference after the initial mesh
+782-            # is generated to lookup the correct z value.
+783:            zero_ref_pos = self.probe_mgr.get_zero_ref_pos()
+784:            z_mesh.set_zero_reference(*zero_ref_pos)
+785-        self.bedmesh.set_mesh(z_mesh)
+786-        self.gcode.respond_info("Mesh Bed Leveling Complete")
+787-        if self._profile_name is not None:
+788-            self.bedmesh.save_profile(self._profile_name)
+789-    def _dump_points(self, probed_pts, corrected_pts):
+790-        # logs generated points with offset applied, points received
+791-        # from the finalize callback, and the list of corrected points
+792-        points = self.probe_mgr.get_base_points()
+793-        max_len = max([len(points), len(probed_pts), len(corrected_pts)])
+794-        logging.info(
+795-            "bed_mesh: calibration point dump\nIndex | %-17s| %-25s|"
+796-            " Corrected Point" % ("Generated Point", "Probed Point"))
+797-        for i in list(range(max_len)):
+798-            gen_pt = probed_pt = corr_pt = ""
+799-            if i < len(points):
+800-                off_pt = points[i][:2]
+801-                gen_pt = "(%.2f, %.2f)" % tuple(off_pt)
+802-            if i < len(probed_pts):
+803-                probed_pt = "(%.2f, %.2f, %.4f)" % tuple(probed_pts[i])
+804-            if i < len(corrected_pts):
+805-                corr_pt = "(%.2f, %.2f, %.4f)" % tuple(corrected_pts[i])
+806-            logging.info(
+807-                "  %-4d| %-17s| %-25s| %s" % (i, gen_pt, probed_pt, corr_pt))
+808-
+809-class ProbeManager:
+810-    def __init__(self, config, orig_config, finalize_cb):
+811-        self.printer = config.get_printer()
+812-        self.cfg_overshoot = config.getfloat("scan_overshoot", 0, minval=1.)
+813-        self.orig_config = orig_config
+814-        self.faulty_regions = []
+815-        self.overshoot = self.cfg_overshoot
+816:        self.zero_ref_pos = config.getfloatlist(
+817-            "zero_reference_position", None, count=2
+818-        )
+819-        self.zref_mode = ZrefMode.DISABLED
+820-        self.base_points = []
+821-        self.substitutes = collections.OrderedDict()
+822-        self.is_round = orig_config["radius"] is not None
+823-        self.probe_helper = probe.ProbePointsHelper(config, finalize_cb, [])
+824-        self.probe_helper.use_xy_offsets(True)
+825-        self.rapid_scan_helper = RapidScanHelper(config, self, finalize_cb)
+826-        self._init_faulty_regions(config)
+827-
+828-    def _init_faulty_regions(self, config):
+829-        for i in list(range(1, 100, 1)):
+830-            start = config.getfloatlist("faulty_region_%d_min" % (i,), None,
+831-                                        count=2)
+832-            if start is None:
+833-                break
+834-            end = config.getfloatlist("faulty_region_%d_max" % (i,), count=2)
+835-            # Validate the corners.  If necessary reorganize them.
+836-            # c1 = min point, c3 = max point
+837-            #  c4 ---- c3
+838-            #  |        |
+839-            #  c1 ---- c2
+840-            c1 = [min([s, e]) for s, e in zip(start, end)]
+841-            c3 = [max([s, e]) for s, e in zip(start, end)]
+842-            c2 = [c1[0], c3[1]]
+843-            c4 = [c3[0], c1[1]]
+844-            # Check for overlapping regions
+845-            for j, (prev_c1, prev_c3) in enumerate(self.faulty_regions):
+846-                prev_c2 = [prev_c1[0], prev_c3[1]]
+847-                prev_c4 = [prev_c3[0], prev_c1[1]]
+848-                # Validate that no existing corner is within the new region
+849-                for coord in [prev_c1, prev_c2, prev_c3, prev_c4]:
+850-                    if within(coord, c1, c3):
+851-                        raise config.error(
+852-                            "bed_mesh: Existing faulty_region_%d %s overlaps "
+853-                            "added faulty_region_%d %s"
+854-                            % (j+1, repr([prev_c1, prev_c3]),
+855-                               i, repr([c1, c3])))
+856-                # Validate that no new corner is within an existing region
+857-                for coord in [c1, c2, c3, c4]:
+858-                    if within(coord, prev_c1, prev_c3):
+859-                        raise config.error(
+860-                            "bed_mesh: Added faulty_region_%d %s overlaps "
+861-                            "existing faulty_region_%d %s"
+862-                            % (i, repr([c1, c3]),
+863-                               j+1, repr([prev_c1, prev_c3])))
+864-            self.faulty_regions.append((c1, c3))
+865-
+866-    def start_probe(self, gcmd):
+867-        method = gcmd.get("METHOD", "automatic").lower()
+868-        can_scan = False
+869-        pprobe = self.printer.lookup_object("probe", None)
+870-        if pprobe is not None:
+871-            probe_name = pprobe.get_status(None).get("name", "")
+872-            can_scan = probe_name.startswith("probe_eddy_current")
+873-        if method == "rapid_scan" and can_scan:
+874-            self.rapid_scan_helper.perform_rapid_scan(gcmd)
+875-        else:
+876-            self.probe_helper.start_probe(gcmd)
+877-
+878:    def get_zero_ref_pos(self):
+879:        return self.zero_ref_pos
+880-
+881-    def get_zero_ref_mode(self):
+882-        return self.zref_mode
+883-
+884-    def get_substitutes(self):
+885-        return self.substitutes
+886-
+887-    def generate_points(
+888-        self, mesh_config, mesh_min, mesh_max, radius, origin,
+889-        probe_method="automatic"
+890-    ):
+891-        x_cnt = mesh_config['x_count']
+892-        y_cnt = mesh_config['y_count']
+893-        min_x, min_y = mesh_min
+894-        max_x, max_y = mesh_max
+895-        x_dist = (max_x - min_x) / (x_cnt - 1)
+896-        y_dist = (max_y - min_y) / (y_cnt - 1)
+897-        # floor distances down to next hundredth
+898-        x_dist = math.floor(x_dist * 100) / 100
+899-        y_dist = math.floor(y_dist * 100) / 100
+900-        if x_dist < 1. or y_dist < 1.:
+901-            raise BedMeshError("bed_mesh: min/max points too close together")
+902-
+903-        if radius is not None:
+904-            # round bed, min/max needs to be recalculated
+905-            y_dist = x_dist
+906-            new_r = (x_cnt // 2) * x_dist
+907-            min_x = min_y = -new_r
+908-            max_x = max_y = new_r
+909-        else:
+910-            # rectangular bed, only re-calc max_x
+911-            max_x = min_x + x_dist * (x_cnt - 1)
+912-        pos_y = min_y
+913-        points = []
+914-        for i in range(y_cnt):
+915-            for j in range(x_cnt):
+916-                if not i % 2:
+917-                    # move in positive direction
+918-                    pos_x = min_x + j * x_dist
+919-                else:
+920-                    # move in negative direction
+921-                    pos_x = max_x - j * x_dist
+922-                if radius is None:
+923-                    # rectangular bed, append
+924-                    points.append((pos_x, pos_y))
+925-                else:
+926-                    # round bed, check distance from origin
+927-                    dist_from_origin = math.sqrt(pos_x*pos_x + pos_y*pos_y)
+928-                    if dist_from_origin <= radius:
+929-                        points.append(
+930-                            (origin[0] + pos_x, origin[1] + pos_y))
+931-            pos_y += y_dist
+932:        if self.zero_ref_pos is None or probe_method == "manual":
+933-            # Zero Reference Disabled
+934-            self.zref_mode = ZrefMode.DISABLED
+935:        elif within(self.zero_ref_pos, mesh_min, mesh_max):
+936-            # Zero Reference position within mesh
+937-            self.zref_mode = ZrefMode.IN_MESH
+938-        else:
+939-            # Zero Reference position outside of mesh
+940-            self.zref_mode = ZrefMode.PROBE
+941-        self.base_points = points
+942-        self.substitutes.clear()
+943-        # adjust overshoot
+944-        og_min_x = self.orig_config["mesh_min"][0]
+945-        og_max_x = self.orig_config["mesh_max"][0]
+946-        add_ovs = min(max(0, min_x - og_min_x), max(0, og_max_x - max_x))
+947-        self.overshoot = self.cfg_overshoot + math.floor(add_ovs)
+948-        min_pt, max_pt = (min_x, min_y), (max_x, max_y)
+949-        self._process_faulty_regions(min_pt, max_pt, radius)
+950-        self.probe_helper.update_probe_points(self.get_std_path(), 3)
+951-
+=== Cartographer zero reference source ===
+        return list(
+            chain.from_iterable(
+                [
+                    self._register_macro(
+                        "TOUCH_CALIBRATE",
+                        TouchCalibrateMacro(probe, self.mcu, toolhead, self.config, self.task_executor),
+                    ),
+                    self._register_macro(
+                        "TOUCH_MODEL",
+                        TouchModelManager(self.touch_mode, self.config),
+                    ),
+                    self._register_macro(
+                        "TOUCH_PROBE",
+                        TouchProbeMacro(self.touch_mode, toolhead),
+                    ),
+                    self._register_macro(
+                        "TOUCH_ACCURACY",
+                        TouchAccuracyMacro(
+                            self.touch_mode,
+                            toolhead,
+                            lift_speed=self.config.general.lift_speed,
+                        ),
+                    ),
+                    self._register_macro(
+                        "TOUCH_HOME",
+                        TouchHomeMacro(
+                            self.touch_mode,
+                            toolhead,
+                            lift_speed=self.config.general.lift_speed,
+                            home_position=self.config.bed_mesh.zero_reference_position,
+                            travel_speed=self.config.general.travel_speed,
+                            random_radius=self.config.touch.home_random_radius,
+                        ),
+                    ),
+                ]
+            )
+        )
+
+    def _create_axis_twist_compensation_registration(
+        self,
+        probe: Probe,
+        toolhead: Toolhead,
+        adapters: Adapters,
+    ) -> list[MacroRegistration]:
+        """Create axis twist compensation macro registration."""
+        if adapters.axis_twist_compensation:

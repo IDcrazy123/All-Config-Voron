@@ -1,0 +1,73 @@
+start_epoch=1788772803
+command=CALIBRATE_TOOL_OFFSETS TOOLS=0,3 CALIBRATE_XY=0 CALIBRATE_Z=1 ALLOW_SHUTTLE_Z=1 SAVE_CONFIG=0 DRY_RUN=0 CLEAN_NOZZLE=0
+16:20:03 web=ready cal=RUNNING phase=INITIALIZING tool=0 detected=0 physical=0 done=[] elapsed=-1788770800.0 z=40.0
+16:20:06 web=ready cal=RUNNING phase=INITIALIZING tool=0 detected=0 physical=0 done=[] elapsed=-1788770797.5 z=40.0
+16:20:08 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770795.0 z=40.0
+16:20:11 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770792.5 z=40.0
+16:20:13 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770790.0 z=-5.0
+16:20:16 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770787.5 z=-5.0
+16:20:18 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770785.0 z=-5.0
+16:20:21 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770782.5 z=-5.0
+16:20:23 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770780.0 z=-5.0
+16:20:26 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770777.5 z=-5.0
+16:20:28 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770775.0 z=-5.0
+16:20:31 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770772.5 z=-5.0
+16:20:33 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770770.0 z=-5.0
+16:20:36 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770767.5 z=-5.0
+16:20:38 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770765.0 z=2.0
+16:20:41 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770762.4 z=2.4539635774916535
+16:20:43 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770759.9 z=40.0
+16:20:46 web=ready cal=RUNNING phase=CHANGING_TOOL tool=0 detected=0 physical=0 done=[0] elapsed=-1788770757.4 z=100.7718986161016
+16:20:48 web=ready cal=RUNNING phase=CHANGING_TOOL tool=0 detected=0 physical=0 done=[0] elapsed=-1788770754.9 z=309.83612591191275
+16:20:51 web=ready cal=RUNNING phase=CHANGING_TOOL tool=0 detected=0 physical=0 done=[0] elapsed=-1788770752.4 z=331.0
+16:20:53 web=ready cal=RUNNING phase=CHANGING_TOOL tool=3 detected=-1 physical=0 done=[0] elapsed=-1788770749.9 z=343.0
+16:20:56 web=ready cal=RUNNING phase=CHANGING_TOOL tool=3 detected=-1 physical=0 done=[0] elapsed=-1788770747.4 z=343.0
+16:20:58 web=ready cal=RUNNING phase=CHANGING_TOOL tool=3 detected=3 physical=0 done=[0] elapsed=-1788770744.9 z=39.8104
+16:21:01 web=ready cal=RUNNING phase=CHANGING_TOOL tool=3 detected=3 physical=0 done=[0] elapsed=-1788770742.4 z=39.8104
+16:21:03 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770739.9 z=40.0
+16:21:06 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770737.4 z=40.0
+16:21:08 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770734.9 z=-5.0
+16:21:11 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770732.4 z=-5.0
+16:21:13 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770729.9 z=-5.0
+16:21:16 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770727.4 z=-5.0
+16:21:18 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770724.8 z=-5.0
+16:21:21 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770722.3 z=-5.0
+16:21:23 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770719.8 z=-5.0
+16:21:26 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770717.3 z=-5.0
+16:21:28 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770714.8 z=-5.0
+16:21:31 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770712.3 z=-5.0
+16:21:33 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770709.8 z=-5.0
+16:21:36 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770707.3 z=-5.0
+16:21:38 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770704.8 z=-5.0
+16:21:41 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770702.3 z=-5.0
+16:21:43 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770699.8 z=-5.0
+16:21:46 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770697.3 z=2.0
+16:21:48 web=ready cal=RUNNING phase=PROBING_Z tool=3 detected=3 physical=3 done=[0] elapsed=-1788770694.8 z=2.0
+16:21:51 web=ready cal=FAILED phase=FAILED tool=-1 detected=3 physical=3 done=[0] elapsed=None z=40.0
+submit_rc=22
+curl: (22) The requested URL returned error: 400
+
+=== final ===
+{"result":{"eventtime":2114.795413091,"status":{"webhooks":{"state":"ready","state_message":"Printer is ready"},"print_stats":{"filename":"","total_duration":0.0,"print_duration":0.0,"filament_used":0.0,"state":"standby","message":"","info":{"total_layer":null,"current_layer":null}},"toolhead":{"homed_axes":"xyz","axis_minimum":[0.0,-10.0,-5.0,0],"axis_maximum":[348.0,336.0,347.0,0],"print_time":644.9618559941742,"stalls":1,"estimated_print_time":645.2415741134615,"extruder":"extruder3","position":[173.998124999995,162.9993749999946,40.0,0.0],"max_velocity":350.0,"max_accel":7000.0,"minimum_cruise_ratio":0.5,"square_corner_velocity":5.0,"extra_axes":{"extruder3":3}},"toolchanger":{"params_safe_y":120,"params_close_y":30,"params_fast_speed":15000,"params_path_speed":900,"params_dropoff_path":[{"y":9.5,"z":3},{"y":9.5,"z":1.5},{"y":5.5,"z":0},{"z":0,"y":0,"f":0.5},{"z":-12,"y":0},{"z":-12,"y":16}],"params_pickup_path":[{"z":-12,"y":16},{"z":-12,"y":0},{"z":0,"y":0,"f":0.5,"verify":1},{"y":5.5,"z":0},{"y":9.5,"z":1.5},{"y":9.5,"z":3}],"params_input_shaper_freq_x":0,"params_input_shaper_type_x":"mzv","params_input_shaper_damping_ratio_x":0.1,"params_input_shaper_freq_y":0,"params_input_shaper_type_y":"mzv","params_input_shaper_damping_ratio_y":0.1,"name":"toolchanger","status":"uninitialized","tool":null,"tool_number":-1,"detected_tool":"tool T3","detected_tool_number":3,"tool_numbers":[0,1,2,3,4],"tool_names":["tool T0","tool T1","tool T2","tool T3","tool T4"],"has_detection":true},"tool_calibrator":{"status":"FAILED","phase":"FAILED","last_run_status":"FAILED: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches","run_id":"run_1788772803","calibrating_tool":3,"physical_tool":3,"active_tool":3,"run_valid":false,"run_record":{"run_id":"run_1788772803","state":"FAILED","phase":"FAILED","calibrating_tool":3,"physical_tool":3,"active_tool":3,"start_time":1788772803.3071914,"end_time":1788772914.660132,"duration_sec":111.35,"error":"Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches","completed_tools":[0],"offsets":{"0":{"z":0.0}},"valid":false,"last_confirmed_tool":3},"reference_tool":0,"z_backend":"cartographer","safe_z":40.0,"cached_offsets":{}},"cartographer":{"scan":{"current_model":"default","models":"default","last_z_result":511.869964},"touch":{"current_model":"default","models":"default","last_z_result":-0.453964},"mcu":{"last_sample":{"frequency":3214013.1890773773,"time":645.0205572942473,"position":{"x":173.998124999995,"y":162.9993749999946,"z":39.99996357748831},"temperature":21.893180358746065,"raw_count":35948129},"constants":{"sensor_frequency":24000000.0,"inverse_adc_max":0.0002442002442002442,"adc_smooth_count":16,"minimum_adc_count":55927,"minimum_count":32917500}}},"extruder":{"temperature":30.64,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"extruder1":{"temperature":33.75,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"extruder2":{"temperature":31.05,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"extruder3":{"temperature":30.7,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"extruder4":{"temperature":30.96,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"heater_bed":{"temperature":29.76,"target":0.0,"power":0.0}}}}
+=== gcode since start ===
+1788772803.306 command CALIBRATE_TOOL_OFFSETS TOOLS=0,3 CALIBRATE_XY=0 CALIBRATE_Z=1 ALLOW_SHUTTLE_Z=1 SAVE_CONFIG=0 DRY_RUN=0 CLEAN_NOZZLE=0
+1788772803.310 response // [tool_calibrator] Starting Calibration Sequence across tools: [0, 3] (Order: XY_FIRST, Dry Run: False)
+1788772806.633 response // --- Calibrating Toolhead T0 ---
+1788772806.635 response // Tool tool T0 already selected
+1788772806.636 response // [T0] Entering Z Probe Station...
+1788772811.968 response // [tool_calibrator] Running CARTOGRAPHER_TOUCH_HOME on Reference Tool T0
+1788772840.892 response Touch home at (173.998, 167.999) adjusted z by 0.454 mm
+
+1788772841.901 response // [T0] Reference Z baseline established (cartographer_touch_reference)
+1788772845.525 response // --- Calibrating Toolhead T3 ---
+1788772845.542 response echo: Dropping off tool T0
+1788772849.235 response // tool_crash: disabled
+1788772851.430 response // Activating extruder extruder3
+1788772853.110 response echo: Picking up tool T3
+1788772861.632 response // Selected tool 3 (tool T3)
+1788772862.641 response // [T3] Entering Z Probe Station...
+1788772866.162 response // [tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T3
+1788772909.729 response !! Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+1788772914.659 response // !! [tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+1788772914.661 response // !! [tool_calibrator] Failure occurred while T3 was active. If using toolchanger, verify physical dock state before issuing further tool changes.
+1788772914.662 response !! [tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches

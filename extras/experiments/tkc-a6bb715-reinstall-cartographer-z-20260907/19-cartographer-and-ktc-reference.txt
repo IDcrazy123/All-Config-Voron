@@ -1,0 +1,240 @@
+=== Cartographer touch mode ===
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-98-    )
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-99-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-100-    for i in range(max_samples):
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-101-        trigger_pos = probe_fn()
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-102-        collected.append(trigger_pos)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-103-        logger.debug("Touch %d: %.4f", i + 1, trigger_pos)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-104-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-105-        if len(collected) < samples:
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-106-            continue
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-107-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-108-        window = collected[-max_window:]
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-109-        best = find_best_subset(window, samples)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-110-        if best is None:
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-111-            continue
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-112-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-113-        best_range = compute_range(best)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-114-        if best_range > sample_range:
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-115-            continue
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-116-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-117-        median = float(np.median(best))
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-118-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-119-        logger.debug(
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-120-            "Acceptable samples found: (%s)\nrange %.4f (limit %.4f), min %.4f, max %.4f,\nmean %.4f, median %.4f",
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-121-            ", ".join(f"{s:.4f}" for s in best),
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-122-            best_range,
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-123-            sample_range,
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-124-            min(best),
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-125-            max(best),
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-126-            float(np.mean(best)),
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-127-            median,
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-128-        )
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-129-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-130-        return median
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-131-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-132-    msg = (
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py:133:        f"Unable to find {samples:d} samples within "
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-134-        f"{sample_range:.3f}mm in a window of {max_window:d} "
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-135-        f"after {max_samples:d} touches"
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-136-    )
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-137-    raise TouchError(msg)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-138-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-139-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-140-@dataclass(frozen=True)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-141-class TouchBoundaries:
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-142-    min_x: float
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-143-    max_x: float
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-144-    min_y: float
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-145-    max_y: float
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-146-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-147-    def is_within(self, *, x: float, y: float) -> bool:
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-148-        epsilon = 0.01
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-149-        in_x_bounds = (self.min_x - epsilon) <= x <= (self.max_x + epsilon)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-150-        in_y_bounds = (self.min_y - epsilon) <= y <= (self.max_y + epsilon)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-151-        return in_x_bounds and in_y_bounds
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-152-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-153-    @staticmethod
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-154-    def from_config(config: TouchModeConfiguration) -> TouchBoundaries:
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-155-        mesh_min_x, mesh_min_y = config.mesh_min
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-156-        mesh_max_x, mesh_max_y = config.mesh_max
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-157-        x_offset = config.x_offset
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-158-        y_offset = config.y_offset
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-159-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-160-        min_x = mesh_min_x - min(x_offset, 0)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-161-        min_y = mesh_min_y - min(y_offset, 0)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-162-        max_x = mesh_max_x - max(x_offset, 0)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-163-        max_y = mesh_max_y - max(y_offset, 0)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-164-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-165-        return TouchBoundaries(
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-166-            min_x=min_x,
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-167-            max_x=max_x,
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-168-            min_y=min_y,
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-169-            max_y=max_y,
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-170-        )
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-171-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-172-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-173-def compute_range(samples: Sequence[float]) -> float:
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-174-    """Compute the range (max - min) of samples."""
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-175-    if len(samples) < 2:
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-176-        return float("inf")
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-177-    return max(samples) - min(samples)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-178-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-179-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-180-def find_best_subset(
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-181-    samples: Sequence[float],
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-182-    size: int,
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-183-) -> Sequence[float] | None:
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-184-    """Find the subset of samples with the smallest range."""
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-185-    result = heapq.nsmallest(
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-186-        1,
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-187-        combinations(samples, size),
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-188-        key=compute_range,
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-189-    )
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-190-    return result[0] if result else None
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-191-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-192-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-193-class TouchMode(TouchModelSelectorMixin, ProbeMode, Endstop):
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-194-    """Implementation for Survey Touch."""
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-195-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-196-    @property
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-197-    @override
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-198-    def offset(self) -> Position:
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-199-        return Position(0.0, 0.0, 0.0)
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-200-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-201-    @property
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-202-    @override
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-203-    def is_ready(self) -> bool:
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-204-        return self.has_model()
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-205-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-206-    @property
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-207-    @override
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-208-    def last_homing_time(self) -> float:
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-209-        return self._last_homing_time
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-210-
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-211-    def __init__(
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-212-        self,
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/touch_mode.py-213-        mcu: Mcu,
+=== Cartographer command fields ===
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/scan_model.py:20:MAX_TOLERANCE = 1e-8
+/home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/scan_model.py:122:            if abs(value - distance) < MAX_TOLERANCE:
+grep: /home/voron/klippy-env/lib/python3.11/site-packages/cartographer/probe/__pycache__/scan_model.cpython-311.pyc: binary file matches
+=== KTC shuttle example ===
+/home/voron/klipper-toolchanger-easy/examples/z probe/cartographer_probe_on_shuttle/homing.cfg
+# Cartogrpaher probe
+[mcu scanner]
+canbus_uuid: dfc35f74b24e
+
+[scanner]
+mcu: scanner
+x_offset: 0
+y_offset: 27
+backlash_comp: 0.01238
+sensor: cartographer
+sensor_alt: carto
+mode: touch
+mesh_runs: 2
+scanner_touch_threshold = 2250
+scanner_touch_speed = 1
+scanner_touch_z_offset = 0.05
+
+[adxl345]
+cs_pin: scanner:PA3
+spi_bus: spi1
+
+[resonance_tester]
+accel_chip: adxl345
+probe_points:
+    175, 175, 20
+
+[quad_gantry_level]
+gantry_corners:
+	-70,-10
+	420,410
+points:
+	50,50
+	50,300
+	300,300
+	300,50
+speed: 200
+horizontal_move_z: 10
+max_adjust: 20
+
+[bed_mesh]
+zero_reference_position: 175, 175
+speed: 200
+horizontal_move_z: 5
+mesh_min: 10, 20
+mesh_max: 340, 330
+probe_count: 10, 10
+adaptive_margin: 5
+algorithm: bicubic
+
+[temperature_sensor Cartographer_MCU]
+sensor_type: temperature_mcu
+sensor_mcu: scanner
+min_temp: 0
+max_temp: 105
+
+[homing_override]
+axes: xyz
+gcode:
+  {% set x = 'X' in params or params|length == 1 %}
+  {% set y = 'Y' in params or params|length == 1 %}
+  {% set z = 'Z' in params or params|length == 1 %}
+
+  {% if z %}
+    G90
+    SET_KINEMATIC_POSITION Z=0
+    G0 Z5 F600
+  {% endif %}
+
+  {% if x %}
+    _SENSORLESS_HOME_X
+    G91 ; relative mode
+    G0 X-60 F5000
+  {% endif %}
+
+  {% if y %}
+    G28 Y
+    G91 ; relative mode
+    G0 Y-10 F5000
+  {% endif %}
+  G90 ; absolute mode
+
+  {% if z %}
+    G0 X175 Y175 F12000
+    G28 Z
+    G0 Z10
+  {% endif %}
+
+  INITIALIZE_TOOLCHANGER
+
+[gcode_macro CARTOGRAPHER_TOUCH_WITH_TOOL_OFFSET]
+gcode:
+  CARTOGRAPHER_TOUCH
+  _ADJUST_Z_POSITION_WITH_TOOL_OFFSET
+
+[gcode_macro _ADJUST_Z_POSITION_WITH_TOOL_OFFSET]
+gcode:
+  {% set tool_name = printer.toolchanger.tool %}
+  {% if tool_name %}
+    {% set offset = printer[tool_name].gcode_z_offset %}
+    SET_KINEMATIC_POSITION Z={printer.toolhead.position.z + offset}
+  {% endif %}
+
+[gcode_macro _SENSORLESS_HOME_X]
+variable_home_current: 0.5
+gcode:
+    # Always use consistent run_current on A/B steppers during sensorless homing
+    {% set RUN_CURRENT_X = printer.configfile.settings['tmc5160 stepper_x'].run_current|float %}
+    {% set RUN_CURRENT_Y = printer.configfile.settings['tmc5160 stepper_y'].run_current|float %}
+    SET_TMC_CURRENT STEPPER=stepper_x CURRENT={printer["gcode_macro _SENSORLESS_HOME_X"].home_current}
+
+    # Home
+    G28 X
+    # Move away
+    G91
+    G1 X-30 F1200
+    # Set current during print
+    SET_TMC_CURRENT STEPPER=stepper_x CURRENT={RUN_CURRENT_X}

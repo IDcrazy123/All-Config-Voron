@@ -1,0 +1,27 @@
+=== clean source/service/ports ===
+SOURCE_ABSENT
+USER_UNIT_ABSENT
+inactive
+=== clean links/config artifacts ===
+=== active config refs ===
+=== objects ===
+
+=== preserved backup ===
+config/live-sha256.txt
+config/moonraker.asvc
+config/moonraker.conf
+config/printer.cfg
+config/Printer-Setup/tool-calibrator.cfg
+config/Printer-Setup/.tool_calibrator_manifest.json
+config/Printer-Setup/tool_offsets.cfg
+config/tkc-inventory.txt
+post-uninstall/moonraker.conf
+post-uninstall/moonraker.conf.uninstall.bak_20260907_160437
+post-uninstall/printer.cfg
+post-uninstall/printer.cfg.uninstall.bak_20260907_160437
+post-uninstall/tool-calibrator.cfg
+post-uninstall/tool_offsets.cfg.archived_20260907_160437
+source/git-status.txt
+source/head.txt
+source/tkc-before.bundle
+systemd/tool_calibrator.service

@@ -1,0 +1,52 @@
+HEAD is now at a6bb715 fix(core): gate contactless shuttle z probes, enforce reference baseline, and harden status queries
+## main...origin/main
+[1;33m====================================================[0m
+[1;33m    Tool-Klipper-Calibration Safe Uninstaller       [0m
+[1;33m====================================================[0m
+[0;32m[+] Đã tìm thấy manifest cài đặt: /home/voron/printer_data/config/Printer-Setup/.tool_calibrator_manifest.json[0m
+
+[0;34m[1/5] Dừng và gỡ bỏ systemd service...[0m
+[0;32m[+] Dừng user-level tool_calibrator.service...[0m
+[0;32m[✔] Đã gỡ bỏ user service unit: /home/voron/.config/systemd/user/tool_calibrator.service[0m
+
+[0;34m[2/5] Gỡ bỏ liên kết Klipper extras symlinks...[0m
+[0;32m    Đã gỡ symlink tool_calibrator.py[0m
+[0;32m    Đã gỡ symlink tool_calibrator_station.py[0m
+[0;32m    Đã gỡ symlink tool_offsets.py[0m
+[0;32m    Đã gỡ symlink safe_navigator.py[0m
+[0;32m    Đã gỡ symlink config_manager.py[0m
+[0;32m    Đã gỡ symlink z_backends/__init__.py[0m
+[0;32m    Đã gỡ symlink z_backends/base_z.py[0m
+[0;32m    Đã gỡ symlink z_backends/switch_backend.py[0m
+[0;32m    Đã gỡ symlink z_backends/cartographer_backend.py[0m
+[0;32m    Đã xóa /home/voron/printer_data/config/Printer-Setup/tool_calibrator/tool_calibrator_macros.cfg[0m
+[0;32m    Đã xóa /home/voron/printer_data/config/Printer-Setup/tool_calibrator/safe_staging_macros.cfg[0m
+[0;32m[✔] Đã dọn thư mục rỗng /home/voron/printer_data/config/Printer-Setup/tool_calibrator/[0m
+
+[0;34m[3/5] Bảo vệ cấu hình Klipper (printer.cfg)...[0m
+[0;32m[✔] Đã tự động vô hiệu hóa các dòng include TKC trong printer.cfg (Sao lưu: /home/voron/printer_data/config/printer.cfg.uninstall.bak_20260907_160437)[0m
+
+[0;34m[4/5] Dọn dẹp cấu hình Moonraker (moonraker.asvc & moonraker.conf)...[0m
+[0;32m[✔] Đã xóa tool_calibrator khỏi /home/voron/printer_data/moonraker.asvc[0m
+[0;32m[✔] Đã dọn khối [update_manager tool_calibrator] trong moonraker.conf (Sao lưu: /home/voron/printer_data/config/moonraker.conf.uninstall.bak_20260907_160437).[0m
+[0;32m[✔] Đã di chuyển và lưu trữ /home/voron/printer_data/config/Printer-Setup/tool_offsets.cfg -> /home/voron/printer_data/config/Printer-Setup/tool_offsets.cfg.archived_20260907_160437[0m
+
+[0;34m[5/5] Xóa môi trường ảo Python virtualenv (env/)...[0m
+[0;32m[✔] Đã xóa thư mục env/[0m
+
+[0;34m[+] Đang khởi động lại Klipper và Moonraker để nạp trạng thái sạch...[0m
+[0;32m[✔] Klipper restart triggered via Moonraker API.[0m
+[0;32m[✔] Moonraker restart triggered via Moonraker API.[0m
+[0;36m[i] Các file sao lưu an toàn được bảo tồn:[0m
+    - /home/voron/printer_data/config/Printer-Setup/tool_offsets.cfg.archived_20260907_160437
+
+[1;33m[!] Yêu cầu gỡ bỏ toàn bộ thư mục repository (--purge-repo)...[0m
+[0;32m[✔] Đã xóa repository: /home/voron/Tool-Klipper-Calibration[0m
+
+[0;32m====================================================[0m
+[0;32m    GỠ CÀI ĐẶT THÀNH CÔNG VÀ AN TOÀN!              [0m
+[0;32m====================================================[0m
+Lưu ý cuối cùng:
+1. Các dòng include TKC trong printer.cfg đã được comment an toàn với bản sao lưu.
+2. Khối [tool_calibrator] (nếu có) có thể được comment hoặc xóa khỏi printer.cfg.
+3. Giao diện Klipper sẽ hoạt động bình thường sau khi khởi động lại.

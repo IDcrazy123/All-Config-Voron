@@ -1,0 +1,27 @@
+=== recent touch samples ===
+[cartographer] Touch 1: -0.2095
+[cartographer] Touch 2: -0.4155
+[cartographer] Touch 3: -0.3255
+[cartographer] Touch 4: -0.3975
+[cartographer] Touch 5: -0.4015
+[cartographer] Touch 6: -0.3975
+[cartographer] Touch 1: 0.1395
+[cartographer] Touch 2: 0.1395
+[cartographer] Touch 3: 0.1375
+[cartographer] Touch 1: -0.0145
+[cartographer] Touch 2: -0.3905
+[cartographer] Touch 3: -0.3145
+[cartographer] Touch 4: 0.5855
+[cartographer] Touch 5: -0.4525
+[cartographer] Touch 6: 0.1275
+[cartographer] Touch 7: 0.3735
+[cartographer] Touch 8: -0.2965
+[cartographer] Touch 9: -0.4685
+[cartographer] Touch 10: -0.0145
+=== cartographer source paths ===
+/home/voron/klipper/klippy/extras/bltouch.py
+/home/voron/klipper/klippy/extras/cartographer.py
+/home/voron/tkc-review-b6c3328/klippy/extras/z_backends/cartographer_backend.py
+/home/voron/Tool-Klipper-Calibration/klippy/extras/z_backends/cartographer_backend.py
+=== relevant symlinks ===
+/home/voron/klipper/klippy/extras/z_backends/cartographer_backend.py -> /home/voron/Tool-Klipper-Calibration/klippy/extras/z_backends/cartographer_backend.py

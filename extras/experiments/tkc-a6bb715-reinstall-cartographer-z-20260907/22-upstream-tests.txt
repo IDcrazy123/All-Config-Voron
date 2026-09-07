@@ -1,0 +1,59 @@
+[tool_calibrator] Inconsistent burst rejected: spread=201.0px (8.040mm, limit=0.080mm / 2.5px) across 4 frames with no strict majority consensus (2/4).
+[tool_calibrator] Frame rejected by quality gate: conf=70.0% (min 70.0%), radius=60.0px (bounds 10.0-55.0px)
+/usr/lib/python3.11/unittest/mock.py:2124: ResourceWarning: unclosed <socket.socket [closed] fd=3, family=2, type=1, proto=6>
+  setattr(_type, entry, MagicProxy(entry, self))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+[tool_calibrator] Inconsistent burst rejected: spread=5.0px (0.115mm, limit=0.080mm / 3.5px) across 4 frames with no strict majority consensus (2/4).
+[tool_calibrator] Frame rejected by quality gate: conf=40.0% (min 70.0%), radius=20.0px (bounds 10.0-55.0px)
+[tool_calibrator] Frame rejected by quality gate: conf=90.0% (min 70.0%), radius=8.6px (bounds 10.0-55.0px)
+[2026-09-07 16:36:10] [INFO] [tool_calibrator.affine_transform]: Solved 1st-order affine transform matrix (rank=3). Shape: (2, 3)
+[2026-09-07 16:36:10] [INFO] [tool_calibrator.affine_transform]: Updated MPP scale to: 0.012500 mm/pixel
+[2026-09-07 16:36:11] [WARNING] [tool_calibrator.server]: [tool_calibrator.server] Out-of-band calibration abort requested via API!
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.affine_transform]: Updated MPP scale to: 0.005000 mm/pixel
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://192.168.1.100:8080/?action=snapshot
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://192.168.1.100:8080/?action=snapshot
+[2026-09-07 16:36:16] [WARNING] [tool_calibrator.stream_grabber]: HTTP 503 while fetching snapshot from http://127.0.0.1:8090/snapshot
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://192.168.1.50:8080/?action=snapshot
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://192.168.1.50:8080/?action=snapshot
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://192.168.1.50:8080/?action=snapshot
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://localhost:8080/snapshot
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://localhost/webcam2/?action=snapshot
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.stream_grabber]: Received 404 from http://localhost/webcam2/?action=snapshot, trying WebRTC fallback: http://localhost/webcam2/snapshot.jpg
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.stream_grabber]: Successfully auto-switched camera endpoint to: http://localhost/webcam2/snapshot.jpg
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.config_manager]: Successfully committed all tool offsets to /tmp/tmpteypb4d4/tool_offsets.cfg in single atomic transaction
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.config_manager]: Successfully committed all tool offsets to /tmp/tmpa00xlryi/tool_offsets.cfg in single atomic transaction
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-07 16:36:16] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Fixed carriage/shuttle eddy probe does not track individual nozzle tip lengths across tool changes.
+[2026-09-07 16:36:16] [ERROR] [tool_calibrator]: [tool_calibrator] Error executing cmd_CALIBRATION_STATUS: 'NoneType' object has no attribute 'get'
+----------------------------------------------------------------------
+Ran 112 tests in 7.487s
+
+OK

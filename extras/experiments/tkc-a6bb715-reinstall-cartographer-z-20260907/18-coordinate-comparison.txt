@@ -1,0 +1,71 @@
+=== runtime tool offsets ===
+{"result":{"eventtime":2465.667876585,"status":{"tool T0":{"params_safe_y":120,"params_close_y":30,"params_fast_speed":15000,"params_path_speed":900,"params_dropoff_path":[{"y":9.5,"z":3},{"y":9.5,"z":1.5},{"y":5.5,"z":0},{"z":0,"y":0,"f":0.5},{"z":-12,"y":0},{"z":-12,"y":16}],"params_pickup_path":[{"z":-12,"y":16},{"z":-12,"y":0},{"z":0,"y":0,"f":0.5,"verify":1},{"y":5.5,"z":0},{"y":9.5,"z":1.5},{"y":9.5,"z":3}],"params_input_shaper_freq_x":0,"params_input_shaper_type_x":"mzv","params_input_shaper_damping_ratio_x":0.1,"params_input_shaper_freq_y":0,"params_input_shaper_type_y":"mzv","params_input_shaper_damping_ratio_y":0.1,"params_park_x":30.2,"params_park_y":1.3,"params_park_z":343,"params_standby_temp":150,"params_heater_standby_delay":0.1,"name":"tool T0","toolchanger":"toolchanger","tool_number":0,"extruder":"extruder","extruder_stepper":null,"fan":"T0_part_fan","active":false,"gcode_x_offset":0.0,"gcode_y_offset":0.0,"gcode_z_offset":0.0},"tool T1":{"params_safe_y":120,"params_close_y":30,"params_fast_speed":15000,"params_path_speed":900,"params_dropoff_path":[{"y":9.5,"z":3},{"y":9.5,"z":1.5},{"y":5.5,"z":0},{"z":0,"y":0,"f":0.5},{"z":-12,"y":0},{"z":-12,"y":16}],"params_pickup_path":[{"z":-12,"y":16},{"z":-12,"y":0},{"z":0,"y":0,"f":0.5,"verify":1},{"y":5.5,"z":0},{"y":9.5,"z":1.5},{"y":9.5,"z":3}],"params_input_shaper_freq_x":0,"params_input_shaper_type_x":"mzv","params_input_shaper_damping_ratio_x":0.1,"params_input_shaper_freq_y":0,"params_input_shaper_type_y":"mzv","params_input_shaper_damping_ratio_y":0.1,"params_park_x":104,"params_park_y":1.1,"params_park_z":343,"params_standby_temp":150,"params_heater_standby_delay":0.1,"name":"tool T1","toolchanger":"toolchanger","tool_number":1,"extruder":"extruder1","extruder_stepper":null,"fan":"T1_part_fan","active":false,"gcode_x_offset":-0.159,"gcode_y_offset":-0.195,"gcode_z_offset":0.236},"tool T2":{"params_safe_y":120,"params_close_y":30,"params_fast_speed":15000,"params_path_speed":900,"params_dropoff_path":[{"y":9.5,"z":3},{"y":9.5,"z":1.5},{"y":5.5,"z":0},{"z":0,"y":0,"f":0.5},{"z":-12,"y":0},{"z":-12,"y":16}],"params_pickup_path":[{"z":-12,"y":16},{"z":-12,"y":0},{"z":0,"y":0,"f":0.5,"verify":1},{"y":5.5,"z":0},{"y":9.5,"z":1.5},{"y":9.5,"z":3}],"params_input_shaper_freq_x":0,"params_input_shaper_type_x":"mzv","params_input_shaper_damping_ratio_x":0.1,"params_input_shaper_freq_y":0,"params_input_shaper_type_y":"mzv","params_input_shaper_damping_ratio_y":0.1,"params_park_x":176,"params_park_y":1.6,"params_park_z":343,"params_standby_temp":150,"params_heater_standby_delay":0.1,"name":"tool T2","toolchanger":"toolchanger","tool_number":2,"extruder":"extruder2","extruder_stepper":null,"fan":"T2_part_fan","active":false,"gcode_x_offset":0.82,"gcode_y_offset":0.24,"gcode_z_offset":-0.316},"tool T3":{"params_safe_y":120,"params_close_y":30,"params_fast_speed":15000,"params_path_speed":900,"params_dropoff_path":[{"y":9.5,"z":3},{"y":9.5,"z":1.5},{"y":5.5,"z":0},{"z":0,"y":0,"f":0.5},{"z":-12,"y":0},{"z":-12,"y":16}],"params_pickup_path":[{"z":-12,"y":16},{"z":-12,"y":0},{"z":0,"y":0,"f":0.5,"verify":1},{"y":5.5,"z":0},{"y":9.5,"z":1.5},{"y":9.5,"z":3}],"params_input_shaper_freq_x":0,"params_input_shaper_type_x":"mzv","params_input_shaper_damping_ratio_x":0.1,"params_input_shaper_freq_y":0,"params_input_shaper_type_y":"mzv","params_input_shaper_damping_ratio_y":0.1,"params_park_x":249.5,"params_park_y":2.5,"params_park_z":343,"params_standby_temp":150,"params_heater_standby_delay":0.1,"name":"tool T3","toolchanger":"toolchanger","tool_number":3,"extruder":"extruder3","extruder_stepper":null,"fan":"T3_part_fan","active":false,"gcode_x_offset":0.326,"gcode_y_offset":0.524,"gcode_z_offset":-0.1896},"tool T4":{"params_safe_y":120,"params_close_y":30,"params_fast_speed":15000,"params_path_speed":900,"params_dropoff_path":[{"y":9.5,"z":3},{"y":9.5,"z":1.5},{"y":5.5,"z":0},{"z":0,"y":0,"f":0.5},{"z":-12,"y":0},{"z":-12,"y":16}],"params_pickup_path":[{"z":-12,"y":16},{"z":-12,"y":0},{"z":0,"y":0,"f":0.5,"verify":1},{"y":5.5,"z":0},{"y":9.5,"z":1.5},{"y":9.5,"z":3}],"params_input_shaper_freq_x":0,"params_input_shaper_type_x":"mzv","params_input_shaper_damping_ratio_x":0.1,"params_input_shaper_freq_y":0,"params_input_shaper_type_y":"mzv","params_input_shaper_damping_ratio_y":0.1,"params_park_x":321.5,"params_park_y":2.6,"params_park_z":343,"params_standby_temp":150,"params_heater_standby_delay":0.1,"name":"tool T4","toolchanger":"toolchanger","tool_number":4,"extruder":"extruder4","extruder_stepper":null,"fan":"T4_part_fan","active":false,"gcode_x_offset":0.168,"gcode_y_offset":0.268,"gcode_z_offset":0.12}}}}
+=== configured offsets ===
+/home/voron/printer_data/config/toolchanger/tools/T0.cfg:94:gcode_x_offset: 0
+/home/voron/printer_data/config/toolchanger/tools/T0.cfg:95:gcode_y_offset: 0
+/home/voron/printer_data/config/toolchanger/tools/T0.cfg:96:# gcode_z_offset is managed via printer.cfg SAVE_CONFIG; legacy CALIBRATE_ALL_OFFSETS is disabled.
+=== TKC coordinate compensation source ===
+                return reference_origin_xy
+        finally:
+            self._set_inspection_lighting(False, tool_no)
+
+    def _execute_z_calibration(self, tool_no: int, toolhead, gcode_move, gcmd, reference_z_result: Dict[str, Any], tool_offsets: Dict[str, float]) -> Dict[str, Any]:
+        """Executes Z probing alignment for a single tool with XY offset compensation."""
+        meas_ref = getattr(self.z_backend, "measurement_reference", "nozzle")
+        allow_shuttle = self.allow_shuttle_z or (getattr(gcmd, "get_int", None) and gcmd.get_int("ALLOW_SHUTTLE_Z", 0) == 1)
+        if meas_ref != "nozzle" and not allow_shuttle:
+            raise gcmd.error(
+                f"[ERR_Z_003] The active Z backend '{self.z_backend_type}' has measurement_reference='{meas_ref}'. "
+                "A shuttle-mounted probe cannot observe individual nozzle tip lengths across tool changes. "
+                "Per-tool Z calibration is rejected to prevent applying invalid Z offsets. "
+                "Use a nozzle-contact switch backend (e.g. PF2 switch/Axiscope) or pass ALLOW_SHUTTLE_Z=1 if experimenting."
+            )
+
+        gcmd.respond_info(f"[T{tool_no}] Entering Z Probe Station...")
+
+        # Derive XY compensation for secondary tool so nozzle hits exact center
+        offset_x = tool_offsets.get("x", 0.0)
+        offset_y = tool_offsets.get("y", 0.0)
+        if tool_no != self.reference_tool and offset_x == 0.0 and offset_y == 0.0:
+            if tool_no in self.cached_offsets:
+                offset_x = self.cached_offsets[tool_no].get("x", 0.0)
+                offset_y = self.cached_offsets[tool_no].get("y", 0.0)
+            else:
+                to_obj = self.printer.lookup_object("tool_offsets", None)
+                if to_obj is not None and hasattr(to_obj, "parse_tool_offsets"):
+                    saved_tools = to_obj.parse_tool_offsets()
+                    if tool_no in saved_tools:
+                        offset_x = saved_tools[tool_no].get("x", 0.0)
+                        offset_y = saved_tools[tool_no].get("y", 0.0)
+
+        offset_xy = (offset_x, offset_y) if (tool_no != self.reference_tool and (offset_x != 0.0 or offset_y != 0.0)) else None
+        if offset_xy is not None:
+            gcmd.respond_info(f"[T{tool_no}] Compensating Z-probe position with XY offsets: X{offset_x:+.3f}mm Y{offset_y:+.3f}mm")
+
+        if self.z_backend_type == "switch":
+            self.navigator.approach_switch(toolhead, gcode_move, offset_xy=offset_xy)
+        else:
+            self.navigator.move_to_safe_z(toolhead, gcode_move)
+            probe_x, probe_y = self.z_backend.get_probe_xy()
+            if offset_xy is not None:
+                probe_x += offset_x
+                probe_y += offset_y
+            self.navigator.validate_coordinate_safety(x=probe_x, y=probe_y)
+            toolhead.manual_move([probe_x, probe_y, None], self.navigator.travel_speed)
+
+        if tool_no == self.reference_tool:
+            ref_z = self.z_backend.probe_reference_tool(tool_no, gcmd)
+            gcmd.respond_info(f"[T{tool_no}] Reference Z baseline established ({ref_z.get('source')})")
+            tool_offsets["z"] = 0.0
+            self.cached_reference_z_result = ref_z
+            self.navigator.depart_station(toolhead, gcode_move)
+            return ref_z
+        else:
+=== measured XY from gcode store ===
+1788772409.004 Touch home at (174.000, 168.000) adjusted z by 0.398 mm
+1788772458.795 Result: at 174.000,163.000 estimate contact at z=0.139500
+1788772460.306 // [T1] Calculated Z Offset: Z+0.140mm
+1788772840.892 Touch home at (173.998, 167.999) adjusted z by 0.454 mm
+1788773020.116 Touch home at (174.001, 167.999) adjusted z by 0.443 mm
+1788773078.134 Result: at 174.001,162.999 estimate contact at z=0.096586
+1788773079.548 // [T4] Calculated Z Offset: Z+0.097mm

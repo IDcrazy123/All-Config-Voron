@@ -1,0 +1,88 @@
+start_epoch=1788772982
+command=CALIBRATE_TOOL_OFFSETS TOOLS=0,4 CALIBRATE_XY=0 CALIBRATE_Z=1 ALLOW_SHUTTLE_Z=1 SAVE_CONFIG=0 DRY_RUN=0 CLEAN_NOZZLE=0
+16:23:02 web=ready cal=RUNNING phase=INITIALIZING tool=0 detected=0 physical=0 done=[] elapsed=-1788770800.1 z=40.0
+16:23:05 web=ready cal=RUNNING phase=INITIALIZING tool=0 detected=0 physical=0 done=[] elapsed=-1788770797.6 z=40.0
+16:23:07 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770795.1 z=40.0
+16:23:10 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770792.6 z=40.0
+16:23:12 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770790.1 z=-5.0
+16:23:15 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770787.5 z=-5.0
+16:23:17 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770785.0 z=-5.0
+16:23:20 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770782.5 z=-5.0
+16:23:22 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770780.0 z=-5.0
+16:23:25 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770777.5 z=-5.0
+16:23:27 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770775.0 z=-5.0
+16:23:30 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770772.5 z=-5.0
+16:23:32 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770770.0 z=-5.0
+16:23:35 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770767.5 z=-5.0
+16:23:37 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770765.0 z=2.0
+16:23:40 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770762.5 z=2.442586083230771
+16:23:42 web=ready cal=RUNNING phase=PROBING_Z tool=0 detected=0 physical=0 done=[] elapsed=-1788770760.0 z=40.0
+16:23:45 web=ready cal=RUNNING phase=CHANGING_TOOL tool=0 detected=0 physical=0 done=[0] elapsed=-1788770757.5 z=100.77392639486183
+16:23:47 web=ready cal=RUNNING phase=CHANGING_TOOL tool=0 detected=0 physical=0 done=[0] elapsed=-1788770755.0 z=309.83612591191275
+16:23:50 web=ready cal=RUNNING phase=CHANGING_TOOL tool=0 detected=0 physical=0 done=[0] elapsed=-1788770752.4 z=331.0
+16:23:52 web=ready cal=RUNNING phase=CHANGING_TOOL tool=4 detected=-1 physical=0 done=[0] elapsed=-1788770749.9 z=330.99999999999994
+16:23:55 web=ready cal=RUNNING phase=CHANGING_TOOL tool=4 detected=-1 physical=0 done=[0] elapsed=-1788770747.4 z=343.0
+16:23:57 web=ready cal=RUNNING phase=CHANGING_TOOL tool=4 detected=4 physical=0 done=[0] elapsed=-1788770744.9 z=40.12
+16:24:00 web=ready cal=RUNNING phase=CHANGING_TOOL tool=4 detected=4 physical=0 done=[0] elapsed=-1788770742.4 z=40.12
+16:24:02 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770739.9 z=40.12
+16:24:05 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770737.4 z=40.12
+16:24:07 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770734.9 z=40.12
+16:24:10 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770732.4 z=-5.0
+16:24:12 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770729.9 z=-5.0
+16:24:15 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770727.4 z=-5.0
+16:24:17 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770724.9 z=-5.0
+16:24:20 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770722.4 z=-5.0
+16:24:22 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770719.9 z=-5.0
+16:24:25 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770717.4 z=-5.0
+16:24:27 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770714.9 z=-5.0
+16:24:30 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770712.4 z=-5.0
+16:24:32 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770709.9 z=-5.0
+16:24:35 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770707.3 z=-5.0
+16:24:37 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770704.8 z=-5.0
+16:24:40 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770702.3 z=40.0
+16:24:42 web=ready cal=RUNNING phase=PROBING_Z tool=4 detected=4 physical=4 done=[0] elapsed=-1788770699.8 z=40.0
+16:24:45 web=ready cal=RUNNING phase=RESTORING_REFERENCE tool=4 detected=4 physical=4 done=[0, 4] elapsed=-1788770697.3 z=309.83612591191275
+16:24:47 web=ready cal=RUNNING phase=RESTORING_REFERENCE tool=4 detected=4 physical=4 done=[0, 4] elapsed=-1788770694.8 z=331.0
+16:24:50 web=ready cal=RUNNING phase=RESTORING_REFERENCE tool=0 detected=-1 physical=4 done=[0, 4] elapsed=-1788770692.3 z=331.0
+16:24:52 web=ready cal=RUNNING phase=RESTORING_REFERENCE tool=0 detected=-1 physical=4 done=[0, 4] elapsed=-1788770689.8 z=343.0
+16:24:55 web=ready cal=RUNNING phase=RESTORING_REFERENCE tool=0 detected=0 physical=4 done=[0, 4] elapsed=-1788770687.3 z=320.0213336088662
+16:24:58 web=ready cal=RUNNING phase=RESTORING_REFERENCE tool=0 detected=0 physical=4 done=[0, 4] elapsed=-1788770684.8 z=39.88
+16:25:00 web=ready cal=RUNNING phase=RESTORING_REFERENCE tool=0 detected=0 physical=4 done=[0, 4] elapsed=-1788770682.3 z=39.88
+16:25:03 web=ready cal=SUCCESS phase=COMPLETED tool=0 detected=0 physical=0 done=[0, 4] elapsed=None z=40.0
+submit_rc=0
+{"result":"ok"}
+=== final ===
+{"result":{"eventtime":2303.276281386,"status":{"webhooks":{"state":"ready","state_message":"Printer is ready"},"print_stats":{"filename":"","total_duration":0.0,"print_duration":0.0,"filament_used":0.0,"state":"standby","message":"","info":{"total_layer":null,"current_layer":null}},"toolhead":{"homed_axes":"xyz","axis_minimum":[0.0,-10.0,-5.0,0],"axis_maximum":[348.0,336.0,347.0,0],"print_time":831.1646578153845,"stalls":3,"estimated_print_time":833.7167047846153,"extruder":"extruder","position":[30.2,120.0,40.0,0.0],"max_velocity":350.0,"max_accel":7000.0,"minimum_cruise_ratio":0.5,"square_corner_velocity":5.0,"extra_axes":{"extruder":3}},"toolchanger":{"params_safe_y":120,"params_close_y":30,"params_fast_speed":15000,"params_path_speed":900,"params_dropoff_path":[{"y":9.5,"z":3},{"y":9.5,"z":1.5},{"y":5.5,"z":0},{"z":0,"y":0,"f":0.5},{"z":-12,"y":0},{"z":-12,"y":16}],"params_pickup_path":[{"z":-12,"y":16},{"z":-12,"y":0},{"z":0,"y":0,"f":0.5,"verify":1},{"y":5.5,"z":0},{"y":9.5,"z":1.5},{"y":9.5,"z":3}],"params_input_shaper_freq_x":0,"params_input_shaper_type_x":"mzv","params_input_shaper_damping_ratio_x":0.1,"params_input_shaper_freq_y":0,"params_input_shaper_type_y":"mzv","params_input_shaper_damping_ratio_y":0.1,"name":"toolchanger","status":"ready","tool":"tool T0","tool_number":0,"detected_tool":"tool T0","detected_tool_number":0,"tool_numbers":[0,1,2,3,4],"tool_names":["tool T0","tool T1","tool T2","tool T3","tool T4"],"has_detection":true},"tool_calibrator":{"status":"SUCCESS","phase":"COMPLETED","last_run_status":"SUCCESS","run_id":"run_1788772982","calibrating_tool":null,"physical_tool":0,"active_tool":0,"run_valid":true,"run_record":{"run_id":"run_1788772982","state":"SUCCESS","phase":"COMPLETED","calibrating_tool":null,"physical_tool":0,"active_tool":0,"start_time":1788772982.5482028,"end_time":1788773100.8883345,"duration_sec":118.34,"error":null,"completed_tools":[0,4],"offsets":{"0":{"z":0.0},"4":{"z":0.097}},"valid":true,"last_confirmed_tool":4},"reference_tool":0,"z_backend":"cartographer","safe_z":40.0,"cached_offsets":{"0":{"z":0.0},"4":{"z":0.097}}},"cartographer":{"scan":{"current_model":"default","models":"default","last_z_result":481.942586},"touch":{"current_model":"default","models":"default","last_z_result":0.096586},"mcu":{"last_sample":{"frequency":3213854.044675827,"time":833.3489919159528,"position":{"x":30.20099999998515,"y":119.99899999998485,"z":40.00058608322761},"temperature":21.970621803577217,"raw_count":35946349},"constants":{"sensor_frequency":24000000.0,"inverse_adc_max":0.0002442002442002442,"adc_smooth_count":16,"minimum_adc_count":55927,"minimum_count":32917500}}},"extruder":{"temperature":30.75,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"extruder1":{"temperature":33.71,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"extruder2":{"temperature":31.15,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"extruder3":{"temperature":30.81,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"extruder4":{"temperature":31.03,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"heater_bed":{"temperature":30.04,"target":0.0,"power":0.0}}}}
+=== gcode since start ===
+1788772982.547 command CALIBRATE_TOOL_OFFSETS TOOLS=0,4 CALIBRATE_XY=0 CALIBRATE_Z=1 ALLOW_SHUTTLE_Z=1 SAVE_CONFIG=0 DRY_RUN=0 CLEAN_NOZZLE=0
+1788772982.551 response // [tool_calibrator] Starting Calibration Sequence across tools: [0, 4] (Order: XY_FIRST, Dry Run: False)
+1788772985.875 response // --- Calibrating Toolhead T0 ---
+1788772985.875 response // Tool tool T0 already selected
+1788772985.875 response // [T0] Entering Z Probe Station...
+1788772991.214 response // [tool_calibrator] Running CARTOGRAPHER_TOUCH_HOME on Reference Tool T0
+1788773020.116 response Touch home at (174.001, 167.999) adjusted z by 0.443 mm
+
+1788773021.225 response // [T0] Reference Z baseline established (cartographer_touch_reference)
+1788773024.749 response // --- Calibrating Toolhead T4 ---
+1788773024.764 response echo: Dropping off tool T0
+1788773028.460 response // tool_crash: disabled
+1788773030.654 response // Activating extruder extruder4
+1788773032.335 response echo: Picking up tool T4
+1788773041.175 response // Selected tool 4 (tool T4)
+1788773042.181 response // [T4] Entering Z Probe Station...
+1788773047.616 response // [tool_calibrator] Running CARTOGRAPHER_TOUCH_PROBE on Tool T4
+1788773078.134 response Result: at 174.001,162.999 estimate contact at z=0.096586
+
+1788773079.548 response // [T4] Calculated Z Offset: Z+0.097mm
+1788773083.187 response echo: Dropping off tool T4
+1788773086.859 response // tool_crash: disabled
+1788773089.048 response // Activating extruder extruder
+1788773090.728 response echo: Picking up tool T0
+1788773099.576 response // Selected tool 0 (tool T0)
+1788773100.886 response // [tool_calibrator] Note: SAVE_CONFIG=0 or DRY_RUN=1 requested. Offsets retained in memory only.
+1788773100.887 response // ================ CALIBRATION SUMMARY ================
+1788773100.889 response // Tool T0: Z=+0.000mm
+1788773100.889 response // Tool T4: Z=+0.097mm
+1788773100.890 response // ✔ ================= CALIBRATION COMPLETE =================
+1788773100.890 response // All configured tools calibrated safely and successfully.
+1788773100.890 response // =====================================================

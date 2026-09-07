@@ -1,0 +1,3 @@
+remote_helper=absent
+klipper=ready
+toolchanger=ready 0 0

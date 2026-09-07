@@ -1,0 +1,152 @@
+=== recent Cartographer touch groups ===
+[cartographer] Touch 1: -0.2095
+[cartographer] Touch 2: -0.4155
+[cartographer] Touch 3: -0.3255
+[cartographer] Touch 4: -0.3975
+[cartographer] Touch 5: -0.4015
+[cartographer] Touch 6: -0.3975
+[cartographer] Touch 1: 0.1395
+[cartographer] Touch 2: 0.1395
+[cartographer] Touch 3: 0.1375
+[cartographer] Touch 1: -0.0145
+[cartographer] Touch 2: -0.3905
+[cartographer] Touch 3: -0.3145
+[cartographer] Touch 4: 0.5855
+[cartographer] Touch 5: -0.4525
+[cartographer] Touch 6: 0.1275
+[cartographer] Touch 7: 0.3735
+[cartographer] Touch 8: -0.2965
+[cartographer] Touch 9: -0.4685
+[cartographer] Touch 10: -0.0145
+[cartographer] Touch 1: -0.3625
+[cartographer] Touch 2: -0.4645
+[cartographer] Touch 3: 0.0495
+[cartographer] Touch 4: -0.1085
+[cartographer] Touch 5: 0.2395
+[cartographer] Touch 6: 0.0535
+[cartographer] Touch 7: -0.4625
+[cartographer] Touch 8: -0.4585
+[cartographer] Touch 9: -0.2605
+[cartographer] Touch 10: -0.4465
+[cartographer] Touch 1: -0.4540
+[cartographer] Touch 2: -0.4520
+[cartographer] Touch 3: -0.4580
+[cartographer] Touch 1: -0.1140
+[cartographer] Touch 2: -0.1640
+[cartographer] Touch 3: 0.1600
+[cartographer] Touch 4: -0.1680
+[cartographer] Touch 5: 0.0040
+[cartographer] Touch 6: -0.1760
+[cartographer] Touch 7: -0.1900
+[cartographer] Touch 8: -0.1900
+[cartographer] Touch 9: -0.0260
+[cartographer] Touch 10: 0.5200
+[cartographer] Touch 1: -0.4406
+[cartographer] Touch 2: -0.4466
+[cartographer] Touch 3: -0.4426
+[cartographer] Touch 1: 0.0886
+[cartographer] Touch 2: 0.0966
+[cartographer] Touch 3: 0.2866
+[cartographer] Touch 4: 0.1406
+[cartographer] Touch 5: 0.0966
+=== implementation path ===
+-rw-r--r-- 1 voron voron 33 May 29 18:07 /home/voron/klipper/klippy/extras/cartographer.py
+from cartographer.extra import *
+=== failure source ===
+=== TKC failure path ===
+            for t_num, offs in results.items():
+                parts = [f"{k.upper()}={v:+.3f}mm" for k, v in offs.items()]
+                gcmd.respond_info(f"Tool T{t_num}: {'  '.join(parts) if parts else 'No new offsets measured'}")
+
+            gcmd.respond_info("\n✔ ================= CALIBRATION COMPLETE =================\n")
+            gcmd.respond_info("  All configured tools calibrated safely and successfully.")
+            gcmd.respond_info("=====================================================")
+
+            self.cached_offsets = results
+            self.run_record["state"] = "SUCCESS"
+            self.run_record["phase"] = "COMPLETED"
+            self.run_record["valid"] = True
+            self.last_run_status = "SUCCESS"
+
+        except Exception as ex:
+            is_cancel = self.cancel_requested or "aborted" in str(ex).lower() or "cancel" in str(ex).lower()
+            term_state = "CANCELLED" if is_cancel else "FAILED"
+            self.run_record["state"] = term_state
+            self.run_record["phase"] = term_state
+            self.run_record["valid"] = False
+            self.run_record["error"] = str(ex)
+            self.last_run_status = f"{term_state}: {ex}"
+            self.navigator.depart_station(toolhead, gcode_move)
+            gcmd.respond_info(f"!! [tool_calibrator] Calibration {term_state.capitalize()}: {ex}")
+            active_t = self.run_record.get("physical_tool") or self.run_record.get("calibrating_tool")
+            if active_t is not None:
+                gcmd.respond_info(f"!! [tool_calibrator] Failure occurred while T{active_t} was active. If using toolchanger, verify physical dock state before issuing further tool changes.")
+            raise gcmd.error(f"[tool_calibrator] Calibration {term_state.capitalize()}: {ex}")
+        finally:
+            self.run_record["end_time"] = _sys_time.time()
+            if self.run_record.get("start_time"):
+                self.run_record["duration_sec"] = round(self.run_record["end_time"] - self.run_record["start_time"], 2)
+
+            if session_token:
+                try:
+                    self._query_vision("release_lock", {"session_id": session_token, "session_token": session_token}, timeout=2.0)
+                except Exception:
+                    pass
+                self.session_token = None
+
+    def cmd_AUTO_TEACH_CAMERA(self, gcmd) -> None:
+        """1-Click: Visual auto-centering, automatic approach vector calculation, and instant save to config."""
+        gcmd.respond_info("=== Auto-Teaching Camera Station ===")
+        self.cmd_CALIBRATION_TEACH_STATION(gcmd, default_station="CAMERA")
+
+    def cmd_AUTO_TEACH_SWITCH(self, gcmd) -> None:
+        """1-Click: Probes contact height, calculates approach vector towards bed center, and saves to config."""
+        gcmd.respond_info("=== Auto-Teaching Z Switch Station ===")
+        self.cmd_CALIBRATION_TEACH_STATION(gcmd, default_station="SWITCH")
+
+    def cmd_CALIBRATION_TEACH_STATION(self, gcmd, default_station: Optional[str] = None) -> None:
+        """
+        1-Click Interactive Teaching & Auto-Persistence Command.
+        Automatically centers (via visual servoing) or probes contact height,
+        computes safe approach vector towards bed center, and saves directly to tool_offsets.cfg!
+
+        Usage:
+            CALIBRATION_TEACH_STATION STATION=CAMERA [AUTO_CENTER=1] [APPROACH_DIST=25]
+            CALIBRATION_TEACH_STATION STATION=SWITCH [AUTO_TOUCH=1] [APPROACH_DIST=20]
+        """
+        station = gcmd.get("STATION", default_station or "").upper()
+=== status clock path ===
+        active_t = self._get_active_tool_no()
+        self.run_record = {
+            "run_id": run_id,
+            "state": "RUNNING",
+            "phase": "INITIALIZING",
+            "calibrating_tool": None,
+            "physical_tool": active_t,
+            "active_tool": active_t,
+            "start_time": _sys_time.time(),
+            "end_time": None,
+            "duration_sec": 0.0,
+            "error": None,
+            "completed_tools": [],
+            "offsets": {},
+            "valid": False
+        }
+            logger.error(f"[tool_calibrator] Error executing cmd_CALIBRATION_STATUS: {ex}")
+            gcmd.respond_info(f"[tool_calibrator] Status query exception: {ex}")
+
+    def get_status(self, eventtime=None) -> Dict[str, Any]:
+        """Provides state dictionaries to Mainsail and Fluidd frontend templates."""
+        try:
+            rec = dict(self.run_record) if isinstance(self.run_record, dict) else {}
+            if rec.get("state") == "RUNNING" and rec.get("start_time"):
+                now = eventtime if (eventtime is not None and isinstance(eventtime, (int, float))) else time.time()
+                try:
+                    rec["elapsed_sec"] = round(now - float(rec["start_time"]), 1)
+                except Exception:
+                    rec["elapsed_sec"] = 0.0
+
+            safe_z_val = getattr(getattr(self, "navigator", None), "safe_z", 0.0)
+            return {
+                "status": rec.get("state", "IDLE"),
+                "phase": rec.get("phase", "IDLE"),

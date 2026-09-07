@@ -1,0 +1,28 @@
+=== git ===
+ce4ca3030e7d3c8d11c3aa1b54daf9242d997624
+a6bb71564a982b867fb7c1a310a6b4eef764cfd6
+## main...origin/main [behind 1]
+=== services ===
+active
+enabled
+LISTEN 0      1024                       0.0.0.0:8086       0.0.0.0:*    users:(("python",pid=714,fd=7))
+LISTEN 0      1024                     127.0.0.1:8090       0.0.0.0:*    users:(("python3",pid=715,fd=6))
+=== includes/config ===
+19:[include Printer-Setup/tool_calibrator/tool_calibrator_macros.cfg]
+20:[include Printer-Setup/tool_calibrator/safe_staging_macros.cfg]
+21:[include Printer-Setup/tool-calibrator.cfg]
+22:[include Printer-Setup/tool_offsets.cfg]
+10:safe_z: 40
+22:z_backend: cartographer
+23:touch_home_gcode: _TKC_Z_DISABLED
+24:touch_probe_gcode: _TKC_Z_DISABLED
+=== checksums ===
+959dfa72d4e981fd8691e092e44d8bf3cc55ce3097c50752aa672e14d9aaede4  /home/voron/printer_data/config/printer.cfg
+f469369582b5d4a04a8ea837bd0d5621fab7e3399cf155b569b2f7b2fdc47998  /home/voron/printer_data/config/moonraker.conf
+158d91d7aaa314cb68bcc6ef7443a11a177fe3c098b38f37d56128549253c073  /home/voron/printer_data/config/Printer-Setup/tool-calibrator.cfg
+9952738361e3150d0742248fb888089cec4b171a9a1f96dfe753666b3ea29a49  /home/voron/printer_data/config/Printer-Setup/tool_offsets.cfg
+=== health ===
+{"abort_requested":false,"calibrated_mpp":0.023,"camera_ready":true,"camera_url":"http://127.0.0.1:8080/snapshot.jpg","commit":"ce4ca30","dependencies":{"flask":"3.0.3","numpy":"1.26.4","opencv":"4.10.0","requests":"2.32.3","urllib3":"2.2.2","waitress":"unknown"},"has_matrix":true,"matrix_ready":true,"matrix_solved":true,"process_ready":true,"scale_ready":true,"service":"tool_calibrator_server","session_locked":false,"status":"ok","version":"v0.8.19"}
+
+=== printer objects ===
+{"result":{"eventtime":1028.773278257,"status":{"webhooks":{"state":"ready","state_message":"Printer is ready"},"print_stats":{"filename":"","total_duration":0.0,"print_duration":0.0,"filament_used":0.0,"state":"standby","message":"","info":{"total_layer":null,"current_layer":null}},"toolhead":{"homed_axes":"xyz","axis_minimum":[0.0,-10.0,-5.0,0],"axis_maximum":[348.0,336.0,347.0,0],"print_time":1037.1095958182373,"stalls":0,"estimated_print_time":1040.1359786576922,"extruder":"extruder","position":[177.3,166.8,10.0,0.0],"max_velocity":350.0,"max_accel":7000.0,"minimum_cruise_ratio":0.5,"square_corner_velocity":5.0,"extra_axes":{"extruder":3}},"toolchanger":{"params_safe_y":120,"params_close_y":30,"params_fast_speed":15000,"params_path_speed":900,"params_dropoff_path":[{"y":9.5,"z":3},{"y":9.5,"z":1.5},{"y":5.5,"z":0},{"z":0,"y":0,"f":0.5},{"z":-12,"y":0},{"z":-12,"y":16}],"params_pickup_path":[{"z":-12,"y":16},{"z":-12,"y":0},{"z":0,"y":0,"f":0.5,"verify":1},{"y":5.5,"z":0},{"y":9.5,"z":1.5},{"y":9.5,"z":3}],"params_input_shaper_freq_x":0,"params_input_shaper_type_x":"mzv","params_input_shaper_damping_ratio_x":0.1,"params_input_shaper_freq_y":0,"params_input_shaper_type_y":"mzv","params_input_shaper_damping_ratio_y":0.1,"name":"toolchanger","status":"ready","tool":"tool T0","tool_number":0,"detected_tool":"tool T0","detected_tool_number":0,"tool_numbers":[0,1,2,3,4],"tool_names":["tool T0","tool T1","tool T2","tool T3","tool T4"],"has_detection":true},"extruder":{"temperature":30.02,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"extruder1":{"temperature":32.93,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"extruder2":{"temperature":30.28,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"extruder3":{"temperature":30.1,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"extruder4":{"temperature":30.26,"target":0.0,"power":0.0,"can_extrude":false,"pressure_advance":0.0,"smooth_time":0.04,"motion_queue":null},"heater_bed":{"temperature":28.91,"target":0.0,"power":0.0}}}}

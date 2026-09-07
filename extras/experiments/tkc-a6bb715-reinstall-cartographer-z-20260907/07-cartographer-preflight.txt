@@ -1,0 +1,105 @@
+=== Cartographer config ===
+1:# CALIBRATION-PROBE.CFG - Cartographer bed probing and tool-offset workflow
+2:#
+3:# Cartographer is fixed to the shuttle and remains the production Z-home/mesh
+4:# probe. kTAMV provides supervised camera-based XY comparison only and does not
+5:# allocate probe_multi_axis. PF2 Axiscope and tools_calibrate stay disabled;
+6:# there is no active tool-offset Z backend.
+8:#####################################################################
+9:# Cartographer V3 - measured production geometry
+10:#####################################################################
+12:[cartographer]
+13:mcu: cartographer
+18:#####################################################################
+19:# Bed mesh - coordinates are probe coordinates, not nozzle coordinates
+20:#####################################################################
+22:[bed_mesh]
+23:zero_reference_position: 174, 168
+32:#####################################################################
+33:# Cartographer onboard ADXL345 and saved axis-twist model
+34:#####################################################################
+36:[adxl345]
+37:cs_pin: cartographer:PA3
+40:[axis_twist_compensation]
+41:# Klipper stores measured z_compensations in printer.cfg SAVE_CONFIG.
+43:#####################################################################
+44:# Calibration backend status and read-only offset report
+45:#####################################################################
+47:[gcode_macro CALIBRATION_STATUS]
+58:[gcode_macro CHECK_OFFSETS]
+63:[gcode_macro _CHECK_OFFSETS]
+72:# KTC readonly files expose the legacy SexBolt commands even though
+73:# [tools_calibrate] is disabled. Override them with explicit errors so a stale
+74:# dashboard button cannot access the missing probe_multi_axis owner.
+75:[gcode_macro CALIBRATE_MOVE_OVER_PROBE]
+80:[gcode_macro CALIBRATE_ALL_OFFSETS]
+85:[gcode_macro CALIBRATE_NOZZLE_PROBE_OFFSET]
+90:[gcode_macro _SEXBALL_CALIBRATION_GUIDE]
+97:#####################################################################
+98:# Axiscope - disabled while kTAMV is the active XY comparison backend
+99:#####################################################################
+101:#[axiscope]
+102:#pin: ^PF2
+103:#zswitch_x_pos: 68.0       # T0 nozzle centered over the physical switch.
+104:#zswitch_y_pos: -10.0
+105:#zswitch_z_pos: 7.0        # Measured contact/reference Z.
+106:#lift_z: 2.0
+107:#move_speed: 100
+108:#z_move_speed: 5
+109:#samples: 10
+110:## Do not set config_file_path: tool sections live in separate T0-T4 files.
+111:## Axiscope therefore reports measured deltas without rewriting split configs.
+112:#start_gcode:
+113:#  M117 Axiscope Z calibration
+114:#  {% for tool in printer.toolchanger.tool_numbers %}
+115:#    M104 T{tool} S150
+116:#  {% endfor %}
+117:#finish_gcode:
+118:#  {% for tool in printer.toolchanger.tool_numbers %}
+119:#    M104 T{tool} S0
+120:#  {% endfor %}
+121:#  T0
+122:#  M117 Axiscope calibration complete
+=== registered touch commands ===
+CARTOGRAPHER_AXIS_TWIST_COMPENSATION: Scan and touch to calculate axis twist compensation values.
+CARTOGRAPHER_CALIBRATE: Macro CARTOGRAPHER_CALIBRATE has been replaced by CARTOGRAPHER_SCAN_CALIBRATE.
+CARTOGRAPHER_ESTIMATE_BACKLASH: Do a series of moves to estimate backlash on the Z axis.
+CARTOGRAPHER_QUERY: Query current cartographer state
+CARTOGRAPHER_SCAN_ACCURACY: Collect samples from the probe and calculate statistics on the results.
+CARTOGRAPHER_SCAN_CALIBRATE: Run the scan calibration
+CARTOGRAPHER_SCAN_MODEL: Manage saved scan models
+CARTOGRAPHER_SCAN_PROBE: Probe the bed to get the height offset at the current position.
+CARTOGRAPHER_STREAM: Controls a data stream of the cartographer readings to a file.
+CARTOGRAPHER_TEMPERATURE_CALIBRATE: Calibrate temperature compensation for frequency drift
+CARTOGRAPHER_THRESHOLD_SCAN: Macro CARTOGRAPHER_THRESHOLD_SCAN has been replaced by CARTOGRAPHER_TOUCH_CALIBRATE.
+CARTOGRAPHER_TOUCH: Macro CARTOGRAPHER_TOUCH has been replaced by CARTOGRAPHER_TOUCH_HOME.
+CARTOGRAPHER_TOUCH_ACCURACY: Touch the bed multiple times to measure the accuracy of the probe.
+CARTOGRAPHER_TOUCH_CALIBRATE: Run the touch calibration
+CARTOGRAPHER_TOUCH_HOME: Touch the bed to home Z axis
+CARTOGRAPHER_TOUCH_MODEL: Manage saved touch models
+CARTOGRAPHER_TOUCH_PROBE: Touch the bed to get the height offset at the current position.
+=== object names ===
+canbus_stats cartographer
+mcu cartographer
+probe
+temperature_sensor cartographer_coil
+cartographer
+temperature_sensor cartographer
+=== Cartographer status ===
+{"result":{"eventtime":1398.411712907,"status":{"cartographer":{"scan":{"current_model":"default","models":"default","last_z_result":null},"touch":{"current_model":"default","models":"default","last_z_result":null},"mcu":{"last_sample":{"frequency":3220164.567232132,"time":47.95207257645773,"position":{"x":0.0,"y":0.0,"z":0.0},"temperature":21.602049185953888,"raw_count":36016931},"constants":{"sensor_frequency":24000000.0,"inverse_adc_max":0.0002442002442002442,"adc_smooth_count":16,"minimum_adc_count":55927,"minimum_count":32917500}}},"probe":{"name":"cartographer","last_query":0,"last_z_result":0,"last_probe_position":[0,0,0,0]},"temperature_sensor Cartographer_MCU":{}}}}=== source config defaults ===
+klippy/extras/tool_calibrator.py:15:import time
+klippy/extras/tool_calibrator.py:926:        meas_ref = getattr(self.z_backend, "measurement_reference", "nozzle")
+klippy/extras/tool_calibrator.py:927:        allow_shuttle = self.allow_shuttle_z or (getattr(gcmd, "get_int", None) and gcmd.get_int("ALLOW_SHUTTLE_Z", 0) == 1)
+klippy/extras/tool_calibrator.py:930:                f"[ERR_Z_003] The active Z backend '{self.z_backend_type}' has measurement_reference='{meas_ref}'. "
+klippy/extras/tool_calibrator.py:933:                "Use a nozzle-contact switch backend (e.g. PF2 switch/Axiscope) or pass ALLOW_SHUTTLE_Z=1 if experimenting."
+klippy/extras/tool_calibrator.py:1032:        import time as _sys_time
+klippy/extras/tool_calibrator.py:1080:                meas_ref = getattr(self.z_backend, "measurement_reference", "nozzle")
+klippy/extras/tool_calibrator.py:1081:                allow_shuttle = self.allow_shuttle_z or (gcmd.get_int("ALLOW_SHUTTLE_Z", 0) == 1)
+klippy/extras/tool_calibrator.py:1084:                        f"[ERR_Z_003] The active Z backend '{self.z_backend_type}' has measurement_reference='{meas_ref}'. "
+klippy/extras/tool_calibrator.py:1087:                        "Use a nozzle-contact switch backend (e.g. PF2 switch/Axiscope) or pass ALLOW_SHUTTLE_Z=1 if experimenting."
+klippy/extras/tool_calibrator.py:1409:            import time as _sys_time
+klippy/extras/z_backends/cartographer_backend.py:42:        ref = config.get("measurement_reference", "shuttle").strip().lower()
+klippy/extras/z_backends/cartographer_backend.py:44:            raise config.error(f"Invalid measurement_reference '{ref}' in [tool_calibrator]. Must be 'nozzle' or 'shuttle'.")
+klippy/extras/z_backends/cartographer_backend.py:45:        self.measurement_reference = ref
+klippy/extras/z_backends/cartographer_backend.py:46:        if self.measurement_reference == "shuttle":
+klippy/extras/z_backends/cartographer_backend.py:48:                "[cartographer_backend] measurement_reference is set to 'shuttle'. "

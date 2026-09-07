@@ -1,0 +1,191 @@
+=== TKC probe coordinate resolution ===
+    21	    def get_probe_xy(self) -> Tuple[float, float]:
+    22	        """
+    23	        Returns designated probing coordinates (X, Y).
+    24	        Defaults to bed_mesh zero_reference_position if available,
+    25	        otherwise the exact bed center to eliminate bed mesh / tilt bias.
+    26	        """
+    27	        try:
+    28	            bed_mesh = self.printer.lookup_object("bed_mesh", None)
+    29	            if bed_mesh is not None:
+    30	                zrp = getattr(bed_mesh, "zero_ref_pos", None)
+    31	                if zrp and len(zrp) >= 2:
+    32	                    return round(float(zrp[0]), 3), round(float(zrp[1]), 3)
+    33	                bmc = getattr(bed_mesh, "bmc", None)
+    34	                if bmc is not None and hasattr(bmc, "zero_ref_pos"):
+    35	                    bzrp = getattr(bmc, "zero_ref_pos")
+    36	                    if bzrp and len(bzrp) >= 2:
+    37	                        return round(float(bzrp[0]), 3), round(float(bzrp[1]), 3)
+    38	        except Exception:
+    39	            pass
+    40
+    41	        try:
+    42	            toolhead = self.printer.lookup_object("toolhead")
+    43	            status = toolhead.get_status(self.printer.get_reactor().monotonic())
+    44	            axis_min = status.get("axis_minimum", [0.0, 0.0, 0.0])
+    45	            axis_max = status.get("axis_maximum", [300.0, 300.0, 300.0])
+    46	            cx = (axis_min[0] + axis_max[0]) / 2.0
+    47	            cy = (axis_min[1] + axis_max[1]) / 2.0
+    48	            return round(cx, 3), round(cy, 3)
+    49	        except Exception:
+    50	            return 150.0, 150.0
+=== Klipper BedMesh object initialization ===
+16:class BedMeshError(Exception):
+86:class BedMesh:
+324:class BedMeshCalibrate:
+    92	        self.last_position = [0., 0., 0., 0.]
+    93	        self.bmc = BedMeshCalibrate(config, self)
+    94	        self.z_mesh = None
+    95	        self.toolhead = None
+    96	        self.horizontal_move_z = config.getfloat('horizontal_move_z', 5.)
+    97	        self.fade_start = config.getfloat('fade_start', 1.)
+    98	        self.fade_end = config.getfloat('fade_end', 0.)
+    99	        self.fade_dist = self.fade_end - self.fade_start
+   100	        if self.fade_dist <= 0.:
+   101	            self.fade_start = self.fade_end = self.FADE_DISABLE
+   102	        self.log_fade_complete = False
+   103	        self.base_fade_target = config.getfloat('fade_target', None)
+   104	        self.fade_target = 0.
+   105	        self.tool_offset = 0.
+   106	        self.gcode = self.printer.lookup_object('gcode')
+   107	        self.splitter = MoveSplitter(config, self.gcode)
+   108	        # setup persistent storage
+   109	        self.pmgr = ProfileManager(config, self)
+   110	        self.save_profile = self.pmgr.save_profile
+   111	        # register gcodes
+   112	        self.gcode.register_command(
+   113	            'BED_MESH_OUTPUT', self.cmd_BED_MESH_OUTPUT,
+   114	            desc=self.cmd_BED_MESH_OUTPUT_help)
+   115	        self.gcode.register_command(
+   116	            'BED_MESH_MAP', self.cmd_BED_MESH_MAP,
+   117	            desc=self.cmd_BED_MESH_MAP_help)
+   118	        self.gcode.register_command(
+   119	            'BED_MESH_CLEAR', self.cmd_BED_MESH_CLEAR,
+   120	            desc=self.cmd_BED_MESH_CLEAR_help)
+   121	        self.gcode.register_command(
+   122	            'BED_MESH_OFFSET', self.cmd_BED_MESH_OFFSET,
+   123	            desc=self.cmd_BED_MESH_OFFSET_help)
+   124	        # Register dump webhooks
+   125	        webhooks = self.printer.lookup_object('webhooks')
+   126	        webhooks.register_endpoint(
+   127	            "bed_mesh/dump_mesh", self._handle_dump_request
+   128	        )
+   129	        # Register transform
+   130	        gcode_move = self.printer.load_object(config, 'gcode_move')
+   131	        gcode_move.set_move_transform(self)
+   132	        # initialize status dict
+   133	        self.update_status()
+   134	    def handle_connect(self):
+   135	        self.toolhead = self.printer.lookup_object('toolhead')
+   136	        self.bmc.print_generated_points(logging.info, truncate=True)
+   137	    def set_mesh(self, mesh):
+   138	        if mesh is not None and self.fade_end != self.FADE_DISABLE:
+   139	            self.log_fade_complete = True
+   140	            if self.base_fade_target is None:
+   141	                self.fade_target = mesh.get_z_average()
+   142	            else:
+   143	                self.fade_target = self.base_fade_target
+   144	                min_z, max_z = mesh.get_z_range()
+   145	                if (not min_z <= self.fade_target <= max_z and
+   146	                        self.fade_target != 0.):
+   147	                    # fade target is non-zero, out of mesh range
+   148	                    err_target = self.fade_target
+   149	                    self.z_mesh = None
+   150	                    self.fade_target = 0.
+=== Klipper ProbeManager owns zero_ref_pos ===
+   805	                corr_pt = "(%.2f, %.2f, %.4f)" % tuple(corrected_pts[i])
+   806	            logging.info(
+   807	                "  %-4d| %-17s| %-25s| %s" % (i, gen_pt, probed_pt, corr_pt))
+   808
+   809	class ProbeManager:
+   810	    def __init__(self, config, orig_config, finalize_cb):
+   811	        self.printer = config.get_printer()
+   812	        self.cfg_overshoot = config.getfloat("scan_overshoot", 0, minval=1.)
+   813	        self.orig_config = orig_config
+   814	        self.faulty_regions = []
+   815	        self.overshoot = self.cfg_overshoot
+   816	        self.zero_ref_pos = config.getfloatlist(
+   817	            "zero_reference_position", None, count=2
+   818	        )
+   819	        self.zref_mode = ZrefMode.DISABLED
+   820	        self.base_points = []
+   821	        self.substitutes = collections.OrderedDict()
+   822	        self.is_round = orig_config["radius"] is not None
+   823	        self.probe_helper = probe.ProbePointsHelper(config, finalize_cb, [])
+   824	        self.probe_helper.use_xy_offsets(True)
+   825	        self.rapid_scan_helper = RapidScanHelper(config, self, finalize_cb)
+   826	        self._init_faulty_regions(config)
+   827
+   828	    def _init_faulty_regions(self, config):
+   829	        for i in list(range(1, 100, 1)):
+   830	            start = config.getfloatlist("faulty_region_%d_min" % (i,), None,
+   831	                                        count=2)
+   832	            if start is None:
+   833	                break
+   834	            end = config.getfloatlist("faulty_region_%d_max" % (i,), count=2)
+   835	            # Validate the corners.  If necessary reorganize them.
+   836	            # c1 = min point, c3 = max point
+   837	            #  c4 ---- c3
+   838	            #  |        |
+   839	            #  c1 ---- c2
+   840	            c1 = [min([s, e]) for s, e in zip(start, end)]
+   841	            c3 = [max([s, e]) for s, e in zip(start, end)]
+   842	            c2 = [c1[0], c3[1]]
+   843	            c4 = [c3[0], c1[1]]
+   844	            # Check for overlapping regions
+   845	            for j, (prev_c1, prev_c3) in enumerate(self.faulty_regions):
+   846	                prev_c2 = [prev_c1[0], prev_c3[1]]
+   847	                prev_c4 = [prev_c3[0], prev_c1[1]]
+   848	                # Validate that no existing corner is within the new region
+   849	                for coord in [prev_c1, prev_c2, prev_c3, prev_c4]:
+   850	                    if within(coord, c1, c3):
+   851	                        raise config.error(
+   852	                            "bed_mesh: Existing faulty_region_%d %s overlaps "
+   853	                            "added faulty_region_%d %s"
+   854	                            % (j+1, repr([prev_c1, prev_c3]),
+   855	                               i, repr([c1, c3])))
+   856	                # Validate that no new corner is within an existing region
+   857	                for coord in [c1, c2, c3, c4]:
+   858	                    if within(coord, prev_c1, prev_c3):
+   859	                        raise config.error(
+   860	                            "bed_mesh: Added faulty_region_%d %s overlaps "
+   861	                            "existing faulty_region_%d %s"
+   862	                            % (i, repr([c1, c3]),
+   863	                               j+1, repr([prev_c1, prev_c3])))
+   864	            self.faulty_regions.append((c1, c3))
+   865
+   866	    def start_probe(self, gcmd):
+   867	        method = gcmd.get("METHOD", "automatic").lower()
+   868	        can_scan = False
+   869	        pprobe = self.printer.lookup_object("probe", None)
+   870	        if pprobe is not None:
+   871	            probe_name = pprobe.get_status(None).get("name", "")
+   872	            can_scan = probe_name.startswith("probe_eddy_current")
+   873	        if method == "rapid_scan" and can_scan:
+   874	            self.rapid_scan_helper.perform_rapid_scan(gcmd)
+   875	        else:
+   876	            self.probe_helper.start_probe(gcmd)
+   877
+   878	    def get_zero_ref_pos(self):
+   879	        return self.zero_ref_pos
+   880
+   881	    def get_zero_ref_mode(self):
+   882	        return self.zref_mode
+   883
+   884	    def get_substitutes(self):
+   885	        return self.substitutes
+=== Runtime/config coordinates ===
+axis_minimum=(0,-10), axis_maximum=(348,336)
+TKC fallback center = (174.0, 163.0)
+bed_mesh zero_reference_position=(174,168)
+=== Observed contact coordinates ===
+T0 CARTOGRAPHER_TOUCH_HOME: X174.000 Y168.000
+T1/T2/T3/T4 CARTOGRAPHER_TOUCH_PROBE: approximately X174.000 Y163.000
+
+=== Confirmed object-path mismatch ===
+BedMesh owns `bmc = BedMeshCalibrate(...)`.
+BedMeshCalibrate owns `probe_mgr = ProbeManager(...)`.
+ProbeManager owns `zero_ref_pos`.
+Therefore this Klipper exposes the configured value through
+`bed_mesh.bmc.probe_mgr.zero_ref_pos`, while TKC checks
+`bed_mesh.zero_ref_pos` and `bed_mesh.bmc.zero_ref_pos` before falling back.
