@@ -1,0 +1,41 @@
+{
+  "result": {
+    "gcode_store": [
+      {
+        "message": "G90\nG0 Z35 F600\nT3\nG0 X174 Y168 F12000\nG0 Z5 F600\nM400",
+        "time": 1788874052.724221,
+        "type": "command"
+      },
+      {
+        "message": "echo: Dropping off tool T0",
+        "time": 1788874052.7408457,
+        "type": "response"
+      },
+      {
+        "message": "// tool_crash: disabled",
+        "time": 1788874059.8037314,
+        "type": "response"
+      },
+      {
+        "message": "// Activating extruder extruder3",
+        "time": 1788874061.9984307,
+        "type": "response"
+      },
+      {
+        "message": "echo: Picking up tool T3",
+        "time": 1788874063.6783857,
+        "type": "response"
+      },
+      {
+        "message": "echo: Waiting For Extruder with Deadband: 4.0",
+        "time": 1788874063.6917946,
+        "type": "response"
+      },
+      {
+        "message": "// Selected tool 3 (tool T3)",
+        "time": 1788874072.2575872,
+        "type": "response"
+      }
+    ]
+  }
+}

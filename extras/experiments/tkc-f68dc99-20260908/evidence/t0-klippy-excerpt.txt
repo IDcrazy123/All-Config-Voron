@@ -1,0 +1,55 @@
+[tool_calibrator] Starting Z-Offset Calibration across tools: [0]
+--- Calibrating Toolhead T0 ---
+[T0] Cartographer speed-up active (safe_z omitted): fast local Z-probing without redundant safe_z lift.
+[T0] Moving to Z-probe coordinates: X174.000 Y168.000
+[T0] Running CARTOGRAPHER_TOUCH_HOME EXPERIMENTAL_RANDOM_RADIUS=0...
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.3974
+[cartographer] Touch 2: -0.3854
+[cartographer] Touch 3: 0.1746
+[cartographer] Touch 4: -0.3954
+[cartographer] Touch 5: -0.3974
+[cartographer] Acceptable samples found: (-0.3974, -0.3954, -0.3974)
+range 0.0020 (limit 0.0100), min -0.3974, max -0.3954,
+mean -0.3968, median -0.3974
+[cartographer] Touch home at (174.000, 168.000) adjusted z by 0.397 mm
+[T0] Reference Z baseline established at X174.000 Y168.000 (cartographer_touch_reference)
+[tool_calibrator] Note: SAVE_CONFIG=0 active. Offsets retained in memory only.
+Tool T0: Z=+0.000mm
+[tool_calibrator] Starting Z-Offset Calibration across tools: [0]
+--- Calibrating Toolhead T0 ---
+[T0] Cartographer speed-up active (safe_z omitted): fast local Z-probing without redundant safe_z lift.
+[T0] Moving to Z-probe coordinates: X174.000 Y168.000
+[T0] Running CARTOGRAPHER_TOUCH_HOME EXPERIMENTAL_RANDOM_RADIUS=0...
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.0066
+[cartographer] Touch 2: 0.0034
+[cartographer] Touch 3: -0.0106
+[cartographer] Touch 4: 0.0074
+[cartographer] Touch 5: -0.0066
+[cartographer] Acceptable samples found: (-0.0066, -0.0106, -0.0066)
+range 0.0040 (limit 0.0100), min -0.0106, max -0.0066,
+mean -0.0079, median -0.0066
+[cartographer] Touch home at (174.000, 168.000) adjusted z by 0.007 mm
+[T0] Reference Z baseline established at X174.000 Y168.000 (cartographer_touch_reference)
+[tool_calibrator] Note: SAVE_CONFIG=0 active. Offsets retained in memory only.
+Tool T0: Z=+0.000mm
+[tool_calibrator] Starting Z-Offset Calibration across tools: [0]
+--- Calibrating Toolhead T0 ---
+[T0] Cartographer speed-up active (safe_z omitted): fast local Z-probing without redundant safe_z lift.
+[T0] Moving to Z-probe coordinates: X174.000 Y168.000
+[T0] Running CARTOGRAPHER_TOUCH_HOME EXPERIMENTAL_RANDOM_RADIUS=0...
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.0054
+[cartographer] Touch 2: 0.0026
+[cartographer] Touch 3: 0.0126
+[cartographer] Touch 4: 0.0186
+[cartographer] Touch 5: 0.0066
+[cartographer] Acceptable samples found: (0.0026, 0.0126, 0.0066)
+range 0.0100 (limit 0.0100), min 0.0026, max 0.0126,
+mean 0.0072, median 0.0066
+[cartographer] Touch home at (174.000, 168.000) adjusted z by -0.007 mm
+[T0] Reference Z baseline established at X174.000 Y168.000 (cartographer_touch_reference)
+[tool_calibrator] Note: SAVE_CONFIG=0 active. Offsets retained in memory only.
+Tool T0: Z=+0.000mm
+[tool_calibrator]

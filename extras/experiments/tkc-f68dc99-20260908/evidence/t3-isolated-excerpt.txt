@@ -1,0 +1,69 @@
+[tool_calibrator] Starting Z-Offset Calibration across tools: [0]
+--- Calibrating Toolhead T0 ---
+[T0] Cartographer speed-up active (safe_z omitted): fast local Z-probing without redundant safe_z lift.
+[T0] Moving to Z-probe coordinates: X174.000 Y168.000
+[T0] Running CARTOGRAPHER_TOUCH_HOME EXPERIMENTAL_RANDOM_RADIUS=0...
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.3986
+[cartographer] Touch 2: -0.3906
+[cartographer] Touch 3: -0.3986
+[cartographer] Acceptable samples found: (-0.3986, -0.3906, -0.3986)
+range 0.0080 (limit 0.0100), min -0.3986, max -0.3906,
+mean -0.3959, median -0.3986
+[cartographer] Touch home at (174.000, 168.000) adjusted z by 0.399 mm
+[T0] Reference Z baseline established at X174.000 Y168.000 (cartographer_touch_reference)
+[tool_calibrator] Note: SAVE_CONFIG=0 active. Offsets retained in memory only.
+Tool T0: Z=+0.000mm
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.1314
+[cartographer] Touch 2: -0.1714
+[cartographer] Touch 3: -0.1654
+[cartographer] Touch 4: -0.1654
+[cartographer] Acceptable samples found: (-0.1714, -0.1654, -0.1654)
+range 0.0060 (limit 0.0100), min -0.1714, max -0.1654,
+mean -0.1674, median -0.1654
+[cartographer] Result: at 174.325,168.525 estimate contact at z=-0.165414
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.1654
+[cartographer] Touch 2: -0.1654
+[cartographer] Touch 3: -0.0594
+[cartographer] Touch 4: -0.1634
+[cartographer] Acceptable samples found: (-0.1654, -0.1654, -0.1634)
+range 0.0020 (limit 0.0100), min -0.1654, max -0.1634,
+mean -0.1647, median -0.1654
+[cartographer] Result: at 174.325,168.525 estimate contact at z=-0.165414
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: 0.2826
+[cartographer] Touch 2: 0.2826
+[cartographer] Touch 3: 0.2786
+[cartographer] Acceptable samples found: (0.2826, 0.2826, 0.2786)
+range 0.0040 (limit 0.0100), min 0.2786, max 0.2826,
+mean 0.2813, median 0.2826
+[cartographer] Touch home at (174.000, 168.000) adjusted z by -0.283 mm
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.1880
+[cartographer] Touch 2: -0.2100
+[cartographer] Touch 3: -0.2040
+[cartographer] Touch 4: -0.2060
+[cartographer] Acceptable samples found: (-0.2100, -0.2040, -0.2060)
+range 0.0060 (limit 0.0100), min -0.2100, max -0.2040,
+mean -0.2067, median -0.2060
+[cartographer] Result: at 174.325,168.525 estimate contact at z=-0.206000
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.2160
+[cartographer] Touch 2: -0.2060
+[cartographer] Touch 3: -0.2100
+[cartographer] Acceptable samples found: (-0.2160, -0.2060, -0.2100)
+range 0.0100 (limit 0.0100), min -0.2160, max -0.2060,
+mean -0.2107, median -0.2100
+[cartographer] Result: at 174.325,168.525 estimate contact at z=-0.210000
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.2120
+[cartographer] Touch 2: -0.2200
+[cartographer] Touch 3: -0.2300
+[cartographer] Touch 4: -0.2220
+[cartographer] Touch 5: -0.2220
+[cartographer] Acceptable samples found: (-0.2200, -0.2220, -0.2220)
+range 0.0020 (limit 0.0100), min -0.2220, max -0.2200,
+mean -0.2213, median -0.2220
+[cartographer] Result: at 174.325,168.525 estimate contact at z=-0.222000

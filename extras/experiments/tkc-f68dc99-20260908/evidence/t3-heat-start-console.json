@@ -1,0 +1,11 @@
+{
+  "result": {
+    "gcode_store": [
+      {
+        "message": "G90\nG0 Z10 F600\nSET_HEATER_TEMPERATURE HEATER=heater_bed TARGET=70\nSET_HEATER_TEMPERATURE HEATER=extruder TARGET=150\nSET_HEATER_TEMPERATURE HEATER=extruder3 TARGET=150",
+        "time": 1788873544.2434921,
+        "type": "command"
+      }
+    ]
+  }
+}

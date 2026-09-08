@@ -1,0 +1,16 @@
+{
+  "result": {
+    "gcode_store": [
+      {
+        "message": "CARTOGRAPHER_TOUCH_PROBE",
+        "time": 1788874121.3668783,
+        "type": "command"
+      },
+      {
+        "message": "Result: at 174.325,168.525 estimate contact at z=-0.210000\n",
+        "time": 1788874128.3887377,
+        "type": "response"
+      }
+    ]
+  }
+}

@@ -4,6 +4,11 @@
 
 Production Klipper configuration, deployment scripts, and OrcaSlicer profiles for a **Voron 2.4 350 mm CoreXY** 3D printer equipped with a **five-tool StealthChanger** (KTC-Easy).
 
+TKC `f68dc99` is installed for supervised Cartographer Touch Z commissioning.
+Convenience macros default to `SAVE_CONFIG=0`; existing production Z offsets remain authoritative.
+See the [installation and operating notes](extras/docs/tkc-commissioning-20260908.md) and
+[measurement and issue report](extras/experiments/tkc-f68dc99-20260908/REPORT.vi.md).
+
 ---
 
 ## 1. System Specifications & Hardware Map

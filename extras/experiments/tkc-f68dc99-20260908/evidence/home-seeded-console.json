@@ -1,0 +1,31 @@
+{
+  "result": {
+    "gcode_store": [
+      {
+        "message": "G28",
+        "time": 1788872765.4586437,
+        "type": "command"
+      },
+      {
+        "message": "// shaper_type_x:mzv shaper_freq_x:43.600 damping_ratio_x:0.100000",
+        "time": 1788872765.5030508,
+        "type": "response"
+      },
+      {
+        "message": "// shaper_type_y:mzv shaper_freq_y:33.400 damping_ratio_y:0.100000",
+        "time": 1788872765.5039284,
+        "type": "response"
+      },
+      {
+        "message": "// toolchanger initialized, active tool T0",
+        "time": 1788872765.5067174,
+        "type": "response"
+      },
+      {
+        "message": "probe at 177.400,167.400 is z=504.904140\n",
+        "time": 1788872777.1775293,
+        "type": "response"
+      }
+    ]
+  }
+}

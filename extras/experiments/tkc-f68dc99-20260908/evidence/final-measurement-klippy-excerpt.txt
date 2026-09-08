@@ -1,0 +1,108 @@
+[tool_calibrator] Starting Z-Offset Calibration across tools: [0, 1, 2, 3, 4]
+--- Calibrating Toolhead T0 ---
+[T0] Cartographer speed-up active (safe_z omitted): fast local Z-probing without redundant safe_z lift.
+[T0] Moving to Z-probe coordinates: X174.000 Y168.000
+[T0] Running CARTOGRAPHER_TOUCH_HOME EXPERIMENTAL_RANDOM_RADIUS=0...
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.4041
+[cartographer] Touch 2: -0.4041
+[cartographer] Touch 3: -0.3981
+[cartographer] Acceptable samples found: (-0.4041, -0.4041, -0.3981)
+range 0.0060 (limit 0.0100), min -0.4041, max -0.3981,
+mean -0.4021, median -0.4041
+[cartographer] Touch home at (174.000, 168.000) adjusted z by 0.404 mm
+[T0] Reference Z baseline established at X174.000 Y168.000 (cartographer_touch_reference)
+--- Calibrating Toolhead T1 ---
+Lifting Z from 7.40mm to Safe_Z (35.00mm)
+[T1] Compensating Z-probe position with XY offsets: X-0.159mm Y-0.195mm
+[T1] Cartographer speed-up active (safe_z omitted): fast local Z-probing without redundant safe_z lift.
+[T1] Moving to Z-probe coordinates: X173.841 Y167.805 (Compensated from baseline X174.000 Y168.000)
+[T1] Running CARTOGRAPHER_TOUCH_PROBE...
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: 0.2561
+[cartographer] Touch 2: 0.2661
+[cartographer] Touch 3: 0.2661
+[cartographer] Acceptable samples found: (0.2561, 0.2661, 0.2661)
+range 0.0100 (limit 0.0100), min 0.2561, max 0.2661,
+mean 0.2628, median 0.2661
+[cartographer] Result: at 173.841,167.803 estimate contact at z=0.266140
+[T1] Calculated Z Offset: Z+0.266mm
+--- Calibrating Toolhead T2 ---
+Lifting Z from 7.22mm to Safe_Z (35.00mm)
+[T2] Compensating Z-probe position with XY offsets: X+0.820mm Y+0.240mm
+[T2] Cartographer speed-up active (safe_z omitted): fast local Z-probing without redundant safe_z lift.
+[T2] Moving to Z-probe coordinates: X174.820 Y168.240 (Compensated from baseline X174.000 Y168.000)
+[T2] Running CARTOGRAPHER_TOUCH_PROBE...
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.3259
+[cartographer] Touch 2: -0.3239
+[cartographer] Touch 3: -0.1599
+[cartographer] Touch 4: -0.3259
+[cartographer] Acceptable samples found: (-0.3259, -0.3239, -0.3259)
+range 0.0020 (limit 0.0100), min -0.3259, max -0.3239,
+mean -0.3252, median -0.3259
+[cartographer] Result: at 174.822,168.241 estimate contact at z=-0.325860
+[T2] Calculated Z Offset: Z-0.326mm
+--- Calibrating Toolhead T3 ---
+Lifting Z from 7.00mm to Safe_Z (35.00mm)
+[T3] Compensating Z-probe position with XY offsets: X+0.326mm Y+0.524mm
+[T3] Cartographer speed-up active (safe_z omitted): fast local Z-probing without redundant safe_z lift.
+[T3] Moving to Z-probe coordinates: X174.326 Y168.524 (Compensated from baseline X174.000 Y168.000)
+[T3] Running CARTOGRAPHER_TOUCH_PROBE...
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.1459
+[cartographer] Touch 2: -0.1579
+[cartographer] Touch 3: 0.0001
+[cartographer] Touch 4: -0.1179
+[cartographer] Touch 5: -0.1439
+[cartographer] Touch 6: 0.5241
+[cartographer] Touch 7: -0.1519
+[cartographer] Touch 8: -0.1359
+[cartographer] Touch 9: 0.1901
+[cartographer] Touch 10: -0.1419
+Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+Lifting Z from 2.00mm to Safe_Z (35.00mm)
+!! [tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+!! [tool_calibrator] Failure occurred while T3 was active. If using toolchanger, verify physical dock state before issuing further tool changes.
+[tool_calibrator] Reconciling uninitialized toolchanger state to T3
+Cannot select tool, toolchanger status is uninitialized, reason:
+Cannot select tool, toolchanger status is uninitialized, reason:
+[tool_calibrator] Fallback T3 failed: Cannot select tool, toolchanger status is uninitialized, reason:
+[tool_calibrator] Toolchanger state reconciled to physical tool T3.
+[tool_calibrator] Toolchanger state reconciled to physical tool T3.
+[tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+[tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches
+[tool_calibrator] Starting Z-Offset Calibration across tools: [0, 4]
+--- Calibrating Toolhead T0 ---
+Lifting Z from 9.81mm to Safe_Z (35.00mm)
+[T0] Cartographer speed-up active (safe_z omitted): fast local Z-probing without redundant safe_z lift.
+[T0] Moving to Z-probe coordinates: X174.000 Y168.000
+[T0] Running CARTOGRAPHER_TOUCH_HOME EXPERIMENTAL_RANDOM_RADIUS=0...
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: -0.4001
+[cartographer] Touch 2: -0.4021
+[cartographer] Touch 3: -0.4021
+[cartographer] Acceptable samples found: (-0.4001, -0.4021, -0.4021)
+range 0.0020 (limit 0.0100), min -0.4021, max -0.4001,
+mean -0.4015, median -0.4021
+[cartographer] Touch home at (174.001, 167.999) adjusted z by 0.402 mm
+[T0] Reference Z baseline established at X174.001 Y167.999 (cartographer_touch_reference)
+--- Calibrating Toolhead T4 ---
+Lifting Z from 7.40mm to Safe_Z (35.00mm)
+[T4] Compensating Z-probe position with XY offsets: X+0.168mm Y+0.268mm
+[T4] Cartographer speed-up active (safe_z omitted): fast local Z-probing without redundant safe_z lift.
+[T4] Moving to Z-probe coordinates: X174.169 Y168.267 (Compensated from baseline X174.001 Y167.999)
+[T4] Running CARTOGRAPHER_TOUCH_PROBE...
+[cartographer] Starting touch sequence for 3 samples within 10 touches (window=5)...
+[cartographer] Touch 1: 0.1961
+[cartographer] Touch 2: 0.1981
+[cartographer] Touch 3: 0.1961
+[cartographer] Acceptable samples found: (0.1961, 0.1981, 0.1961)
+range 0.0020 (limit 0.0100), min 0.1961, max 0.1981,
+mean 0.1968, median 0.1961
+[cartographer] Result: at 174.170,168.268 estimate contact at z=0.196141
+[T4] Calculated Z Offset: Z+0.196mm
+Lifting Z from 7.15mm to Safe_Z (35.00mm)
+[tool_calibrator] Note: SAVE_CONFIG=0 active. Offsets retained in memory only.
+Tool T0: Z=+0.000mm
+Tool T4: Z=+0.196mm

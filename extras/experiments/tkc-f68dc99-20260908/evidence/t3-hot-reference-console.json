@@ -1,0 +1,46 @@
+{
+  "result": {
+    "gcode_store": [
+      {
+        "message": "G90\nG0 Z35 F600\nT0\nCARTOGRAPHER_TOUCH_HOME EXPERIMENTAL_RANDOM_RADIUS=0",
+        "time": 1788873950.733206,
+        "type": "command"
+      },
+      {
+        "message": "echo: Dropping off tool T3",
+        "time": 1788873950.764359,
+        "type": "response"
+      },
+      {
+        "message": "// tool_crash: disabled",
+        "time": 1788873956.9163153,
+        "type": "response"
+      },
+      {
+        "message": "// Activating extruder extruder",
+        "time": 1788873959.1058958,
+        "type": "response"
+      },
+      {
+        "message": "echo: Picking up tool T0",
+        "time": 1788873960.7871675,
+        "type": "response"
+      },
+      {
+        "message": "echo: Waiting For Extruder with Deadband: 4.0",
+        "time": 1788873960.8022463,
+        "type": "response"
+      },
+      {
+        "message": "// Selected tool 0 (tool T0)",
+        "time": 1788873969.3702178,
+        "type": "response"
+      },
+      {
+        "message": "Touch home at (174.000, 168.000) adjusted z by -0.283 mm\n",
+        "time": 1788873998.281391,
+        "type": "response"
+      }
+    ]
+  }
+}

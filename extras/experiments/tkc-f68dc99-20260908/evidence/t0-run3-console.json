@@ -1,0 +1,76 @@
+{
+  "result": {
+    "gcode_store": [
+      {
+        "message": "CALIBRATE_TOOL_Z TOOL=0 SAVE_CONFIG=0 CLEAN_NOZZLE=0",
+        "time": 1788872712.9666054,
+        "type": "command"
+      },
+      {
+        "message": "// [tool_calibrator] Starting Z-Offset Calibration across tools: [0]",
+        "time": 1788872712.9731996,
+        "type": "response"
+      },
+      {
+        "message": "// --- Calibrating Toolhead T0 ---",
+        "time": 1788872712.9748611,
+        "type": "response"
+      },
+      {
+        "message": "// Tool tool T0 already selected",
+        "time": 1788872712.9762688,
+        "type": "response"
+      },
+      {
+        "message": "// [T0] Moving to Z-probe coordinates: X174.000 Y168.000",
+        "time": 1788872712.9773664,
+        "type": "response"
+      },
+      {
+        "message": "// [T0] Running CARTOGRAPHER_TOUCH_HOME EXPERIMENTAL_RANDOM_RADIUS=0...",
+        "time": 1788872712.9785013,
+        "type": "response"
+      },
+      {
+        "message": "Touch home at (174.000, 168.000) adjusted z by -0.007 mm\n",
+        "time": 1788872729.256238,
+        "type": "response"
+      },
+      {
+        "message": "// [T0] Reference Z baseline established at X174.000 Y168.000 (cartographer_touch_reference)",
+        "time": 1788872730.3642523,
+        "type": "response"
+      },
+      {
+        "message": "// [tool_calibrator] Note: SAVE_CONFIG=0 active. Offsets retained in memory only.",
+        "time": 1788872730.3653488,
+        "type": "response"
+      },
+      {
+        "message": "// ================ CALIBRATION SUMMARY ================",
+        "time": 1788872730.366495,
+        "type": "response"
+      },
+      {
+        "message": "// Tool T0: Z=+0.000mm",
+        "time": 1788872730.366804,
+        "type": "response"
+      },
+      {
+        "message": "// \u2714 ================= CALIBRATION COMPLETE =================",
+        "time": 1788872730.366847,
+        "type": "response"
+      },
+      {
+        "message": "// All configured tools calibrated safely and successfully.",
+        "time": 1788872730.3668761,
+        "type": "response"
+      },
+      {
+        "message": "// =====================================================",
+        "time": 1788872730.3675692,
+        "type": "response"
+      }
+    ]
+  }
+}

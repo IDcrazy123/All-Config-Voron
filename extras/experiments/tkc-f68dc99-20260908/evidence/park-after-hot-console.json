@@ -1,0 +1,11 @@
+{
+  "result": {
+    "gcode_store": [
+      {
+        "message": "G90\nG0 X174 Y168 F12000\nG0 Z10 F600\nM400",
+        "time": 1788874282.0276601,
+        "type": "command"
+      }
+    ]
+  }
+}

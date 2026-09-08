@@ -1,0 +1,76 @@
+{
+  "result": {
+    "gcode_store": [
+      {
+        "message": "CALIBRATION_STATUS\nTKC_STATUS\nCHECK_OFFSETS",
+        "time": 1788873245.7770202,
+        "type": "command"
+      },
+      {
+        "message": "echo: Calibration backends: kTAMV camera XY; TKC Cartographer Touch Z commissioning; Axiscope and tools_calibrate disabled",
+        "time": 1788873245.7787998,
+        "type": "response"
+      },
+      {
+        "message": "echo: TKC state=IDLE; use TKC_STATUS for details; measured Z is not production-qualified",
+        "time": 1788873245.7796044,
+        "type": "response"
+      },
+      {
+        "message": "echo: kTAMV is XY-only, does not save offsets, and loses calibration/origin after Klipper restart",
+        "time": 1788873245.7806656,
+        "type": "response"
+      },
+      {
+        "message": "echo: kTAMV calibrated=False; mm_per_pixel=None; origin=None",
+        "time": 1788873245.7809064,
+        "type": "response"
+      },
+      {
+        "message": "// Tool-Calibrator Status: IDLE (Last Status: UNINITIALIZED)",
+        "time": 1788873245.7809362,
+        "type": "response"
+      },
+      {
+        "message": "// Safe_Z: 35.00mm | Backend: cartographer",
+        "time": 1788873245.7809618,
+        "type": "response"
+      },
+      {
+        "message": "// No offsets cached in memory.",
+        "time": 1788873245.7814522,
+        "type": "response"
+      },
+      {
+        "message": "echo: === FIVE-TOOL XYZ OFFSETS ===",
+        "time": 1788873245.78329,
+        "type": "response"
+      },
+      {
+        "message": "echo: tool T0: X=0.0 Y=0.0 Z=0.0",
+        "time": 1788873245.7844806,
+        "type": "response"
+      },
+      {
+        "message": "echo: tool T1: X=-0.159 Y=-0.195 Z=0.236",
+        "time": 1788873245.784883,
+        "type": "response"
+      },
+      {
+        "message": "echo: tool T2: X=0.82 Y=0.24 Z=-0.316",
+        "time": 1788873245.7864888,
+        "type": "response"
+      },
+      {
+        "message": "echo: tool T3: X=0.326 Y=0.524 Z=-0.1896",
+        "time": 1788873245.7865224,
+        "type": "response"
+      },
+      {
+        "message": "echo: tool T4: X=0.168 Y=0.268 Z=0.12",
+        "time": 1788873245.7865741,
+        "type": "response"
+      }
+    ]
+  }
+}

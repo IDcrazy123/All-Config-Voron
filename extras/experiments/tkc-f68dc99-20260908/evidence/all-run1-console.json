@@ -1,0 +1,241 @@
+{
+  "result": {
+    "gcode_store": [
+      {
+        "message": "CALIBRATE_TOOLS_Z TOOLS=0,1,2,3,4 SAVE_CONFIG=0 CLEAN_NOZZLE=0 CONTINUE_ON_ERROR=0",
+        "time": 1788872784.2271845,
+        "type": "command"
+      },
+      {
+        "message": "// [tool_calibrator] Starting Z-Offset Calibration across tools: [0, 1, 2, 3, 4]",
+        "time": 1788872784.2333999,
+        "type": "response"
+      },
+      {
+        "message": "// --- Calibrating Toolhead T0 ---",
+        "time": 1788872784.2345319,
+        "type": "response"
+      },
+      {
+        "message": "// Tool tool T0 already selected",
+        "time": 1788872784.2359798,
+        "type": "response"
+      },
+      {
+        "message": "// [T0] Moving to Z-probe coordinates: X174.000 Y168.000",
+        "time": 1788872784.2370808,
+        "type": "response"
+      },
+      {
+        "message": "// [T0] Running CARTOGRAPHER_TOUCH_HOME EXPERIMENTAL_RANDOM_RADIUS=0...",
+        "time": 1788872784.538395,
+        "type": "response"
+      },
+      {
+        "message": "Touch home at (174.000, 168.000) adjusted z by 0.404 mm\n",
+        "time": 1788872798.0503402,
+        "type": "response"
+      },
+      {
+        "message": "// [T0] Reference Z baseline established at X174.000 Y168.000 (cartographer_touch_reference)",
+        "time": 1788872799.1570563,
+        "type": "response"
+      },
+      {
+        "message": "// --- Calibrating Toolhead T1 ---",
+        "time": 1788872799.1589231,
+        "type": "response"
+      },
+      {
+        "message": "echo: Dropping off tool T0",
+        "time": 1788872802.2904804,
+        "type": "response"
+      },
+      {
+        "message": "// tool_crash: disabled",
+        "time": 1788872806.0529912,
+        "type": "response"
+      },
+      {
+        "message": "// Activating extruder extruder1",
+        "time": 1788872808.2498953,
+        "type": "response"
+      },
+      {
+        "message": "echo: Picking up tool T1",
+        "time": 1788872809.9257007,
+        "type": "response"
+      },
+      {
+        "message": "// Selected tool 1 (tool T1)",
+        "time": 1788872817.9266036,
+        "type": "response"
+      },
+      {
+        "message": "// [T1] Compensating Z-probe position with XY offsets: X-0.159mm Y-0.195mm",
+        "time": 1788872818.9337273,
+        "type": "response"
+      },
+      {
+        "message": "// [T1] Moving to Z-probe coordinates: X173.841 Y167.805 (Compensated from baseline X174.000 Y168.000)",
+        "time": 1788872818.934663,
+        "type": "response"
+      },
+      {
+        "message": "// [T1] Running CARTOGRAPHER_TOUCH_PROBE...",
+        "time": 1788872819.6382623,
+        "type": "response"
+      },
+      {
+        "message": "Result: at 173.841,167.803 estimate contact at z=0.266140\n",
+        "time": 1788872842.6719067,
+        "type": "response"
+      },
+      {
+        "message": "// [T1] Calculated Z Offset: Z+0.266mm",
+        "time": 1788872844.18344,
+        "type": "response"
+      },
+      {
+        "message": "// --- Calibrating Toolhead T2 ---",
+        "time": 1788872844.1853375,
+        "type": "response"
+      },
+      {
+        "message": "echo: Dropping off tool T1",
+        "time": 1788872847.3448887,
+        "type": "response"
+      },
+      {
+        "message": "// tool_crash: disabled",
+        "time": 1788872850.9930084,
+        "type": "response"
+      },
+      {
+        "message": "// Activating extruder extruder2",
+        "time": 1788872853.184676,
+        "type": "response"
+      },
+      {
+        "message": "echo: Picking up tool T2",
+        "time": 1788872854.8663673,
+        "type": "response"
+      },
+      {
+        "message": "// Selected tool 2 (tool T2)",
+        "time": 1788872862.8729053,
+        "type": "response"
+      },
+      {
+        "message": "// [T2] Compensating Z-probe position with XY offsets: X+0.820mm Y+0.240mm",
+        "time": 1788872863.8798244,
+        "type": "response"
+      },
+      {
+        "message": "// [T2] Moving to Z-probe coordinates: X174.820 Y168.240 (Compensated from baseline X174.000 Y168.000)",
+        "time": 1788872863.8806663,
+        "type": "response"
+      },
+      {
+        "message": "// [T2] Running CARTOGRAPHER_TOUCH_PROBE...",
+        "time": 1788872864.4850097,
+        "type": "response"
+      },
+      {
+        "message": "Result: at 174.822,168.241 estimate contact at z=-0.325860\n",
+        "time": 1788872890.5159366,
+        "type": "response"
+      },
+      {
+        "message": "// [T2] Calculated Z Offset: Z-0.326mm",
+        "time": 1788872892.0264044,
+        "type": "response"
+      },
+      {
+        "message": "// --- Calibrating Toolhead T3 ---",
+        "time": 1788872892.0276268,
+        "type": "response"
+      },
+      {
+        "message": "echo: Dropping off tool T2",
+        "time": 1788872895.1650033,
+        "type": "response"
+      },
+      {
+        "message": "// tool_crash: disabled",
+        "time": 1788872898.7261963,
+        "type": "response"
+      },
+      {
+        "message": "// Activating extruder extruder3",
+        "time": 1788872900.9196167,
+        "type": "response"
+      },
+      {
+        "message": "echo: Picking up tool T3",
+        "time": 1788872902.6020288,
+        "type": "response"
+      },
+      {
+        "message": "// Selected tool 3 (tool T3)",
+        "time": 1788872910.59462,
+        "type": "response"
+      },
+      {
+        "message": "// [T3] Compensating Z-probe position with XY offsets: X+0.326mm Y+0.524mm",
+        "time": 1788872911.600458,
+        "type": "response"
+      },
+      {
+        "message": "// [T3] Moving to Z-probe coordinates: X174.326 Y168.524 (Compensated from baseline X174.000 Y168.000)",
+        "time": 1788872911.6015337,
+        "type": "response"
+      },
+      {
+        "message": "// [T3] Running CARTOGRAPHER_TOUCH_PROBE...",
+        "time": 1788872912.4057057,
+        "type": "response"
+      },
+      {
+        "message": "!! Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches",
+        "time": 1788872953.782705,
+        "type": "response"
+      },
+      {
+        "message": "// !! [tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches",
+        "time": 1788872958.3107638,
+        "type": "response"
+      },
+      {
+        "message": "// !! [tool_calibrator] Failure occurred while T3 was active. If using toolchanger, verify physical dock state before issuing further tool changes.",
+        "time": 1788872958.311529,
+        "type": "response"
+      },
+      {
+        "message": "!! Cannot select tool, toolchanger status is uninitialized, reason:",
+        "time": 1788872958.3124228,
+        "type": "response"
+      },
+      {
+        "message": "!! Cannot select tool, toolchanger status is uninitialized, reason:",
+        "time": 1788872958.313215,
+        "type": "response"
+      },
+      {
+        "message": "// [tool_calibrator] Toolchanger state reconciled to physical tool T3.",
+        "time": 1788872958.3141224,
+        "type": "response"
+      },
+      {
+        "message": "!! [tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches",
+        "time": 1788872958.3152344,
+        "type": "response"
+      },
+      {
+        "message": "!! [tool_calibrator] Calibration Failed: Unable to find 3 samples within 0.010mm in a window of 5 after 10 touches",
+        "time": 1788872958.3159711,
+        "type": "response"
+      }
+    ]
+  }
+}

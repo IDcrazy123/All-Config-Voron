@@ -1,0 +1,21 @@
+{
+  "result": {
+    "gcode_store": [
+      {
+        "message": "G28",
+        "time": 1788873006.5903792,
+        "type": "command"
+      },
+      {
+        "message": "// toolchanger initialized, active tool T3",
+        "time": 1788873006.6331391,
+        "type": "response"
+      },
+      {
+        "message": "probe at 177.726,164.124 is z=486.900141\n",
+        "time": 1788873021.274751,
+        "type": "response"
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "all_runtime_xyz_offsets_unchanged": true,
+  "save_config_block_unchanged": true,
+  "webhooks": {
+    "state": "ready",
+    "state_message": "Printer is ready"
+  },
+  "toolchanger": {
+    "status": "ready",
+    "tool_number": 0,
+    "detected_tool_number": 0
+  },
+  "position": [
+    173.60000000000002,
+    166.5,
+    10.0,
+    0.0
+  ],
+  "homed_axes": "xyz",
+  "heaters_all_off": true
+}

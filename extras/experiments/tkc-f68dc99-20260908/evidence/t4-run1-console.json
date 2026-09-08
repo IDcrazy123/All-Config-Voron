@@ -1,0 +1,181 @@
+{
+  "result": {
+    "gcode_store": [
+      {
+        "message": "CALIBRATE_TOOLS_Z TOOLS=0,4 SAVE_CONFIG=0 CLEAN_NOZZLE=0 CONTINUE_ON_ERROR=0",
+        "time": 1788873028.1188939,
+        "type": "command"
+      },
+      {
+        "message": "// [tool_calibrator] Starting Z-Offset Calibration across tools: [0, 4]",
+        "time": 1788873028.1237578,
+        "type": "response"
+      },
+      {
+        "message": "// --- Calibrating Toolhead T0 ---",
+        "time": 1788873028.1249385,
+        "type": "response"
+      },
+      {
+        "message": "echo: Dropping off tool T3",
+        "time": 1788873030.9559934,
+        "type": "response"
+      },
+      {
+        "message": "// tool_crash: disabled",
+        "time": 1788873034.5719664,
+        "type": "response"
+      },
+      {
+        "message": "// Activating extruder extruder",
+        "time": 1788873036.7536848,
+        "type": "response"
+      },
+      {
+        "message": "echo: Picking up tool T0",
+        "time": 1788873038.436269,
+        "type": "response"
+      },
+      {
+        "message": "// Selected tool 0 (tool T0)",
+        "time": 1788873047.0239298,
+        "type": "response"
+      },
+      {
+        "message": "// [T0] Moving to Z-probe coordinates: X174.000 Y168.000",
+        "time": 1788873048.0304708,
+        "type": "response"
+      },
+      {
+        "message": "// [T0] Running CARTOGRAPHER_TOUCH_HOME EXPERIMENTAL_RANDOM_RADIUS=0...",
+        "time": 1788873049.139322,
+        "type": "response"
+      },
+      {
+        "message": "Touch home at (174.001, 167.999) adjusted z by 0.402 mm\n",
+        "time": 1788873075.2460544,
+        "type": "response"
+      },
+      {
+        "message": "// [T0] Reference Z baseline established at X174.001 Y167.999 (cartographer_touch_reference)",
+        "time": 1788873076.3534727,
+        "type": "response"
+      },
+      {
+        "message": "// --- Calibrating Toolhead T4 ---",
+        "time": 1788873076.3564923,
+        "type": "response"
+      },
+      {
+        "message": "echo: Dropping off tool T0",
+        "time": 1788873079.5053492,
+        "type": "response"
+      },
+      {
+        "message": "// tool_crash: disabled",
+        "time": 1788873083.3031695,
+        "type": "response"
+      },
+      {
+        "message": "// Activating extruder extruder4",
+        "time": 1788873085.4975805,
+        "type": "response"
+      },
+      {
+        "message": "echo: Picking up tool T4",
+        "time": 1788873087.1789038,
+        "type": "response"
+      },
+      {
+        "message": "// Selected tool 4 (tool T4)",
+        "time": 1788873096.083996,
+        "type": "response"
+      },
+      {
+        "message": "// [T4] Compensating Z-probe position with XY offsets: X+0.168mm Y+0.268mm",
+        "time": 1788873097.0895221,
+        "type": "response"
+      },
+      {
+        "message": "// [T4] Moving to Z-probe coordinates: X174.169 Y168.267 (Compensated from baseline X174.001 Y167.999)",
+        "time": 1788873097.0910528,
+        "type": "response"
+      },
+      {
+        "message": "// [T4] Running CARTOGRAPHER_TOUCH_PROBE...",
+        "time": 1788873098.1981633,
+        "type": "response"
+      },
+      {
+        "message": "Result: at 174.170,168.268 estimate contact at z=0.196141\n",
+        "time": 1788873121.2124557,
+        "type": "response"
+      },
+      {
+        "message": "// [T4] Calculated Z Offset: Z+0.196mm",
+        "time": 1788873122.724788,
+        "type": "response"
+      },
+      {
+        "message": "echo: Dropping off tool T4",
+        "time": 1788873125.862079,
+        "type": "response"
+      },
+      {
+        "message": "// tool_crash: disabled",
+        "time": 1788873129.6208823,
+        "type": "response"
+      },
+      {
+        "message": "// Activating extruder extruder",
+        "time": 1788873131.8097842,
+        "type": "response"
+      },
+      {
+        "message": "echo: Picking up tool T0",
+        "time": 1788873133.490503,
+        "type": "response"
+      },
+      {
+        "message": "// Selected tool 0 (tool T0)",
+        "time": 1788873142.4044278,
+        "type": "response"
+      },
+      {
+        "message": "// [tool_calibrator] Note: SAVE_CONFIG=0 active. Offsets retained in memory only.",
+        "time": 1788873143.4104524,
+        "type": "response"
+      },
+      {
+        "message": "// ================ CALIBRATION SUMMARY ================",
+        "time": 1788873143.4114056,
+        "type": "response"
+      },
+      {
+        "message": "// Tool T0: Z=+0.000mm",
+        "time": 1788873143.412644,
+        "type": "response"
+      },
+      {
+        "message": "// Tool T4: Z=+0.196mm",
+        "time": 1788873143.4129422,
+        "type": "response"
+      },
+      {
+        "message": "// \u2714 ================= CALIBRATION COMPLETE =================",
+        "time": 1788873143.4129844,
+        "type": "response"
+      },
+      {
+        "message": "// All configured tools calibrated safely and successfully.",
+        "time": 1788873143.4130154,
+        "type": "response"
+      },
+      {
+        "message": "// =====================================================",
+        "time": 1788873143.4137394,
+        "type": "response"
+      }
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "result": {
+    "gcode_store": [
+      {
+        "message": "G90\nG0 Z35 F600\nT0\nTURN_OFF_HEATERS",
+        "time": 1788874198.3027356,
+        "type": "command"
+      },
+      {
+        "message": "echo: Dropping off tool T3",
+        "time": 1788874198.319043,
+        "type": "response"
+      },
+      {
+        "message": "// tool_crash: disabled",
+        "time": 1788874205.2312386,
+        "type": "response"
+      },
+      {
+        "message": "// Activating extruder extruder",
+        "time": 1788874207.4217694,
+        "type": "response"
+      },
+      {
+        "message": "echo: Picking up tool T0",
+        "time": 1788874209.1060185,
+        "type": "response"
+      },
+      {
+        "message": "echo: Waiting For Extruder with Deadband: 4.0",
+        "time": 1788874209.1269505,
+        "type": "response"
+      },
+      {
+        "message": "// Selected tool 0 (tool T0)",
+        "time": 1788874217.6949522,
+        "type": "response"
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+PASS: actual rsync filters preserve machine offsets, backups and manifest; master config deploys.

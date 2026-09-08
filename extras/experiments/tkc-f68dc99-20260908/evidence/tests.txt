@@ -1,0 +1,381 @@
+test_adaptive_wiggle_recovery_failure_resets_position (test_calibration_cycle.TestCalibrationCycle.test_adaptive_wiggle_recovery_failure_resets_position)
+If all wiggle recovery attempts fail, toolhead must return to anchor position and raise ERR_CV_201. ... ok
+test_adaptive_wiggle_recovery_success (test_calibration_cycle.TestCalibrationCycle.test_adaptive_wiggle_recovery_success)
+When initial detection fails, adaptive wiggle moves toolhead and recovers optical lock. ... ok
+test_auto_teach_camera_gracefully_handles_uncalibrated_matrix (test_calibration_cycle.TestCalibrationCycle.test_auto_teach_camera_gracefully_handles_uncalibrated_matrix)
+When AUTO_TEACH_CAMERA is called on an uncalibrated machine (no matrix), skip centering and save waypoint. ... ok
+test_auto_teach_camera_persists_to_disk (test_calibration_cycle.TestCalibrationCycle.test_auto_teach_camera_persists_to_disk)
+CALIBRATION_TEACH_STATION STATION=CAMERA must auto-derive approach vector and persist. ... ok
+test_batch_saving_creates_single_backup (test_calibration_cycle.TestCalibrationCycle.test_batch_saving_creates_single_backup)
+Multi-tool calibration must execute atomic batch save with a single backup per session. ... ok
+test_burst_filter_strict_majority_rejection (test_calibration_cycle.TestCalibrationCycle.test_burst_filter_strict_majority_rejection)
+Burst filter with 2-2 tie across 15px spread must reject and not return phantom median. ... [tool_calibrator] Inconsistent burst rejected: spread=201.0px (8.040mm, limit=0.080mm / 2.5px) across 4 frames with no strict majority consensus (2/4).
+ok
+test_burst_sampling_median_filtering (test_calibration_cycle.TestCalibrationCycle.test_burst_sampling_median_filtering)
+Burst sampling must discard single-frame outliers and compute accurate median UV and spread. ... [tool_calibrator] Frame rejected by quality gate: conf=70.0% (min 70.0%), radius=60.0px (bounds 10.0-55.0px)
+ok
+test_burst_sampling_partial_drop (test_calibration_cycle.TestCalibrationCycle.test_burst_sampling_partial_drop)
+Burst sampling handles dropped/unfound frames gracefully if at least 1 valid frame is captured. ... ok
+test_calibrate_camera_scale_star_pattern (test_calibration_cycle.TestCalibrationCycle.test_calibrate_camera_scale_star_pattern)
+CALIBRATE_CAMERA_SCALE must run star-pattern moves and save MPP. ... ok
+test_calibrate_xy_only_preserves_existing_z (test_calibration_cycle.TestCalibrationCycle.test_calibrate_xy_only_preserves_existing_z)
+When CALIBRATE_Z=0, optical XY calibration updates X and Y offsets while strictly preserving existing Z offsets. ... ok
+test_calibrate_z_only_preserves_existing_xy (test_calibration_cycle.TestCalibrationCycle.test_calibrate_z_only_preserves_existing_xy)
+When CALIBRATE_XY=0, Z probing updates Z offsets while strictly preserving existing X and Y offsets. ... ok
+test_calibration_center_nozzle_cmd (test_calibration_cycle.TestCalibrationCycle.test_calibration_center_nozzle_cmd)
+CALIBRATION_CENTER_NOZZLE executes visual servoing centering on active tool. ... ok
+test_calibration_navigate_camera_and_depart (test_calibration_cycle.TestCalibrationCycle.test_calibration_navigate_camera_and_depart)
+CALIBRATION_NAVIGATE navigates safely to camera and departs to safe altitude. ... ok
+test_calibration_order_z_first (test_calibration_cycle.TestCalibrationCycle.test_calibration_order_z_first)
+ORDER=Z_FIRST must execute Z probing before XY camera inspection. ... ok
+test_calibration_test_vision_cmd (test_calibration_cycle.TestCalibrationCycle.test_calibration_test_vision_cmd)
+CALIBRATION_TEST_VISION outputs full inspection report with center UV and confidence. ... ok
+test_calibration_test_vision_negative_does_not_raise (test_calibration_cycle.TestCalibrationCycle.test_calibration_test_vision_negative_does_not_raise)
+Negative test vision outputs clear report without raising GCode CommandError. ... ok
+test_calibration_test_vision_restores_cleared_active_tool (test_calibration_cycle.TestCalibrationCycle.test_calibration_test_vision_restores_cleared_active_tool)
+If toolchanger active_tool becomes None during test vision, finally: restores it. ... ok
+test_camera_scale_centering_failure_warning (test_calibration_cycle.TestCalibrationCycle.test_camera_scale_centering_failure_warning)
+If post-fit centering fails, report WARNING and preserve original station target coordinates. ... ok
+test_camera_scale_lock_failure_aborts_before_motion (test_calibration_cycle.TestCalibrationCycle.test_camera_scale_lock_failure_aborts_before_motion)
+If acquiring lock fails in CALIBRATE_CAMERA_SCALE, abort immediately before motion. ... ok
+test_camera_thermal_check_err_pre_002 (test_calibration_cycle.TestCalibrationCycle.test_camera_thermal_check_err_pre_002)
+Nozzle temperature > 100°C must trigger ERR_PRE_002 before camera entry. ... ok
+test_camera_thermal_check_on_active_tool (test_calibration_cycle.TestCalibrationCycle.test_camera_thermal_check_on_active_tool)
+Active tool T1 at 180°C must block CENTER_NOZZLE and CALIBRATION_NAVIGATE even if T0 is 25°C. ... ok
+test_cartographer_declared_safe_z_cmd_calibrate_z_calls_safe_z (test_calibration_cycle.TestCalibrationCycle.test_cartographer_declared_safe_z_cmd_calibrate_z_calls_safe_z)
+When safe_z is explicitly declared (e.g. 25.0mm), Z-only calibration MUST call move_to_safe_z. ... ok
+test_cartographer_respects_saved_station_safe_z (test_calibration_cycle.TestCalibrationCycle.test_cartographer_respects_saved_station_safe_z)
+When safe_z is omitted with Cartographer Touch, safe_z loads from saved stations to preserve motion invariants. ... ok
+test_cartographer_speedup_bed_clearance_hop_when_z_low (test_calibration_cycle.TestCalibrationCycle.test_cartographer_speedup_bed_clearance_hop_when_z_low)
+In speed-up mode, if toolhead is at low Z (<2.0mm), a minimal clearance hop to 2.0mm protects build sheet. ... ok
+test_cartographer_speedup_cmd_calibrate_z_skips_all_safe_z_lifts (test_calibration_cycle.TestCalibrationCycle.test_cartographer_speedup_cmd_calibrate_z_skips_all_safe_z_lifts)
+When safe_z is omitted (speed-up mode), Z-only calibration on active tool must never call move_to_safe_z. ... ok
+test_cartographer_speedup_multi_tool_lifts_only_on_physical_toolchange (test_calibration_cycle.TestCalibrationCycle.test_cartographer_speedup_multi_tool_lifts_only_on_physical_toolchange)
+In speed-up mode across multiple tools, move_to_safe_z is called ONLY for real physical toolchanges. ... ok
+test_cartographer_speedup_skips_safe_z_lift_in_execute_z_calibration (test_calibration_cycle.TestCalibrationCycle.test_cartographer_speedup_skips_safe_z_lift_in_execute_z_calibration)
+Cartographer speed-up skips move_to_safe_z during Z-probe sequence, but declared safe_z lifts. ... ok
+test_cartographer_uses_declared_safe_z (test_calibration_cycle.TestCalibrationCycle.test_cartographer_uses_declared_safe_z)
+When Cartographer has explicit safe_z declared, that exact number is used and speedup disabled. ... ok
+test_centering_with_wiggle_disabled (test_calibration_cycle.TestCalibrationCycle.test_centering_with_wiggle_disabled)
+When enable_wiggle=False, centering aborts immediately on first unfound burst without wiggling. ... ok
+test_cmd_calibration_abort_and_run_record (test_calibration_cycle.TestCalibrationCycle.test_cmd_calibration_abort_and_run_record)
+CALIBRATION_ABORT sets cancel_requested flag when RUNNING and aborts cleanly. ... ok
+test_cmd_test_vision_synchronizes_camera_url_and_mpp (test_calibration_cycle.TestCalibrationCycle.test_cmd_test_vision_synchronizes_camera_url_and_mpp)
+cmd_CALIBRATION_TEST_VISION must invoke _ensure_vision_sync to configure camera before sampling. ... ok
+test_config_manager_backups_strictly_inside_tool_calibrator (test_calibration_cycle.TestCalibrationCycle.test_config_manager_backups_strictly_inside_tool_calibrator)
+ConfigManager must store backups inside <config_dir>/backups/calibration_offsets. ... ok
+test_default_config_path_no_name_error (test_calibration_cycle.TestCalibrationCycle.test_default_config_path_no_name_error)
+When offset_config_path is omitted, default path resolution must not raise NameError. ... /usr/lib/python3.11/unittest/mock.py:2124: ResourceWarning: unclosed <socket.socket [closed] fd=3, family=2, type=1, proto=6>
+  setattr(_type, entry, MagicProxy(entry, self))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_delayed_vision_sync_executes_ensure_vision_sync (test_calibration_cycle.TestCalibrationCycle.test_delayed_vision_sync_executes_ensure_vision_sync)
+_delayed_vision_sync executes _ensure_vision_sync safely. ... ok
+test_discover_tools_handles_tuple_list (test_calibration_cycle.TestCalibrationCycle.test_discover_tools_handles_tuple_list)
+Klipper lookup_objects() returns list of (name, obj) tuples; _discover_tools must parse correctly. ... ok
+test_dry_run_does_not_modify_disk (test_calibration_cycle.TestCalibrationCycle.test_dry_run_does_not_modify_disk)
+Dry run must compute offsets without saving to disk. ... ok
+test_dynamic_centering_iteration_budget_converges_large_offset (test_calibration_cycle.TestCalibrationCycle.test_dynamic_centering_iteration_budget_converges_large_offset)
+Simulate T2 initial error of 0.865mm: dynamic budget expands beyond 5 steps and converges at step 7. ... ok
+test_force_safe_z_overrides_saved_stations (test_calibration_cycle.TestCalibrationCycle.test_force_safe_z_overrides_saved_stations)
+When safe_z is declared in config, configured safe_z must strictly override saved stations. ... ok
+test_full_calibration_cycle (test_calibration_cycle.TestCalibrationCycle.test_full_calibration_cycle)
+Simulate a complete 2-tool calibration cycle and assert offsets are saved. ... ok
+test_generic_tool_discovery (test_calibration_cycle.TestCalibrationCycle.test_generic_tool_discovery)
+Verifies toolhead discovery across diverse Klipper toolchanger architectures. ... ok
+test_handle_klippy_ready_schedules_delayed_sync (test_calibration_cycle.TestCalibrationCycle.test_handle_klippy_ready_schedules_delayed_sync)
+_handle_klippy_ready must register callback with reactor rather than pausing synchronously. ... ok
+test_inspection_lighting_lifecycle (test_calibration_cycle.TestCalibrationCycle.test_inspection_lighting_lifecycle)
+Optical inspection lighting lifecycle: Camera light ON/OFF & Nozzle light OFF/ON. ... ok
+test_no_duplicate_macros_with_python_commands (test_calibration_cycle.TestCalibrationCycle.test_no_duplicate_macros_with_python_commands)
+Verify macros in tool_calibrator.cfg do not collide with Python registered commands. ... ok
+test_non_convergence_raises_safe_navigator_exception (test_calibration_cycle.TestCalibrationCycle.test_non_convergence_raises_safe_navigator_exception)
+If centering corrections remain above tolerance after max iterations, an exception must be raised. ... ok
+test_out_of_band_webhook_abort_during_centering (test_calibration_cycle.TestCalibrationCycle.test_out_of_band_webhook_abort_during_centering)
+Verify out-of-band webhook abort immediately halts centering loop at the next check. ... ok
+test_physical_burst_spread_rejects_5px_spread_at_0023_mpp (test_calibration_cycle.TestCalibrationCycle.test_physical_burst_spread_rejects_5px_spread_at_0023_mpp)
+At MPP=0.023, a 5.0px spread (0.115mm > 0.08mm) must be rejected without consensus. ... [tool_calibrator] Inconsistent burst rejected: spread=5.0px (0.115mm, limit=0.080mm / 3.5px) across 4 frames with no strict majority consensus (2/4).
+ok
+test_pre_calibration_failure_releases_lock (test_calibration_cycle.TestCalibrationCycle.test_pre_calibration_failure_releases_lock)
+If start_gcode or move_to_safe_z fails after acquire_lock, lock must be released. ... ok
+test_query_vision_fallback_when_pause_disabled (test_calibration_cycle.TestCalibrationCycle.test_query_vision_fallback_when_pause_disabled)
+_query_vision must fallback to done_flag.wait without crashing when reactor pause is disabled. ... ok
+test_reject_when_neither_xy_nor_z_selected (test_calibration_cycle.TestCalibrationCycle.test_reject_when_neither_xy_nor_z_selected)
+CALIBRATE_XY=0 and CALIBRATE_Z=0 must be rejected early without performing moves or tool changes. ... ok
+test_run_record_invalidation_on_aborted_run (test_calibration_cycle.TestCalibrationCycle.test_run_record_invalidation_on_aborted_run)
+When a cycle aborts midway, run_record marks valid=False and cached_offsets are not overwritten with partial data. ... ok
+test_safe_z_explicit_z_param (test_calibration_cycle.TestCalibrationCycle.test_safe_z_explicit_z_param)
+CALIBRATION_SET_SAFE_POS TYPE=SAFE_Z with explicit Z param sets and persists without jogging. ... ok
+test_safe_z_lifted_before_first_toolchange (test_calibration_cycle.TestCalibrationCycle.test_safe_z_lifted_before_first_toolchange)
+Toolhead must be lifted to Safe_Z before the first toolchange command is executed. ... ok
+test_safe_z_roundtrip_persistence (test_calibration_cycle.TestCalibrationCycle.test_safe_z_roundtrip_persistence)
+Safe Z taught via command must persist to disk and restore upon reinitialization for switch backend. ... ok
+test_sample_burst_quality_gates (test_calibration_cycle.TestCalibrationCycle.test_sample_burst_quality_gates)
+_sample_burst filters out low-confidence (<0.70) and invalid radius features. ... [tool_calibrator] Frame rejected by quality gate: conf=40.0% (min 70.0%), radius=20.0px (bounds 10.0-55.0px)
+[tool_calibrator] Frame rejected by quality gate: conf=90.0% (min 70.0%), radius=8.6px (bounds 10.0-55.0px)
+ok
+test_switch_teaching_records_contact_z (test_calibration_cycle.TestCalibrationCycle.test_switch_teaching_records_contact_z)
+cmd_CALIBRATION_TEACH_STATION on SWITCH must read contact_z from probe result. ... ok
+test_teaching_step_by_step_no_none_strings (test_calibration_cycle.TestCalibrationCycle.test_teaching_step_by_step_no_none_strings)
+Teaching SAFE_Z before TARGET must never write the literal string 'None' to config. ... ok
+test_tool_discovery_no_phantom_extruder_tools (test_calibration_cycle.TestCalibrationCycle.test_tool_discovery_no_phantom_extruder_tools)
+Toolchanger with tools [0, 5] must not discover phantom T1 from extruder1. ... ok
+test_xy_compensation_sign_convention_physical_station (test_calibration_cycle.TestCalibrationCycle.test_xy_compensation_sign_convention_physical_station)
+Verify physical station XY compensation adds offsets (P1 sign fix: carriage = station + offset). ... ok
+test_z_probing_secondary_tool_xy_compensation (test_calibration_cycle.TestCalibrationCycle.test_z_probing_secondary_tool_xy_compensation)
+Verify secondary tool Z probing compensates carriage position by XY offsets. ... ok
+test_backup_and_rollback (test_klipper_logic.TestConfigManager.test_backup_and_rollback) ... ok
+test_backup_sort_mixed_directories_by_timestamp (test_klipper_logic.TestConfigManager.test_backup_sort_mixed_directories_by_timestamp)
+Backups from multiple directories must sort by timestamp/mtime rather than path prefix. ... ok
+test_rollback_specific_backup (test_klipper_logic.TestConfigManager.test_rollback_specific_backup) ... ok
+test_save_affine_matrix_translation_precision (test_klipper_logic.TestConfigManager.test_save_affine_matrix_translation_precision)
+Affine matrix translations matrix_tx and matrix_ty must be saved with 6-digit precision. ... ok
+test_save_and_load_station_section (test_klipper_logic.TestConfigManager.test_save_and_load_station_section)
+Verify saving and loading custom sections like [tool_calibrator_station camera]. ... ok
+test_save_and_update_offsets (test_klipper_logic.TestConfigManager.test_save_and_update_offsets) ... ok
+test_tool_t_prefix_matching (test_klipper_logic.TestConfigManager.test_tool_t_prefix_matching)
+Toolchanger allows [tool T1] or [tool 1]. ConfigManager must update [tool T1] in-place without creating duplicate [tool 1]. ... ok
+test_station_loads_all_matrix_parameters (test_klipper_logic.TestToolCalibratorStation.test_station_loads_all_matrix_parameters)
+Verify ToolCalibratorStation loads matrix_tx, matrix_ty and exposes in get_status. ... ok
+test_save_all_tool_offsets_creates_unified_section (test_klipper_logic.TestToolOffsetsAndCommands.test_save_all_tool_offsets_creates_unified_section)
+Verify save_all_tool_offsets saves into [tool_offsets] without duplicate [tool T*] headers. ... ok
+test_tool_offsets_applied_to_tool_objects (test_klipper_logic.TestToolOffsetsAndCommands.test_tool_offsets_applied_to_tool_objects)
+Verify ToolOffsets applies offsets to printer [tool 1] object and runs SET_TOOL_OFFSET command. ... ok
+test_tool_offsets_module (test_klipper_logic.TestToolOffsetsAndCommands.test_tool_offsets_module)
+Verify ToolOffsets loads options and returns in get_status. ... ok
+test_approach_camera_sequence (test_safe_navigator.TestSafeNavigator.test_approach_camera_sequence)
+Verify camera 3-tier sequence: ... ok
+test_approach_switch_sequence (test_safe_navigator.TestSafeNavigator.test_approach_switch_sequence)
+Verify Z switch 3-tier approach sequence. ... ok
+test_cartographer_default_safe_z_is_safe_default (test_safe_navigator.TestSafeNavigator.test_cartographer_default_safe_z_is_safe_default)
+When safe_z is omitted, Cartographer Touch enables carto_speedup while keeping safe_z=35.0mm for stations/toolchange. ... ok
+test_config_aliases_and_speed_normalization (test_safe_navigator.TestSafeNavigator.test_config_aliases_and_speed_normalization)
+Verify camera_target_x/y/z aliases and mm/min to mm/s speed auto-conversion. ... ok
+test_declared_safe_z_overrides_cartographer_default (test_safe_navigator.TestSafeNavigator.test_declared_safe_z_overrides_cartographer_default)
+When safe_z is declared, the declared number must be used and carto_speedup disabled. ... ok
+test_depart_station (test_safe_navigator.TestSafeNavigator.test_depart_station)
+Verify departing lifts to Safe_Z. ... ok
+test_different_frame_sizes_voron_350 (test_safe_navigator.TestSafeNavigator.test_different_frame_sizes_voron_350)
+Verify dynamic adaptation on a Voron 350 (0-350mm). ... ok
+test_different_frame_sizes_voron_v0 (test_safe_navigator.TestSafeNavigator.test_different_frame_sizes_voron_v0)
+Verify dynamic adaptation on a compact Voron V0 (0-120mm). ... ok
+test_move_to_safe_z (test_safe_navigator.TestSafeNavigator.test_move_to_safe_z)
+Test vertical elevation to safe_z. ... ok
+test_out_of_bounds_target_rejection (test_safe_navigator.TestSafeNavigator.test_out_of_bounds_target_rejection)
+Target positions exceeding hardware limits must raise SafeNavigatorException. ... ok
+test_safe_z_zero_clamps_to_safe_clearance (test_safe_navigator.TestSafeNavigator.test_safe_z_zero_clamps_to_safe_clearance)
+When safe_z: 0.0 is configured, safe_z must clamp to safe altitude (35.0mm) to prevent low-Z collisions. ... ok
+test_switch_default_safe_z_is_35 (test_safe_navigator.TestSafeNavigator.test_switch_default_safe_z_is_35)
+When safe_z is omitted, Switch backend must default to 35.0mm and not enable carto_speedup. ... ok
+test_unhomed_failsafe (test_safe_navigator.TestSafeNavigator.test_unhomed_failsafe)
+Verify navigation aborts if printer is not homed. ... ok
+test_calculate_average_mpp (test_vision.TestAffineTransform.test_calculate_average_mpp) ... ok
+test_calculate_tool_delta (test_vision.TestAffineTransform.test_calculate_tool_delta)
+Verify physical delta XY computation between two tools (T0 ref vs T1 target). ... ok
+test_frame_boundary_clamping_err_cv_204 (test_vision.TestAffineTransform.test_frame_boundary_clamping_err_cv_204)
+Coordinates outside camera boundaries must raise ValueError with ERR_CV_204. ... ok
+test_matrix_serialization_and_restore (test_vision.TestAffineTransform.test_matrix_serialization_and_restore)
+Verify get_matrix and set_matrix can roundtrip solved affine coefficients. ... ok
+test_set_mpp (test_vision.TestAffineTransform.test_set_mpp)
+Verify set_mpp updates scale. ... ok
+test_solve_matrix_affine_star_pattern (test_vision.TestAffineTransform.test_solve_matrix_affine_star_pattern)
+Verify 5-point star pattern displacement solves 1st-order affine matrix accurately. ... ok
+test_solve_matrix_and_offset (test_vision.TestAffineTransform.test_solve_matrix_and_offset) ... ok
+test_solve_matrix_rejects_degenerate_points (test_vision.TestAffineTransform.test_solve_matrix_rejects_degenerate_points)
+Verify solve_matrix raises ValueError when points are collinear or identical. ... ok
+test_uncalibrated_offset_raises_err_cv_203 (test_vision.TestAffineTransform.test_uncalibrated_offset_raises_err_cv_203)
+Verify calculate_offset_detail and calculate_tool_delta raise ERR_CV_203 when uncalibrated, preventing blind motion. ... ok
+test_candidate_circle_ranking_discrimination (test_vision.TestNozzleDetector.test_candidate_circle_ranking_discrimination)
+Verify _rank_candidate_circles selects the true circular boundary over internal glare. ... ok
+test_subpixel_refinement_precision (test_vision.TestNozzleDetector.test_subpixel_refinement_precision)
+Verify _refine_upper_arc_symmetry achieves sub-pixel convergence (< 0.15px). ... ok
+test_synthetic_detection (test_vision.TestNozzleDetector.test_synthetic_detection) ... ok
+test_calculate_tool_delta_endpoint (test_vision.TestServerEndpoints.test_calculate_tool_delta_endpoint)
+Verify POST /calculate_tool_delta endpoint produces accurate delta and G-code. ... [2026-09-08 20:02:44] [INFO] [tool_calibrator.affine_transform]: Solved 1st-order affine transform matrix (rank=3). Shape: (2, 3)
+[2026-09-08 20:02:44] [INFO] [tool_calibrator.affine_transform]: Updated MPP scale to: 0.012500 mm/pixel
+ok
+test_dashboard_route (test_vision.TestServerEndpoints.test_dashboard_route)
+Dashboard GET / must return 200 OK and render HTML. ... ok
+test_detect_nozzle_does_not_mutate_global_detector (test_vision.TestServerEndpoints.test_detect_nozzle_does_not_mutate_global_detector)
+POST /detect_nozzle with threshold overrides must NOT mutate global detector instance. ... [2026-09-08 20:02:44] [ERROR] [tool_calibrator.server]: Error in /detect_nozzle
+Traceback (most recent call last):
+  File "/home/voron/Tool-Klipper-Calibration/server/tool_calibrator_server.py", line 381, in detect_nozzle
+    debugger.update_frame(result.annotated_frame, status_text)
+  File "/home/voron/Tool-Klipper-Calibration/server/visual_debugger.py", line 60, in update_frame
+    h, w = display_frame.shape[:2]
+    ^^^^
+ValueError: not enough values to unpack (expected 2, got 0)
+ok
+test_git_commit_telemetry (test_vision.TestServerEndpoints.test_git_commit_telemetry)
+Verify _get_git_commit returns a valid commit hash or unknown. ... ok
+test_negative_image_rejection (test_vision.TestServerEndpoints.test_negative_image_rejection)
+Random noise and blank images must be rejected with found=False and confidence=0.0. ... ok
+test_out_of_band_abort_endpoint (test_vision.TestServerEndpoints.test_out_of_band_abort_endpoint)
+Verify POST /abort_calibration flags cancellation across /health and /calculate_offset. ... [2026-09-08 20:02:45] [WARNING] [tool_calibrator.server]: [tool_calibrator.server] Out-of-band calibration abort requested via API!
+ok
+test_picture_screenshot_shuffled_order_invariance (test_vision.TestServerEndpoints.test_picture_screenshot_shuffled_order_invariance)
+Verify that randomly shuffling test images produces identical sub-pixel detections (zero order bias). ... ok
+test_picture_screenshot_sweep_dataset (test_vision.TestServerEndpoints.test_picture_screenshot_sweep_dataset)
+Verify robust detection and sub-pixel repeatability across all 5 tools and 5 brightness levels. ... ok
+test_sample_api_endpoints (test_vision.TestServerEndpoints.test_sample_api_endpoints)
+Verify /api/samples and /api/test_sample endpoint functionality. ... ok
+test_sample_dataset_detection (test_vision.TestServerEndpoints.test_sample_dataset_detection)
+Verify 3-tier cascade detects nozzle across diverse sample images. ... ok
+test_server_daemon_imports_and_typing_hints (test_vision.TestServerEndpoints.test_server_daemon_imports_and_typing_hints)
+Verify server module imports cleanly with all typing hints (Tuple, Optional, Dict, Any). ... ok
+test_server_session_lock_ownership_enforcement (test_vision.TestServerEndpoints.test_server_session_lock_ownership_enforcement)
+Server mutating endpoints must reject calls when locked by another client, and release_lock requires owner token. ... [2026-09-08 20:02:50] [INFO] [tool_calibrator.affine_transform]: Updated MPP scale to: 0.005000 mm/pixel
+ok
+test_set_camera_url_endpoint (test_vision.TestServerEndpoints.test_set_camera_url_endpoint)
+Verify POST /set_camera_url accepts {"url": ...} payload forwarded from Klipper. ... [2026-09-08 20:02:50] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://192.168.1.100:8080/?action=snapshot
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://192.168.1.100:8080/?action=snapshot
+ok
+test_solve_matrix_api_contract_points_and_calibration_points (test_vision.TestServerEndpoints.test_solve_matrix_api_contract_points_and_calibration_points)
+POST /solve_matrix must accept both 'points' (Klippy client) and 'calibration_points'. ... ok
+test_stream_grabber_cache_cleared_on_error (test_vision.TestServerEndpoints.test_stream_grabber_cache_cleared_on_error)
+StreamGrabber must invalidate _cached_frame when grab fails. ... [2026-09-08 20:02:50] [WARNING] [tool_calibrator.stream_grabber]: HTTP 503 while fetching snapshot from http://127.0.0.1:8090/snapshot
+ok
+test_frame_cache (test_vision.TestStreamGrabber.test_frame_cache) ... ok
+test_url_normalization (test_vision.TestStreamGrabber.test_url_normalization) ... [2026-09-08 20:02:50] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://192.168.1.50:8080/?action=snapshot
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://192.168.1.50:8080/?action=snapshot
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://192.168.1.50:8080/?action=snapshot
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://localhost:8080/snapshot
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.stream_grabber]: StreamGrabber camera URL updated to: http://localhost/webcam2/?action=snapshot
+ok
+test_url_normalization_preserves_jpg (test_vision.TestStreamGrabberWebRTC.test_url_normalization_preserves_jpg) ... ok
+test_webrtc_404_fallback (test_vision.TestStreamGrabberWebRTC.test_webrtc_404_fallback) ... [2026-09-08 20:02:50] [INFO] [tool_calibrator.stream_grabber]: Received 404 from http://localhost/webcam2/?action=snapshot, trying WebRTC fallback: http://localhost/webcam2/snapshot.jpg
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.stream_grabber]: Successfully auto-switched camera endpoint to: http://localhost/webcam2/snapshot.jpg
+ok
+test_frame_generation (test_vision.TestVisualDebugger.test_frame_generation) ... ok
+test_auto_bed_center_probing_coordinates (test_z_backends.TestCartographerBackend.test_auto_bed_center_probing_coordinates)
+When probe_x and probe_y are omitted, default to the exact bed center. ... [2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.z_backend]: [z_backend] No zero_reference_position found; using bed center: (175.000, 175.000)
+ok
+test_build_command_str_with_parameters (test_z_backends.TestCartographerBackend.test_build_command_str_with_parameters)
+Cartographer Touch appends EXPERIMENTAL_RANDOM_RADIUS to HOME and MAX_SAMPLES to PROBE. ... [2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+ok
+test_explicit_probing_coordinates (test_z_backends.TestCartographerBackend.test_explicit_probing_coordinates)
+When probe_x and probe_y are set, use explicit values. ... [2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+ok
+test_get_probe_xy_with_bed_mesh_zero_ref_pos (test_z_backends.TestCartographerBackend.test_get_probe_xy_with_bed_mesh_zero_ref_pos)
+When bed_mesh provides zero_ref_pos, get_probe_xy should prioritize it. ... [2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.z_backend]: [z_backend] Resolved probe XY from bed_mesh.zero_ref_pos: (175.5, 175.5)
+ok
+test_load_touch_model_offset (test_z_backends.TestCartographerBackend.test_load_touch_model_offset)
+Cartographer touch_model offset should be parsed from save_config section. ... [2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+ok
+test_relative_delta_z_longer_nozzle (test_z_backends.TestCartographerBackend.test_relative_delta_z_longer_nozzle)
+Reference Tool T0 executes CARTOGRAPHER_TOUCH_HOME, redefining Z=0 at physical touch. ... [2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+ok
+test_relative_delta_z_non_homing_probe (test_z_backends.TestCartographerBackend.test_relative_delta_z_non_homing_probe)
+When touch_home_gcode does not reset origin (e.g. TOUCH_PROBE), ... [2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+ok
+test_relative_delta_z_shorter_nozzle (test_z_backends.TestCartographerBackend.test_relative_delta_z_shorter_nozzle)
+Reference Tool T0 touches at Z=0.050 (non-homing baseline). ... [2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-08 20:02:50] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+ok
+test_resolve_touch_cmd_scanner (test_z_backends.TestCartographerBackend.test_resolve_touch_cmd_scanner)
+When SCANNER_TOUCH is registered in Klipper gcode commands, resolve dynamically. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+ok
+test_thermal_safety_guard_blocks_hot_nozzle (test_z_backends.TestCartographerBackend.test_thermal_safety_guard_blocks_hot_nozzle)
+Cartographer touch must abort if nozzle temperature exceeds safety limit (> 150°C). ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: 0.04250
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+ok
+test_unsupported_carto_options_rejected (test_z_backends.TestCartographerBackend.test_unsupported_carto_options_rejected)
+Unsupported speed/tolerance options are rejected with configuration error. ... ok
+test_switch_probe_relative_offset (test_z_backends.TestSwitchBackend.test_switch_probe_relative_offset)
+Switch probe measures contact height and computes difference to baseline. ... ok
+test_cartographer_touch_nozzle_mode_allowed_and_persisted_by_default (test_z_gating.TestZGatingAndBaseline.test_cartographer_touch_nozzle_mode_allowed_and_persisted_by_default)
+Cartographer Touch defaults to measurement_reference='nozzle', allowing per-tool Z calibration and save. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Declared safe_z in configuration: Z35.000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.z_backend]: [z_backend] No zero_reference_position found; using bed center: (150.000, 150.000)
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.config_manager]: Successfully committed all tool offsets to /tmp/tmp80v2tq33/tool_offsets.cfg in single atomic transaction
+ok
+test_continue_on_error_mode_collects_intermediate_failures (test_z_gating.TestZGatingAndBaseline.test_continue_on_error_mode_collects_intermediate_failures)
+CONTINUE_ON_ERROR=1 must record tool failures and continue sequence across remaining tools. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Declared safe_z in configuration: Z35.000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.z_backend]: [z_backend] No zero_reference_position found; using bed center: (150.000, 150.000)
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.config_manager]: Successfully committed all tool offsets to /tmp/tmpd0kywdzy/tool_offsets.cfg in single atomic transaction
+ok
+test_monotonic_clock_in_get_status (test_z_gating.TestZGatingAndBaseline.test_monotonic_clock_in_get_status)
+get_status with Klipper reactor monotonic eventtime must produce positive elapsed_sec. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Declared safe_z in configuration: Z35.000
+ok
+test_probe_xy_discovers_configfile_settings (test_z_gating.TestZGatingAndBaseline.test_probe_xy_discovers_configfile_settings)
+BaseZBackend.get_probe_xy must discover zero reference position from configfile [bed_mesh] settings. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Declared safe_z in configuration: Z35.000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.z_backend]: [z_backend] Resolved probe XY from configfile settings [bed_mesh]: (174.0, 168.0)
+ok
+test_probe_xy_discovers_modern_klipper_bmc_probe_mgr (test_z_gating.TestZGatingAndBaseline.test_probe_xy_discovers_modern_klipper_bmc_probe_mgr)
+BaseZBackend.get_probe_xy must discover zero reference coordinates from bed_mesh.bmc.probe_mgr.zero_ref_pos. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Declared safe_z in configuration: Z35.000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.z_backend]: [z_backend] Resolved probe XY from bed_mesh.bmc.probe_mgr.zero_ref_pos: (174.0, 168.0)
+ok
+test_same_point_coordinate_deviation_raises_err_z_004 (test_z_gating.TestZGatingAndBaseline.test_same_point_coordinate_deviation_raises_err_z_004)
+Secondary tool probing at coordinates deviating from reference baseline must fail with ERR_Z_004. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Declared safe_z in configuration: Z35.000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.z_backend]: [z_backend] No zero_reference_position found; using bed center: (150.000, 150.000)
+ok
+test_secondary_tool_z_rejected_without_reference_baseline (test_z_gating.TestZGatingAndBaseline.test_secondary_tool_z_rejected_without_reference_baseline)
+Direct call to _execute_z_calibration on secondary tool without reference baseline must fail with ERR_CAL_002. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Declared safe_z in configuration: Z35.000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.z_backend]: [z_backend] No zero_reference_position found; using bed center: (150.000, 150.000)
+ok
+test_shuttle_z_allowed_via_config (test_z_gating.TestZGatingAndBaseline.test_shuttle_z_allowed_via_config)
+allow_shuttle_z = True in config must permit calibration. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Contactless carriage/shuttle scan mode does not track individual nozzle tip lengths across tool changes.
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Declared safe_z in configuration: Z35.000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.z_backend]: [z_backend] No zero_reference_position found; using bed center: (150.000, 150.000)
+ok
+test_shuttle_z_override_forces_save_config_zero (test_z_gating.TestZGatingAndBaseline.test_shuttle_z_override_forces_save_config_zero)
+Experimental ALLOW_SHUTTLE_Z=1 on shuttle probe must force SAVE_CONFIG=0 to protect config. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Contactless carriage/shuttle scan mode does not track individual nozzle tip lengths across tool changes.
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Declared safe_z in configuration: Z35.000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.z_backend]: [z_backend] No zero_reference_position found; using bed center: (150.000, 150.000)
+ok
+test_shuttle_z_override_via_gcode_parameter (test_z_gating.TestZGatingAndBaseline.test_shuttle_z_override_via_gcode_parameter)
+ALLOW_SHUTTLE_Z=1 in G-code command must allow calibration despite shuttle probe. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Contactless carriage/shuttle scan mode does not track individual nozzle tip lengths across tool changes.
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Declared safe_z in configuration: Z35.000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.z_backend]: [z_backend] No zero_reference_position found; using bed center: (150.000, 150.000)
+ok
+test_shuttle_z_rejected_by_default (test_z_gating.TestZGatingAndBaseline.test_shuttle_z_rejected_by_default)
+Explicit measurement_reference='shuttle' must be rejected during CALIBRATE_TOOL_OFFSETS. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'shuttle'. Contactless carriage/shuttle scan mode does not track individual nozzle tip lengths across tool changes.
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Declared safe_z in configuration: Z35.000
+ok
+test_status_hardening_and_frontend_contract (test_z_gating.TestZGatingAndBaseline.test_status_hardening_and_frontend_contract)
+get_status and cmd_CALIBRATION_STATUS must survive corrupted state dictionaries. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Declared safe_z in configuration: Z35.000
+[2026-09-08 20:02:51] [ERROR] [tool_calibrator]: [tool_calibrator] Error executing cmd_CALIBRATION_STATUS: 'NoneType' object has no attribute 'get'
+ok
+test_toolchanger_reconciliation_on_error (test_z_gating.TestZGatingAndBaseline.test_toolchanger_reconciliation_on_error)
+Exceptions during calibration must reconcile uninitialized toolchanger state in finally. ... [2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: Loaded Cartographer touch_model z_offset: -0.05000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.cartographer_backend]: [cartographer_backend] measurement_reference is set to 'nozzle'. Cartographer Touch uses physical nozzle contact against the bed to measure individual nozzle tip heights.
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Declared safe_z in configuration: Z35.000
+[2026-09-08 20:02:51] [INFO] [tool_calibrator.z_backend]: [z_backend] No zero_reference_position found; using bed center: (150.000, 150.000)
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Reconciling uninitialized toolchanger state to T0
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Initialized toolchanger via tc.initialize_to_tool(tool_obj)
+[2026-09-08 20:02:51] [INFO] [tool_calibrator]: [tool_calibrator] Toolchanger state reconciled to physical tool T0.
+ok
+
+----------------------------------------------------------------------
+Ran 140 tests in 7.656s
+
+OK

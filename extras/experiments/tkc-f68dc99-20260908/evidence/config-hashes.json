@@ -1,0 +1,18 @@
+{
+  "remote": {
+    "printer.cfg": "639159018b61935ab08187363541d445810f3eef7b967f0c96b8fd2f6325e9d5",
+    "moonraker.conf": "c4f64adc722960eb5d3b31b2fcdcb915032e299bb2add5d9eb9be267747f5613",
+    "Printer-Setup/calibration-probe.cfg": "417f18ffd13665ef85fdd681575fb945eea07a0c2d376cfe977538d7036240b7",
+    "scripts/install.sh": "8b1077a1929421868feddd1fd4376e1402dd78b452629c769ee46dd9e752026a",
+    "tool_calibrator/tool_calibrator.cfg": "da317458c10041399bd4bb787f5a9b6354cfbaf431c66214d8baa7b40a03d344",
+    "tool_calibrator/tool_offsets.cfg": "d6df0ca4120548afdb08e17f128378d3fa1b1efb7a3329ca7e994103aa2ef56a"
+  },
+  "local_matches": {
+    "printer.cfg": true,
+    "moonraker.conf": true,
+    "Printer-Setup/calibration-probe.cfg": true,
+    "scripts/install.sh": true,
+    "tool_calibrator/tool_calibrator.cfg": true,
+    "tool_calibrator/tool_offsets.cfg": true
+  }
+}

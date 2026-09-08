@@ -1,0 +1,41 @@
+{
+  "result": {
+    "gcode_store": [
+      {
+        "message": "G90\nG0 Z35 F600\nT3\nG0 X174 Y168 F12000\nG0 Z5 F600\nM400\nCARTOGRAPHER_TOUCH_PROBE",
+        "time": 1788873443.7173193,
+        "type": "command"
+      },
+      {
+        "message": "echo: Dropping off tool T0",
+        "time": 1788873443.749674,
+        "type": "response"
+      },
+      {
+        "message": "// tool_crash: disabled",
+        "time": 1788873450.2863748,
+        "type": "response"
+      },
+      {
+        "message": "// Activating extruder extruder3",
+        "time": 1788873452.4800034,
+        "type": "response"
+      },
+      {
+        "message": "echo: Picking up tool T3",
+        "time": 1788873454.1609766,
+        "type": "response"
+      },
+      {
+        "message": "// Selected tool 3 (tool T3)",
+        "time": 1788873462.7414403,
+        "type": "response"
+      },
+      {
+        "message": "Result: at 174.325,168.525 estimate contact at z=-0.165414\n",
+        "time": 1788873478.217555,
+        "type": "response"
+      }
+    ]
+  }
+}
