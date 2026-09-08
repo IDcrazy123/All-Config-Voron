@@ -73,3 +73,30 @@ liên tiếp cùng T3. Không thay clearance toàn cục hoặc nới tolerance 
 
 Chưa đủ bằng chứng chấp nhận Z production. Cần xử lý cache/recovery, theo dõi outlier
 T2/T3 và dao động nhiệt bed khi giữ 70 °C. Không thay PID hoặc phần cứng từ suy đoán.
+
+## 2. Lập báo cáo bàn giao yêu cầu AI sửa lỗi TKC
+
+### Mục tiêu
+
+Tổng hợp các vấn đề vừa gặp thành yêu cầu sửa có bằng chứng, cách tái hiện và
+tiêu chí nghiệm thu để người dùng gửi cho AI khác.
+
+### File bổ sung
+
+- [AI_FIX_REQUEST.vi.md](../experiments/tkc-f68dc99-20260908/AI_FIX_REQUEST.vi.md)
+  — prompt giao việc và 11 nhóm yêu cầu TKC-01 đến TKC-11, ưu tiên P1/P2.
+
+### Chi tiết
+
+Phân biệt lỗi xác nhận trên máy, lỗi tái hiện offline và rủi ro đọc mã.
+Nêu rõ vấn đề cache XY, recovery sai trạng thái, baseline, Touch fallback,
+độ lặp T3, nâng Z35, nhiệt độ, tương thích tham số mẫu, abort và tài liệu.
+Giữ đầy đủ giới hạn so sánh lạnh với bộ lưu150/70; ba lượt T3 nóng chưa chứng
+minh ổn định nhiệt hoặc độ lặp production. Kèm dữ liệu và liên kết bằng chứng,
+yêu cầu regression test và kế hoạch nghiệm thu phần cứng theo giai đoạn.
+
+### Kiểm tra và kết quả
+
+Đối chiếu số liệu với báo cáo phiên trước; kiểm tra liên kết nội bộ và whitespace.
+Đây là tác vụ tài liệu: không chạy lại phép đo, không sửa cấu hình hoặc offset.
+Báo cáo sẵn sàng để bàn giao; các yêu cầu sửa phần mềm chưa được thực hiện ở tác vụ này.
