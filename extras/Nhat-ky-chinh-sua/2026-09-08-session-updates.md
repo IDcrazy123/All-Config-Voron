@@ -100,3 +100,15 @@ yêu cầu regression test và kế hoạch nghiệm thu phần cứng theo giai
 Đối chiếu số liệu với báo cáo phiên trước; kiểm tra liên kết nội bộ và whitespace.
 Đây là tác vụ tài liệu: không chạy lại phép đo, không sửa cấu hình hoặc offset.
 Báo cáo sẵn sàng để bàn giao; các yêu cầu sửa phần mềm chưa được thực hiện ở tác vụ này.
+
+## 3. Làm rõ phạm vi báo cáo: chỉ sửa upstream Tool-Klipper-Calibration
+
+Theo yêu cầu người dùng, chỉnh báo cáo bàn giao để repository đích duy nhất là
+`IDcrazy123/Tool-Klipper-Calibration`. Mọi yêu cầu sửa mã, tests, tài liệu và
+installer thuộc TKC; All-Config-Voron chỉ cung cấp bằng chứng đọc. Không yêu cầu
+AI sửa macro/cấu hình dự án này hoặc triển khai lên máy thử nghiệm.
+
+Chuyển các liên kết bằng chứng sang URL GitHub tại commit cố định `8879af6` để
+gửi riêng file báo cáo sang dự án TKC. Làm rõ thử máy là kịch bản bàn giao cho
+người vận hành; yêu cầu bản sửa TKC tổng quát, không hardcode thông số máy.
+Kiểm tra diff và liên kết bằng chứng; không thay cấu hình hoặc chạy máy.

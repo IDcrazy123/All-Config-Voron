@@ -1,12 +1,23 @@
-# Yêu cầu AI sửa lỗi TKC sau thử nghiệm thực tế
+# Yêu cầu sửa upstream Tool-Klipper-Calibration
 
 Ngày lập: 2026-09-08. Đây là tài liệu bàn giao sửa mã, tài liệu và kiểm thử;
 không phải xác nhận rằng các kết quả đo đã đủ điều kiện ghi vào máy.
 
+**Repository duy nhất cần sửa:**
+[IDcrazy123/Tool-Klipper-Calibration](https://github.com/IDcrazy123/Tool-Klipper-Calibration).
+Mọi đường dẫn mã nguồn, tests, `docs/`, `agent/` và script được yêu cầu sửa dưới đây
+đều thuộc repository TKC này. Bản sửa phải hoạt động như tính năng/sửa lỗi của TKC,
+không hardcode địa chỉ máy, số tool, tọa độ hay offset của máy thử nghiệm.
+
+**All-Config-Voron chỉ là nguồn bằng chứng sử dụng.** Không sửa repository cấu hình
+này, không đưa workaround vào macro của máy để thay cho sửa TKC. Các giá trị máy
+trong báo cáo là dữ liệu tái hiện và fixture kiểm thử, không phải mặc định mới của TKC.
+
 ## 1. Prompt giao việc
 
-> Hãy đọc toàn bộ báo cáo này và các bằng chứng được liên kết, đọc AGENTS.md của
-> repository bạn đang làm việc, rồi sửa Tool Klipper Calibration theo các mục
+> Hãy làm việc trong repository https://github.com/IDcrazy123/Tool-Klipper-Calibration.
+> Đọc hướng dẫn dành cho agent của chính repository TKC và toàn bộ báo cáo này,
+> rồi sửa mã nguồn, tests và tài liệu của Tool-Klipper-Calibration theo các mục
 > TKC-01 đến TKC-11. Trước tiên so sánh HEAD hiện tại với commit được khảo sát;
 > chỉ sửa những vấn đề còn tồn tại. Ưu tiên cache XY, phục hồi toolchanger và
 > tính hợp lệ của baseline. Viết regression test bằng API sát Klipper/KTC thật,
@@ -15,6 +26,9 @@ không phải xác nhận rằng các kết quả đo đã đủ điều kiện 
 > offset production hay giảm clearance toàn cục dựa trên suy đoán. Tách phần sửa
 > phần mềm khỏi điều tra nhiễu cơ khí/nhiệt. Tài liệu này không yêu cầu tự kết nối
 > và chạy máy thật; kiểm thử phần cứng phải là bước riêng có người vận hành.
+> All-Config-Voron chỉ chứa bằng chứng: không sửa hoặc commit vào repository đó,
+> không triển khai lên 192.168.1.43. Bàn giao patch/commit trong TKC và kế hoạch
+> kiểm thử phần cứng để người dùng thực hiện riêng.
 
 ## 2. Phiên bản, môi trường và giới hạn bằng chứng
 
@@ -34,9 +48,9 @@ không phải xác nhận rằng các kết quả đo đã đủ điều kiện 
 - Bộ XYZ production và khối SAVE_CONFIG giữ nguyên. Kết thúc phiên máy ready,
   XYZ homed, active/detected T0, tất cả heater target 0.
 - Bộ cấu hình và bằng chứng đã lưu trong repository All-Config-Voron, commit
-  `8879af6`. Xem [báo cáo đầy đủ](REPORT.vi.md),
-  [hướng dẫn tích hợp](../../docs/tkc-commissioning-20260908.md) và
-  [xác minh cuối phiên](evidence/verification-after-hot.json).
+  `8879af6`. Xem [báo cáo đầy đủ](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/REPORT.vi.md),
+  [hướng dẫn tích hợp](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/docs/tkc-commissioning-20260908.md) và
+  [xác minh cuối phiên](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/verification-after-hot.json).
 
 Các nhãn trong bảng phân biệt: **thực tế** = thấy trên máy;
 **offline** = tái hiện bằng chương trình không điều khiển máy;
@@ -71,8 +85,8 @@ mất bù X0.820/Y0.240. Điểm tiếp xúc thay đổi giữa các lượt nê
 (khoảng dòng 1136, nhánh lấy XY khoảng 1150); cuối quy trình gán
 `self.cached_offsets = results` (khoảng 1580). Số dòng ứng với commit khảo sát.
 
-**Tái hiện:** [reproduce_xy_cache.py](reproduce_xy_cache.py),
-[kết quả offline](evidence/xy-cache-reproduction.txt). Chạy từ thư mục source TKC
+**Tái hiện:** [reproduce_xy_cache.py](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/reproduce_xy_cache.py),
+[kết quả offline](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/xy-cache-reproduction.txt). Chạy từ thư mục source TKC
 bằng Python của env, với `PYTHONPATH=.`. Script không gửi lệnh tới máy thật.
 
 **Yêu cầu:** merge theo từng trục, không thay toàn bộ bản ghi XYZ bằng kết quả Z;
@@ -100,8 +114,8 @@ báo lỗi rõ, dừng chuỗi và giữ thông tin lỗi ban đầu.
 **Nghiệm thu:** mô phỏng API thực, sensor T3/tool=-1, lỗi initialize, sensor mâu thuẫn,
 command không tồn tại, phục hồi thành công và thất bại. Không được báo thành công
 khi hậu điều kiện chưa đạt; test không dựa vào MagicMock tự sinh thuộc tính.
-Xem [trạng thái group thất bại](evidence/all-run1-final.json) và
-[log đo](evidence/final-measurement-klippy-excerpt.txt).
+Xem [trạng thái group thất bại](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/all-run1-final.json) và
+[log đo](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/final-measurement-klippy-excerpt.txt).
 
 ### TKC-03 — Baseline phải thuộc đúng phiên/hệ tọa độ
 
@@ -221,8 +235,8 @@ không hứa khả năng dừng mà backend không hỗ trợ.
   lỗi phải xóa hết. Installer/uninstaller cần báo đường dẫn đã xóa/giữ và manifest
   rõ; bảo toàn backup, offsets và cấu hình ngoài phạm vi TKC.
 - Cài mới đã thành công; include/update manager cần thao tác theo output installer
-  không được ghi thành lỗi cài đặt. Bộ deploy All-Config đã có bảo vệ rsync;
-  không ghi đè offsets/backup máy khi đồng bộ.
+  không được ghi thành lỗi cài đặt. Chỉ rà soát installer/uninstaller của TKC về
+  bảo toàn dữ liệu. Script deploy All-Config nằm ngoài phạm vi sửa báo cáo này.
 
 ## 4. Số liệu thực tế để AI kiểm tra kết luận
 
@@ -259,21 +273,22 @@ T0–T4 lặp nhiều vòng. Không áp kết quả này vào production.
 
 ## 5. Bằng chứng cần đọc
 
-- [Báo cáo chi tiết, logic và đối chiếu tài liệu](REPORT.vi.md).
-- [Log T0](evidence/t0-klippy-excerpt.txt),
-  [log nhóm tool](evidence/final-measurement-klippy-excerpt.txt),
-  [log T3 riêng](evidence/t3-isolated-excerpt.txt).
-- [Snapshot trước nóng1](evidence/t3-hot-pre1.json),
-  [sau nóng1](evidence/t3-hot-post1.json),
-  [sau nóng2](evidence/t3-hot-post2.json),
-  [sau nóng3](evidence/t3-hot-post3.json).
-- [Quan sát ổn định nhiệt](evidence/thermal-soak-observed.jsonl),
-  [request/response theo thời gian](evidence/requests.jsonl).
-- [140 test upstream](evidence/tests.txt), [cài đặt](evidence/install.txt),
-  [kiểm tra bảo vệ deploy](evidence/deployment-filters.txt).
+- [Báo cáo chi tiết, logic và đối chiếu tài liệu](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/REPORT.vi.md).
+- [Log T0](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/t0-klippy-excerpt.txt),
+  [log nhóm tool](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/final-measurement-klippy-excerpt.txt),
+  [log T3 riêng](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/t3-isolated-excerpt.txt).
+- [Snapshot trước nóng1](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/t3-hot-pre1.json),
+  [sau nóng1](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/t3-hot-post1.json),
+  [sau nóng2](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/t3-hot-post2.json),
+  [sau nóng3](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/t3-hot-post3.json).
+- [Quan sát ổn định nhiệt](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/thermal-soak-observed.jsonl),
+  [request/response theo thời gian](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/requests.jsonl).
+- [140 test upstream](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/tests.txt), [cài đặt](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/install.txt),
+  [kiểm tra bảo vệ deploy](https://github.com/IDcrazy123/All-Config-Voron/blob/8879af6/extras/experiments/tkc-f68dc99-20260908/evidence/deployment-filters.txt).
 
 Nếu chỉ gửi một file này, AI nhận việc vẫn có phạm vi và số liệu tóm tắt;
-để tái hiện và đối chiếu đầy đủ, gửi kèm cả thư mục experiment hoặc quyền đọc repo.
+để tái hiện và đối chiếu đầy đủ, dùng các liên kết bằng chứng tại commit cố định
+của All-Config-Voron. Đọc bằng chứng không yêu cầu sửa repository cấu hình.
 
 ## 6. Những điểm không được kết luận sai hoặc sửa lại mù
 
@@ -288,22 +303,25 @@ Nếu chỉ gửi một file này, AI nhận việc vẫn có phạm vi và số
 
 ## 7. Kế hoạch nghiệm thu bản sửa
 
-1. Ghi SHA bắt đầu, diff với commit khảo sát, đọc hướng dẫn repo. Lập bảng từng ID:
+1. Trong repository Tool-Klipper-Calibration, ghi SHA bắt đầu, diff với commit
+   khảo sát, đọc hướng dẫn của TKC. Lập bảng từng ID:
    còn lỗi / đã sửa upstream / cần thêm bằng chứng. Chạy lại 140 test baseline.
 2. Sửa P1 trước, thêm regression test có failure trước sửa và pass sau sửa;
    dùng trạng thái/API thực tế cho KTC và Cartographer. Không cần kiểm thử máy
    cho lỗi cache có thể tái hiện offline.
 3. Sửa P2, cập nhật tài liệu cùng commit liên quan. Kiểm tra schema config, mặc
    định lưu, đường dẫn backup và tính tương thích phiên bản; không làm mất XY/Z cũ.
-4. Bàn giao diff, kết quả test, giới hạn còn lại và kịch bản thử máy để người vận
-   hành duyệt/chuẩn bị. Sao lưu trước mọi thay đổi cấu hình khi thực hiện bước máy.
-5. Thử máy theo giai đoạn: T0 → T3 riêng lặp cùng tool → T0/T3 có đổi tool → đủ
+4. Bàn giao diff/commit thuộc TKC, kết quả test và giới hạn còn lại. Các bước 5–6
+   là kịch bản đề xuất cho người vận hành, không phải lệnh triển khai hoặc chạy máy
+   dành cho AI nhận yêu cầu sửa upstream này.
+5. Kịch bản thử máy: T0 → T3 riêng lặp cùng tool → T0/T3 có đổi tool → đủ
    T0–T4 khi ổn định. Ghi nhiệt thực và heat-soak; dùng cùng điều kiện150/70 nếu
    so với bộ lưu và chỉ khi backend cho phép. Giữ `SAVE_CONFIG=0` trong xác minh.
 6. Chỉ đánh giá lưu production sau khi có tiêu chí và kết quả lặp đạt, kiểm tra
    trạng thái phục hồi, kiểm chứng số liệu so sánh cùng điều kiện. Thử abort live
    là ca riêng có chuẩn bị, không chèn bất ngờ vào phép đo đang chạy.
 
-**Đầu ra AI phải trả:** mã sửa + tests + tài liệu; bảng truy vết TKC-01…11;
+**Đầu ra AI phải trả:** mã sửa + tests + tài liệu trong Tool-Klipper-Calibration;
+bảng truy vết TKC-01…11;
 bằng chứng test thực sự đã chạy; nội dung chưa kiểm chứng; hướng dẫn cập nhật và
 rollback; báo cáo riêng kết quả phần cứng nếu sau này được thực hiện.
