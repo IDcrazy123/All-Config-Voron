@@ -81,3 +81,23 @@
 ### Kiểm tra
 - Toàn bộ các file `.md` và `.cfg` đã được kiểm tra cú pháp, đường dẫn và tính nhất quán với code thực tế.
 
+---
+
+## 4. Cập nhật tọa độ công tắc Axiscope Z và rút gọn/ẩn các macro kTAMV phụ
+
+### Mục tiêu
+- Cập nhật tọa độ vật lý mới của công tắc vi mô đo Z (Axiscope switch): `X: 68.0, Y: -8.0, Z: 2.0`.
+- Kích hoạt lại module `[axiscope]` trong `calibration-probe.cfg` để hỗ trợ đo tự động chênh lệch Z bằng lệnh `CALIBRATE_ALL_Z_OFFSETS`.
+- Rút gọn bảng macro trên giao diện Mainsail: ẩn các macro phụ trợ kTAMV bằng tiền tố `_` (`_KTAMV_SETUP`, `_KTAMV_MEASURE_ACTIVE_TOOL_XY`, `_KTAMV_APPLY_ACTIVE_TOOL_XY`), chỉ giữ lại macro chính `KTAMV_AUTO_CALIBRATE_ALL_TOOLS` và macro kiểm tra `KTAMV_STATUS`.
+
+### File đã sửa đổi
+- `config/Printer-Setup/calibration-probe.cfg` — Kích hoạt `[axiscope]` với tọa độ `zswitch_x_pos: 68.0`, `zswitch_y_pos: -8.0`, `zswitch_z_pos: 2.0`.
+- `config/Printer-Setup/ktamv.cfg` — Đổi tên các macro helper thành `_KTAMV_SETUP`, `_KTAMV_MEASURE_ACTIVE_TOOL_XY`, `_KTAMV_APPLY_ACTIVE_TOOL_XY`.
+
+### Sao lưu
+- [pre-axiscope-update-20260913-174800](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-axiscope-update-20260913-174800/)
+
+### Kiểm tra
+- Nạp cấu hình sang máy in `192.168.1.43` và khởi động lại firmware Klipper (`FIRMWARE_RESTART`): Thành công (`ready`).
+- Lệnh Moonraker help xác nhận: các lệnh `CALIBRATE_ALL_Z_OFFSETS`, `MOVE_TO_ZSWITCH`, `PROBE_ZSWITCH` đã sẵn sàng; các macro helper kTAMV đã được ẩn khỏi bảng điều khiển Mainsail.
+
