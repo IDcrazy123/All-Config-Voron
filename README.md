@@ -36,10 +36,10 @@ Production dock coordinates and mechanical XYZ offsets (stored in `config/printe
 | Tool | CANbus UUID | Park Coordinates (X, Y, Z) | Mechanical Offset (X, Y, Z) | Role & Status |
 | :---: | :---: | :---: | :---: | :--- |
 | **T0** | `441e1484ac41` | `(30.2, 1.3, 343.0)` | `(0.000, 0.000, 0.0000)` | **Reference Tool** (Base zero for all offsets) |
-| **T1** | `6475b5b9e028` | `(104.0, 1.1, 343.0)` | `(-0.371, -0.167, 0.2360)` | Calibrated production toolhead |
-| **T2** | `4ad9d622a836` | `(176.0, 1.6, 343.0)` | `(1.068, -0.015, -0.3160)` | Calibrated production toolhead |
-| **T3** | `c2465b7c36f8` | `(249.5, 2.5, 343.0)` | `(0.099, 0.430, -0.1896)` | Calibrated production toolhead |
-| **T4** | `28650279df58` | `(321.5, 2.6, 343.0)` | `(0.211, -0.075, 0.1200)` | Calibrated production toolhead |
+| **T1** | `6475b5b9e028` | `(104.0, 1.1, 343.0)` | `(-0.354, -0.174, 0.2091)` | Calibrated production toolhead |
+| **T2** | `4ad9d622a836` | `(176.0, 1.6, 343.0)` | `(1.068, -0.028, -0.2742)` | Calibrated production toolhead |
+| **T3** | `c2465b7c36f8` | `(249.5, 2.5, 343.0)` | `(0.090, 0.424, -0.2175)` | Calibrated production toolhead |
+| **T4** | `28650279df58` | `(321.5, 2.6, 343.0)` | `(0.211, -0.075, 0.0585)` | Calibrated production toolhead |
 
 > [!NOTE]
 > During tool changes, KTC's `pickup_gcode` holds the nozzle on the silicone dock seal while heating to printing temperature (`M109`) to prevent ooze before lowering Z. To minimize toolchange delay, configure OrcaSlicer **Pre-heating time** to 15–20s.

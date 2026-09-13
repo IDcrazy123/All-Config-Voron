@@ -122,4 +122,45 @@
 ### Kiểm tra
 - Nạp cấu hình sang máy in `192.168.1.43` và khởi động lại firmware Klipper (`FIRMWARE_RESTART`): Thành công (`ready`).
 
+---
+
+## 6. Cập nhật Z-offset cho các Tool T1–T4 từ dữ liệu đo Cartographer Touch (Bàn 70°C, Hotend 150°C)
+
+### Mục tiêu
+- Áp dụng bộ thông số Z-offset mới nhất được đo đạc và lấy trung bình 3 lần liên tiếp qua lệnh `CARTOGRAPHER_TOUCH_PROBE` tại điều kiện nhiệt độ in thực tế (Bàn 70°C, Hotend 150°C).
+- Lưu cấu hình vĩnh viễn trên máy in thật `192.168.1.43` qua `SET_TOOL_PARAMETER` + `SAVE_TOOL_PARAMETER` + `SAVE_CONFIG`.
+- Đồng bộ cấu hình về kho lưu trữ Git và cập nhật tài liệu dự án.
+
+### File đã sửa đổi
+- `config/printer.cfg` — Cập nhật `gcode_z_offset` cho T1 (0.2091), T2 (-0.2742), T3 (-0.2175), T4 (0.0585) trong khối `#*# <SAVE_CONFIG>`.
+- `README.md` — Cập nhật bảng offset cơ khí XYZ của 5 tool.
+- `README.vi.md` — Cập nhật bảng offset cơ khí XYZ của 5 tool.
+- `extras/Nhat-ky-chinh-sua/2026-09-13-session-updates.md` — Bổ sung ghi nhận phiên làm việc.
+
+### Sao lưu
+- [pre-apply-carto-touch-z-offsets-20260913-191400](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-apply-carto-touch-z-offsets-20260913-191400/)
+- Snapshot trên máy in: `/home/voron/printer_data/config/printer.cfg.bak-carto-touch-20260913`
+
+### Chi tiết thay đổi
+- **T0**: Mốc quy chiếu chuẩn (Z=0.0000).
+- **T1**: `0.2360` → `0.2091` ($\Delta = -0.0269\text{ mm}$, độ tản mạn 3 lần đo: $14\,\mu\text{m}$).
+- **T2**: `-0.3160` → `-0.2742` ($\Delta = +0.0418\text{ mm}$, độ tản mạn 3 lần đo: $14\,\mu\text{m}$).
+- **T3**: `-0.1896` → `-0.2175` ($\Delta = -0.0279\text{ mm}$, độ tản mạn 3 lần đo: $8\,\mu\text{m}$).
+- **T4**: `0.1200` → `0.0585` ($\Delta = -0.0615\text{ mm}$, độ tản mạn 3 lần đo: $12\,\mu\text{m}$).
+
+### Kiểm tra
+- Thực thi lệnh KTC `SET_TOOL_PARAMETER` & `SAVE_TOOL_PARAMETER` thành công trên máy in qua Moonraker API.
+- Lệnh `CHECK_OFFSETS` xác nhận runtime offsets:
+  - T0: Z=0.0
+  - T1: Z=0.2091
+  - T2: Z=-0.2742
+  - T3: Z=-0.2175
+  - T4: Z=0.0585
+- Thực hiện `SAVE_CONFIG`: Klipper tự động khởi động lại và báo trạng thái `ready`.
+- Kiểm tra tính nguyên vẹn cấu hình: Khớp 100% giữa host `192.168.1.43` và Git repo.
+
+### Kết quả
+- Toàn bộ 4 tool đã được nạp bộ số Z-offset thực nghiệm chuẩn xác nhất, sẵn sàng cho các bài in thử nghiệm đa màu / đa vật liệu.
+
+
 

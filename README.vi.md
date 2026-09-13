@@ -32,10 +32,10 @@ Tọa độ dock và offset cơ khí XYZ (được lưu tại khối `#*# <SAVE_
 | Tool | CANbus UUID | Tọa độ Dock (X, Y, Z) | Offset cơ khí (X, Y, Z) | Vai trò & Trạng thái |
 | :---: | :---: | :---: | :---: | :--- |
 | **T0** | `441e1484ac41` | `(30.2, 1.3, 343.0)` | `(0.000, 0.000, 0.0000)` | **Tool tham chiếu chuẩn** (Gốc 0 cho toàn bộ offset) |
-| **T1** | `6475b5b9e028` | `(104.0, 1.1, 343.0)` | `(-0.371, -0.167, 0.2360)` | Toolhead vận hành đã hiệu chuẩn |
-| **T2** | `4ad9d622a836` | `(176.0, 1.6, 343.0)` | `(1.068, -0.015, -0.3160)` | Toolhead vận hành đã hiệu chuẩn |
-| **T3** | `c2465b7c36f8` | `(249.5, 2.5, 343.0)` | `(0.099, 0.430, -0.1896)` | Toolhead vận hành đã hiệu chuẩn |
-| **T4** | `28650279df58` | `(321.5, 2.6, 343.0)` | `(0.211, -0.075, 0.1200)` | Toolhead vận hành đã hiệu chuẩn |
+| **T1** | `6475b5b9e028` | `(104.0, 1.1, 343.0)` | `(-0.354, -0.174, 0.2091)` | Toolhead vận hành đã hiệu chuẩn |
+| **T2** | `4ad9d622a836` | `(176.0, 1.6, 343.0)` | `(1.068, -0.028, -0.2742)` | Toolhead vận hành đã hiệu chuẩn |
+| **T3** | `c2465b7c36f8` | `(249.5, 2.5, 343.0)` | `(0.090, 0.424, -0.2175)` | Toolhead vận hành đã hiệu chuẩn |
+| **T4** | `28650279df58` | `(321.5, 2.6, 343.0)` | `(0.211, -0.075, 0.0585)` | Toolhead vận hành đã hiệu chuẩn |
 
 > [!NOTE]
 > Khi đổi tool, lệnh `pickup_gcode` của KTC giữ đầu phun tì trên đệm silicon của dock trong lúc nung nhiệt (`M109`) để chống rỉ nhựa trước khi hạ Z. Để rút ngắn thời gian chờ tại dock, hãy cài đặt **Pre-heating time** trong OrcaSlicer khoảng 15–20 giây.
