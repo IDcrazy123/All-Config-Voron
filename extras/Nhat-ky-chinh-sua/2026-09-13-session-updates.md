@@ -37,4 +37,25 @@
 
 ### Kết quả
 - Hệ thống máy in và kho mã nguồn đã được dọn dẹp sạch sẽ, không còn tàn dư của các dự án thử nghiệm KCC và TKC.
-- Hệ thống kTAMV sẵn sàng thực hiện chu trình đo tự động XY an toàn tại `X170 Y0 Z40`.
+- Hệ thống kTAMV sẵn sàng thực hiện chu trình đo tự động XY an toàn.
+
+---
+
+## 2. Cập nhật Macro đo tự động kTAMV sử dụng tọa độ camera đã học (Learned Origin)
+
+### Mục tiêu
+- Thay thế việc hardcode tọa độ `X170 Y0` trong macro `_KTAMV_CALIBRATE_TOOL` và `KTAMV_AUTO_CALIBRATE_ALL_TOOLS` bằng tọa độ động đã học `printer.ktamv.camera_center_coordinates` từ bước thiết lập gốc quy chiếu T0 (`KTAMV_SET_ORIGIN`).
+
+### File đã sửa đổi
+- `config/Printer-Setup/ktamv.cfg` — Sử dụng `printer.ktamv.camera_center_coordinates` làm điểm đích tiếp cận tại độ cao `safe_z` (Z40).
+
+### Sao lưu
+- [pre-ktamv-learned-origin-20260913-172000](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-ktamv-learned-origin-20260913-172000/)
+
+### Chi tiết thay đổi
+- Macro `_KTAMV_CALIBRATE_TOOL`: Sau khi gắp tool từ dock, đầu in nâng lên `safe_z` ngay tại vị trí hiện tại để đảm bảo an toàn, sau đó bay tới tọa độ camera đã học `origin = printer.ktamv.camera_center_coordinates`.
+- Không nhúng bất kỳ tọa độ XY tĩnh nào vào macro, giúp hệ thống hoàn toàn linh hoạt trước mọi thay đổi cơ khí camera.
+
+### Kiểm tra
+- Nạp lại firmware Klipper (`FIRMWARE_RESTART`): Thành công (`ready`).
+
