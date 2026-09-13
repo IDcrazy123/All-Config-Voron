@@ -96,21 +96,6 @@ if grep -Eq '^[[:space:]]*\[include[[:space:]]+Printer-Setup/ktamv\.cfg\][[:spac
   fi
 fi
 
-# TKC is installed by its own upstream installer before this configuration.
-if grep -Eq '^[[:space:]]*\[include[[:space:]]+tool_calibrator/tool_calibrator\.cfg\]' \
-    "${SOURCE_CONFIG_DIR}/printer.cfg"; then
-  for module in tool_calibrator.py tool_calibrator_station.py tool_offsets.py safe_navigator.py config_manager.py z_backends/cartographer_backend.py; do
-    if [[ ! -e "${HOME}/klipper/klippy/extras/${module}" ]]; then
-      echo "ERROR: TKC module missing: ${module}. Install TKC before deploying its include." >&2
-      exit 1
-    fi
-  done
-  if [[ ! -x "${HOME}/Tool-Klipper-Calibration/env/bin/python" ]]; then
-    echo "ERROR: TKC virtualenv is missing. Run its scripts/install.sh --user-service first." >&2
-    exit 1
-  fi
-fi
-
 # Preflight the machine-local tool_crash runtime before deploying config. The
 # upstream plugin is an independent checkout/copy, so All-Config stores only a
 # minimal downstream patch and reapplies it after a future upstream reinstall.
@@ -148,19 +133,9 @@ rsync -a --delete --itemize-changes \
   --exclude "config-*.zip" \
   --exclude "moonraker.conf.pre-*" \
   --exclude "toolchanger/readonly-configs/" \
-  --exclude "tool_calibrator/backups/" \
-  --exclude "tool_calibrator/tool_offsets.cfg" \
-  --exclude ".tool_calibrator_manifest.json" \
   --exclude "README.md" \
   --exclude "*.md" \
   "${SOURCE_CONFIG_DIR}/" "${CONFIG_DIR}/"
-
-# Seed existing production XY only when TKC has no machine-owned data file.
-if [[ -f "${SOURCE_CONFIG_DIR}/tool_calibrator/tool_offsets.cfg" && \
-      ! -e "${CONFIG_DIR}/tool_calibrator/tool_offsets.cfg" ]]; then
-  cp -a "${SOURCE_CONFIG_DIR}/tool_calibrator/tool_offsets.cfg" \
-    "${CONFIG_DIR}/tool_calibrator/tool_offsets.cfg"
-fi
 
 # Purge any leftover markdown documentation from config directory to keep printer lean
 find "${CONFIG_DIR}" -maxdepth 1 -type f \( -name "*.md" -o -name "*.markdown" \) -delete 2>/dev/null || true
