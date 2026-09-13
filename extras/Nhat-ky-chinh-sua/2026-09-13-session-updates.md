@@ -59,3 +59,25 @@
 ### Kiểm tra
 - Nạp lại firmware Klipper (`FIRMWARE_RESTART`): Thành công (`ready`).
 
+---
+
+## 3. Cập nhật tài liệu kỹ thuật Markdown và chuẩn hóa comment trong hệ thống
+
+### Mục tiêu
+- Cập nhật toàn bộ các file `.md` chính của dự án dựa trên việc đọc code thực tế, tuyệt đối không đoán mò.
+- Đảm bảo các comment trong các file cấu hình `.cfg` và tài liệu khớp 100% với hiện trạng vận hành.
+
+### File đã sửa đổi
+- `README.md` & `README.vi.md` — Cập nhật bảng offset thực tế mới nhất, ghi nhận việc nghỉ hưu của TKC/KCC và macro tự động `KTAMV_AUTO_CALIBRATE_ALL_TOOLS`.
+- `config/README.md` & `config/README.vi.md` — Cập nhật chuỗi include của `printer.cfg`, làm rõ vai trò kTAMV là backend cân chỉnh XY duy nhất hiện hành.
+- `extras/docs/README.md` & `extras/docs/README.vi.md` — Thêm thư mục nghỉ hưu `extras/retired-configs/2026-09-13-tkc-removal/` và snapshot rollback mới.
+- `.agents/PROJECT.md` — Cập nhật hiện trạng hệ thống cân chỉnh, bỏ các plugin cũ.
+- `.agents/DIRECTORY.md` — Cập nhật cấu trúc thư mục, ghi nhận `retired-configs/2026-09-13-tkc-removal/` và bỏ `tool_calibrator/`.
+- `.agents/KNOWN_ISSUES.md` — Khôi phục cấu trúc file sạch sẽ, ghi chú trạng thái nghỉ hưu của các issue TKC ngày 2026-09-13.
+- `.agents/TODO.md` — Đánh dấu hoàn thành các hạng mục gỡ KCC/TKC, macro đo tự động và dọn dẹp tài liệu.
+- `.agents/DECISIONS.md` — Bổ sung quyết định kỹ thuật ngày 2026-09-13 về việc chuẩn hóa kTAMV và cơ chế tọa độ học.
+- `.agents/CHANGELOG.md` — Bổ sung phiên bản [1.7.0] — 2026-09-13.
+
+### Kiểm tra
+- Toàn bộ các file `.md` và `.cfg` đã được kiểm tra cú pháp, đường dẫn và tính nhất quán với code thực tế.
+

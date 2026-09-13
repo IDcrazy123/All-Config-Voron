@@ -4,6 +4,8 @@
 
 Thư mục này chứa toàn bộ cấu hình Klipper đang hoạt động, được đồng bộ sang `~/printer_data/config` trên máy in. Các file tài liệu (`*.md`) tự động được loại trừ khi triển khai.
 
+Hiệu chuẩn offset XY giữa các đầu in được thực hiện có giám sát bằng **kTAMV** (`Printer-Setup/ktamv.cfg`) với cơ chế giải quyết tọa độ camera đã học và macro đo tự động `KTAMV_AUTO_CALIBRATE_ALL_TOOLS`. Các plugin thử nghiệm cũ (TKC và KCC) đã được gỡ bỏ và nghỉ hưu khỏi cây cấu hình vận hành.
+
 ---
 
 ## 1. Chuỗi nạp module (`printer.cfg`)
@@ -14,7 +16,7 @@ File gốc `printer.cfg` đóng vai trò điều phối trung tâm và nạp cá
 [include mainsail.cfg]                                          # Macro giao diện Mainsail Web
 [include toolchanger/readonly-configs/toolchanger-include.cfg]  # KTC-Easy core (symlink)
 [include Printer-Setup/calibration-probe.cfg]                   # Đầu dò Cartographer & Bed mesh
-[include Printer-Setup/ktamv.cfg]                               # Camera kTAMV đối chiếu XY
+[include Printer-Setup/ktamv.cfg]                               # Camera kTAMV căn chỉnh & đo XY tự động
 [include Printer-Setup/hardware.cfg]                            # Khai báo stepper, TMC, heater
 [include Printer-Setup/fans-leds.cfg]                           # Quạt thùng, quạt bed, LED
 [include Printer-Setup/input-shaper.cfg]                        # Bộ lọc chống rung Shaper hợp nhất

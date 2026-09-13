@@ -35,6 +35,8 @@ on 2026-08-31.
   files no longer included by `printer.cfg`; README contains both languages.
 - [`retired-configs/2026-08-31-toolvision-removal/`](../retired-configs/2026-08-31-toolvision-removal/README.md):
   the final machine ToolVision CFG retained byte-for-byte after kTAMV cutover.
+- [`retired-configs/2026-09-13-tkc-removal/`](../retired-configs/2026-09-13-tkc-removal/README.md):
+  the final machine TKC configuration retired byte-for-byte; system standardized on kTAMV.
 - **ToolVision docs & proposals:** All retired ToolVision integration guides and proposal drafts
   were removed from `docs/` to eliminate stale or conflicting configuration instructions; historical
   snapshots are preserved in Git and backup [`pre-replace-toolvision-with-ktamv-20260831-113047`](../backups/pre-replace-toolvision-with-ktamv-20260831-113047/README.md).
@@ -46,9 +48,10 @@ on 2026-08-31.
 Only links and current context are added here; snapshot contents remain
 immutable.
 
-1. [`pre-replace-toolvision-with-ktamv-20260831-113047`](../backups/pre-replace-toolvision-with-ktamv-20260831-113047/README.md) — before removing the active ToolVision integration and installing pinned kTAMV.
-2. [`pre-move-toolvision-to-printer-setup-20260823-220605`](../backups/pre-move-toolvision-to-printer-setup-20260823-220605/README.md) — before moving the machine ToolVision config into `Printer-Setup/` and routing JSON under `Generated-Data/ToolVision/`.
-3. [`pre-toolvision-z-canary-20260823-211530`](../backups/pre-toolvision-z-canary-20260823-211530/README.md) — before enabling the PF2 report-only ToolVision canary.
+1. [`pre-cleanup-kcc-tkc-and-ktamv-autocalib-20260913-171300`](../backups/pre-cleanup-kcc-tkc-and-ktamv-autocalib-20260913-171300/README.md) — before purging experimental KCC/TKC modules from printer and repository and installing kTAMV auto-calibration macros.
+2. [`pre-replace-toolvision-with-ktamv-20260831-113047`](../backups/pre-replace-toolvision-with-ktamv-20260831-113047/README.md) — before removing the active ToolVision integration and installing pinned kTAMV.
+3. [`pre-move-toolvision-to-printer-setup-20260823-220605`](../backups/pre-move-toolvision-to-printer-setup-20260823-220605/README.md) — before moving the machine ToolVision config into `Printer-Setup/` and routing JSON under `Generated-Data/ToolVision/`.
+4. [`pre-toolvision-z-canary-20260823-211530`](../backups/pre-toolvision-z-canary-20260823-211530/README.md) — before enabling the PF2 report-only ToolVision canary.
 
 These are repository-tracked snapshots, not a statement about which directories
 currently exist on the CM4. Printer-side retention actions remain recorded in

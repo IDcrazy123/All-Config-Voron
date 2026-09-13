@@ -4,10 +4,8 @@
 
 This directory contains the operational Klipper configuration deployed to `~/printer_data/config` on the printer. Documentation (`*.md`) files are excluded from active deployment.
 
-The additional `tool_calibrator/tool_calibrator.cfg` include enables supervised
-TKC Cartographer Touch Z commissioning. Install the external TKC runtime first.
-The deployment script preserves machine-owned TKC offsets, backups and manifest.
-See [TKC operating notes](../extras/docs/tkc-commissioning-20260908.md).
+Supervised camera-based XY tool calibration is provided by `Printer-Setup/ktamv.cfg`, featuring dynamic camera-origin resolution and the automated multi-tool macro `KTAMV_AUTO_CALIBRATE_ALL_TOOLS`.
+Experimental calibration plugins (TKC and KCC) are retired and removed from active includes.
 
 ---
 

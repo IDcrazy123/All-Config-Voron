@@ -32,10 +32,10 @@ Tọa độ dock và offset cơ khí XYZ (được lưu tại khối `#*# <SAVE_
 | Tool | CANbus UUID | Tọa độ Dock (X, Y, Z) | Offset cơ khí (X, Y, Z) | Vai trò & Trạng thái |
 | :---: | :---: | :---: | :---: | :--- |
 | **T0** | `441e1484ac41` | `(30.2, 1.3, 343.0)` | `(0.000, 0.000, 0.0000)` | **Tool tham chiếu chuẩn** (Gốc 0 cho toàn bộ offset) |
-| **T1** | `6475b5b9e028` | `(104.0, 1.1, 343.0)` | `(-0.159, -0.195, 0.2360)` | Toolhead vận hành đã hiệu chuẩn |
-| **T2** | `4ad9d622a836` | `(176.0, 1.6, 343.0)` | `(0.820, 0.240, -0.3160)` | Toolhead vận hành đã hiệu chuẩn |
-| **T3** | `c2465b7c36f8` | `(249.5, 2.5, 343.0)` | `(0.326, 0.524, -0.1896)` | Toolhead vận hành đã hiệu chuẩn |
-| **T4** | `28650279df58` | `(321.5, 2.6, 343.0)` | `(0.168, 0.268, 0.1200)` | Toolhead vận hành đã hiệu chuẩn |
+| **T1** | `6475b5b9e028` | `(104.0, 1.1, 343.0)` | `(-0.371, -0.167, 0.2360)` | Toolhead vận hành đã hiệu chuẩn |
+| **T2** | `4ad9d622a836` | `(176.0, 1.6, 343.0)` | `(1.068, -0.015, -0.3160)` | Toolhead vận hành đã hiệu chuẩn |
+| **T3** | `c2465b7c36f8` | `(249.5, 2.5, 343.0)` | `(0.099, 0.430, -0.1896)` | Toolhead vận hành đã hiệu chuẩn |
+| **T4** | `28650279df58` | `(321.5, 2.6, 343.0)` | `(0.211, -0.075, 0.1200)` | Toolhead vận hành đã hiệu chuẩn |
 
 > [!NOTE]
 > Khi đổi tool, lệnh `pickup_gcode` của KTC giữ đầu phun tì trên đệm silicon của dock trong lúc nung nhiệt (`M109`) để chống rỉ nhựa trước khi hạ Z. Để rút ngắn thời gian chờ tại dock, hãy cài đặt **Pre-heating time** trong OrcaSlicer khoảng 15–20 giây.
@@ -55,8 +55,11 @@ Tọa độ dock và offset cơ khí XYZ (được lưu tại khối `#*# <SAVE_
 | | `PRIME_LINES [TOOL=..]` | Đùn đường mồi nhựa sạch dọc mép bàn in cho tool được chọn trước khi in. |
 | **Sấy cuộn nhựa** | `START_DRYER [TEMPERATURE=..] [TIME=..]` | Sấy cuộn nhựa trên bàn nhiệt (`DRY_PLA`, `DRY_PETG`, `DRY_ABS`). Tự động trả tool an toàn. |
 | | `STOP_DRYER` / `DRYER_STATUS` | Dừng sấy và làm nguội bàn in; hiển thị thời gian sấy còn lại. |
-| **Chẩn đoán** | `CHECK_OFFSETS` | Hiển thị bảng offset XYZ của toàn bộ 5 tool mà không gây chuyển động máy. |
-| | `CALIBRATION_STATUS` | Báo cáo trạng thái backend hiệu chuẩn đang hoạt động (kTAMV đối chiếu camera XY). |
+| **Hiệu chuẩn Tool** | `KTAMV_AUTO_CALIBRATE_ALL_TOOLS` | Tự động đo tuần tự XY cho T1–T4 dựa trên tọa độ camera đã học từ T0 ở Z an toàn (Z40). |
+| | `KTAMV_MEASURE_ACTIVE_TOOL_XY` | Căn tâm và đo lấy mẫu trung bình XY cho tool đang active; kiểm tra độ phân tán spread $\le 0.12$ mm. |
+| | `KTAMV_APPLY_ACTIVE_TOOL_XY` | Nạp giá trị sai số XY vừa đo vào tool parameter (cần chạy `SAVE_CONFIG` sau khi hoàn tất). |
+| | `CHECK_OFFSETS` | Hiển thị bảng offset XYZ của toàn bộ 5 tool mà không gây chuyển động máy. |
+| | `CALIBRATION_STATUS` | Báo cáo trạng thái backend hiệu chuẩn đang hoạt động (kTAMV đối chiếu camera XY có giám sát). |
 | | `MEASURE_TOOL_HEATUP [TOOL=..] [START=150] [TARGET=220]` | Đo thời gian gia nhiệt toolhead từ nhiệt độ A sang B cho từng tool riêng lẻ; tính tốc độ °C/s. |
 
 ---

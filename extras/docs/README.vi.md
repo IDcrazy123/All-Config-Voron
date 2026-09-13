@@ -34,6 +34,8 @@ trong repository và commit upstream kTAMV `72421f2`, review ngày 2026-08-31.
   file không còn được `printer.cfg` include; README có cả hai ngôn ngữ.
 - [`retired-configs/2026-08-31-toolvision-removal/`](../retired-configs/2026-08-31-toolvision-removal/README.md):
   CFG ToolVision cuối cùng của máy, giữ nguyên byte sau khi chuyển sang kTAMV.
+- [`retired-configs/2026-09-13-tkc-removal/`](../retired-configs/2026-09-13-tkc-removal/README.md):
+  Cấu hình TKC cuối cùng của máy đã nghỉ hưu nguyên byte; hệ thống chuẩn hóa sang kTAMV.
 - **ToolVision docs & proposals:** Toàn bộ các hướng dẫn cài đặt và đề xuất cũ liên quan tới ToolVision
   đã được loại bỏ khỏi `docs/` để tránh sai lệch cấu hình; dữ liệu lịch sử được bảo toàn trong Git và bản
   sao lưu [`pre-replace-toolvision-with-ktamv-20260831-113047`](../backups/pre-replace-toolvision-with-ktamv-20260831-113047/README.md).
@@ -44,9 +46,10 @@ trong repository và commit upstream kTAMV `72421f2`, review ngày 2026-08-31.
 
 Chỉ thêm liên kết và context hiện tại ở đây; nội dung snapshot giữ bất biến.
 
-1. [`pre-replace-toolvision-with-ktamv-20260831-113047`](../backups/pre-replace-toolvision-with-ktamv-20260831-113047/README.md) — trước khi gỡ tích hợp ToolVision active và cài kTAMV được pin.
-2. [`pre-move-toolvision-to-printer-setup-20260823-220605`](../backups/pre-move-toolvision-to-printer-setup-20260823-220605/README.md) — trước khi chuyển config ToolVision riêng của máy vào `Printer-Setup/` và định tuyến JSON dưới `Generated-Data/ToolVision/`.
-3. [`pre-toolvision-z-canary-20260823-211530`](../backups/pre-toolvision-z-canary-20260823-211530/README.md) — trước khi bật canary ToolVision PF2 chỉ báo cáo.
+1. [`pre-cleanup-kcc-tkc-and-ktamv-autocalib-20260913-171300`](../backups/pre-cleanup-kcc-tkc-and-ktamv-autocalib-20260913-171300/README.md) — trước khi gỡ bỏ toàn bộ module thử nghiệm KCC/TKC khỏi máy in và cài đặt macro cân chỉnh tự động kTAMV.
+2. [`pre-replace-toolvision-with-ktamv-20260831-113047`](../backups/pre-replace-toolvision-with-ktamv-20260831-113047/README.md) — trước khi gỡ tích hợp ToolVision active và cài kTAMV được pin.
+3. [`pre-move-toolvision-to-printer-setup-20260823-220605`](../backups/pre-move-toolvision-to-printer-setup-20260823-220605/README.md) — trước khi chuyển config ToolVision riêng của máy vào `Printer-Setup/` và định tuyến JSON dưới `Generated-Data/ToolVision/`.
+4. [`pre-toolvision-z-canary-20260823-211530`](../backups/pre-toolvision-z-canary-20260823-211530/README.md) — trước khi bật canary ToolVision PF2 chỉ báo cáo.
 
 Đây là snapshot được Git repository theo dõi, không phải tuyên bố các thư mục đó
 hiện tồn tại trên CM4. Hành động retention phía máy được ghi trong journal bất

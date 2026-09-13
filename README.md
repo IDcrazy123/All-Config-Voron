@@ -4,10 +4,9 @@
 
 Production Klipper configuration, deployment scripts, and OrcaSlicer profiles for a **Voron 2.4 350 mm CoreXY** 3D printer equipped with a **five-tool StealthChanger** (KTC-Easy).
 
-TKC `f68dc99` is installed for supervised Cartographer Touch Z commissioning.
-Convenience macros default to `SAVE_CONFIG=0`; existing production Z offsets remain authoritative.
-See the [installation and operating notes](extras/docs/tkc-commissioning-20260908.md) and
-[measurement and issue report](extras/experiments/tkc-f68dc99-20260908/REPORT.vi.md).
+Supervised camera-based XY tool alignment is performed using **kTAMV** with dynamic camera-origin resolution.
+The automated multi-tool macro `KTAMV_AUTO_CALIBRATE_ALL_TOOLS` sequentially aligns and stages XY offsets for T1–T4 against the learned T0 camera center at safe Z (Z=40).
+Existing production Z offsets remain authoritative via Cartographer Touch.
 
 ---
 
@@ -37,10 +36,10 @@ Production dock coordinates and mechanical XYZ offsets (stored in `config/printe
 | Tool | CANbus UUID | Park Coordinates (X, Y, Z) | Mechanical Offset (X, Y, Z) | Role & Status |
 | :---: | :---: | :---: | :---: | :--- |
 | **T0** | `441e1484ac41` | `(30.2, 1.3, 343.0)` | `(0.000, 0.000, 0.0000)` | **Reference Tool** (Base zero for all offsets) |
-| **T1** | `6475b5b9e028` | `(104.0, 1.1, 343.0)` | `(-0.159, -0.195, 0.2360)` | Calibrated production toolhead |
-| **T2** | `4ad9d622a836` | `(176.0, 1.6, 343.0)` | `(0.820, 0.240, -0.3160)` | Calibrated production toolhead |
-| **T3** | `c2465b7c36f8` | `(249.5, 2.5, 343.0)` | `(0.326, 0.524, -0.1896)` | Calibrated production toolhead |
-| **T4** | `28650279df58` | `(321.5, 2.6, 343.0)` | `(0.168, 0.268, 0.1200)` | Calibrated production toolhead |
+| **T1** | `6475b5b9e028` | `(104.0, 1.1, 343.0)` | `(-0.371, -0.167, 0.2360)` | Calibrated production toolhead |
+| **T2** | `4ad9d622a836` | `(176.0, 1.6, 343.0)` | `(1.068, -0.015, -0.3160)` | Calibrated production toolhead |
+| **T3** | `c2465b7c36f8` | `(249.5, 2.5, 343.0)` | `(0.099, 0.430, -0.1896)` | Calibrated production toolhead |
+| **T4** | `28650279df58` | `(321.5, 2.6, 343.0)` | `(0.211, -0.075, 0.1200)` | Calibrated production toolhead |
 
 > [!NOTE]
 > During tool changes, KTC's `pickup_gcode` holds the nozzle on the silicone dock seal while heating to printing temperature (`M109`) to prevent ooze before lowering Z. To minimize toolchange delay, configure OrcaSlicer **Pre-heating time** to 15–20s.
@@ -60,8 +59,11 @@ Production dock coordinates and mechanical XYZ offsets (stored in `config/printe
 | | `PRIME_LINES [TOOL=..]` | Purges a clean priming line along the bed margin for the selected tool. |
 | **Filament Dryer** | `START_DRYER [TEMPERATURE=..] [TIME=..]` | Controlled bed-based drying (`DRY_PLA`, `DRY_PETG`, `DRY_ABS`). Auto-parks tools safely. |
 | | `STOP_DRYER` / `DRYER_STATUS` | Stops bed drying timer and cools bed; displays remaining drying duration. |
-| **Diagnostics** | `CHECK_OFFSETS` | Prints current XYZ offsets for all 5 tools without motion. |
-| | `CALIBRATION_STATUS` | Displays active calibration backend status (kTAMV XY supervised comparison). |
+| **Tool Calibration** | `KTAMV_AUTO_CALIBRATE_ALL_TOOLS` | Automated sequential XY calibration of T1–T4 using learned T0 camera origin at safe Z. |
+| | `KTAMV_MEASURE_ACTIVE_TOOL_XY` | Centering and 3-sample average XY measurement of active tool; validates spread $\le 0.12$ mm. |
+| | `KTAMV_APPLY_ACTIVE_TOOL_XY` | Stages measured XY residual into tool parameters (requires `SAVE_CONFIG`). |
+| | `CHECK_OFFSETS` | Prints current XYZ offsets for all 5 tools without motion. |
+| | `CALIBRATION_STATUS` | Displays active calibration backend status (supervised kTAMV camera XY alignment). |
 | | `MEASURE_TOOL_HEATUP [TOOL=..] [START=150] [TARGET=220]` | Measures hotend heating rate and elapsed time from Temp A to B per tool; computes °C/s. |
 
 ---
