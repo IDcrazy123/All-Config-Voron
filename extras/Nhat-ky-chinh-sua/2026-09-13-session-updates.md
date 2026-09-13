@@ -162,5 +162,45 @@
 ### Kết quả
 - Toàn bộ 4 tool đã được nạp bộ số Z-offset thực nghiệm chuẩn xác nhất, sẵn sàng cho các bài in thử nghiệm đa màu / đa vật liệu.
 
+---
+
+## 7. Tích hợp hệ số bù nén nhựa First Layer (Squish Factor) vào Z-offset của Toolchanger
+
+### Mục tiêu
+- Áp dụng kinh nghiệm in thực tế của người dùng: sợi nhựa nóng chảy ở First Layer cần một độ nén cơ học sâu hơn tiếp xúc bề mặt khoảng $-0.03\text{ mm}$ đến $-0.04\text{ mm}$ để bám chắc và ép phẳng vào vân PEI sần.
+- Cập nhật trực tiếp các giá trị Z-offset đã bù nén nhựa vào cấu hình máy in và đồng bộ tài liệu, tránh phải can thiệp baby-step thủ công cho từng tool khi in đa màu.
+
+### File đã sửa đổi
+- `config/printer.cfg` — Cập nhật `gcode_z_offset`: T1 (0.1691), T2 (-0.3142), T3 (-0.2575), T4 (0.0285).
+- `README.md` & `README.vi.md` — Cập nhật bảng offset cơ khí XYZ và thêm TIP lưu ý về First-Layer Squish Factor.
+- `.agents/DECISIONS.md` — Bổ sung quyết định kỹ thuật ghi nhận việc bù squish vào toolchanger Z-offset.
+- `extras/Nhat-ky-chinh-sua/2026-09-13-session-updates.md` — Bổ sung ghi nhận phiên làm việc.
+
+### Sao lưu
+- [pre-apply-squish-compensated-z-offsets-20260913-202800](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-apply-squish-compensated-z-offsets-20260913-202800/)
+- Snapshot trên máy in: `/home/voron/printer_data/config/printer.cfg.bak-presquish-20260913`
+
+### Chi tiết thay đổi
+- **T0**: `0.0000 mm` (Tool chuẩn quy chiếu).
+- **T1**: $0.2091 + (-0.0400) = \mathbf{0.1691\text{ mm}}$.
+- **T2**: $-0.2742 + (-0.0400) = \mathbf{-0.3142\text{ mm}}$ (trùng khớp với giá trị in đẹp thực nghiệm cũ `-0.3160 mm`).
+- **T3**: $-0.2175 + (-0.0400) = \mathbf{-0.2575\text{ mm}}$.
+- **T4**: $0.0585 + (-0.0300) = \mathbf{0.0285\text{ mm}}$.
+
+### Kiểm tra
+- Thực thi `SET_TOOL_PARAMETER` & `SAVE_TOOL_PARAMETER` thành công trên máy in `192.168.1.43` qua Moonraker API.
+- Lệnh `CHECK_OFFSETS` xác nhận runtime offsets:
+  - T0: Z=0.0
+  - T1: Z=0.1691
+  - T2: Z=-0.3142
+  - T3: Z=-0.2575
+  - T4: Z=0.0285
+- Thực hiện `SAVE_CONFIG`: Klipper tự động khởi động lại và báo trạng thái `ready`.
+- Đồng bộ `printer.cfg` từ máy in về kho mã nguồn cục bộ.
+
+### Kết quả
+- Máy in đã sẵn sàng in First Layer đa màu với độ nén nhựa tối ưu tự động cho toàn bộ 5 đầu in.
+
+
 
 
