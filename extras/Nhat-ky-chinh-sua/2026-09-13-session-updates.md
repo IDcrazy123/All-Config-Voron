@@ -101,3 +101,25 @@
 - Nạp cấu hình sang máy in `192.168.1.43` và khởi động lại firmware Klipper (`FIRMWARE_RESTART`): Thành công (`ready`).
 - Lệnh Moonraker help xác nhận: các lệnh `CALIBRATE_ALL_Z_OFFSETS`, `MOVE_TO_ZSWITCH`, `PROBE_ZSWITCH` đã sẵn sàng; các macro helper kTAMV đã được ẩn khỏi bảng điều khiển Mainsail.
 
+---
+
+## 5. Thêm cơ chế chờ nhiệt độ 150°C cho từng tool và nâng Z an toàn trong quy trình đo Axiscope
+
+### Mục tiêu
+- Khắc phục sự cố: Khi chạy lệnh `CALIBRATE_ALL_Z_OFFSETS`, lệnh `M104 T{tool} S150` chỉ phát nhiệt độ mục tiêu mà không chờ, khiến T0 bắt đầu gõ công tắc ngay cả khi nhiệt độ còn nguội (chưa kịp đạt 150°C), gây sai lệch giãn nở nhiệt.
+- Đảm bảo an toàn cơ khí: Nâng Z lên mức an toàn (Z $\ge 15\text{ mm}$) trước khi chuyển tool về dock.
+
+### File đã sửa đổi
+- `config/Printer-Setup/calibration-probe.cfg`:
+  - `start_gcode`: Thêm lệnh `M109 T0 S150` để chờ T0 (tool quy chiếu) đạt đủ 150°C trước khi bất kỳ thao tác đo nào bắt đầu.
+  - `before_pickup_gcode`: Thêm kiểm tra và nâng Z lên $15\text{ mm}$ nếu $Z < 15\text{ mm}$ trước khi di chuyển về dock đổi tool.
+  - `after_pickup_gcode`: Thêm `M109 S150` để đảm bảo từng tool sau khi gắp từ dock phải đạt đủ 150°C trước khi tiếp cận công tắc.
+- `config/toolchanger/toolchanger-config.cfg`: Đồng bộ tọa độ trong macro `_CALIBRATION_SWITCH` thành `variable_y: -8` và `variable_z: 15`.
+
+### Sao lưu
+- [pre-axiscope-temp-wait-20260913-175800](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-axiscope-temp-wait-20260913-175800/)
+
+### Kiểm tra
+- Nạp cấu hình sang máy in `192.168.1.43` và khởi động lại firmware Klipper (`FIRMWARE_RESTART`): Thành công (`ready`).
+
+
