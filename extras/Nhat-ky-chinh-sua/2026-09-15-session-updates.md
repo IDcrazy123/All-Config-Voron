@@ -56,3 +56,25 @@
   `Tool-XY-Vision: Captured camera station at X=170.00, Y=0.00, Z=40.00`
   `Tool-XY-Vision: Reference tool centered & Optical Origin locked at X=170.0000 Y=0.0000`
 - Khả năng nhận diện quang học của mô hình Ensemble (`ktamv_triangle`, `ktamv_yuv_adaptive`, `hough`, `blob_otsu_dark`) bắt nozzle rất tốt ngay cả khi LED chiếu nozzle đang bật, độ không đảm bảo subpixel chỉ `0.387 px` (~0.005 mm).
+
+## 2. Hoàn tác (Rollback) Khôi phục Hệ thống về Phiên bản kTAMV
+
+### Mục tiêu
+- Khôi phục cấu hình máy in và host về trạng thái vận hành ổn định với kTAMV sau khi hoàn tất thử nghiệm Klipper-Camera-Vision.
+
+### File đã sửa đổi
+- `config/printer.cfg` — Mở lại `[include Printer-Setup/ktamv.cfg]`, loại bỏ cấu hình thử nghiệm `tool_xy_vision.cfg`.
+- Đã xóa tệp cấu hình thử nghiệm `config/Printer-Setup/tool_xy_vision.cfg`.
+
+### Các hành động đã thực hiện trên máy chủ máy in (192.168.1.43)
+1. Dừng và vô hiệu hóa dịch vụ thử nghiệm `tool-xy-vision.service`:
+   `systemctl --user stop tool-xy-vision.service && systemctl --user disable tool-xy-vision.service`
+2. Kích hoạt lại và khởi động dịch vụ kTAMV:
+   `systemctl --user enable ktamv-server.service && systemctl --user restart ktamv-server.service`
+3. Gỡ bỏ symlink `~/klipper/klippy/extras/tool_xy_vision`.
+4. Đồng bộ file `printer.cfg` sạch về máy in.
+5. Thực hiện `FIRMWARE_RESTART` và kiểm tra trạng thái Klipper: `Printer is ready`.
+6. Kiểm tra `KTAMV_STATUS`: kTAMV đã nạp thành công trên port 8086.
+
+### Kết quả
+- Máy in đã quay trở lại phiên bản sử dụng kTAMV an toàn 100%, sẵn sàng cho các tác vụ in ấn tiếp theo.
