@@ -1,10 +1,10 @@
-﻿# Voron 2.4 StealthChanger — 5-Tool Production Configuration
+# Voron 2.4 StealthChanger — 5-Tool Production Configuration
 
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Active Config Reference](config/README.md) | [Documentation Index](extras/docs/README.md)
 
 Production Klipper firmware configuration, automated deployment scripts, and OrcaSlicer multi-material profiles for a **Voron 2.4 350 mm CoreXY** 3D printer equipped with a **five-tool StealthChanger** (driven by KTC-Easy).
 
-This repository represents the **live, battle-tested production codebase** operating on the physical machine (`192.168.1.43`). It integrates high-speed eddy-current bed scanning via **Cartographer V3**, machine vision toolhead XY offset calibration via **kTAMV**, automated filament drying with active chamber airflow regulation, an active-tool crash watchdog, and an optimized multi-tool print lifecycle.
+This repository represents the **live, battle-tested production codebase** operating on the physical machine. It integrates high-speed eddy-current bed scanning via **Cartographer V3**, machine vision toolhead XY offset calibration via **kTAMV**, automated filament drying with active chamber airflow regulation, an active-tool crash watchdog, and an optimized multi-tool print lifecycle.
 
 ---
 
@@ -68,7 +68,7 @@ Production dock coordinates and mechanical XYZ offsets (authoritatively preserve
 The complete repository contains historical backups, high-resolution diagnostic graphs, and test artifacts. To avoid consuming hundreds of megabytes of flash memory on the printer's host CM4, deploy using Git sparse checkout:
 
 ```bash
-# SSH into the printer host (voron@192.168.1.43)
+# Clone the repository onto the printer host:
 git clone --depth=1 --filter=blob:none --sparse https://github.com/IDcrazy123/All-Config-Voron.git ~/All-Config-Voron
 cd ~/All-Config-Voron
 git sparse-checkout set config

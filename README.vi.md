@@ -1,10 +1,10 @@
-﻿# Voron 2.4 StealthChanger — Cấu hình Vận hành 5 Tool
+# Voron 2.4 StealthChanger — Cấu hình Vận hành 5 Tool
 
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Tài liệu cấu hình](config/README.vi.md) | [Chỉ mục tài liệu](extras/docs/README.vi.md)
 
 Tài liệu cấu hình firmware Klipper, kịch bản triển khai tự động và profile OrcaSlicer đa vật liệu cho máy in 3D **Voron 2.4 350 mm CoreXY** trang bị hệ thống đổi đầu in **StealthChanger 5 tool** (vận hành qua KTC-Easy).
 
-Kho lưu trữ này chứa **toàn bộ cấu hình thực tế đang vận hành (production)** trên máy in thật (`192.168.1.43`). Hệ thống tích hợp quét lưới bàn in cảm ứng dòng xoáy tốc độ cao qua **Cartographer V3**, cân chỉnh bù trừ tọa độ XY đầu in bằng thị giác máy tính qua **kTAMV**, sấy cuộn nhựa tự động điều tiết luồng khí buồng in, watchdog chống rơi tool và quy trình vòng đời in tối ưu cho nhiều đầu in.
+Kho lưu trữ này chứa **toàn bộ cấu hình thực tế đang vận hành (production)** trên máy in thật. Hệ thống tích hợp quét lưới bàn in cảm ứng dòng xoáy tốc độ cao qua **Cartographer V3**, cân chỉnh bù trừ tọa độ XY đầu in bằng thị giác máy tính qua **kTAMV**, sấy cuộn nhựa tự động điều tiết luồng khí buồng in, watchdog chống rơi tool và quy trình vòng đời in tối ưu cho nhiều đầu in.
 
 ---
 
@@ -68,7 +68,7 @@ Tọa độ dock và offset cơ khí XYZ (được lưu trữ có thẩm quyền
 Kho mã nguồn trên GitHub chứa đầy đủ lịch sử sao lưu, biểu đồ chẩn đoán phân tích cộng hưởng và file thử nghiệm. Để tránh làm tốn dung lượng bộ nhớ flash trên bo mạch CM4 của máy in, hãy triển khai bằng Git sparse checkout:
 
 ```bash
-# Đăng nhập SSH vào máy in (voron@192.168.1.43)
+# Sao chép kho lưu trữ về bo mạch máy in:
 git clone --depth=1 --filter=blob:none --sparse https://github.com/IDcrazy123/All-Config-Voron.git ~/All-Config-Voron
 cd ~/All-Config-Voron
 git sparse-checkout set config

@@ -1,9 +1,9 @@
-﻿# Nhật ký — 2026-09-16
+# Nhật ký — 2026-09-16
 
-## 1. Đồng bộ Thay đổi Đèn Buồng in từ Máy in 192.168.1.43 và Viết lại Toàn diện Tài liệu README
+## 1. Đồng bộ Thay đổi Đèn Buồng in từ Máy in và Viết lại Toàn diện Tài liệu README
 
 ### Mục tiêu
-- Kết nối tới máy in đang vận hành tại địa chỉ IP `192.168.1.43` để đối chiếu toàn bộ cấu hình đang chạy với kho mã nguồn.
+- Kết nối tới máy in đang vận hành thực tế để đối chiếu toàn bộ cấu hình đang chạy với kho mã nguồn.
 - Đồng bộ thay đổi macro `LIGHTS_ON` (bật 100% độ sáng thay vì 30%) được người vận hành thực hiện trực tiếp trên máy in lúc 17:09 vào repo.
 - Đọc và phân tích sâu toàn bộ mã nguồn thực tế của dự án (Klipper configs, macros, python patches, shell scripts, OrcaSlicer presets).
 - Viết lại hoàn chỉnh, toàn diện tài liệu `README.md` (tiếng Anh) và `README.vi.md` (tiếng Việt) bao gồm đầy đủ 6 phần: Giới thiệu hệ thống & bản đồ phần cứng, Hướng dẫn cài đặt & cập nhật tinh gọn, Hướng dẫn sử dụng & tra cứu macro, Hướng dẫn gỡ cài đặt & hoàn tác, Phần ghi công các tác giả/dự án mã nguồn mở, và Phân tích chuyên sâu 10 thuật toán/logic vận hành cốt lõi.
@@ -20,7 +20,7 @@
 
 ### Chi tiết thay đổi
 1. **Đồng bộ cấu hình đèn buồng in (`fans-leds.cfg`):**
-   - Macro `LIGHTS_ON`: Thay đổi `RED=0.3 GREEN=0.3 BLUE=0.3` thành `RED=1 GREEN=1 BLUE=1` và cập nhật mô tả macro từ `white 30%` sang `white 100%`, đồng nhất với cấu hình người vận hành đã chỉnh sửa trên máy in `192.168.1.43`.
+   - Macro `LIGHTS_ON`: Thay đổi `RED=0.3 GREEN=0.3 BLUE=0.3` thành `RED=1 GREEN=1 BLUE=1` và cập nhật mô tả macro từ `white 30%` sang `white 100%`, đồng nhất với cấu hình người vận hành đã chỉnh sửa trên máy in thực tế.
 2. **Viết lại toàn diện `README.md` và `README.vi.md`:**
    - **Mục 1 - Thông số kỹ thuật & Kiến trúc phần cứng:** Bảng ánh xạ đầy đủ bo mạch Manta M8P V2, CM4, 5x EBB36 CAN, Cartographer V3 fw6.1.0, kTAMV camera MF-500, cọ Bambu A1 + bucket, bàn nhiệt AC 1000W và các quạt tản nhiệt.
    - **Mục 2 - Sơ đồ 5 Tool StealthChanger & Bản đồ Offset:** Bảng tọa độ dock và mechanical offset của T0–T4 khớp 100% với SAVE_CONFIG trong `printer.cfg`. Giải thích chi tiết hệ số nén nhựa squish factor và cơ chế đệm silicon chống rỉ nhựa tại dock.
@@ -45,13 +45,13 @@
 - Cung cấp tài liệu hoàn chỉnh, chuẩn xác và sâu sắc nhất cho kho lưu trữ, phản ánh đúng 100% logic mã nguồn đang chạy thực tế trên máy in thay vì chỉ tổng kết tài liệu hướng dẫn bên ngoài.
 
 ### Kiểm tra
-- Kiểm tra kết nối và tải toàn bộ file cấu hình từ máy in `192.168.1.43`: Thành công.
+- Kiểm tra kết nối và tải toàn bộ file cấu hình từ máy in thực tế: Thành công.
 - Đối chiếu hash và diff toàn bộ file cấu hình: Hoàn thành, chỉ có 1 khác biệt duy nhất ở `fans-leds.cfg` và đã được đồng bộ.
 - Kiểm tra cú pháp Markdown của `README.md` và `README.vi.md`: Đạt, không có lỗi định dạng.
 - Khớp nối các đường link tài liệu và file code: Đầy đủ, chính xác.
 
 ### Kết quả
-- Toàn bộ cấu hình cục bộ và máy in `192.168.1.43` đã đồng bộ hoàn hảo.
+- Toàn bộ cấu hình cục bộ và máy in thực tế đã đồng bộ hoàn hảo.
 - Tài liệu README.md và README.vi.md đã được viết lại toàn diện, chuyên nghiệp, mô tả chính xác và sâu sắc mọi ngóc ngách của hệ thống.
 
 ### Vấn đề còn lại
