@@ -125,3 +125,28 @@
 
 ### Kết quả
 - Hệ thống kTAMV đã sẵn sàng vận hành đo XY tự động với độ chính xác cao nhất, không còn bị ảnh hưởng bởi ánh sáng phản xạ từ LED đầu in.
+
+---
+
+## 4. Nâng cấp Logic Tiếp cận Camera Linh hoạt cho kTAMV (Hỗ trợ Mọi Vị trí Đặt Camera)
+
+### Mục tiêu
+- Loại bỏ hoàn toàn việc gán cứng tọa độ camera `X:170.9, Y:4.4` trong macro 1-chạm `KTAMV_FULL_CALIBRATION_CYCLE`.
+- Hỗ trợ cơ chế tiếp cận camera linh hoạt theo 3 chế độ:
+  1. Mặc định: Giữ nguyên tọa độ X/Y hiện tại của T0 (người dùng tự do đặt camera bất kỳ đâu trên bàn in và canh T0 qua Mainsail Jog).
+  2. Dùng lại tọa độ cũ: `GOTO_LAST=1` cho phép T0 tự chạy đến vị trí camera của lần đo trước.
+  3. Tọa độ chỉ định: `CAM_X=... CAM_Y=...` khi muốn chạy đến tọa độ cụ thể.
+- Tự động lưu nhớ tọa độ camera thực tế sau mỗi lần T0 căn tâm thành công vào biến macro `last_cam_x` và `last_cam_y`.
+
+### File đã sửa đổi
+- `config/Printer-Setup/ktamv.cfg` — Nâng cấp `KTAMV_FULL_CALIBRATION_CYCLE` và `_KTAMV_CALIBRATE_T0` hỗ trợ 3 chế độ tiếp cận và lưu nhớ tọa độ gần nhất.
+
+### Sao lưu
+- [ktamv.cfg (Backup)](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-ktamv-flexible-camera-coords-20260916-211600/ktamv.cfg)
+
+### Kiểm tra
+- Triển khai file cấu hình lên máy in và thực thi `FIRMWARE_RESTART`: Thành công (`Printer is ready`).
+- Truy vấn biến macro trong Moonraker: `last_cam_x: 170.9, last_cam_y: 4.4` đã được khởi tạo sẵn sàng.
+
+### Kết quả
+- Người dùng có thể đặt gá camera ở bất kỳ vị trí nào trên bàn in mà không lo bị macro ghi đè hoặc làm văng vòi phun ra khỏi tầm nhìn camera.
