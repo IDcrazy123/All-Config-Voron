@@ -55,4 +55,35 @@
 - Tài liệu README.md và README.vi.md đã được viết lại toàn diện, chuyên nghiệp, mô tả chính xác và sâu sắc mọi ngóc ngách của hệ thống.
 
 ### Vấn đề còn lại
-- Không còn vấn đề tồn đọng. Hệ thống sẵn sàng để commit và push lên GitHub.
+- Đã giải quyết toàn bộ.
+
+---
+
+## 2. Chuẩn hóa và Cập nhật Toàn diện Hệ thống Quy tắc AI trong Thư mục `.agents/`
+
+### Mục tiêu
+- Đọc và phân tích sâu toàn bộ mã nguồn thực tế của dự án để nắm bắt chính xác bối cảnh hiện tại.
+- Cập nhật toàn bộ các file trong thư mục `.agents/` (`PROJECT.md`, `DIRECTORY.md`, `DECISIONS.md`, `CHANGELOG.md`, `KNOWN_ISSUES.md`, `TODO.md`, `AGENTS.md`) khớp 100% với kiến trúc phần cứng, cấu trúc thư mục, hệ thống cân chỉnh Z kép và quy trình vận hành sản xuất.
+- Phân biệt rõ ràng giữa thư mục workspace gốc `All-Config-Voron-main/` (chứa các file tàn dư cũ) và thư mục Git repository production duy nhất `Voron 5 Tool/`.
+
+### File đã sửa đổi
+- `.agents/PROJECT.md` — Bổ sung chi tiết kiến trúc cân chỉnh Z kép (Cartographer Touch + Axiscope PF2 gia nhiệt 150°C), bù nén nhựa First Layer (Squish Factor) trong Z-offset, hệ thống sấy nhựa 4 vùng `filament-dryer.cfg`, máy trạng thái LED 10 mức và đèn buồng in 100%.
+- `.agents/DIRECTORY.md` — Cập nhật đầy đủ cây thư mục với các file thực tế đang vận hành (`README.vi.md`, `filament-dryer.cfg`, `test-speed.cfg`, `tool-temp-bench.cfg`, `scripts/patches/`, `scripts/ktamv/`, `extras/experiments/`...); bổ sung cảnh báo rõ ràng về các file tàn dư cũ ở thư mục gốc.
+- `.agents/DECISIONS.md` — Ghi nhận 4 quyết định kỹ thuật mới nhất: cơ chế chờ nhiệt 150°C & nâng Z an toàn cho Axiscope; đánh giá KCV & khôi phục kTAMV production; đồng bộ đèn buồng in 100%; viết lại toàn diện tài liệu README song ngữ & làm sạch dữ liệu nhạy cảm.
+- `.agents/CHANGELOG.md` — Bổ sung các phiên bản `[1.7.1]`, `[1.7.2]` và `[1.8.0]`.
+- `.agents/KNOWN_ISSUES.md` — Chuẩn hóa toàn bộ đường link liên quan, bổ sung mục đánh giá Klipper-Camera-Vision và Axiscope Z temp wait.
+- `.agents/TODO.md` — Cập nhật các hạng mục đã hoàn thành và đồng bộ việc đang chờ.
+- `.agents/AGENTS.md` — Bổ sung nguyên tắc cốt lõi phân định thư mục Git repo duy nhất `Voron 5 Tool/`.
+
+### Chi tiết thay đổi
+1. **Kiến trúc hệ thống (`PROJECT.md`):** Mô tả chuẩn xác cơ chế Cartographer Touch Z homing tại tâm bàn (174, 168), kết hợp Axiscope microswitch PF2 (68, -8, 2) đo delta chiều dài nozzle có gia nhiệt 150°C; tích hợp squish factor -0.04mm/-0.03mm trực tiếp trong `gcode_z_offset` của `printer.cfg`.
+2. **Cấu trúc thư mục (`DIRECTORY.md`):** Làm rõ ranh giới giữa Git repo `Voron 5 Tool/` và workspace root `All-Config-Voron-main/`. Liệt kê đầy đủ các module macro và script hỗ trợ.
+3. **Lịch sử quyết định & Sự cố (`DECISIONS.md`, `KNOWN_ISSUES.md`, `CHANGELOG.md`):** Bổ sung đầy đủ các bài học kinh nghiệm và quyết định kỹ thuật từ ngày 13/09/2026 đến 16/09/2026.
+
+### Kiểm tra
+- Cú pháp Markdown của tất cả các file đã cập nhật: Hợp lệ, không có lỗi định dạng.
+- Tính toàn vẹn của các đường dẫn file và liên kết chéo: Đầy đủ, chính xác.
+- Git status trong `Voron 5 Tool/`: Sạch sẽ, chỉ có thay đổi trong file nhật ký hôm nay.
+
+### Kết quả
+- Hệ thống quy tắc trong `.agents/` hoàn toàn đồng bộ, phản ánh chính xác 100% bối cảnh vận hành của hệ thống máy in Voron 2.4 StealthChanger 5-Tool.
