@@ -87,3 +87,41 @@
 
 ### Kết quả
 - Hệ thống quy tắc trong `.agents/` hoàn toàn đồng bộ, phản ánh chính xác 100% bối cảnh vận hành của hệ thống máy in Voron 2.4 StealthChanger 5-Tool.
+
+---
+
+## 3. Khắc phục Lỗi Ánh sáng 2 LED Đầu in Chiếu Nozzle và Tinh gọn Macro kTAMV trên Mainsail
+
+### Mục tiêu
+- Truy cập trực tiếp máy in tại `192.168.1.43` để đối chiếu quy trình lưu trong `ktamv.cfg` với quy trình vận hành thực tế.
+- Điều tra nguyên nhân gốc gây lỗi calib (`More than 25% of the calibration points failed, aborting` dẫn đến `Camera is not calibrated, aborting`).
+- Khắc phục triệt để hiện tượng 2 đèn LED nozzle trên đầu in rọi sáng làm chói lóa camera nhìn lên MF-500.
+- Tinh chỉnh macro tự động tiếp cận đúng tọa độ camera chuẩn `X:170.9, Y:4.4, Z:40.0`.
+- Ẩn toàn bộ các macro con bằng tiền tố `_` để tinh gọn giao diện điều khiển Mainsail, chỉ giữ lại macro 1-chạm `KTAMV_FULL_CALIBRATION_CYCLE` và `KTAMV_STATUS`.
+
+### File đã sửa đổi
+- `config/Printer-Setup/ktamv.cfg` — Thêm helper `_KTAMV_LEDS_OFF`, `_KTAMV_LEDS_RESTORE`; ẩn `_KTAMV_CALIBRATE_T0` và `_KTAMV_AUTO_CALIBRATE_ALL_TOOLS`; tối ưu `KTAMV_FULL_CALIBRATION_CYCLE` tự động tiếp cận tọa độ camera.
+
+### Sao lưu
+- [ktamv.cfg.local (Backup)](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-ktamv-led-and-macro-cleanup-20260916-210500/ktamv.cfg.local)
+- [ktamv.cfg.live (Backup)](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-ktamv-led-and-macro-cleanup-20260916-210500/ktamv.cfg.live)
+
+### Chi tiết thay đổi
+1. **Khắc phục lỗi chói lóa ánh sáng:**
+   - Lệnh `T0` và các lệnh đổi tool kích hoạt `after_change_gcode` tự động bật 2 LED nozzle (INDEX=2 và INDEX=3) ở độ sáng `0.30` trắng (`STATE=ready`).
+   - Tạo macro `_KTAMV_LEDS_OFF` tắt hoàn toàn cả 3 LED của 5 toolhead và tắt đèn buồng in `chamber_lights` trước khi camera chụp ảnh/lấy mẫu.
+   - Thêm cơ chế tắt ngay LED sau mỗi lần pickup tool trong chuỗi `_KTAMV_CALIBRATE_TOOL`.
+   - Tạo macro `_KTAMV_LEDS_RESTORE` khôi phục LED sau khi hoàn thành chu trình.
+2. **Chuẩn hóa tọa độ camera:**
+   - Cập nhật macro 1-chạm tự động di chuyển T0 đến đúng tọa độ camera thực tế: `X:170.9, Y:4.4, Z:40`.
+3. **Ẩn macro thừa trên Mainsail:**
+   - Thêm tiền tố `_` cho `_KTAMV_CALIBRATE_T0` và `_KTAMV_AUTO_CALIBRATE_ALL_TOOLS`.
+   - Giao diện Mainsail Macro chỉ còn 2 mục: `KTAMV_FULL_CALIBRATION_CYCLE` (nút bấm chính 1-chạm) và `KTAMV_STATUS` (báo cáo trạng thái).
+
+### Kiểm tra
+- Triển khai file cấu hình lên máy in và thực thi `FIRMWARE_RESTART`: Thành công (`Printer is ready`).
+- Kiểm tra tắt LED: Lệnh `_KTAMV_LEDS_OFF` tắt toàn bộ LED đầu in (`color_data: [[0,0,0,0], [0,0,0,0], [0,0,0,0]]`).
+- Kiểm tra danh sách macro trong Moonraker: Các macro con đã ẩn hoàn toàn khỏi dashboard.
+
+### Kết quả
+- Hệ thống kTAMV đã sẵn sàng vận hành đo XY tự động với độ chính xác cao nhất, không còn bị ảnh hưởng bởi ánh sáng phản xạ từ LED đầu in.
