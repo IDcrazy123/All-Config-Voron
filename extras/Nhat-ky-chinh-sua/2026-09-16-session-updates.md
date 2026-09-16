@@ -150,3 +150,34 @@
 
 ### Kết quả
 - Người dùng có thể đặt gá camera ở bất kỳ vị trí nào trên bàn in mà không lo bị macro ghi đè hoặc làm văng vòi phun ra khỏi tầm nhìn camera.
+
+---
+
+## 5. So sánh Kết quả Đo XY kTAMV 2 Lần & Tạo Macro Đo Z Offset Bằng Cartographer Touch
+
+### Mục tiêu
+- Truy cập máy in `192.168.1.43` để trích xuất và đối chiếu kết quả đo XY offset bằng kTAMV giữa 2 lần chạy liên tiếp.
+- Đánh giá độ chính xác và độ lặp lại sau khi áp dụng cơ chế chống chói LED vòi phun.
+- Xây dựng macro và chuỗi lệnh console đo độ cao tiếp xúc Z bằng Cartographer Touch cho cả 5 đầu in (T0 -> T4) để chuẩn bị tính toán Z offset.
+
+### File đã sửa đổi
+- `config/Printer-Setup/calibration-probe.cfg` — Bổ sung macro `MEASURE_ALL_Z_CARTOGRAPHER`.
+
+### Sao lưu
+- [calibration-probe.cfg.local (Backup)](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-cartographer-z-measure-macro-20260916-215800/calibration-probe.cfg.local)
+- [calibration-probe.cfg.live (Backup)](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-cartographer-z-measure-macro-20260916-215800/calibration-probe.cfg.live)
+
+### Chi tiết thay đổi
+1. **Kết quả đối chiếu 2 lần đo kTAMV:**
+   - Lần 1 (21:26:11): T1 (X: -0.298, Y: -0.140), T2 (X: 1.048, Y: 0.063), T3 (X: 0.029, Y: 0.463), T4 (X: 0.223, Y: 0.014).
+   - Lần 2 (21:40+ hiện tại): T1 (X: -0.289, Y: -0.139), T2 (X: 1.075, Y: 0.045), T3 (X: 0.029, Y: 0.456), T4 (X: 0.224, Y: 0.001).
+   - Độ chênh lệch: $\Delta X, \Delta Y$ dao động từ 0 đến tối đa 0.027 mm (trong ngưỡng dung sai cơ khí tuyệt hảo 1-2 vi bước).
+2. **Bổ sung macro `MEASURE_ALL_Z_CARTOGRAPHER`:**
+   - Tự động di chuyển từng tool T0 -> T4 đến vị trí tâm bàn an toàn (`X:175, Y:175, Z:10`).
+   - Ghi nhận `CURRENT_GCODE_Z_OFFSET` hiện hành của từng tool ra console.
+   - Gọi `CARTOGRAPHER_TOUCH_ACCURACY SAMPLES=3` để đo Z chạm bàn cực nhạy bằng cảm biến lực Cartographer.
+   - Báo cáo rõ ràng để người dùng chỉ cần copy console log cho AI xử lý.
+
+### Kiểm tra
+- Triển khai file cấu hình lên máy in và thực thi `FIRMWARE_RESTART`: Thành công (`Printer is ready`).
+- Kiểm tra danh sách đối tượng Moonraker: `gcode_macro MEASURE_ALL_Z_CARTOGRAPHER` đã xuất hiện và sẵn sàng sử dụng.
