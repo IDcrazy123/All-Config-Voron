@@ -146,6 +146,40 @@
 - Truy vấn đối tượng Moonraker: `_CALIBRATION_SWITCH` trả về chính xác `x: 80, y: -7, z: 15, contact_z: 2`.
 
 
+---
 
+## 7. Khôi phục Bộ Giá trị Z-Offset Đã Tinh chỉnh In Đẹp (Ellis Method) & Bảo toàn XY kTAMV
 
+### Mục tiêu
+- Khôi phục bộ giá trị `gcode_z_offset` chuẩn đã được tinh chỉnh thực tế (Ellis First-Layer Calibration) cho cả 5 đầu in:
+  - **T0:** `0.0000` (Quy chiếu gốc)
+  - **T1:** `0.1691`
+  - **T2:** `-0.3142`
+  - **T3:** `-0.2575`
+  - **T4:** `0.0285`
+- Giữ nguyên toàn bộ giá trị XY offsets mới nhất đã đo đạc chính xác bằng camera kTAMV:
+  - **T1:** `X: -0.289, Y: -0.139`
+  - **T2:** `X: 1.067, Y: 0.044`
+  - **T3:** `X: 0.029, Y: 0.456`
+  - **T4:** `X: 0.216, Y: 0.0`
+- Lý giải kỹ thuật: Phép đo Cartographer Touch nhiệt độ cao đo tiếp xúc kim loại thuần, thiếu lượng squish factor thực tế khi sợi nhựa đùn lên mặt PEI sần dẫn đến chất lượng lớp in đầu tiên (first layer) bị biến dạng nếu áp đặt cơ học thuần túy. Việc phục hồi lại bộ Z-offset Ellis giúp máy in ngay lập tức đạt độ bám và bề mặt in hoàn hảo.
+
+### File đã sửa đổi
+- `config/printer.cfg` — Khôi phục Z-offsets cũ trong khối `SAVE_CONFIG` và bảo toàn XY offsets mới.
+
+### Sao lưu
+- [pre-restore-proven-z-offsets-20260917-174500](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-restore-proven-z-offsets-20260917-174500/)
+
+### Thao tác trên máy in thật `192.168.1.43`:
+- Gửi các lệnh KTC parameter qua Moonraker API:
+  - `SET_TOOL_PARAMETER T=1 PARAMETER=gcode_z_offset VALUE=0.1691` -> `SAVE_TOOL_PARAMETER`
+  - `SET_TOOL_PARAMETER T=2 PARAMETER=gcode_z_offset VALUE=-0.3142` -> `SAVE_TOOL_PARAMETER`
+  - `SET_TOOL_PARAMETER T=3 PARAMETER=gcode_z_offset VALUE=-0.2575` -> `SAVE_TOOL_PARAMETER`
+  - `SET_TOOL_PARAMETER T=4 PARAMETER=gcode_z_offset VALUE=0.0285` -> `SAVE_TOOL_PARAMETER`
+  - `SAVE_CONFIG`
+- Khởi động lại firmware Klipper (`Printer is ready`).
+
+### Kiểm tra
+- Đọc lại SAVE_CONFIG block trên máy in: Xác nhận toàn bộ 4 tool hiển thị chính xác bộ Z-offset cũ và XY offset mới.
+- Đồng bộ `printer.cfg` từ máy in về kho Git cục bộ.
 
