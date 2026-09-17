@@ -253,3 +253,25 @@
 ### Kiểm tra
 - Máy in khởi động lại thành công và đạt trạng thái `Printer is ready`.
 - Truy vấn Klipper objects: Xác nhận `KTAMV_LEDS_OFF`, `KTAMV_LEDS_RESTORE`, `KTAMV_CALIB_CAMERA_SAFE` hiển thị sẵn sàng.
+
+---
+
+## 11. Nâng Độ Cao Z An Toàn Của kTAMV Lại Về Z = 40 mm & Hướng Dẫn Tự Cấu Hình
+
+### Mục tiêu
+- Phục hồi độ cao Z an toàn (Safe Z Clearance) của kTAMV về mức `Z = 40 mm` theo yêu cầu người dùng để đảm bảo khoảng cách an toàn tối đa cho gá camera trên bàn in.
+- Hướng dẫn người dùng vị trí tham số `measurement_z` để có thể tự sửa đổi linh hoạt trong tương lai trực tiếp từ giao diện web Mainsail mà không cần can thiệp sâu.
+
+### File đã sửa đổi
+- `config/Printer-Setup/ktamv.cfg` — Cập nhật `measurement_z: 40`, `safe_z: default(40)`.
+
+### Sao lưu
+- [pre-ktamv-safe-z-40-20260917-192200](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-ktamv-safe-z-40-20260917-192200/)
+
+### Thao tác trên máy in thật `192.168.1.43`:
+- Đẩy [ktamv.cfg](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/config/Printer-Setup/ktamv.cfg) qua SCP.
+- Gửi lệnh `FIRMWARE_RESTART`.
+
+### Kiểm tra
+- Máy in khởi động lại thành công và đạt trạng thái `Printer is ready`.
+- `measurement_z: 40` đã được áp dụng.
