@@ -201,3 +201,29 @@
 ### Kiểm tra
 - So sánh mã băm MD5: Khớp 100% giữa local và remote (`144a315ce3121ddc3548d0a521a2322f`).
 - Máy in khởi động lại thành công và đạt trạng thái sẵn sàng (`Printer is ready`).
+
+---
+
+## 9. Tách Bỏ Macro Gộp Độc Đoán, Chuyển Sang Kiến Trúc Macro Rời Chuẩn Upstream kTAMV
+
+### Mục tiêu
+- Loại bỏ hoàn toàn macro gộp tự động 1-chạm (`KTAMV_FULL_CALIBRATION_CYCLE`) và chuỗi macro phụ thuộc lồng nhau.
+- Tái thiết kế file cấu hình theo đúng luồng làm việc nguyên bản của dự án upstream kTAMV (TypQxQ/kTAMV): các lệnh độc lập, linh hoạt, người dùng chủ động từng bước.
+- Cung cấp bộ macro helper tinh gọn hỗ trợ máy StealthChanger 5 Tool:
+  - `KTAMV_MOVE_TO_ORIGIN`: Di chuyển tool hiện tại đến đúng tọa độ camera đã học ở Z an toàn (35mm).
+  - `KTAMV_FIND_AND_CENTER`: Tắt LED chống lóa, tìm tâm nozzle và căn giữa camera.
+  - `KTAMV_APPLY_TOOL_OFFSET [TOOL=n]`: Nạp kết quả sai lệch XY vào toolchanger parameters.
+
+### File đã sửa đổi
+- `config/Printer-Setup/ktamv.cfg` — Viết lại hoàn toàn theo chuẩn modular, xóa macro gộp.
+
+### Sao lưu
+- [pre-ktamv-split-modular-macros-20260917-185600](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-ktamv-split-modular-macros-20260917-185600/)
+
+### Thao tác trên máy in thật `192.168.1.43`:
+- Đẩy [ktamv.cfg](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/config/Printer-Setup/ktamv.cfg) mới qua SCP.
+- Gửi lệnh `FIRMWARE_RESTART`.
+
+### Kiểm tra
+- Truy vấn danh sách G-code macro trên máy in: Xác nhận macro gộp cũ đã biến mất, chỉ còn các macro modular sạch sẽ (`KTAMV_MOVE_TO_ORIGIN`, `KTAMV_FIND_AND_CENTER`, `KTAMV_APPLY_TOOL_OFFSET`, `KTAMV_STATUS`).
+- Máy in đạt trạng thái `Printer is ready`.

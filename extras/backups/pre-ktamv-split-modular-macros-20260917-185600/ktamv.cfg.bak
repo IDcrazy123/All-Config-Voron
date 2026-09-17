@@ -1,0 +1,335 @@
+# =====================================================================
+# kTAMV - Klipper Tool Alignment with Machine Vision (Voron 5-Tool)
+# Upstream: https://github.com/TypQxQ/kTAMV
+# Reviewed commit: 72421f2d54da0de8701c4f84449c6e6b7d060301
+#
+# =====================================================================
+# HUONG DAN SU DUNG kTAMV DO SAI LECH XY (VORON 5-TOOL):
+# =====================================================================
+#
+# CO CHE TOA DO LINH HOAT (HO TRO CAMERA DAT O BAT KY VI TRI NAO):
+# ---------------------------------------------------------------------
+#   kTAMV do sai lech quang hoc tuong doi giua cac tool so voi T0.
+#   Camera co the dat o bat ky vi tri nao tren ban in (khong can co dinh).
+#
+#   CACH 1: DAT CAMERA TU DO TREN BAN IN (KHUYEN DUNG - MAC DINH)
+#     1. Dat ga camera o bat ky cho nao thuan tien tren ban in.
+#     2. Dung giao dien Mainsail (Jog) dua dau phun T0 den tren mat kinh
+#        camera sao cho lo nozzle lọt vao khung hinh (xem tai :8086/image).
+#     3. Bam 1 nut duy nhat tren Mainsail (hoac go Console):
+#          KTAMV_FULL_CALIBRATION_CYCLE
+#        -> May se TU DONG giu nguyen toa do X, Y hien tai cua T0,
+#           nang/ha Z ve Z=35 an toan va tu dong do toan bo tu A den Z!
+#
+#   CACH 2: SU DUNG LAI VI TRI CAMERA CUA LAN DO TRUOC
+#     Neu camera van dat o vi tri cu, chi can chay:
+#          KTAMV_FULL_CALIBRATION_CYCLE GOTO_LAST=1
+#
+#   CACH 3: TRUYEN TOA DO CAMERA CHI DINH
+#     Neu muon may tu chay den mot toa do cu the:
+#          KTAMV_FULL_CALIBRATION_CYCLE CAM_X=170.9 CAM_Y=4.4
+#
+# =====================================================================
+
+[ktamv]
+nozzle_cam_url: http://127.0.0.1/webcam/?action=snapshot
+server_url: http://127.0.0.1:8086
+move_speed: 1800
+calib_iterations: 1
+calib_value: 1.0
+send_frame_to_cloud: false
+detection_tolerance: 0
+measurement_z: 35
+measurement_samples: 3
+measurement_max_spread: 0.12
+
+# Tu dong dong bo URL camera sang kTAMV server sau khi Klipper khoi dong 3 giay (chong loi 502)
+[delayed_gcode _KTAMV_AUTO_INIT]
+initial_duration: 3.0
+gcode:
+  KTAMV_SEND_SERVER_CFG
+
+# ---------------------------------------------------------------------
+# 1. QUAN LY ANH SANG & LED CHUYEN DUNG CHO kTAMV (CHONG CHOI LOA)
+# ---------------------------------------------------------------------
+
+[gcode_macro _KTAMV_LEDS_OFF]
+description: Helper noi bo: Tat toan bo LED dau in (tranh 2 led nozzle chieu gay sai lech) va den buong in
+gcode:
+  # Tat toan bo LED tren tat ca 5 toolhead (T0 -> T4)
+  {% for tn in printer.toolchanger.tool_numbers %}
+    {% set led = "T" ~ tn|string ~ "_LED" %}
+    {% if printer["neopixel " ~ led] is defined %}
+      SET_LED LED={led} RED=0 GREEN=0 BLUE=0 TRANSMIT=1
+    {% endif %}
+  {% endfor %}
+  # Tat den chieu sang buong in neu dang bat de tranh phan xa xieng vao camera
+  {% if "neopixel chamber_lights" in printer.configfile.config %}
+    SET_LED LED=chamber_lights RED=0 GREEN=0 BLUE=0 TRANSMIT=1
+  {% endif %}
+
+[gcode_macro _KTAMV_LEDS_RESTORE]
+description: Helper noi bo: Khoi phuc trang thai LED ve binh thuong sau khi hoan tat calib
+gcode:
+  {% set active = printer.toolchanger.tool_number|default(-1)|int %}
+  {% if active >= 0 %}
+    _SET_TOOL_LED T={active} STATE=ready
+  {% endif %}
+  _SYNC_INACTIVE_LEDS
+
+# ---------------------------------------------------------------------
+# 2. CAC LENH CO BAN & TRANG THAI (KHONG DI CHUYEN MAY)
+# ---------------------------------------------------------------------
+
+[gcode_macro _KTAMV_SETUP]
+description: Helper noi bo: Gui thong so cau hinh camera nozzle toi kTAMV server
+gcode:
+  KTAMV_SEND_SERVER_CFG
+
+[gcode_macro KTAMV_STATUS]
+description: Bao cao trang thai camera calibration, mm/pixel va toa do origin (khong di chuyen)
+gcode:
+  {% if printer.ktamv is defined %}
+    RESPOND MSG="kTAMV active: calibrated={printer.ktamv.is_calibrated}, mm_per_pixel={printer.ktamv.mm_per_pixels}, origin={printer.ktamv.camera_center_coordinates}"
+    RESPOND MSG="Server port: 8086 | Cloud upload: disabled | Truc: XY only"
+    {% if printer.ktamv.last_offset_average is not none %}
+      RESPOND MSG="Ket qua do XY gan nhat: Tool={printer.ktamv.last_measured_tool_number}, Samples={printer.ktamv.last_offset_samples}, Mean={printer.ktamv.last_offset_average}, Spread={printer.ktamv.last_offset_spread}"
+    {% endif %}
+  {% else %}
+    RESPOND TYPE=error MSG="kTAMV module chua duoc nap"
+  {% endif %}
+
+# ---------------------------------------------------------------------
+# 3. HELPER NOI BO: CALIB GOC T0 VA CAMERA (AN KHOI MAINSAIL DASHBOARD)
+# ---------------------------------------------------------------------
+
+[gcode_macro _KTAMV_CALIBRATE_T0]
+description: Helper noi bo: Calib camera mm/pixel, tu dong tim tam T0 va luu toa do goc quy chieu (Origin)
+gcode:
+  {% set safe_z = params.Z|default(35)|float %}
+  {% if "xyz" not in printer.toolhead.homed_axes %}
+    {action_raise_error("May in chua duoc Home! Hay chay G28 truoc.")}
+  {% elif printer.toolchanger.status != "ready" %}
+    {action_raise_error("Toolchanger chua o trang thai ready")}
+  {% elif printer.toolchanger.tool_number|int != 0 %}
+    {action_raise_error("Vui long chon Tool 0 (T0) truoc khi calib goc")}
+  {% else %}
+    RESPOND MSG="=== [KTAMV] BAT DAU CALIB CAMERA VA XAC LAP GOC T0 ==="
+    # 1. Dong bo camera URL sang server de phong ngua loi 502
+    KTAMV_SEND_SERVER_CFG
+    G4 P300
+    # 2. Tat triet de LED T0 (dac biet 2 led nozzle) va den buong in de chong loa camera
+    _KTAMV_LEDS_OFF
+    G4 P200
+    # 3. Do ti le mm/pixel (chay 10 buoc nho xung quanh chóp nozzle)
+    RESPOND MSG=">>> Dang do ti le mm/pixel (KTAMV_CALIB_CAMERA)..."
+    KTAMV_CALIB_CAMERA
+    # 4. Tu dong can chinh tam nozzle T0 vao tam quang hoc
+    RESPOND MSG=">>> Dang can tam nozzle T0 (KTAMV_FIND_NOZZLE_CENTER)..."
+    KTAMV_FIND_NOZZLE_CENTER
+    # 5. Luu vi tri tam lam goc quy chieu Origin trong RAM
+    KTAMV_SET_ORIGIN
+    # 6. Luu nho vi tri camera vua calib vao bien macro
+    {% set origin = printer.ktamv.camera_center_coordinates %}
+    {% if origin is not none %}
+      SET_GCODE_VARIABLE MACRO=KTAMV_FULL_CALIBRATION_CYCLE VARIABLE=last_cam_x VALUE={origin[0]}
+      SET_GCODE_VARIABLE MACRO=KTAMV_FULL_CALIBRATION_CYCLE VARIABLE=last_cam_y VALUE={origin[1]}
+    {% endif %}
+    # 7. Bao cao trang thai hoan tat
+    KTAMV_STATUS
+    RESPOND MSG="=== [KTAMV] HOAN TAT CALIB T0! San sang do cac tool tiep theo. ==="
+  {% endif %}
+
+# ---------------------------------------------------------------------
+# 4. DO VA NAP OFFSET CHO TUNG TOOL (HELPER NOI BO)
+# ---------------------------------------------------------------------
+
+[gcode_macro _KTAMV_MEASURE_ACTIVE_TOOL_XY]
+description: Helper noi bo: Can tam tool dang active lap lai 3 lan va bao cao sai so trung binh XY
+gcode:
+  {% set samples = params.SAMPLES|default(3)|int %}
+  {% set max_spread = params.MAX_SPREAD|default(0.12)|float %}
+  {% set safe_z = params.Z|default(35)|float %}
+  {% if not printer.ktamv.is_calibrated %}
+    {action_raise_error("Camera chua duoc calib! Hay chay KTAMV_FULL_CALIBRATION_CYCLE hoac _KTAMV_CALIBRATE_T0 truoc")}
+  {% elif printer.ktamv.camera_center_coordinates is none %}
+    {action_raise_error("Chua set goc toa do! Hay chay KTAMV_FULL_CALIBRATION_CYCLE hoac _KTAMV_CALIBRATE_T0 truoc")}
+  {% elif printer.toolchanger.status != "ready" %}
+    {action_raise_error("Toolchanger chua o trang thai ready")}
+  {% elif printer.toolchanger.tool_number is none %}
+    {action_raise_error("Chua co tool nao duoc kich hoat")}
+  {% elif printer.toolchanger.detected_tool_number|int != printer.toolchanger.tool_number|int %}
+    {action_raise_error("Tool vat ly tren dau in khong khop voi tool dang kich hoat")}
+  {% else %}
+    {% set tool_number = printer.toolchanger.tool_number|int %}
+    # Tat ngay LED dau in truoc khi do de tranh 2 led nozzle tao bong phan xa
+    SET_LED LED=T{tool_number}_LED RED=0 GREEN=0 BLUE=0 TRANSMIT=1
+    G4 P200
+    KTAMV_MEASURE_TOOL_XY SAMPLES={samples} Z={safe_z} MAX_SPREAD={max_spread}
+  {% endif %}
+
+[gcode_macro _KTAMV_APPLY_ACTIVE_TOOL_XY]
+description: Helper noi bo: Nap gia tri sai so XY trung binh vua do vao tool dang active (tru T0)
+gcode:
+  {% set tool_number = printer.toolchanger.tool_number|int %}
+  {% set result = printer.ktamv.last_offset_average %}
+  {% set spread = printer.ktamv.last_offset_spread %}
+  {% if printer.toolchanger.status != "ready" %}
+    {action_raise_error("Toolchanger chua o trang thai ready")}
+  {% elif printer.toolchanger.detected_tool_number|int != tool_number %}
+    {action_raise_error("Tool vat ly khong khop voi active tool")}
+  {% elif tool_number == 0 %}
+    {action_raise_error("T0 la goc quy chieu, luon phai giu XY offset = 0")}
+  {% elif result is none or spread is none %}
+    {action_raise_error("Chua co ket qua do kTAMV nao hop le")}
+  {% elif printer.ktamv.last_measured_tool_number|int != tool_number %}
+    {action_raise_error("Ket qua do gan nhat thuoc ve tool khac, khong the ap dung")}
+  {% elif spread[0]|float > 0.12 or spread[1]|float > 0.12 %}
+    {action_raise_error("Do phan tan spread vuot qua nguong an toan 0.12 mm")}
+  {% else %}
+    {% set tool = printer[printer.toolchanger.tool] %}
+    {% set new_x = ((tool.gcode_x_offset|float) + (result[0]|float))|round(3) %}
+    {% set new_y = ((tool.gcode_y_offset|float) + (result[1]|float))|round(3) %}
+    SET_TOOL_PARAMETER T={tool_number} PARAMETER=gcode_x_offset VALUE={new_x}
+    SET_TOOL_PARAMETER T={tool_number} PARAMETER=gcode_y_offset VALUE={new_y}
+    SAVE_TOOL_PARAMETER T={tool_number} PARAMETER=gcode_x_offset
+    SAVE_TOOL_PARAMETER T={tool_number} PARAMETER=gcode_y_offset
+    RESPOND MSG="Da cap nhat offset T{tool_number}: X={new_x} Y={new_y} (Residual: X={result[0]} Y={result[1]})"
+    RESPOND MSG="Chu y: Chay SAVE_CONFIG de luu vinh vien vao printer.cfg sau khi hoan tat tat ca tool"
+  {% endif %}
+
+[gcode_macro _KTAMV_CALIBRATE_TOOL]
+description: Helper noi bo: chuyen tool, tiep can toa do camera da hoc (origin), do va nap offset
+gcode:
+  {% set tool = params.T|int %}
+  {% set samples = params.SAMPLES|default(3)|int %}
+  {% set max_spread = params.MAX_SPREAD|default(0.12)|float %}
+  {% set safe_z = params.Z|default(35)|float %}
+  {% set origin = printer.ktamv.camera_center_coordinates %}
+
+  RESPOND MSG=">>> [KTAMV] Chuyen sang T{tool} va tiep can toa do camera da hoc <<<"
+  T{tool}
+  # LUU Y QUAN TRONG: after_change_gcode bat 2 LED nozzle len, phai tat ngay de chong lóa
+  _KTAMV_LEDS_OFF
+
+  # Nang Z len do cao an toan ngay tai vi tri sau pickup dock
+  G90
+  G1 Z{safe_z} F1800
+  # Di chuyen toi toa do tam camera da hoc boi T0 (learned origin) - TUDONG KHOP THEO MOI VI TRI CAMERA!
+  G1 X{origin[0]} Y{origin[1]} F3000
+  # Dam bao LED van tat truoc khi do
+  SET_LED LED=T{tool}_LED RED=0 GREEN=0 BLUE=0 TRANSMIT=1
+  G4 P200
+
+  _KTAMV_MEASURE_ACTIVE_TOOL_XY SAMPLES={samples} MAX_SPREAD={max_spread} Z={safe_z}
+  _KTAMV_APPLY_ACTIVE_TOOL_XY
+
+# ---------------------------------------------------------------------
+# 5. QUY TRINH DO TU DONG TUAN TU (HELPER NOI BO - AN KHOI MAINSAIL)
+# ---------------------------------------------------------------------
+
+[gcode_macro _KTAMV_AUTO_CALIBRATE_ALL_TOOLS]
+description: Helper noi bo: tu dong do va cap nhat offset XY cho tat ca tool T1->T4 dua tren toa do camera da hoc tu T0
+gcode:
+  {% set samples = params.SAMPLES|default(3)|int %}
+  {% set max_spread = params.MAX_SPREAD|default(0.12)|float %}
+  {% set safe_z = params.Z|default(35)|float %}
+
+  {% if "xyz" not in printer.toolhead.homed_axes %}
+    {action_raise_error("May in chua duoc Home! Hay chay G28 truoc.")}
+  {% elif not printer.ktamv.is_calibrated %}
+    {action_raise_error("Camera chua duoc calib! Hay can tam T0 va chay _KTAMV_CALIBRATE_T0 truoc.")}
+  {% elif printer.ktamv.camera_center_coordinates is none %}
+    {action_raise_error("Chua co toa do goc T0! Hay can tam T0 va chay _KTAMV_CALIBRATE_T0 truoc.")}
+  {% else %}
+    _KTAMV_SETUP
+    {% set origin = printer.ktamv.camera_center_coordinates %}
+    RESPOND MSG="=========================================================="
+    RESPOND MSG="BAT DAU QUY TRINH DO XY TU DONG kTAMV (T1 -> T4)"
+    RESPOND MSG="Toa do camera da hoc (Learned Origin): X={origin[0]} Y={origin[1]} | Safe Z={safe_z}"
+    RESPOND MSG="=========================================================="
+
+    _KTAMV_CALIBRATE_TOOL T=1 SAMPLES={samples} MAX_SPREAD={max_spread} Z={safe_z}
+    _KTAMV_CALIBRATE_TOOL T=2 SAMPLES={samples} MAX_SPREAD={max_spread} Z={safe_z}
+    _KTAMV_CALIBRATE_TOOL T=3 SAMPLES={samples} MAX_SPREAD={max_spread} Z={safe_z}
+    _KTAMV_CALIBRATE_TOOL T=4 SAMPLES={samples} MAX_SPREAD={max_spread} Z={safe_z}
+
+    # Ket thuc: chuyen ve T0 va giu vi tri tai tam camera da hoc o Z an toan
+    RESPOND MSG=">>> Do xong T1-T4, quay ve T0 va giu vi tri an toan <<<"
+    T0
+    _KTAMV_LEDS_OFF
+    G90
+    G1 Z{safe_z} F1800
+    G1 X{origin[0]} Y{origin[1]} F3000
+    _KTAMV_LEDS_RESTORE
+
+    RESPOND MSG="=========================================================="
+    RESPOND MSG="HOAN TAT DO TU DONG kTAMV CHO TOAN BO 5 TOOL!"
+    RESPOND MSG="Kiem tra lai toan bo offset bang lenh: CHECK_OFFSETS"
+    RESPOND MSG="Chay lenh SAVE_CONFIG de luu vinh vien vao printer.cfg"
+    RESPOND MSG="=========================================================="
+  {% endif %}
+
+# ---------------------------------------------------------------------
+# 6. MACRO CHINH 1-CHAM (USER-FACING MAINSAIL DASHBOARD BUTTON)
+# ---------------------------------------------------------------------
+
+[gcode_macro KTAMV_FULL_CALIBRATION_CYCLE]
+description: Quy trinh 1-cham tu A den Z: Tu dong G28, chon T0 den camera, tat led chong loa, calib goc T0 va do toan bo T1->T4
+variable_last_cam_x: 170.9
+variable_last_cam_y: 4.4
+gcode:
+  {% set samples = params.SAMPLES|default(3)|int %}
+  {% set safe_z = params.Z|default(35)|float %}
+  {% set max_spread = params.MAX_SPREAD|default(0.12)|float %}
+  {% set goto_last = params.GOTO_LAST|default(0)|int %}
+
+  {% if "xyz" not in printer.toolhead.homed_axes %}
+    RESPOND MSG=">>> May in chua Home, dang tu dong chay G28..."
+    G28
+  {% endif %}
+
+  RESPOND MSG="=========================================================="
+  RESPOND MSG=">>> [KTAMV 1-CHAM] BUOC 1: CHON T0 VA XAC DINH VI TRI CAMERA <<<"
+  RESPOND MSG="=========================================================="
+  {% if printer.toolchanger.tool_number|default(-1)|int != 0 %}
+    T0
+  {% endif %}
+
+  # Xac dinh toa do tiep can camera:
+  {% if params.CAM_X is defined and params.CAM_Y is defined %}
+    {% set target_x = params.CAM_X|float %}
+    {% set target_y = params.CAM_Y|float %}
+    RESPOND MSG=">>> Di chuyen T0 toi toa do camera chi dinh: X={target_x} Y={target_y}"
+    G90
+    G1 Z{safe_z} F1800
+    G1 X{target_x} Y{target_y} F6000
+  {% elif goto_last == 1 %}
+    {% set target_x = printer["gcode_macro KTAMV_FULL_CALIBRATION_CYCLE"].last_cam_x|float %}
+    {% set target_y = printer["gcode_macro KTAMV_FULL_CALIBRATION_CYCLE"].last_cam_y|float %}
+    RESPOND MSG=">>> Di chuyen T0 toi toa do camera lan do truoc: X={target_x} Y={target_y}"
+    G90
+    G1 Z{safe_z} F1800
+    G1 X{target_x} Y{target_y} F6000
+  {% else %}
+    # MAC DINH: Su dung vi tri XY hien tai cua T0 ma nguoi dung da canh tren camera
+    {% set cur_x = printer.toolhead.position[0]|float|round(3) %}
+    {% set cur_y = printer.toolhead.position[1]|float|round(3) %}
+    RESPOND MSG=">>> Su dung toa do camera hien tai cua T0: X={cur_x} Y={cur_y} | Safe Z={safe_z}"
+    G90
+    G1 Z{safe_z} F1800
+  {% endif %}
+
+  RESPOND MSG="=========================================================="
+  RESPOND MSG=">>> [KTAMV 1-CHAM] BUOC 2: CALIB TI LE & KHOA GOC ORIGIN T0 <<<"
+  RESPOND MSG="=========================================================="
+  _KTAMV_CALIBRATE_T0 Z={safe_z}
+
+  RESPOND MSG="=========================================================="
+  RESPOND MSG=">>> [KTAMV 1-CHAM] BUOC 3: TU DONG DO VA NAP OFFSET T1 -> T4 <<<"
+  RESPOND MSG="=========================================================="
+  _KTAMV_AUTO_CALIBRATE_ALL_TOOLS SAMPLES={samples} MAX_SPREAD={max_spread} Z={safe_z}
+
+  RESPOND MSG="=========================================================="
+  RESPOND MSG=">>> [KTAMV 1-CHAM] HOAN TAT! Kiem tra bang lenh CHECK_OFFSETS va chay SAVE_CONFIG de luu. <<<"
+  RESPOND MSG="=========================================================="
