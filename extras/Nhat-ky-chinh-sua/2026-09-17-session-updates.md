@@ -127,6 +127,25 @@
 - Kiểm tra lệnh `TOOL_CALIBRATE_QUERY_PROBE`: Kết quả trả về `Calibration Probe: open` (công tắc sẵn sàng kích hoạt).
 - Kiểm tra lệnh `CALIBRATION_STATUS`: Báo cáo chính xác bộ 3 backend: kTAMV (XY), SexBolt (PF2), Cartographer Touch (Z).
 
+---
+
+## 6. Cập nhật Tọa độ Thực tế của Công tắc Tiếp xúc SexBolt Z (X: 80, Y: -7, Z: 2)
+
+### Mục tiêu
+- Cập nhật tọa độ vật lý đo đạc thực tế của công tắc cữ Z (`_CALIBRATION_SWITCH`) từ `X: 68, Y: -8` sang vị trí mới: `X: 80, Y: -7, Z: 2`.
+- Thiết lập Z tiếp cận an toàn `variable_z: 15` để bảo vệ đầu in khi bay ngang qua gờ công tắc, và lưu nhớ độ cao tiếp xúc `variable_contact_z: 2`.
+
+### File đã sửa đổi
+- `config/toolchanger/toolchanger-config.cfg` — Cập nhật `variable_x: 80`, `variable_y: -7`, `variable_z: 15`, `variable_contact_z: 2`.
+
+### Sao lưu
+- [pre-switch-coords-update-80-minus7-20260917-171100](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-switch-coords-update-80-minus7-20260917-171100/)
+
+### Kiểm tra
+- Triển khai file cấu hình lên máy in và khởi động lại firmware Klipper (`FIRMWARE_RESTART`): Thành công (`Printer is ready`).
+- Truy vấn đối tượng Moonraker: `_CALIBRATION_SWITCH` trả về chính xác `x: 80, y: -7, z: 15, contact_z: 2`.
+
+
 
 
 
