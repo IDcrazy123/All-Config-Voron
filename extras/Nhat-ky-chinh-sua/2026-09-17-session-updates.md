@@ -227,3 +227,29 @@
 ### Kiểm tra
 - Truy vấn danh sách G-code macro trên máy in: Xác nhận macro gộp cũ đã biến mất, chỉ còn các macro modular sạch sẽ (`KTAMV_MOVE_TO_ORIGIN`, `KTAMV_FIND_AND_CENTER`, `KTAMV_APPLY_TOOL_OFFSET`, `KTAMV_STATUS`).
 - Máy in đạt trạng thái `Printer is ready`.
+
+---
+
+## 10. Tích Hợp Macro Kiểm Soát LED Chống Hắt Sáng Camera Vào Quy Trình Đo kTAMV
+
+### Mục tiêu
+- Khi đổi tool (T0 -> T4), hệ thống StealthChanger tự động bật sáng đèn LED đầu in (nhất là 2 LED nozzle). Ánh sáng này chiếu thẳng xuống vòi phun kim loại và kính camera gây chói lóa (specular glare), làm hỏng khả năng nhận diện hình tròn của thuật toán OpenCV.
+- Bổ sung các macro công khai điều khiển ánh sáng trực quan trên giao diện Mainsail:
+  - `KTAMV_LEDS_OFF`: Tắt toàn bộ LED đầu in T0->T4 và LED buồng in để tạo môi trường ánh sáng tối ưu chống lóa.
+  - `KTAMV_LEDS_RESTORE`: Khôi phục lại trạng thái LED sau khi hoàn thành đo đạc.
+  - `KTAMV_CALIB_CAMERA_SAFE`: Tự động tắt LED trước khi chạy thuật toán đo tỉ lệ `mm/pixel`.
+  - Tích hợp tự động tắt đèn ngay trong macro `KTAMV_MOVE_TO_ORIGIN`: Sau khi gắp tool và bay tới vị trí camera ở Z=35mm, đèn LED lập tức tự động tắt để sẵn sàng căn tâm mà không cần người dùng thao tác thừa.
+
+### File đã sửa đổi
+- `config/Printer-Setup/ktamv.cfg` — Định nghĩa các macro LED public và cập nhật tài liệu quy trình 4 bước ở phần đầu file.
+
+### Sao lưu
+- [pre-ktamv-led-control-workflow-20260917-190100](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-ktamv-led-control-workflow-20260917-190100/)
+
+### Thao tác trên máy in thật `192.168.1.43`:
+- Đẩy file [ktamv.cfg](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/config/Printer-Setup/ktamv.cfg) qua SCP.
+- Gửi lệnh `FIRMWARE_RESTART`.
+
+### Kiểm tra
+- Máy in khởi động lại thành công và đạt trạng thái `Printer is ready`.
+- Truy vấn Klipper objects: Xác nhận `KTAMV_LEDS_OFF`, `KTAMV_LEDS_RESTORE`, `KTAMV_CALIB_CAMERA_SAFE` hiển thị sẵn sàng.
