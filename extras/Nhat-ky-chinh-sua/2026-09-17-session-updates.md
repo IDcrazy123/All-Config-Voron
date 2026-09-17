@@ -180,6 +180,24 @@
 - Khởi động lại firmware Klipper (`Printer is ready`).
 
 ### Kiểm tra
-- Đọc lại SAVE_CONFIG block trên máy in: Xác nhận toàn bộ 4 tool hiển thị chính xác bộ Z-offset cũ và XY offset mới.
-- Đồng bộ `printer.cfg` từ máy in về kho Git cục bộ.
 
+---
+
+## 8. Cập nhật Độ Cao Z An Toàn (Safe Z Clearance) Cho kTAMV Về Z = 35 mm
+
+### Mục tiêu
+- Thay đổi độ cao an toàn (Safe Z) khi chạy quy trình đo camera kTAMV từ mức `40 mm` xuống `35 mm` theo yêu cầu người dùng, phù hợp hoàn hảo với khoảng cách tiêu cự (focus height) và hành trình di chuyển tối ưu trên gá camera.
+
+### File đã sửa đổi
+- `config/Printer-Setup/ktamv.cfg` — Cập nhật `measurement_z: 35`, đồng bộ giá trị mặc định `params.Z|default(35)` ở toàn bộ các macro liên quan (`_KTAMV_CALIBRATE_T0`, `_KTAMV_MEASURE_ACTIVE_TOOL_XY`, `_KTAMV_CALIBRATE_TOOL`, `_KTAMV_AUTO_CALIBRATE_ALL_TOOLS`, `KTAMV_FULL_CALIBRATION_CYCLE`).
+
+### Sao lưu
+- [pre-ktamv-safe-z-35-20260917-182300](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-ktamv-safe-z-35-20260917-182300/)
+
+### Thao tác trên máy in thật `192.168.1.43`:
+- Đẩy file [ktamv.cfg](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/config/Printer-Setup/ktamv.cfg) đã chỉnh sửa qua SCP.
+- Gửi lệnh `FIRMWARE_RESTART` để áp dụng ngay vào Klipper.
+
+### Kiểm tra
+- So sánh mã băm MD5: Khớp 100% giữa local và remote (`144a315ce3121ddc3548d0a521a2322f`).
+- Máy in khởi động lại thành công và đạt trạng thái sẵn sàng (`Printer is ready`).
