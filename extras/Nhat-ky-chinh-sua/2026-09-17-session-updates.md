@@ -99,5 +99,34 @@
 - **T3:** `-0.4822` mm
 - **T4:** `+0.0862` mm
 
+---
+
+## 5. Gỡ bỏ Hoàn toàn Axiscope Khỏi Dự Án & Máy Thật, Kích hoạt Module SexBolt (tools_calibrate)
+
+### Mục tiêu
+- Loại bỏ triệt để module thử nghiệm `axiscope` và file mã nguồn trên máy in thật `192.168.1.43`.
+- Kích hoạt lại module SexBolt chính thức `[tools_calibrate]` của KTC-Easy trên chân `pin: ^PF2`.
+- Khôi phục hoạt động của macro `CALIBRATE_MOVE_OVER_PROBE`, `CALIBRATE_ALL_OFFSETS` và bổ sung `CALIBRATE_ALL_Z_OFFSETS`.
+- Đảm bảo kTAMV (XY camera) và SexBolt (Z / 3D switch) hoạt động song song bổ trợ lẫn nhau, không có bất kỳ xung đột hay chồng chéo logic nào.
+
+### File đã sửa đổi
+- `config/Printer-Setup/calibration-probe.cfg` — Xóa block `[axiscope]`, bỏ các macro override chặn `CALIBRATE_MOVE_OVER_PROBE`/`CALIBRATE_ALL_OFFSETS`, thêm `[tools_calibrate]` trên chân `^PF2`, bổ sung macro `CALIBRATE_ALL_Z_OFFSETS`.
+- `config/toolchanger/toolchanger-config.cfg` — Làm sạch comment tham chiếu Axiscope và đồng bộ trạng thái backend.
+
+### Sao lưu
+- [pre-remove-axiscope-enable-sexbolt-20260917-170000](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-remove-axiscope-enable-sexbolt-20260917-170000/)
+
+### Thao tác trên máy in thật `192.168.1.43`:
+- Xóa file mã nguồn: `/home/voron/klipper/klippy/extras/axiscope.py`.
+- Xóa file bytecode cache: `/home/voron/klipper/klippy/extras/__pycache__/axiscope.*`.
+- Xóa thư mục clone thừa: `/home/voron/All-Config-Voron/extras/axiscope-cartographer`.
+
+### Kiểm tra
+- Triển khai file cấu hình sang máy in qua SCP.
+- Gửi lệnh `FIRMWARE_RESTART`: Máy in khởi động lại thành công và đạt trạng thái `Printer is ready`.
+- Kiểm tra lệnh `TOOL_CALIBRATE_QUERY_PROBE`: Kết quả trả về `Calibration Probe: open` (công tắc sẵn sàng kích hoạt).
+- Kiểm tra lệnh `CALIBRATION_STATUS`: Báo cáo chính xác bộ 3 backend: kTAMV (XY), SexBolt (PF2), Cartographer Touch (Z).
+
+
 
 
