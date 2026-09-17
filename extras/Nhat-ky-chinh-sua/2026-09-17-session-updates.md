@@ -299,3 +299,27 @@
    - Vị trí tâm bàn là vùng in thực tế trọng tâm, nơi lực căng của hệ dây đai CoreXY phân bố cân đối nhất và gantry không bị biến dạng vặn góc (gantry racking/twist) như khi ép sát mép trước `Y = 4.4`.
    - Kết quả đo tại tâm bàn phản ánh chính xác nhất tương quan giữa các đầu in trong quá trình in đa vật liệu.
 3. **Đồng bộ hóa:** Toàn bộ giá trị mới của Lần 2 đã được lưu an toàn vào `printer.cfg` (vẫn bảo toàn nguyên vẹn bộ Z-offset Ellis in đẹp).
+
+---
+
+## 13. Phục Hồi Trục X Của Tool 1 (T1) Về Mức Chuẩn In Đẹp -0.289 mm
+
+### Mục tiêu
+- Sau khi in thử nghiệm thực tế với kết quả đo tâm bàn, phát hiện Tool 1 (T1) bị lệch trục X do thuật toán kTAMV bị kéo lệch bởi quang học chóp nozzle (kết quả đo -0.067 mm lệch dương ~0.22 mm so với lịch sử ổn định 4 tháng qua).
+- Phục hồi ngay lập tức `gcode_x_offset` của T1 về giá trị chuẩn đã được kiểm chứng in đẹp: **`X = -0.289 mm`**.
+- Giữ nguyên giá trị trục Y cực chuẩn vừa đo tại tâm bàn: **`Y = -0.141 mm`** và Z-offset Ellis: **`Z = 0.1691 mm`**.
+
+### File đã sửa đổi
+- `config/printer.cfg` — Cập nhật `[tool T1]` `gcode_x_offset = -0.289`.
+
+### Sao lưu
+- [pre-t1-x-restore-minus-0289-20260917-210100](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-t1-x-restore-minus-0289-20260917-210100/)
+
+### Thao tác trên máy in thật `192.168.1.43`:
+- Gửi lệnh `SET_TOOL_PARAMETER T=1 PARAMETER=gcode_x_offset VALUE=-0.289`.
+- Gửi lệnh `SAVE_TOOL_PARAMETER T=1 PARAMETER=gcode_x_offset`.
+- Thực thi `SAVE_CONFIG` và khởi động lại Klipper.
+
+### Kiểm tra
+- Máy in khởi động lại thành công (`Printer is ready`).
+- SAVE_CONFIG block của T1 hiển thị chuẩn xác: `X: -0.289, Y: -0.141, Z: 0.1691`.
