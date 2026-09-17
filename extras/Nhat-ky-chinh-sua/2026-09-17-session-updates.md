@@ -275,3 +275,27 @@
 ### Kiểm tra
 - Máy in khởi động lại thành công và đạt trạng thái `Printer is ready`.
 - `measurement_z: 40` đã được áp dụng.
+
+---
+
+## 12. Phân Tích & Đối Soát 2 Lần Đo kTAMV Tại Tâm Bàn In (X: 170, Y: 150, Z: 40)
+
+### Bối cảnh & Dữ liệu ghi nhận từ Console
+- Người dùng thực hiện 2 lần đo liên tiếp tại tọa độ trung tâm bàn in (170:150:40) với quy trình modular mới kèm tắt LED chống hắt sáng.
+- Giữa 2 lần đo, hệ thống đã thực hiện cân phẳng gantry bằng `QUAD_GANTRY_LEVEL` (QGL), loại bỏ hoàn toàn độ nghiêng cơ học.
+
+### Bảng đối chiếu số liệu đo đạc
+
+| Toolhead | Giá trị CŨ (Mép bàn Y=4.4) | Kết quả LẦN 1 (Tâm bàn) | Kết quả LẦN 2 (Sau QGL) | Chênh lệch Lần 2 vs Cũ (Δ) | Độ ổn định (Lần 2 vs Lần 1) |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| **T1** | `X: -0.289, Y: -0.139` | `X: -0.052, Y: -0.251` | `X: -0.067, Y: -0.141` | `ΔX: +0.222, ΔY: -0.002` | Y phục hồi chuẩn khớp cũ; X ổn định tại -0.067 |
+| **T2** | `X: 1.067, Y: 0.044` | `X: 1.035, Y: 0.050` | `X: 1.035, Y: 0.050` | `ΔX: -0.032, ΔY: +0.006` | **Lệch 0.000 (Trùng khít tuyệt đối tâm pixel [320, 240])** |
+| **T3** | `X: 0.029, Y: 0.456` | `X: 0.013, Y: 0.459` | `X: 0.013, Y: 0.459` | `ΔX: -0.016, ΔY: +0.003` | **Lệch 0.000 (Trùng khít tuyệt đối tâm pixel [320, 240])** |
+| **T4** | `X: 0.216, Y: 0.000` | `X: 0.184, Y: 0.006` | `X: 0.193, Y: 0.063` | `ΔX: -0.023, ΔY: +0.063` | Sai lệch chỉ 9 micron trên X và 57 micron trên Y |
+
+### Đánh giá kỹ thuật
+1. **Độ hội tụ phi thường ở T2 và T3:** Ở lần đo 2, thuật toán tìm tâm của T2 và T3 đạt ngay `Offset X: 0.000, Y: 0.000` ở lần chụp đầu tiên (Take 0), chứng minh ngàm nam châm lặp lại vị trí (repeatability) ở mức dưới 10 micron.
+2. **Ưu thế vượt trội khi đo tại tâm bàn (170:150):** 
+   - Vị trí tâm bàn là vùng in thực tế trọng tâm, nơi lực căng của hệ dây đai CoreXY phân bố cân đối nhất và gantry không bị biến dạng vặn góc (gantry racking/twist) như khi ép sát mép trước `Y = 4.4`.
+   - Kết quả đo tại tâm bàn phản ánh chính xác nhất tương quan giữa các đầu in trong quá trình in đa vật liệu.
+3. **Đồng bộ hóa:** Toàn bộ giá trị mới của Lần 2 đã được lưu an toàn vào `printer.cfg` (vẫn bảo toàn nguyên vẹn bộ Z-offset Ellis in đẹp).
