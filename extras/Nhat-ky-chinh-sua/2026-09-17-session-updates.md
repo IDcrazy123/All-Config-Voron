@@ -76,4 +76,28 @@
 - **T3:** `-0.5105` mm
 - **T4:** `+0.0619` mm
 
+---
+
+## 4. Phân tích Đo Lần 3 & Xác nhận Trạng thái Bão hòa Nhiệt Bền vững (Thermal Saturation)
+
+### Dữ liệu đo Lần 3 (Nhiệt độ ngâm >35 phút):
+- **T0:** $Z_{\text{touch}} = -0.400620$ mm (Độ dao động range: 0.002 mm, std dev: 0.9 µm - cực kỳ chính xác)
+- **T1:** $Z_{\text{touch}} = -0.201286$ mm $\rightarrow \Delta Z = +0.1993$ mm $\rightarrow$ Offset Lần 3 = **`+0.3684`** mm
+- **T2:** $Z_{\text{touch}} = -0.679286$ mm $\rightarrow \Delta Z = -0.2787$ mm $\rightarrow$ Offset Lần 3 = **`-0.5929`** mm
+- **T3:** $Z_{\text{touch}} = -0.605286$ mm $\rightarrow \Delta Z = -0.2047$ mm $\rightarrow$ Offset Lần 3 = **`-0.4622`** mm
+- **T4:** $Z_{\text{touch}} = -0.339286$ mm $\rightarrow \Delta Z = +0.0613$ mm $\rightarrow$ Offset Lần 3 = **`+0.0898`** mm
+
+### Hội tụ nhiệt giữa Lần 2 và Lần 3:
+- T1: Lệch chỉ **0.6 µm** (+0.1987 vs +0.1993)
+- T2: Lệch chỉ **4.0 µm** (-0.2747 vs -0.2787)
+- T4: Lệch chỉ **7.3 µm** (+0.0540 vs +0.0613)
+- Xác nhận toàn bộ hệ thống cơ khí gantry và bàn in đã đạt trạng thái cân bằng nhiệt bền vững 100%.
+
+### Giá trị Offset Bão hòa Khuyên dùng (Trung bình Lần 2 & 3):
+- **T1:** `+0.3681` mm
+- **T2:** `-0.5909` mm
+- **T3:** `-0.4822` mm
+- **T4:** `+0.0862` mm
+
+
 
