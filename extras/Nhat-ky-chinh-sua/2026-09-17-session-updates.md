@@ -36,3 +36,20 @@
 ### Kiểm tra
 - Triển khai lên máy in `192.168.1.43` qua SCP.
 - Gửi lệnh `FIRMWARE_RESTART`: Máy in khởi động lại thành công và đạt trạng thái `Printer is ready`.
+
+---
+
+## 2. Tính toán & Phân tích Kết quả Đo Z-Offset Nhiệt độ Cao (Nozzle 150°C, Bed 70°C)
+
+### Dữ liệu đo thực tế từ máy in
+- **T0:** $Z_{\text{touch}} = -0.152115$ mm (offset cũ: `0.0000`)
+- **T1:** $Z_{\text{touch}} = +0.031218$ mm (offset cũ: `0.1691`) $\rightarrow \Delta Z = +0.1833$ mm $\rightarrow$ Offset mới = **`+0.3524`** mm
+- **T2:** $Z_{\text{touch}} = -0.451448$ mm (offset cũ: `-0.3142`) $\rightarrow \Delta Z = -0.2993$ mm $\rightarrow$ Offset mới = **`-0.6135`** mm
+- **T3:** $Z_{\text{touch}} = -0.413448$ mm (offset cũ: `-0.2575`) $\rightarrow \Delta Z = -0.2613$ mm $\rightarrow$ Offset mới = **`-0.5188`** mm
+- **T4:** $Z_{\text{touch}} = -0.139448$ mm (offset cũ: `+0.0285`) $\rightarrow \Delta Z = +0.0127$ mm $\rightarrow$ Offset mới = **`+0.0412`** mm
+
+### So sánh dãn nở nhiệt (Nguội vs Nóng 150°C/70°C)
+- Tọa độ tiếp xúc tuyệt đối của bàn in tăng vọt gần +0.47 mm do bàn nhôm và hotend nở nhiệt trục Z.
+- Mức độ chênh lệch tương đối giữa các tool khi nóng so với lúc nguội dao động từ 37 đến 87 micron (0.04 - 0.09 mm).
+- Việc bù nhiệt độ thực tế giúp ngăn ngừa hoàn toàn hiện tượng cày xước bàn hoặc hở lớp in đầu tiên khi chuyển tool lúc in vật liệu PETG/ABS.
+
