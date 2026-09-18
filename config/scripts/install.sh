@@ -10,14 +10,6 @@ TOOL_CRASH_SOURCE="${HOME}/klipper/klippy/extras/tool_crash.py"
 TOOL_CRASH_PATCH="${SCRIPT_DIR}/patches/tool_crash-active-tool-validation.patch"
 TOOL_CRASH_PATCH_MARKER="Every tool detection pin is registered with this same callback"
 TOOL_CRASH_PATCH_NEEDED=0
-KTAMV_RUNTIME="${HOME}/kTAMV"
-KTAMV_REVIEWED_COMMIT="72421f2d54da0de8701c4f84449c6e6b7d060301"
-KTAMV_VENV="${HOME}/ktamv-env/bin/python"
-KTAMV_SERVICE="${HOME}/.config/systemd/user/ktamv-server.service"
-KTAMV_CLIENT_SOURCE="${KTAMV_RUNTIME}/extension/ktamv.py"
-KTAMV_UTILITY_SOURCE="${KTAMV_RUNTIME}/extension/ktamv_utl.py"
-KTAMV_DETECTOR="${KTAMV_RUNTIME}/server/ktamv_server_dm.py"
-KTAMV_CLIENT_PATCH_MARKER='minimum_count = max(1, initial_count - 1)'
 KTC_READONLY_DIR="${CONFIG_DIR}/toolchanger/readonly-configs"
 KTC_READONLY_FILES=(
   "calibrate-offsets.cfg"
@@ -49,51 +41,6 @@ if (( ${#KTC_INVALID_LINKS[@]} )); then
   echo "Run bash ~/klipper-toolchanger-easy/install.sh while the printer is idle," >&2
   echo "then retry this deployment. No configuration was changed." >&2
   exit 1
-fi
-
-# kTAMV is installed manually instead of using its system-wide upstream
-# installer. Refuse to deploy the active include unless the pinned checkout,
-# isolated Python, user service, exact Klipper links and reviewed runtime fixes
-# exist.
-if grep -Eq '^[[:space:]]*\[include[[:space:]]+Printer-Setup/ktamv\.cfg\][[:space:]]*$' \
-    "${SOURCE_CONFIG_DIR}/printer.cfg"; then
-  if [[ ! -d "${KTAMV_RUNTIME}/.git" || ! -x "${KTAMV_VENV}" || \
-        ! -f "${KTAMV_SERVICE}" ]]; then
-    echo "ERROR: kTAMV runtime, venv, or user service is missing." >&2
-    echo "Expected: ${KTAMV_RUNTIME}, ${KTAMV_VENV}, ${KTAMV_SERVICE}" >&2
-    exit 1
-  fi
-  if [[ "$(git -C "${KTAMV_RUNTIME}" rev-parse HEAD 2>/dev/null || true)" != \
-        "${KTAMV_REVIEWED_COMMIT}" ]]; then
-    echo "ERROR: kTAMV checkout is not at reviewed commit ${KTAMV_REVIEWED_COMMIT}." >&2
-    exit 1
-  fi
-  for source_path in "${KTAMV_CLIENT_SOURCE}" "${KTAMV_UTILITY_SOURCE}"; do
-    link_path="${HOME}/klipper/klippy/extras/$(basename "${source_path}")"
-    if [[ ! -f "${source_path}" || ! -L "${link_path}" || ! -e "${link_path}" || \
-          "$(readlink -f "${link_path}")" != "$(readlink -f "${source_path}")" ]]; then
-      echo "ERROR: kTAMV Klipper link is missing or invalid: ${link_path}" >&2
-      exit 1
-    fi
-  done
-  if ! grep -Fq 'def find_closest_keypoint(self, keypoints):' \
-      "${KTAMV_DETECTOR}" ||
-      ! grep -Fq 'np.around(keypoints[closest_index].pt)' \
-      "${KTAMV_DETECTOR}" ||
-      ! grep -Fq 'def find_center_highlight_keypoint(self, frame):' \
-      "${KTAMV_DETECTOR}" ||
-      ! grep -Fq 'self.__algorithm = 6' "${KTAMV_DETECTOR}" ||
-      ! grep -Fq 'stdev(mpps) if len(mpps) > 1 else 0.0' \
-      "${KTAMV_UTILITY_SOURCE}" ||
-      ! grep -Fq 'def cmd_MEASURE_TOOL_XY(self, gcmd):' \
-      "${KTAMV_CLIENT_SOURCE}" ||
-      ! grep -Fq 'mpps = mpps.copy()' "${KTAMV_UTILITY_SOURCE}" ||
-      ! grep -Fq 'camera_coordinates.remove(camera_coordinates[i])' \
-      "${KTAMV_UTILITY_SOURCE}" ||
-      ! grep -Fq "${KTAMV_CLIENT_PATCH_MARKER}" "${KTAMV_CLIENT_SOURCE}"; then
-    echo "ERROR: one or more reviewed kTAMV runtime patches are missing." >&2
-    exit 1
-  fi
 fi
 
 # Preflight the machine-local tool_crash runtime before deploying config. The
@@ -165,5 +112,5 @@ fi
 echo "Installed configuration from ${SOURCE_CONFIG_DIR}"
 echo "Backup: ${BACKUP_DIR}"
 echo "KTC-Easy readonly symlinks were verified and preserved."
-echo "The pinned kTAMV runtime and detector patch were verified."
+echo "Axiscope tool alignment backend verified."
 echo "Review changes, then restart Moonraker and Klipper only while the printer is idle."
