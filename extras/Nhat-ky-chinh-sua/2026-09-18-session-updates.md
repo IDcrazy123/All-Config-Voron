@@ -194,3 +194,31 @@
   - T3: `X: 0.003, Y: 0.369, Z: -0.2575`
   - T4: `X: 0.213, Y: -0.007, Z: 0.0285`
   - Axiscope: `endstop_x: 80.0, endstop_y: -8.0, endstop_z: 3.0`
+
+---
+
+## 7. Cập nhật Tọa độ Công tắc Microswitch Cữ Z Lên (80 : -5 : 8)
+
+### Mục tiêu
+- Cập nhật tọa độ vật lý của công tắc đo Z-offset giữa các tool theo vị trí căn chỉnh thực tế mới:
+  - **X:** `80.0`
+  - **Y:** `-5.0` (Cũ: -8.0)
+  - **Z:** `8.0` (Cũ: 3.0)
+
+### File đã sửa đổi
+- `config/Printer-Setup/calibration-probe.cfg` — Cập nhật `zswitch_y_pos: -5.0`, `zswitch_z_pos: 8.0` trong section `[axiscope]`.
+- `config/toolchanger/toolchanger-config.cfg` — Cập nhật macro `_CALIBRATION_SWITCH` với `variable_y: -5`, `variable_contact_z: 8`.
+- `.agents/PROJECT.md` — Cập nhật bảng thông số phần cứng Z-Offset Switch thành `(X:80, Y:-5, Z:8)`.
+
+### Sao lưu
+- [pre-update-switch-pos-80-minus5-8-20260918-181500](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-update-switch-pos-80-minus5-8-20260918-181500/)
+
+### Kiểm tra
+- SCP nạp file cấu hình lên máy in `192.168.1.43`.
+- Gửi lệnh `restart` qua Moonraker API: Klipper khởi động lại thành công (`Printer is ready`).
+- Truy vấn Klipper object `axiscope`:
+  - `zswitch_x_pos: 80.0`
+  - `zswitch_y_pos: -5.0`
+  - `zswitch_z_pos: 8.0`
+  - `lift_z: 2.0` (đầu in tiếp cận ở Z = 10.0 mm và probe xuống Z = 8.0 mm).
+
