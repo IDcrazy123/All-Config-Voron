@@ -222,3 +222,42 @@
   - `zswitch_z_pos: 8.0`
   - `lift_z: 2.0` (đầu in tiếp cận ở Z = 10.0 mm và probe xuống Z = 8.0 mm).
 
+---
+
+## 8. Tính toán Thống kê 10 Lần Đo Z-Offset Từ Axiscope & Cập nhật Giá trị Ổn định Nhất
+
+### Mục tiêu
+- Phân tích thống kê bộ dữ liệu 10 lần đo Z-offset liên tiếp bằng lệnh `CALIBRATE_ALL_Z_OFFSETS` (từ 18:32 đến 19:37) qua cữ microswitch tại `(80, -5, 8)`.
+- Xác định giá trị trung tâm ổn định nhất (Trimmed Mean / Median) nhằm triệt tiêu các ngoại lai do giãn nở nhiệt nhẹ hoặc sai số tiếp xúc cơ học, cập nhật trực tiếp vào cấu hình production của máy in.
+
+### Bảng phân tích thống kê 10 lần đo
+
+| Tool | Min | Max | Biên độ (Range) | Trung bình (Mean) | Trung vị (Median) | **Trimmed Mean (8 mẫu)** | Độ lệch chuẩn ($\sigma$) |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **T1** | `0.059` | `0.135` | `0.076` | `0.1006` | `0.1025` | **`0.1015`** | `0.0228` |
+| **T2** | `-0.346` | `-0.315` | `0.031` | `-0.3313` | `-0.3340` | **`-0.3315`** | `0.0102` |
+| **T3** | `-0.230` | `-0.189` | `0.041` | `-0.2071` | `-0.2080` | **`-0.2065`** | `0.0115` |
+| **T4** | `0.066` | `0.112` | `0.046` | `0.0881` | `0.0870` | **`0.0879`** | `0.0148` |
+
+> **Nhận xét độ lặp lại:**
+> - Cả 4 tool đều có độ lệch chuẩn cực kỳ nhỏ ($\sigma \approx 0.010 - 0.022\text{ mm}$), chứng minh cữ switch vật lý hoạt động cực kỳ tin cậy và chính xác gấp nhiều lần so với eddy-current coil khi nozzle có chiều dài không đồng nhất.
+> - Giá trị Trimmed Mean (loại bỏ giá trị cao nhất và thấp nhất) đại diện chuẩn xác nhất cho độ chênh lệch chiều cao cơ học giữa các đầu phun so với T0.
+
+### File đã sửa đổi
+- `config/printer.cfg` — Cập nhật `gcode_z_offset` của T1, T2, T3, T4 trong khối `#*# <SAVE_CONFIG>`:
+  - T1: `0.1015` *(Cũ: 0.1691)*
+  - T2: `-0.3315` *(Cũ: -0.3142)*
+  - T3: `-0.2065` *(Cũ: -0.2575)*
+  - T4: `0.0879` *(Cũ: 0.0285)*
+
+### Sao lưu
+- [pre-apply-stable-axiscope-z-offsets-20260918-194500](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-apply-stable-axiscope-z-offsets-20260918-194500/)
+
+### Kiểm tra
+- SCP đồng bộ `printer.cfg` sang máy in `192.168.1.43`.
+- Restart Klipper: Máy in đạt trạng thái `ready`.
+- Truy vấn qua API Klipper:
+  - `tool T1`: `gcode_z_offset = 0.1015`
+  - `tool T2`: `gcode_z_offset = -0.3315`
+  - `tool T3`: `gcode_z_offset = -0.2065`
+  - `tool T4`: `gcode_z_offset = 0.0879`
