@@ -163,3 +163,34 @@
 
 ### Kết quả
 - Toàn bộ máy in và kho dự án trở nên tinh gọn, sạch sẽ 100%, không còn bất kỳ tài liệu hay script test cũ nào gây rối mắt.
+
+---
+
+## 6. Cập nhật Bộ XY Offset Mới Đo Từ Axiscope & Sửa Lỗi "No trigger on probe" Khi Đo Z
+
+### Mục tiêu
+1. **Cập nhật XY Offset:** Áp dụng kết quả đo lệch tâm camera crosshair trực quan từ giao diện web Axiscope (port 3000) vào `printer.cfg` (bảo toàn nguyên vẹn bộ Z-offset Ellis):
+   - **T1:** `X: -0.139, Y: -0.341` (Cũ: X: -0.289, Y: -0.141)
+   - **T2:** `X: 1.095, Y: -0.090` (Cũ: X: 1.035, Y: 0.050)
+   - **T3:** `X: 0.003, Y: 0.369` (Cũ: X: 0.013, Y: 0.459)
+   - **T4:** `X: 0.213, Y: -0.007` (Cũ: X: 0.193, Y: 0.063)
+2. **Khắc phục lỗi đo Z:** Khi chạy `CALIBRATE_ALL_Z_OFFSETS`, Klipper báo lỗi `No trigger on probe after full movement`.
+   - **Nguyên nhân gốc:** Cấu hình trước đó đặt `lift_z: 15.0`. Lệnh `MOVE_TO_ZSWITCH` hạ đầu in xuống độ cao $Z = z\_pos + lift\_z = 3.0 + 15.0 = 18.0\text{ mm}$. Khi chạy `PROBE_ZSWITCH`, hàm `run_probe` của Klipper giới hạn khoảng cách dò tối đa `max_distance = 10.0\text{ mm}`, khiến đầu in chỉ hạ được tới $Z = 8.0\text{ mm}$ (cách công tắc $5\text{ mm}$) đã dừng lại do hết hành trình cho phép $\rightarrow$ Klipper kích hoạt lỗi timeout không chạm công tắc.
+   - **Khắc phục:** Giảm `lift_z: 2.0` trong section `[axiscope]`. Khi di chuyển tới cữ switch, đầu in hạ tới $Z = 3.0 + 2.0 = 5.0\text{ mm}$. Quá trình probe trong phạm vi $10\text{ mm}$ sẽ tiếp cận công tắc tại $Z = 3.0\text{ mm}$ an toàn và kích hoạt trigger hoàn hảo. Việc nâng Z an toàn khi di chuyển giữa các dock vẫn được bảo vệ tuyệt đối ở $Z \ge 15\text{ mm}$ trong `before_pickup_gcode`.
+
+### File đã sửa đổi
+- `config/printer.cfg` — Cập nhật `gcode_x_offset`, `gcode_y_offset` của T1, T2, T3, T4 trong khối `SAVE_CONFIG`.
+- `config/Printer-Setup/calibration-probe.cfg` — Cập nhật `lift_z: 2.0` trong section `[axiscope]`.
+
+### Sao lưu
+- [pre-apply-axiscope-xy-and-fix-z-probe-lift-20260918-174800](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-apply-axiscope-xy-and-fix-z-probe-lift-20260918-174800/)
+
+### Kiểm tra
+- Triển khai file cấu hình sang máy in `192.168.1.43` qua SCP.
+- Gửi lệnh `FIRMWARE_RESTART`: Máy in khởi động lại thành công (`Printer is ready`).
+- Truy vấn Klipper objects:
+  - T1: `X: -0.139, Y: -0.341, Z: 0.1691`
+  - T2: `X: 1.095, Y: -0.090, Z: -0.3142`
+  - T3: `X: 0.003, Y: 0.369, Z: -0.2575`
+  - T4: `X: 0.213, Y: -0.007, Z: 0.0285`
+  - Axiscope: `endstop_x: 80.0, endstop_y: -8.0, endstop_z: 3.0`
