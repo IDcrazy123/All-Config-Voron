@@ -114,5 +114,52 @@
 - Macro sẽ tự động:
   1. Gia nhiệt 150°C cho toàn bộ 5 đầu in và chờ T0 đạt 150°C.
   2. Nâng Z an toàn $\ge 15\text{ mm}$ trước khi gắp từng tool.
-  3. Lần lượt gắp T0 $\rightarrow$ T4, tiếp cận công tắc microswitch tại `(X: 80, Y: -7, Z: 2)` và chạm 10 mẫu để lấy giá trị trung bình chính xác.
+  3. Lần lượt gắp T0 $\rightarrow$ T4, tiếp cận công tắc microswitch tại `(X: 80, Y: -8, Z: 3)` và chạm 10 mẫu để lấy giá trị trung bình chính xác.
   4. Trả về T0, tắt toàn bộ nhiệt và in bảng kết quả `gcode_z_offset` của từng đầu in lên console Mainsail.
+
+---
+
+## 4. Gỡ bỏ Macro Đo Z Bằng Cartographer & Cập nhật Tọa độ Cữ Switch Axiscope (80 : -8 : 3)
+
+### Mục tiêu
+- **Gỡ bỏ macro `MEASURE_ALL_Z_CARTOGRAPHER`:** Do các đầu phun TZ V6 có chiều dài cơ học ngắn dài khác nhau, khoảng cách tương đối từ cuộn cảm ứng eddy-current coil của Cartographer cố định trên shuttle tới mặt bàn in khi các nozzle khác nhau chạm bàn dao động bất đối xứng (có nozzle làm coil cách bàn $>3.0\text{ mm}$, có nozzle làm coil sát bàn $<2.5\text{ mm}$), vượt ngoài dải tuyến tính tối ưu 2.5–3.0 mm của coil. Do đó phương pháp chạm bàn bằng Cartographer không hoàn hảo để đo tương quan giữa các tool.
+- **Cập nhật tọa độ công tắc microswitch cữ Z của Axiscope:**
+  - Tọa độ mới đo đạc chuẩn xác: **`X: 80.0, Y: -8.0, Z: 3.0`**.
+
+### File đã sửa đổi
+- `config/Printer-Setup/calibration-probe.cfg` — Xóa macro `[gcode_macro MEASURE_ALL_Z_CARTOGRAPHER]`, cập nhật section `[axiscope]` với `zswitch_x_pos: 80.0`, `zswitch_y_pos: -8.0`, `zswitch_z_pos: 3.0`, cập nhật `CALIBRATION_STATUS`.
+- `config/toolchanger/toolchanger-config.cfg` — Cập nhật `_CALIBRATION_SWITCH` với `variable_x: 80`, `variable_y: -8`, `variable_z: 15`, `variable_contact_z: 3`.
+- `.agents/PROJECT.md` — Đồng bộ bảng thông số phần cứng Z-offset switch.
+
+### Sao lưu
+- [pre-remove-cartographer-z-macro-update-switch-80-minus8-3-20260918-164800](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-remove-cartographer-z-macro-update-switch-80-minus8-3-20260918-164800/)
+
+### Kiểm tra
+- Triển khai file cấu hình sang máy in qua SCP.
+- Gửi lệnh `FIRMWARE_RESTART`: Thành công (`Printer is ready`).
+- Truy vấn Klipper objects:
+  - `printer.objects.query?axiscope` trả về: `endstop_x: 80.0, endstop_y: -8.0, endstop_z: 3.0`.
+  - `printer.objects.query?gcode_macro _CALIBRATION_SWITCH` trả về: `x: 80, y: -8, z: 15, contact_z: 3`.
+
+---
+
+## 5. Dọn Dẹp Toàn Diện Tài Liệu Thời Cũ Lỗi Thời & File Python Test Cũ Ra Khỏi Máy & Dự Án
+
+### Mục tiêu
+- Dọn dẹp sạch sẽ các file `.py` test thử nghiệm cũ thời TKC, các thư mục clone thử nghiệm và các bản sao config cũ ở thư mục gốc workspace để dự án tinh gọn, dễ quan sát, chỉnh sửa và cập nhật.
+- Dọn dẹp trên máy in thật: xóa các file backup sinh ra từ `SAVE_CONFIG` trong `config/` và các patch kTAMV cũ trong `scripts/patches/`.
+
+### File đã xử lý
+1. **Lưu trữ bảo toàn (Archive Backup):**
+   - Nén toàn bộ tàn dư `.tkc-*` vào [legacy-tkc-archive.zip](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-cleanup-legacy-test-files-20260918-165500/legacy-tkc-archive.zip).
+   - Sao lưu `printer.cfg` và `print-macros.cfg` tàn dư ở root workspace.
+2. **Dọn dẹp thư mục gốc workspace (`All-Config-Voron-main/`):**
+   - Xóa toàn bộ các thư mục và file test: `.tkc-20260908`, `.tkc-latest`, `.tkc-review`, `.tkc-*.py`, `.tkc-*.json`.
+   - Xóa các file bản sao cũ gây nhầm lẫn: `printer.cfg`, `print-macros.cfg`, `extras/`, `Voron`, `__pycache__`.
+   - Thư mục gốc hiện chỉ còn đúng các thành phần quản trị AI (`.agents`, `.clinerules`, `.cursorrules`, `.github`, `.roo`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) và thư mục Git repo chính duy nhất **`Voron 5 Tool/`**.
+3. **Dọn dẹp trên máy in thật `192.168.1.43`:**
+   - Xóa các file backup config rác: `~/printer_data/config/printer-20260917_*.cfg`.
+   - Xóa các patch kTAMV cũ: `~/printer_data/config/scripts/patches/ktamv-*.patch`.
+
+### Kết quả
+- Toàn bộ máy in và kho dự án trở nên tinh gọn, sạch sẽ 100%, không còn bất kỳ tài liệu hay script test cũ nào gây rối mắt.
