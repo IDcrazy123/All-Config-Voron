@@ -75,3 +75,33 @@
 5. **Kiểm tra an toàn va chạm (Bed Boundary Check):** Tự động căn giữa dải test và báo lỗi nếu các vệt in vượt ra ngoài ranh giới bàn in.
 6. **Nhúng hướng dẫn đọc trực tiếp trong Header G-code:** Người dùng mở file bằng Notepad hoặc xem trên web Mainsail/Fluidd có thể đọc ngay hướng dẫn đọc kết quả và công thức tính offset.
 
+---
+
+## 4. Áp Dụng Kết Quả Đo Oxplow Thực Tế Cập Nhật Z-Offset Cho Toolhead T1
+
+### Mục tiêu
+- Phân tích kết quả in thử nghiệm thực tế file `Oxplow_T1_Z_Test_PETG.gcode` trên máy in `192.168.1.43`.
+- Người dùng đo đạc bằng thước trên mẫu vuông 20x20mm: Vùng in phẳng lỳ hoàn hảo nhất nằm ở khoảng $17.0\text{ mm} \rightarrow 19.0\text{ mm}$ (trung tâm tại $18.0\text{ mm}$).
+- Xác định độ cao Z tương ứng trong G-code: $Z_{best} = 0.1500 + 18.0 \times 0.0100 = 0.3300\text{ mm}$ (cao hơn độ cao danh nghĩa $H_{nominal} = 0.2500\text{ mm}$ một khoảng $\Delta Z = +0.0800\text{ mm}$).
+- Kết luận: Đầu in T1 đang ở quá sát bàn $0.0800\text{ mm}$, cần nâng đầu in lên thêm $+0.0800\text{ mm}$.
+
+### Tính toán Z-Offset mới
+$$Z_{offset\_new} = Z_{offset\_current} + \Delta Z = 0.1315 + 0.0800 = \mathbf{0.2115\text{ mm}}$$
+
+### File đã sửa đổi
+- `config/printer.cfg` — Cập nhật `gcode_z_offset = 0.2115` cho `[tool T1]` trong khối `SAVE_CONFIG`.
+
+### Sao lưu
+- [pre-apply-t1-oxplow-zoffset-20260919-163854](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-apply-t1-oxplow-zoffset-20260919-163854/)
+
+### Kiểm tra trên máy in thật `192.168.1.43`
+- Đẩy `printer.cfg` lên máy in qua Moonraker API `/server/files/upload`.
+- Khởi động lại Klipper thành công (`ok`).
+- Truy vấn Klipper object `tool T1`:
+  - `gcode_x_offset: -0.139`
+  - `gcode_y_offset: -0.341`
+  - `gcode_z_offset: 0.2115` (Đã cập nhật chuẩn xác).
+- Đã nạp lại file test `Oxplow_T1_Z_Test_PETG.gcode` lên máy in để người dùng in nghiệm thu lần 2.
+
+
+
