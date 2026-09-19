@@ -138,6 +138,36 @@ $$Z_{offset\_new} = Z_{offset\_current} + \Delta Z = 0.1315 + 0.0800 = \mathbf{0
 - Đã upload toàn bộ 7 file G-code mới nhất lên máy in qua Moonraker API `/server/files/upload`.
 - Máy in đã sẵn sàng để người dùng chạy test nghiệm thu file đơn T1 hoặc file 5 màu.
 
+---
+
+## 6. Tinh Chỉnh Z-Offset Lần 2 Cho Toolhead T1 (Tiệm Cận Hoàn Hảo)
+
+### Bối cảnh & Kết quả đo thực tế
+- Sau lần hiệu chỉnh Z-offset đầu tiên ($0.1315 \rightarrow 0.2115\text{ mm}$), người dùng in lại file test `Oxplow_T1_Z_Test_PETG.gcode`.
+- **Kết quả đo đạc:** Vùng in đẹp phẳng lỳ đã dịch chuyển từ $17 \rightarrow 19\text{ mm}$ xuống còn khoảng **$12 \rightarrow 15\text{ mm}$** tính từ mép trước của dải test.
+- **Phân tích tọa độ dốc:**
+  - Vị trí trung tâm vùng đẹp: $Y_{best} = 13.5\text{ mm}$.
+  - Vị trí vạch chuẩn trung tâm (Center Mark): $Y_{center} = 10.0\text{ mm}$.
+  - Độ lệch so với tâm danh nghĩa: $\Delta Y = +3.5\text{ mm}$.
+  - Theo hệ số dốc Z ($0.010\text{ mm Z / mm Y}$), độ lệch Z thực tế:
+    $$\Delta Z = +3.5\text{ mm} \times 0.010 = \mathbf{+0.0350\text{ mm}}$$
+  - Đầu in T1 vẫn đang hơi sát bàn khoảng $0.035\text{ mm}$, cần nâng thêm $+0.035\text{ mm}$ để đưa vùng in đẹp về chính xác vạch tâm $10.0\text{ mm}$.
+
+### Tính toán Z-Offset mới
+$$Z_{offset\_new} = Z_{offset\_current} + \Delta Z = 0.2115 + 0.0350 = \mathbf{0.2465\text{ mm}}$$
+
+### File đã cập nhật
+- `config/printer.cfg` — Cập nhật `gcode_z_offset = 0.2465` cho `[tool T1]`.
+
+### Sao lưu
+- [pre-apply-t1-oxplow-zoffset-step2-20260919-170800](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-apply-t1-oxplow-zoffset-step2-20260919-170800/)
+
+### Triển khai lên máy in thật `192.168.1.43`
+- Đẩy file cấu hình vào root `config` qua Moonraker API.
+- Khởi động lại Klipper thành công (`ok`).
+- Truy vấn object `tool T1`: `gcode_z_offset = 0.2465` đã có hiệu lực ngay lập tức.
+
+
 
 
 
