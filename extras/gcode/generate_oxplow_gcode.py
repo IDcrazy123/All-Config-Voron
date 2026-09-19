@@ -472,7 +472,7 @@ def main():
                         help="Firmware / Start sequence flavor (default: stealthchanger)")
     parser.add_argument("--bed-x", type=float, default=350.0, help="Bed X dimension in mm (default: 350.0)")
     parser.add_argument("--bed-y", type=float, default=350.0, help="Bed Y dimension in mm (default: 350.0)")
-    parser.add_argument("--tools", nargs="+", type=int, default=[0, 1, 2, 3, 4], help="Tools to test (e.g. 0 or 0 1 2 3 4)")
+    parser.add_argument("--tools", nargs="+", type=int, default=None, help="Tools to test (e.g. 0 or 0 1 2 3 4)")
     parser.add_argument("--material", choices=["PETG", "ABS", "PLA", "ASA", "TPU"], default="PETG", help="Filament material")
     parser.add_argument("--bed", type=int, default=None, help="Bed temperature in C (default: auto from material)")
     parser.add_argument("--nozzle", type=int, default=None, help="Nozzle temperature in C (default: auto from material)")
@@ -506,9 +506,12 @@ def main():
         p = PRESETS[args.preset]
         bed_x = p["bed_x"]
         bed_y = p["bed_y"]
-        tools = p["tools"]
+        tools = args.tools if args.tools is not None else p["tools"]
         flavor = p["flavor"]
         nozzle_dia = p["nozzle"]
+    elif tools is None:
+        tools = [0]
+
 
     mat_defaults = MATERIAL_DEFAULTS.get(args.material.upper(), MATERIAL_DEFAULTS["PETG"])
     bed_temp = args.bed if args.bed is not None else mat_defaults["bed"]
