@@ -3,7 +3,7 @@
 ; ==========================================================================
 ; Firmware Flavor : STEALTHCHANGER
 ; Bed Dimensions  : 350 x 350 mm
-; Material / Temp : PETG (Bed: 75C, Nozzle: 240C)
+; Material / Temp : PETG (Bed: 70C, Nozzle: 230C)
 ; Nozzle Diameter : 0.4 mm | Filament: 1.75 mm
 ; Tools Included  : [0, 1, 2, 3, 4]
 ; Nominal Height  : 0.250 mm
@@ -23,7 +23,7 @@
 ; ==========================================================================
 
 ; --- START G-CODE SEQUENCE ---
-PRINT_START TOOL_TEMP=240 BED_TEMP=75 TOOL=0 MATERIAL=PETG T0_TEMP=240 T1_TEMP=240 T2_TEMP=240 T3_TEMP=240 T4_TEMP=240
+PRINT_START TOOL_TEMP=230 BED_TEMP=70 TOOL=0 MATERIAL=PETG T0_TEMP=230 T1_TEMP=230 T2_TEMP=230 T3_TEMP=230 T4_TEMP=230
 M83 ; ensure relative extrusion
 G90 ; ensure absolute positioning
 
@@ -33,9 +33,10 @@ G90 ; ensure absolute positioning
 ; --------------------------------------------------------------------------
 M117 Testing Tool T0
 G0 Z20 F3000 ; safe Z lift before toolchange
-M104 T0 S240 ; preheat target tool before pickup
+M104 T0 S230 ; preheat target tool before pickup
 T0
-M109 S240 ; wait for nozzle to reach printing temperature
+M109 T0 S230 ; wait for tool T0 to reach printing temperature
+M83 ; ensure relative extrusion
 
 ; Prime / Purge line to stabilize nozzle pressure
 G0 X41.00 Y165.00 Z2.0 F6000
@@ -210,6 +211,7 @@ G0 X49.00 Y185.00 Z0.3500
 G1 X69.00 Y185.00 Z0.3500 E0.8731 F1800
 G1 E-0.80 F2400 ; retract
 G0 Z20 F3000 ; safe Z lift
+M104 T0 S150 ; set finished tool to standby 150C to prevent oozing in dock
 
 ; --------------------------------------------------------------------------
 ; TOOLHEAD 1 OXPLOW TEST PATCH
@@ -217,9 +219,10 @@ G0 Z20 F3000 ; safe Z lift
 ; --------------------------------------------------------------------------
 M117 Testing Tool T1
 G0 Z20 F3000 ; safe Z lift before toolchange
-M104 T1 S240 ; preheat target tool before pickup
+M104 T1 S230 ; preheat target tool before pickup
 T1
-M109 S240 ; wait for nozzle to reach printing temperature
+M109 T1 S230 ; wait for tool T1 to reach printing temperature
+M83 ; ensure relative extrusion
 
 ; Prime / Purge line to stabilize nozzle pressure
 G0 X99.00 Y165.00 Z2.0 F6000
@@ -390,6 +393,7 @@ G0 X107.00 Y185.00 Z0.3500
 G1 X127.00 Y185.00 Z0.3500 E0.8731 F1800
 G1 E-0.80 F2400 ; retract
 G0 Z20 F3000 ; safe Z lift
+M104 T1 S150 ; set finished tool to standby 150C to prevent oozing in dock
 
 ; --------------------------------------------------------------------------
 ; TOOLHEAD 2 OXPLOW TEST PATCH
@@ -397,9 +401,10 @@ G0 Z20 F3000 ; safe Z lift
 ; --------------------------------------------------------------------------
 M117 Testing Tool T2
 G0 Z20 F3000 ; safe Z lift before toolchange
-M104 T2 S240 ; preheat target tool before pickup
+M104 T2 S230 ; preheat target tool before pickup
 T2
-M109 S240 ; wait for nozzle to reach printing temperature
+M109 T2 S230 ; wait for tool T2 to reach printing temperature
+M83 ; ensure relative extrusion
 
 ; Prime / Purge line to stabilize nozzle pressure
 G0 X157.00 Y165.00 Z2.0 F6000
@@ -578,6 +583,7 @@ G0 X165.00 Y185.00 Z0.3500
 G1 X185.00 Y185.00 Z0.3500 E0.8731 F1800
 G1 E-0.80 F2400 ; retract
 G0 Z20 F3000 ; safe Z lift
+M104 T2 S150 ; set finished tool to standby 150C to prevent oozing in dock
 
 ; --------------------------------------------------------------------------
 ; TOOLHEAD 3 OXPLOW TEST PATCH
@@ -585,9 +591,10 @@ G0 Z20 F3000 ; safe Z lift
 ; --------------------------------------------------------------------------
 M117 Testing Tool T3
 G0 Z20 F3000 ; safe Z lift before toolchange
-M104 T3 S240 ; preheat target tool before pickup
+M104 T3 S230 ; preheat target tool before pickup
 T3
-M109 S240 ; wait for nozzle to reach printing temperature
+M109 T3 S230 ; wait for tool T3 to reach printing temperature
+M83 ; ensure relative extrusion
 
 ; Prime / Purge line to stabilize nozzle pressure
 G0 X215.00 Y165.00 Z2.0 F6000
@@ -766,6 +773,7 @@ G0 X223.00 Y185.00 Z0.3500
 G1 X243.00 Y185.00 Z0.3500 E0.8731 F1800
 G1 E-0.80 F2400 ; retract
 G0 Z20 F3000 ; safe Z lift
+M104 T3 S150 ; set finished tool to standby 150C to prevent oozing in dock
 
 ; --------------------------------------------------------------------------
 ; TOOLHEAD 4 OXPLOW TEST PATCH
@@ -773,9 +781,10 @@ G0 Z20 F3000 ; safe Z lift
 ; --------------------------------------------------------------------------
 M117 Testing Tool T4
 G0 Z20 F3000 ; safe Z lift before toolchange
-M104 T4 S240 ; preheat target tool before pickup
+M104 T4 S230 ; preheat target tool before pickup
 T4
-M109 S240 ; wait for nozzle to reach printing temperature
+M109 T4 S230 ; wait for tool T4 to reach printing temperature
+M83 ; ensure relative extrusion
 
 ; Prime / Purge line to stabilize nozzle pressure
 G0 X273.00 Y165.00 Z2.0 F6000

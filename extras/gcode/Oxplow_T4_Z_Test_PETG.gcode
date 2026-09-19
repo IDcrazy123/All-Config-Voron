@@ -3,7 +3,7 @@
 ; ==========================================================================
 ; Firmware Flavor : STEALTHCHANGER
 ; Bed Dimensions  : 350 x 350 mm
-; Material / Temp : PETG (Bed: 75C, Nozzle: 240C)
+; Material / Temp : PETG (Bed: 70C, Nozzle: 230C)
 ; Nozzle Diameter : 0.4 mm | Filament: 1.75 mm
 ; Tools Included  : [4]
 ; Nominal Height  : 0.250 mm
@@ -23,7 +23,7 @@
 ; ==========================================================================
 
 ; --- START G-CODE SEQUENCE ---
-PRINT_START TOOL_TEMP=240 BED_TEMP=75 TOOL=4 MATERIAL=PETG T4_TEMP=240
+PRINT_START TOOL_TEMP=230 BED_TEMP=70 TOOL=4 MATERIAL=PETG T4_TEMP=230
 M83 ; ensure relative extrusion
 G90 ; ensure absolute positioning
 
@@ -33,9 +33,10 @@ G90 ; ensure absolute positioning
 ; --------------------------------------------------------------------------
 M117 Testing Tool T4
 G0 Z20 F3000 ; safe Z lift before toolchange
-M104 T4 S240 ; preheat target tool before pickup
+M104 T4 S230 ; preheat target tool before pickup
 T4
-M109 S240 ; wait for nozzle to reach printing temperature
+M109 T4 S230 ; wait for tool T4 to reach printing temperature
+M83 ; ensure relative extrusion
 
 ; Prime / Purge line to stabilize nozzle pressure
 G0 X157.00 Y165.00 Z2.0 F6000

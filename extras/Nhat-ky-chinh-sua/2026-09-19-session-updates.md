@@ -103,5 +103,41 @@ $$Z_{offset\_new} = Z_{offset\_current} + \Delta Z = 0.1315 + 0.0800 = \mathbf{0
   - `gcode_z_offset: 0.2115` (Đã cập nhật chuẩn xác).
 - Đã nạp lại file test `Oxplow_T1_Z_Test_PETG.gcode` lên máy in để người dùng in nghiệm thu lần 2.
 
+---
+
+## 5. Chuẩn Hóa Nhiệt Độ Theo Máy & Khắc Phục Lỗi Hụt Nhiệt Khi Đổi Đầu In
+
+### Bối cảnh & Vấn đề
+1. **Nhiệt độ in chưa khớp thông số thực tế của máy:** Trước đó cấu hình mặc định dùng PETG 75/240°C. Theo profile OrcaSlicer chuẩn của người dùng, nhiệt độ layer 1 thực tế của máy là:
+   - **PETG:** Bed 70°C, Nozzle 230°C.
+   - **ABS:** Bed 100°C, Nozzle 250°C.
+2. **Lỗi bản in 5 màu bị hủy (cancel) ở đầu in thứ 2:** Do cơ chế giữ nhiệt standby của StealthChanger (150°C), khi lệnh đổi tool `T1` được thực thi mà thiếu lệnh chờ gia nhiệt `M109 T1 S...`, Klipper phát hiện nhiệt độ đầu đùn dưới ngưỡng an toàn 170°C khi chạy lệnh `G1 E...` và kích hoạt lỗi `Extruder not hot enough`.
+
+### Xử lý trong `generate_oxplow_gcode.py`
+1. Cập nhật `MATERIAL_DEFAULTS`:
+   - PETG: `bed = 70`, `nozzle = 230`
+   - ABS: `bed = 100`, `nozzle = 250`
+   - Thiết lập `bed_temp=None, nozzle_temp=None` trong chữ ký hàm để luôn ưu tiên lấy giá trị chuẩn từ profile máy.
+2. Thiết lập chuỗi gia nhiệt an toàn trước và sau khi gắp tool:
+   - Trước khi gắp: `M104 T{n} S{nozzle_temp}` (nung sớm trong dock).
+   - Gắp tool: `T{n}`.
+   - Sau khi gắp: `M109 T{n} S{nozzle_temp}` (chờ đạt đủ nhiệt độ in trước khi di chuyển đùn).
+   - Đảm bảo chế độ đùn: `M83` (relative extrusion).
+   - Sau khi in xong dải test của tool: `M104 T{n} S150` (hạ về standby tránh chảy nhựa).
+3. Đảm bảo file in đơn (`--tools <t>`) chỉ gọi và in duy nhất đúng 1 đầu in đó, không can thiệp các đầu in khác.
+
+### Rà soát G-code sinh ra
+- Đã sinh lại toàn bộ:
+  - `Oxplow_T1_Z_Test_PETG.gcode` (file đơn T1, Bed 70°C, Nozzle 230°C, chỉ in T1).
+  - `Oxplow_5Tool_Z_Test_PETG.gcode` (5 đầu T0-T4, có chuỗi nung M104/M109 đầy đủ giữa từng tool).
+  - `Oxplow_5Tool_Z_Test_ABS.gcode` (Bed 100°C, Nozzle 250°C).
+  - `Oxplow_T0_Z_Test_PETG.gcode` đến `Oxplow_T4_Z_Test_PETG.gcode`.
+- Rà soát cú pháp và vị trí các lệnh đùn, rút nhựa, Z-hop hoàn toàn chuẩn xác.
+
+### Triển khai lên máy in `192.168.1.43`
+- Đã upload toàn bộ 7 file G-code mới nhất lên máy in qua Moonraker API `/server/files/upload`.
+- Máy in đã sẵn sàng để người dùng chạy test nghiệm thu file đơn T1 hoặc file 5 màu.
+
+
 
 

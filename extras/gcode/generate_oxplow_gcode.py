@@ -81,14 +81,15 @@ PRESETS = {
     }
 }
 
-# Default material profiles
+# Default material profiles (calibrated to Orca Config of Voron Stealthchanger)
 MATERIAL_DEFAULTS = {
     "PLA":  {"bed": 60,  "nozzle": 210, "speed": 1800},
-    "PETG": {"bed": 75,  "nozzle": 240, "speed": 1800},
-    "ABS":  {"bed": 100, "nozzle": 245, "speed": 1800},
+    "PETG": {"bed": 70,  "nozzle": 230, "speed": 1800}, # 70C bed, 230C first layer from Orca Config
+    "ABS":  {"bed": 100, "nozzle": 250, "speed": 1800}, # 100C bed, 250C first layer from Orca Config
     "ASA":  {"bed": 100, "nozzle": 250, "speed": 1800},
     "TPU":  {"bed": 50,  "nozzle": 225, "speed": 1200}
 }
+
 
 # ==============================================================================
 # VECTOR FONT ENGINE (0-9, 'T')
@@ -137,8 +138,8 @@ def generate_oxplow_gcode(
     tools=(0,),
     flavor="generic",
     material="PETG",
-    bed_temp=75,
-    nozzle_temp=240,
+    bed_temp=None,
+    nozzle_temp=None,
     nozzle_dia=0.4,
     nominal_height=None,
     ramp_range=None,
@@ -155,6 +156,12 @@ def generate_oxplow_gcode(
     """
     Generate universally compatible Oxplow first-layer Z-search G-code.
     """
+    mat_defaults = MATERIAL_DEFAULTS.get(material.upper(), MATERIAL_DEFAULTS["PETG"])
+    if bed_temp is None:
+        bed_temp = mat_defaults["bed"]
+    if nozzle_temp is None:
+        nozzle_temp = mat_defaults["nozzle"]
+
     # 1. Compute adaptive geometry based on nozzle size if not explicitly set
     if nominal_height is None:
         nominal_height = round(nozzle_dia * 0.60, 2) # e.g. 0.24mm for 0.4 nozzle
@@ -165,7 +172,6 @@ def generate_oxplow_gcode(
     line_width = round(nozzle_dia * 1.05, 2)     # e.g. 0.42mm
     patch_height = (num_lines - 1) * line_step   # e.g. 50 * 0.40 = 20.0mm
     
-    mat_defaults = MATERIAL_DEFAULTS.get(material.upper(), MATERIAL_DEFAULTS["PETG"])
     if print_speed is None:
         print_speed = mat_defaults["speed"]
 
@@ -277,11 +283,14 @@ def generate_oxplow_gcode(
             lines.append("G0 Z20 F3000 ; safe Z lift before toolchange")
             lines.append(f"M104 T{tool_num} S{nozzle_temp} ; preheat target tool before pickup")
             lines.append(f"T{tool_num}")
-            lines.append(f"M109 S{nozzle_temp} ; wait for nozzle to reach printing temperature")
+            lines.append(f"M109 T{tool_num} S{nozzle_temp} ; wait for tool T{tool_num} to reach printing temperature")
+            lines.append("M83 ; ensure relative extrusion")
             lines.append("")
         else:
-            lines.append(f"M109 S{nozzle_temp} ; ensure active nozzle at printing temperature")
+            lines.append(f"M109 T{tool_num} S{nozzle_temp} ; ensure active nozzle at printing temperature")
+            lines.append("M83 ; ensure relative extrusion")
             lines.append("")
+
 
 
         # Prime line beside the patch
@@ -378,7 +387,10 @@ def generate_oxplow_gcode(
 
         lines.append(f"G1 E-{retract_length:.2f} F{retract_speed} ; retract")
         lines.append("G0 Z20 F3000 ; safe Z lift")
+        if is_multi_tool and t_idx < total_tools - 1:
+            lines.append(f"M104 T{tool_num} S150 ; set finished tool to standby 150C to prevent oozing in dock")
         lines.append("")
+
 
     # 6. End G-code Sequence
     lines.append("; --- END G-CODE SEQUENCE ---")
