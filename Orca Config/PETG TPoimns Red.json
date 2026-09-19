@@ -1,7 +1,4 @@
 {
-	"compatible_printers": [
-		"Voron 2.4 350 0.4 nozzle"
-	],
 	"enable_pressure_advance": [
 		"1"
 	],
@@ -36,7 +33,7 @@
 	"inherits": "Generic PETG @System",
 	"name": "PETG TPoimns Red",
 	"nozzle_temperature": [
-		"215"
+		"220"
 	],
 	"nozzle_temperature_initial_layer": [
 		"220"

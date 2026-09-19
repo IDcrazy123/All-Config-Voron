@@ -60,7 +60,7 @@
 		"0"
 	],
 	"machine_start_gcode": "PRINT_START TOOL_TEMP={first_layer_temperature[initial_tool]} {if is_extruder_used[0]}T0_TEMP={first_layer_temperature[0]}{endif} {if is_extruder_used[1]}T1_TEMP={first_layer_temperature[1]}{endif} {if is_extruder_used[2]}T2_TEMP={first_layer_temperature[2]}{endif} {if is_extruder_used[3]}T3_TEMP={first_layer_temperature[3]}{endif} {if is_extruder_used[4]}T4_TEMP={first_layer_temperature[4]}{endif} BED_TEMP=[first_layer_bed_temperature] TOOL=[initial_tool] MATERIAL={filament_type[initial_tool]}",
-	"machine_tool_change_time": "22.9",
+	"machine_tool_change_time": "13",
 	"max_layer_height": [
 		"0.32",
 		"0.32",
@@ -92,10 +92,10 @@
 	],
 	"nozzle_type": [
 		"hardened_steel",
-		"undefine",
-		"undefine",
-		"undefine",
-		"undefine"
+		"hardened_steel",
+		"hardened_steel",
+		"hardened_steel",
+		"hardened_steel"
 	],
 	"nozzle_volume": [
 		"nil",
