@@ -254,6 +254,25 @@ $$Z_{offset\_new} = Z_{offset\_current} + \Delta Z = 0.0579 + 0.0500 = \mathbf{0
 - Khởi động lại dịch vụ Klipper qua API `/machine/services/restart?service=klipper` thành công (`ok`).
 - Truy vấn object `tool T4`: `gcode_z_offset = 0.1079` đã có hiệu lực trên máy in.
 
+---
+
+## 10. Tổng Hợp Toàn Diện Phương Pháp Oxplow & Đóng Gói Phát Hành Printables
+
+### Bối cảnh
+- Người dùng yêu cầu tổng hợp lại toàn bộ lý thuyết, cơ chế hình học, công thức toán học và bảng tra cứu của phương pháp Oxplow, đồng thời hỗ trợ đăng tải bài chia sẻ lên cộng đồng in 3D trên Printables.com thông qua tài khoản đang đăng nhập trên Microsoft Edge.
+
+### Các tài liệu & Gói phát hành đã tạo
+1. `extras/docs/Oxplow-Z-Offset-Comprehensive-Method.md`:
+   - Báo cáo tổng hợp chuyên sâu từ bối cảnh nhược điểm của cữ switch / Ellis patch, nguyên lý mặt cắt con dốc $0.150 \rightarrow 0.350\text{ mm}$, tỷ lệ dốc $0.010\text{ mm/mm}$.
+   - Công thức tính toán Z-offset tổng quát và bảng tra cứu trực tiếp theo mm thước đo.
+   - Dẫn chứng số liệu thực tế qua 4 đầu in Voron StealthChanger (T1, T2, T3, T4).
+2. `extras/Printables-Package/`:
+   - `PRINTABLES_POST_CONTENT.md` — Toàn bộ nội dung bài đăng bằng Tiếng Anh chuẩn mực (Title, Short summary, Tags, Markdown description, hướng dẫn đọc dải in, câu lệnh CLI generator).
+   - `generate_oxplow_gcode.py` — Script generator đa nền tảng.
+   - `Oxplow_5Tool_Z_Test_PETG.gcode`, `Oxplow_5Tool_Z_Test_ABS.gcode`, `Oxplow_T1_Z_Test_PETG.gcode`.
+3. Kích hoạt mở trang tạo dự án `https://www.printables.com/model/create` trực tiếp trên Microsoft Edge của người dùng để người dùng chỉ cần copy-paste nội dung và kéo thả file đính kèm.
+
+
 
 
 
