@@ -59,3 +59,19 @@
   - `Oxplow_T3_Z_Test_PETG.gcode`
   - `Oxplow_T4_Z_Test_PETG.gcode`
 - Người dùng có thể truy cập giao diện web Mainsail và bấm **Print** ngay lập tức.
+
+---
+
+## 3. Nâng Cấp Bộ Sinh G-Code Thành Công Cụ Vạn Năng (Universal Oxplow Generator)
+
+### Mục tiêu
+- Mở rộng script `generate_oxplow_gcode.py` để bất kỳ người dùng nào trong cộng đồng 3D printing (máy đơn, máy đa đầu, Marlin, Klipper, Prusa, Bambu) đều có thể sử dụng dễ dàng nhất mà không cần can thiệp code.
+
+### Các tính năng đã bổ sung
+1. **Cấu hình Preset 1 chạm:** Tích hợp sẵn profile cho các dòng máy phổ biến (`voron-350-5tool`, `voron-300-4tool`, `voron-generic`, `ender3`, `prusa-mk3-mk4`, `bambu-x1-p1-a1`, `prusa-xl-5tool`).
+2. **Giao diện tương tác thân thiện (Interactive Wizard):** Khi chạy `python generate_oxplow_gcode.py` không tham số trong terminal, script tự động mở menu hỏi đáp từng bước trực quan.
+3. **Bộ font vector nét vẽ đầy đủ (0–9 và 'T'):** Vẽ số nhận diện tool sắc nét trên mọi đầu in.
+4. **Tự động thích ứng kích thước Nozzle (0.2, 0.4, 0.6, 0.8mm):** Tự động tính toán lại layer height danh nghĩa, bước nhảy Z vi bước, độ rộng đường in và thể tích đùn $E$.
+5. **Kiểm tra an toàn va chạm (Bed Boundary Check):** Tự động căn giữa dải test và báo lỗi nếu các vệt in vượt ra ngoài ranh giới bàn in.
+6. **Nhúng hướng dẫn đọc trực tiếp trong Header G-code:** Người dùng mở file bằng Notepad hoặc xem trên web Mainsail/Fluidd có thể đọc ngay hướng dẫn đọc kết quả và công thức tính offset.
+
