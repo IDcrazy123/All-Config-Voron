@@ -225,6 +225,36 @@ $$Z_{offset\_new} = Z_{offset\_current} + \Delta Z = -0.2365 + (-0.0100) = \math
 - Khởi động lại dịch vụ Klipper qua API `/machine/services/restart?service=klipper` thành công (`ok`).
 - Truy vấn object `tool T3`: `gcode_z_offset = -0.2465` đã có hiệu lực trên máy in.
 
+---
+
+## 9. Áp Dụng Kết Quả Oxplow Cập Nhật Z-Offset Cho Toolhead T4
+
+### Bối cảnh & Kết quả đo thực tế
+- Người dùng in test file Oxplow trên đầu in T4.
+- **Kết quả đo đạc:** Vùng in đẹp phẳng lỳ nằm trong khoảng **$14.0 \rightarrow 16.0\text{ mm}$** tính từ mép trước của dải test.
+- **Phân tích tọa độ dốc:**
+  - Vị trí trung tâm vùng đẹp: $Y_{best} = 15.0\text{ mm}$.
+  - Vị trí vạch chuẩn trung tâm (Center Mark): $Y_{center} = 10.0\text{ mm}$.
+  - Độ lệch so với tâm danh nghĩa: $\Delta Y = 15.0 - 10.0 = \mathbf{+5.0\text{ mm}}$.
+  - Theo hệ số dốc Z ($0.010\text{ mm Z / mm Y}$), độ lệch Z thực tế:
+    $$\Delta Z = +5.0\text{ mm} \times 0.010 = \mathbf{+0.0500\text{ mm}}$$
+  - Đầu in T4 đang bị sát bàn $0.050\text{ mm}$, cần nâng thêm $+0.050\text{ mm}$.
+
+### Tính toán Z-Offset mới
+$$Z_{offset\_new} = Z_{offset\_current} + \Delta Z = 0.0579 + 0.0500 = \mathbf{0.1079\text{ mm}}$$
+
+### File đã cập nhật
+- `config/printer.cfg` — Cập nhật `gcode_z_offset = 0.1079` cho `[tool T4]`.
+
+### Sao lưu
+- [pre-apply-t4-oxplow-zoffset-20260919-173300](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-apply-t4-oxplow-zoffset-20260919-173300/)
+
+### Triển khai lên máy in thật `192.168.1.43`
+- Đẩy file cấu hình vào root `config` qua Moonraker API `/server/files/upload`.
+- Khởi động lại dịch vụ Klipper qua API `/machine/services/restart?service=klipper` thành công (`ok`).
+- Truy vấn object `tool T4`: `gcode_z_offset = 0.1079` đã có hiệu lực trên máy in.
+
+
 
 
 
