@@ -33,7 +33,9 @@ G90 ; ensure absolute positioning
 ; --------------------------------------------------------------------------
 M117 Testing Tool T2
 G0 Z20 F3000 ; safe Z lift before toolchange
+M104 T2 S240 ; preheat target tool before pickup
 T2
+M109 S240 ; wait for nozzle to reach printing temperature
 
 ; Prime / Purge line to stabilize nozzle pressure
 G0 X157.00 Y165.00 Z2.0 F6000

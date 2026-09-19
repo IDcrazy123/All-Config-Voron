@@ -31,6 +31,8 @@ G90 ; ensure absolute positioning
 ; TOOLHEAD 0 OXPLOW TEST PATCH
 ; Coords: X=165.0..185.0, Y=165.0..185.0
 ; --------------------------------------------------------------------------
+M109 S240 ; ensure active nozzle at printing temperature
+
 ; Prime / Purge line to stabilize nozzle pressure
 G0 X157.00 Y165.00 Z2.0 F6000
 G0 Z0.30 F1500

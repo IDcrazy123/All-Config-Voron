@@ -275,8 +275,14 @@ def generate_oxplow_gcode(
         if is_multi_tool:
             lines.append(f"M117 Testing Tool T{tool_num}")
             lines.append("G0 Z20 F3000 ; safe Z lift before toolchange")
+            lines.append(f"M104 T{tool_num} S{nozzle_temp} ; preheat target tool before pickup")
             lines.append(f"T{tool_num}")
+            lines.append(f"M109 S{nozzle_temp} ; wait for nozzle to reach printing temperature")
             lines.append("")
+        else:
+            lines.append(f"M109 S{nozzle_temp} ; ensure active nozzle at printing temperature")
+            lines.append("")
+
 
         # Prime line beside the patch
         purge_x = px - 8.0
