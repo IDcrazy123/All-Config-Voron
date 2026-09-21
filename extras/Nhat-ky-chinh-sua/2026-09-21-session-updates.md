@@ -83,3 +83,10 @@ Code, comment và tài liệu hiện hành thống nhất trên Axiscope + Carto
 - Sau restart, Klipper và Moonraker active; Klipper báo `Printer is ready`, object `tools_calibrate` có mặt và object `axiscope` không còn được nạp.
 - `SEXBOLT_QUERY` không chuyển động trả `Calibration Probe: open` khi công tắc đang nhả; `CALIBRATION_STATUS` báo đúng X80/Y-5.5, tiếp xúc gần Z12 và tiếp cận Z18.
 - Không chạy `CALIBRATE_MOVE_OVER_PROBE`, `TOOL_LOCATE_SENSOR` hoặc chu trình đo offset. Cần người vận hành nhấn tay SexBolt và xác nhận `SEXBOLT_QUERY` trả `TRIGGERED` trước mọi chuyển động dò.
+
+## 3. Chuyển cảm biến nhựa T2 sang EBB2 PB8
+
+- Đối chiếu toàn bộ namespace `EBB2`: PB8 chưa được dùng; PB8 trong `hardware.cfg` thuộc MCU chính nên không xung đột.
+- Đổi `filament_sensor_T2.switch_pin` từ `^EBB2:PB9` sang `^EBB2:PB8`; giữ nguyên pull-up, debounce và runout macro.
+- Sửa comment offset T2 đã lỗi thời để không còn ghi Axiscope là backend active.
+- Backup: `extras/backups/pre-t2-filament-pb8-20260921-205006/`.
