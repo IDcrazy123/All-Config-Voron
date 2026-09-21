@@ -111,3 +111,30 @@ Code, comment và tài liệu hiện hành thống nhất trên Axiscope + Carto
 - Mẫu X/Z ổn định hơn nhiều; lỗi Y âm phù hợp ma sát, cạ thành hoặc hysteresis cơ khí của bi/plunger. Không tăng tolerance để che lỗi.
 - Macro abort để lại T0 và T3 target 150 °C; đã gửi `TURN_OFF_HEATERS`, xác nhận mọi target về 0. Probe vẫn triggered tại điểm contact vì exception xảy ra trước retract.
 - `SAVE_CONFIG` đang pending cho T1/T2; không được lưu. Restart firmware sẽ bỏ runtime/pending này và nạp lại offset production nếu người vận hành chưa `SAVE_CONFIG`.
+
+## 6. Xác nhận lỗi KTC và đánh giá độ ổn định lượt SexBolt hoàn chỉnh
+
+### Nguyên nhân chuỗi lỗi lúc 21:48
+- T1-T3 đã đo xong; T4 được pickup và detect đúng nhưng nhánh Y âm vượt `samples_tolerance: 0.15` ba lần, với range lần lượt `0.18125`, `0.18750` và `0.18750` mm.
+- `Cannot select tool, toolchanger status is uninitialized` là hậu quả sau lỗi probe: KTC xử lý mọi `gcode:command_error` bằng cách đưa toolchanger về `uninitialized`, không phải bằng chứng motor hay cơ cấu đổi tool bị hỏng.
+- `G28` sau đó khởi tạo lại toolchanger và lượt kế tiếp hoàn tất T0-T4, xác nhận không có lỗi chuyển động phần cứng cố định.
+
+### Kết quả lượt hoàn chỉnh lúc 21:59
+- Cấu hình live: `spread: 3.5`, `lower_z: 0.3`, `lift_z: 1.0`, 5 mẫu, tolerance 0.15, 2 retry; tâm khởi đầu X80/Y-5.5/Z12.
+- Offset runtime đang chờ lưu: T1 `-0.246875/-0.312500/+0.064000`; T2 `+1.150000/-0.100000/-0.332000`; T3 `-0.006250/+0.293750/-0.258000`; T4 `+0.171875/-0.262500/+0.068000`.
+- T2 ổn định nhất. Range Z của mọi tool chỉ `0-0.012` mm.
+- Nhánh biên cần theo dõi: T4 X+ range `0.125` mm; T3 Y- range `0.10625` mm. T0 Y- cần 1 retry; T1 X+ dùng hết 2 retry trước khi pass.
+
+### Đối chiếu với SAVE_CONFIG production
+
+| Tool | Delta X (SexBolt - saved) | Delta Y | Delta Z | Độ lệch XYZ |
+| --- | ---: | ---: | ---: | ---: |
+| T1 | -0.107875 | +0.028500 | -0.182500 | 0.213905 mm |
+| T2 | +0.055000 | -0.010000 | -0.060500 | 0.082373 mm |
+| T3 | -0.009250 | -0.075250 | -0.011500 | 0.076684 mm |
+| T4 | -0.041125 | -0.255500 | -0.039900 | 0.261846 mm |
+
+- MAE trên 12 thành phần là `0.0731` mm, RMS `0.1029` mm; lệch lớn nhất là T4 Y `0.2555` mm, tiếp theo là T1 Z `0.1825` mm.
+- Đây không phải phép so repeatability cùng phương pháp: XY production được đo bằng Axiscope, còn Z production đã được hiệu chỉnh bằng bản in Oxplow/first-layer; lượt mới đo tiếp xúc cơ khí bằng SexBolt.
+- Chưa chạy `SAVE_CONFIG`. Cần thêm 2-3 lượt SexBolt với cùng cấu hình, nhiệt độ và trạng thái cơ khí để so run-to-run; đặc biệt theo dõi T1 X+, T3 Y- và T4 X+/Y.
+- Sau lượt đo, Klipper và toolchanger đều `ready`, T0 active/detected, `tool_crash` enabled và target mọi heater bằng 0.
