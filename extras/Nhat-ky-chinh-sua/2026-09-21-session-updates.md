@@ -136,5 +136,6 @@ Code, comment và tài liệu hiện hành thống nhất trên Axiscope + Carto
 
 - MAE trên 12 thành phần là `0.0731` mm, RMS `0.1029` mm; lệch lớn nhất là T4 Y `0.2555` mm, tiếp theo là T1 Z `0.1825` mm.
 - Đây không phải phép so repeatability cùng phương pháp: XY production được đo bằng Axiscope, còn Z production đã được hiệu chỉnh bằng bản in Oxplow/first-layer; lượt mới đo tiếp xúc cơ khí bằng SexBolt.
+- So với baseline Z cơ khí Axiscope 10 lượt trước khi hiệu chỉnh first-layer, SexBolt cho T1 `+0.064` nằm trong dải `+0.059..+0.135`, T2 `-0.332` nằm trong `-0.346..-0.315`, T4 `+0.068` nằm trong `+0.066..+0.112`; riêng T3 `-0.258` thấp hơn đáy dải cũ `-0.230` khoảng `0.028` mm.
 - Chưa chạy `SAVE_CONFIG`. Cần thêm 2-3 lượt SexBolt với cùng cấu hình, nhiệt độ và trạng thái cơ khí để so run-to-run; đặc biệt theo dõi T1 X+, T3 Y- và T4 X+/Y.
 - Sau lượt đo, Klipper và toolchanger đều `ready`, T0 active/detected, `tool_crash` enabled và target mọi heater bằng 0.
