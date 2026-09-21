@@ -76,3 +76,10 @@ Code, comment và tài liệu hiện hành thống nhất trên Axiscope + Carto
 - `git diff --check`: đạt; chỉ có cảnh báo line ending theo môi trường Windows.
 - Dry parse bằng bản sao config trong `/tmp` trên máy in đã qua bước đọc config/Jinja và chỉ dừng ở giai đoạn debug MCU do không cung cấp dictionary cho mọi MCU; không có lỗi config hoặc template.
 - Chưa chạy chuyển động SexBolt hoặc ghi offset trong bước chuẩn bị này.
+
+### Triển khai máy thật
+- Commit cấu hình `66928cd` được fast-forward lên checkout máy và cài bằng `config/scripts/install.sh` khi máy `standby/Ready`, T0 được phát hiện đúng.
+- Backup live trước cài đặt: `/home/voron/printer_data/config_backups/config-install-20260921-204735`.
+- Sau restart, Klipper và Moonraker active; Klipper báo `Printer is ready`, object `tools_calibrate` có mặt và object `axiscope` không còn được nạp.
+- `SEXBOLT_QUERY` không chuyển động trả `Calibration Probe: open` khi công tắc đang nhả; `CALIBRATION_STATUS` báo đúng X80/Y-5.5, tiếp xúc gần Z12 và tiếp cận Z18.
+- Không chạy `CALIBRATE_MOVE_OVER_PROBE`, `TOOL_LOCATE_SENSOR` hoặc chu trình đo offset. Cần người vận hành nhấn tay SexBolt và xác nhận `SEXBOLT_QUERY` trả `TRIGGERED` trước mọi chuyển động dò.
