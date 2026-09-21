@@ -101,3 +101,13 @@ Code, comment và tài liệu hiện hành thống nhất trên Axiscope + Carto
 - Dấu hiệu phù hợp cơ cấu bóng/plunger không hồi hoặc silicone sock/thân nozzle tiếp tục tì cảm biến ở độ cao dò ngang; không phải lỗi giới hạn `spread`.
 - Macro abort để lại T0 ở target 150 °C và `tool_crash` disabled. Đã gửi `TURN_OFF_HEATERS`; toàn bộ heater target đã về 0. Không gửi lệnh chuyển động hoặc khởi tạo toolchanger.
 - Khuyến nghị trước lần thử tiếp theo: giải phóng cơ khí và xác nhận probe `open`; giảm `lower_z` xuống 0.4, tăng `lift_z` lên 2.0, thử `TOOL_LOCATE_SENSOR SAMPLES=1` có giám sát. Nếu phần cứng không thể deflect/trigger từ bốn hướng XY thì không tương thích với full XYZ `tools_calibrate` và chỉ nên dùng cho Z.
+
+## 5. Phân tích lần thử SexBolt với lower_z 0.4
+
+- Live config được người vận hành chỉnh thành `spread: 3.5`, `lower_z: 0.4`, `variable_z: 12.0`; repository vẫn giữ baseline trước đó và chưa được ghi đè.
+- Lượt T0 hoàn chỉnh tự tìm tâm `X80.653125 Y-5.575000 Z9.871508`; lượt sau cho tâm gần `X80.653 Y-5.590`. Tâm khởi đầu hợp lý là khoảng X80.65/Y-5.58 thay vì X80/Y-5.5.
+- Sai tâm X giải thích lượt dò thô lệch: một phía chạy khoảng 1.78 mm, phía đối diện chỉ khoảng 0.48 mm. Tuy nhiên thuật toán đã tự recenter trước lượt lấy mẫu chính.
+- T1 đo xong `-0.159375/-0.193750/+0.036000`; T2 đo xong `+1.146875/+0.037500/-0.340000`. T3 và lần T0 sau đều lỗi tại hướng Y âm với dải mẫu 0.181–0.281 mm, vượt tolerance 0.15.
+- Mẫu X/Z ổn định hơn nhiều; lỗi Y âm phù hợp ma sát, cạ thành hoặc hysteresis cơ khí của bi/plunger. Không tăng tolerance để che lỗi.
+- Macro abort để lại T0 và T3 target 150 °C; đã gửi `TURN_OFF_HEATERS`, xác nhận mọi target về 0. Probe vẫn triggered tại điểm contact vì exception xảy ra trước retract.
+- `SAVE_CONFIG` đang pending cho T1/T2; không được lưu. Restart firmware sẽ bỏ runtime/pending này và nạp lại offset production nếu người vận hành chưa `SAVE_CONFIG`.
