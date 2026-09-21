@@ -34,10 +34,12 @@
 - Tổng hợp dấu hiệu lỗi cũ từ ToolVision, kTAMV, TKC/KCC, SexBolt, Cartographer và TMC vào một bảng tra cứu ngắn.
 
 ### Đối chiếu máy thật
-- SSH read-only thành công; Klipper và Axiscope đều active.
-- `~/printer_data/config` khớp phần lớn code production hiện tại ngoài các comment/guard vừa sửa.
-- Checkout `~/All-Config-Voron` trên máy đang ở commit cũ, behind và dirty; `install.sh` live vẫn chứa preflight kTAMV cũ. Không ghi file, không deploy và không restart máy trong phiên rà soát.
-- Sau khi push, cần dùng Mainsail Update Manager khi máy idle để đồng bộ checkout và payload an toàn.
+- Trước triển khai, Moonraker xác nhận máy `standby`, idle timeout `Ready`, không có tool được gắn; Klipper, Moonraker và Axiscope đều active.
+- Trạng thái dirty cũ của `~/All-Config-Voron` được giữ an toàn trong `stash@{0}: pre-production-sync-20260921-201008`, sau đó checkout được fast-forward tới `f327f4b`.
+- Chạy `config/scripts/install.sh`; backup live được tạo tại `/home/voron/printer_data/config_backups/config-install-20260921-201100` trước khi đồng bộ payload.
+- Restart Klipper và Moonraker qua Moonraker API. Sau restart, Klipper báo `Printer is ready`, máy vẫn `standby`; Klipper, Moonraker và Axiscope đều active.
+- Dry-run `rsync` theo đúng exclude của installer không phát hiện sai khác giữa checkout và payload live. Axiscope được nạp, kTAMV không còn trong object/file active, sáu symlink KTC readonly hợp lệ và offset T1-T4 được giữ nguyên.
+- Log từ thời điểm restart không có lỗi parse cấu hình hoặc Klipper shutdown; các lỗi 503/WebSocket chỉ xuất hiện trong cửa sổ dịch vụ đang restart.
 
 ### Kiểm tra
 - Orca JSON: đạt `ConvertFrom-Json`; byte source AppData được chép nguyên vẹn.
@@ -52,5 +54,5 @@
 Code, comment và tài liệu hiện hành thống nhất trên Axiscope + Cartographer + KTC-Easy; profile Orca active đã đồng bộ; dữ liệu trùng giảm 41,89 MiB; kiến thức lỗi lịch sử được giữ trong tài liệu tra cứu và bằng chứng bất biến.
 
 ### Vấn đề còn lại
-- Máy thật chưa nhận commit mới; chỉ cập nhật qua Mainsail khi đang idle.
-- Checkout cũ/dirty trên máy cần được Update Manager xử lý cẩn thận; không dùng nó làm nguồn ghi đè config live trước khi review trạng thái.
+- `toolchanger.status` là `uninitialized` ngay sau service restart, phù hợp trạng thái chưa home/chưa khởi tạo; không chạy macro chuyển động trong phiên triển khai. Xác nhận lại detection/tool state theo quy trình vận hành trước lần in kế tiếp.
+- Giữ stash trước triển khai trên máy để có thể đối chiếu hoặc phục hồi thủ công; không tự động apply/drop vì chứa thay đổi live cũ của người vận hành.
