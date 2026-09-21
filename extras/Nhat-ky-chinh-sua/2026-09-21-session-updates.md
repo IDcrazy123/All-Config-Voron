@@ -92,3 +92,12 @@ Code, comment và tài liệu hiện hành thống nhất trên Axiscope + Carto
 - Backup: `extras/backups/pre-t2-filament-pb8-20260921-205006/`.
 - Deploy commit `33f5557` khi máy `standby/Ready`; backup live: `/home/voron/printer_data/config_backups/config-install-20260921-205053`.
 - Sau restart, Klipper/Moonraker active và không có lỗi pin/config; `filament_sensor_T2` được enable trên PB8 và hiện báo `filament_detected: true`.
+
+## 4. Chẩn đoán SexBolt bị giữ trigger khi dò ngang
+
+- `SEXBOLT_QUERY` đã xác nhận PF2 đổi đúng `TRIGGERED`/`open` khi thử tay, nên pin và cực tính đúng.
+- `CALIBRATE_ALL_OFFSETS` dò Z thành công tại `X80 Y-5.5 Z9.800789`, sau đó dò cạnh trái thành công tại `X77.843750 Y-5.5 Z8.800789`.
+- `lower_z: 1.0` tạo đúng Z8.800789. Khi chuyển sang cạnh đối diện tại X83.5, công tắc vẫn `TRIGGERED`, nên Klipper dừng an toàn với `Probe triggered prior to movement`.
+- Dấu hiệu phù hợp cơ cấu bóng/plunger không hồi hoặc silicone sock/thân nozzle tiếp tục tì cảm biến ở độ cao dò ngang; không phải lỗi giới hạn `spread`.
+- Macro abort để lại T0 ở target 150 °C và `tool_crash` disabled. Đã gửi `TURN_OFF_HEATERS`; toàn bộ heater target đã về 0. Không gửi lệnh chuyển động hoặc khởi tạo toolchanger.
+- Khuyến nghị trước lần thử tiếp theo: giải phóng cơ khí và xác nhận probe `open`; giảm `lower_z` xuống 0.4, tăng `lift_z` lên 2.0, thử `TOOL_LOCATE_SENSOR SAMPLES=1` có giám sát. Nếu phần cứng không thể deflect/trigger từ bốn hướng XY thì không tương thích với full XYZ `tools_calibrate` và chỉ nên dùng cho Z.
