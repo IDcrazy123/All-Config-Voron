@@ -90,3 +90,5 @@ Code, comment và tài liệu hiện hành thống nhất trên Axiscope + Carto
 - Đổi `filament_sensor_T2.switch_pin` từ `^EBB2:PB9` sang `^EBB2:PB8`; giữ nguyên pull-up, debounce và runout macro.
 - Sửa comment offset T2 đã lỗi thời để không còn ghi Axiscope là backend active.
 - Backup: `extras/backups/pre-t2-filament-pb8-20260921-205006/`.
+- Deploy commit `33f5557` khi máy `standby/Ready`; backup live: `/home/voron/printer_data/config_backups/config-install-20260921-205053`.
+- Sau restart, Klipper/Moonraker active và không có lỗi pin/config; `filament_sensor_T2` được enable trên PB8 và hiện báo `filament_detected: true`.
