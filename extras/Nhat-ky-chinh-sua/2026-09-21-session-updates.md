@@ -139,3 +139,20 @@ Code, comment và tài liệu hiện hành thống nhất trên Axiscope + Carto
 - So với baseline Z cơ khí Axiscope 10 lượt trước khi hiệu chỉnh first-layer, SexBolt cho T1 `+0.064` nằm trong dải `+0.059..+0.135`, T2 `-0.332` nằm trong `-0.346..-0.315`, T4 `+0.068` nằm trong `+0.066..+0.112`; riêng T3 `-0.258` thấp hơn đáy dải cũ `-0.230` khoảng `0.028` mm.
 - Chưa chạy `SAVE_CONFIG`. Cần thêm 2-3 lượt SexBolt với cùng cấu hình, nhiệt độ và trạng thái cơ khí để so run-to-run; đặc biệt theo dõi T1 X+, T3 Y- và T4 X+/Y.
 - Sau lượt đo, Klipper và toolchanger đều `ready`, T0 active/detected, `tool_crash` enabled và target mọi heater bằng 0.
+
+### Repeatability qua lượt 2 và lượt 3
+
+| Tool | Lượt 1 (X/Y/Z) | Lượt 2 (X/Y/Z) | Lượt 3b (X/Y/Z) | Range X/Y/Z |
+| --- | --- | --- | --- | --- |
+| T1 | `-0.246875/-0.312500/+0.064000` | `-0.165625/-0.128125/+0.070000` | `-0.168750/-0.253125/+0.070000` | `0.081250/0.184375/0.006000` |
+| T2 | `+1.150000/-0.100000/-0.332000` | `+1.128125/+0.125000/-0.322000` | `+1.140625/-0.021875/-0.324000` | `0.021875/0.225000/0.010000` |
+| T3 | `-0.006250/+0.293750/-0.258000` | `-0.015625/+0.500000/-0.254000` | `-0.006250/+0.362500/-0.250000` | `0.009375/0.206250/0.008000` |
+| T4 | `+0.171875/-0.262500/+0.068000` | `+0.203125/+0.009375/+0.068000` | lỗi Y- | `0.031250/0.271875/0.000000` trên 2 lượt |
+
+- Lượt 3a lỗi ngay T0 X- với ba range vượt tolerance; người vận hành G28 và chạy lại thành lượt 3b.
+- Lượt 3b đo xong T1-T3 nhưng T4 Y- tiếp tục lỗi sau ba range `0.26250`, `0.16250`, `0.23125` mm. T0 Y- cũng cần retry `0.175 -> 0.06875` mm.
+- Z lặp rất tốt, range tối đa `0.010` mm. X nhìn chung ổn, ngoại trừ range T1 `0.08125` mm. Y không đạt repeatability: range `0.184375-0.271875` mm.
+- Dịch Y chủ yếu là common-mode. Từ lượt 2 sang 3, sensor location T0 đổi `+0.13125` mm theo Y, trong khi tâm tuyệt đối đo được của T1/T2/T3 chỉ đổi lần lượt `+0.00625/-0.015625/-0.00625` mm. Nghi vấn chính nằm ở tham chiếu T0 hoặc trạng thái cơ khí SexBolt khi đo T0, không phải bốn tool cùng trôi độc lập.
+- `tools_calibrate.py` tính offset tuyệt đối bằng `location - sensor_location`; các lượt không cộng dồn offset runtime của lượt trước.
+- Sau lỗi lượt 3, pending offset là dữ liệu lai: T1-T3 của lượt 3b và T4 của lượt 2. Tuyệt đối không chạy `SAVE_CONFIG`.
+- Macro abort để lại T4 target 150 C; sau khi cảnh báo người vận hành và xác nhận target vẫn không đổi, đã chỉ gửi `TURN_OFF_HEATERS`. Mọi heater target đã về 0; không gửi lệnh home/chuyển động và không sửa offset.
