@@ -1,79 +1,69 @@
-# Cấu hình Vận hành Klipper (Production Payload)
+# Payload Cấu hình Klipper Active
 
-[English](README.md) | [Tiếng Việt](README.vi.md)
+[English](README.md) | [Tiếng Việt](README.vi.md) | [Tổng quan dự án](../README.vi.md)
 
-Thư mục này chứa toàn bộ cấu hình Klipper đang hoạt động, được đồng bộ sang `~/printer_data/config` trên máy in. Các file tài liệu (`*.md`) tự động được loại trừ khi triển khai.
+Thư mục này chứa payload do repository sở hữu và triển khai sang `~/printer_data/config`. `scripts/install.sh` loại Markdown khi deploy, đồng thời giữ dữ liệu runtime, backup cục bộ, kết quả hiệu chuẩn và link readonly của KTC-Easy.
 
-Hiệu chuẩn offset XY giữa các đầu in được thực hiện có giám sát bằng **kTAMV** (`Printer-Setup/ktamv.cfg`) với cơ chế giải quyết tọa độ camera đã học và macro đo tự động `KTAMV_AUTO_CALIBRATE_ALL_TOOLS`. Các plugin thử nghiệm cũ (TKC và KCC) đã được gỡ bỏ và nghỉ hưu khỏi cây cấu hình vận hành.
+## Chuỗi include
 
----
-
-## 1. Chuỗi nạp module (`printer.cfg`)
-
-File gốc `printer.cfg` đóng vai trò điều phối trung tâm và nạp các module theo thứ tự:
+`printer.cfg` nạp module active theo thứ tự:
 
 ```ini
-[include mainsail.cfg]                                          # Macro giao diện Mainsail Web
-[include toolchanger/readonly-configs/toolchanger-include.cfg]  # KTC-Easy core (symlink)
-[include Printer-Setup/calibration-probe.cfg]                   # Đầu dò Cartographer & Bed mesh
-[include Printer-Setup/ktamv.cfg]                               # Camera kTAMV căn chỉnh & đo XY tự động
-[include Printer-Setup/hardware.cfg]                            # Khai báo stepper, TMC, heater
-[include Printer-Setup/fans-leds.cfg]                           # Quạt thùng, quạt bed, LED
-[include Printer-Setup/input-shaper.cfg]                        # Bộ lọc chống rung Shaper hợp nhất
-[include Printer-Setup/nozzle-clean.cfg]                        # Vệ sinh đầu phun cọ silicon
-[include Printer-Setup/prime-lines.cfg]                         # Đường đùn mồi nhựa từng tool
-[include Printer-Setup/print-macros.cfg]                        # Macro bắt đầu/kết thúc bản in
-[include Printer-Setup/filament-dryer.cfg]                      # Sấy cuộn nhựa trên bàn nhiệt
-[include Printer-Setup/test-speed.cfg]                          # Macro TEST_SPEED & TEST_Z_SPEED
-[include Printer-Setup/tool-temp-bench.cfg]                      # Macro đo thời gian gia nhiệt tool (MEASURE_TOOL_HEATUP)
-[include Printer-Setup/tool-crash.cfg]                          # Cảm biến phát hiện rơi/kẹt tool
+[include mainsail.cfg]
+[include toolchanger/readonly-configs/toolchanger-include.cfg]
+[include Printer-Setup/calibration-probe.cfg]
+[include Printer-Setup/hardware.cfg]
+[include Printer-Setup/fans-leds.cfg]
+[include Printer-Setup/input-shaper.cfg]
+[include Printer-Setup/nozzle-clean.cfg]
+[include Printer-Setup/prime-lines.cfg]
+[include Printer-Setup/print-macros.cfg]
+[include Printer-Setup/filament-dryer.cfg]
+[include Printer-Setup/test-speed.cfg]
+[include Printer-Setup/tool-temp-bench.cfg]
+[include Printer-Setup/tool-crash.cfg]
 ```
 
----
+Axiscope là Klipper extra và dịch vụ web ngoài repository; không cần include `.cfg` riêng ngoài section `[axiscope]` trong `Printer-Setup/calibration-probe.cfg`.
 
-## 2. Phân cấp & Chủ thể quản lý thư mục
+## Quyền sở hữu
 
-| Đường dẫn | Chủ thể quản lý | Mô tả & Quy tắc |
-| :--- | :--- | :--- |
-| `printer.cfg` | Người dùng / Git | Cấu hình động học, giới hạn, MCU UUID, include. Chứa khối `#*# <SAVE_CONFIG>`. |
-| `Printer-Setup/*.cfg` | Người dùng / Git | Các module tính năng, macro bảo vệ và định nghĩa chân phần cứng. |
-| `toolchanger/toolchanger-config.cfg` | Người dùng / Git | Tọa độ dock StealthChanger, tốc độ gắp/thả tool, hook đèn LED. |
-| `toolchanger/tools/T0.cfg` ... `T4.cfg` | Người dùng / Git | Thông số động cơ extruder, offset đầu in và nhiệt độ chờ từng tool. |
-| `toolchanger/readonly-configs/` | **KTC-Easy** | **KHÔNG SỬA.** Symlink do installer của `klipper-toolchanger-easy` quản lý. |
-| `scripts/*.sh` | Người dùng / Git | Script triển khai (`install.sh`), cập nhật (`update.sh`), bảo trì (`cleanup-voron.sh`). |
-| `moonraker.conf` | Moonraker / Git | Thiết lập API server, quyền bảo mật và Update Manager. |
-| `crowsnest.conf`, `KlipperScreen.conf` | Hệ thống / Git | Cấu hình stream camera WebRTC và màn hình cảm ứng KlipperScreen. |
+| Đường dẫn | Chủ thể / mục đích |
+| --- | --- |
+| `printer.cfg` | Git/người dùng; include chính, động học, giới hạn và `SAVE_CONFIG` live |
+| `Printer-Setup/*.cfg` | Git/người dùng; probe, phần cứng, quạt, LED và macro vận hành |
+| `toolchanger/toolchanger-config.cfg` | Git/người dùng; workflow dock, input shaper và override tương thích |
+| `toolchanger/tools/T0.cfg` … `T4.cfg` | Git/người dùng; EBB36, extruder, quạt, sensor và tọa độ dock |
+| `toolchanger/readonly-configs/` | Installer KTC-Easy; không sửa thủ công |
+| `scripts/` | Git/người dùng; deploy, update, cleanup và runtime patch đã review |
+| `moonraker.conf` | Git/người dùng; API và Update Manager |
 
----
+## Giá trị phần cứng chuẩn
 
-## 3. Bản đồ Phần cứng & Động học thực tế
+| Chức năng | Giá trị active |
+| --- | --- |
+| MCU chính | CAN UUID `19b203d75137` |
+| Cartographer | CAN UUID `da13d909ce34`; Touch home tại `(174, 168)` |
+| Công tắc Axiscope Z | `^PF2`; `(80, -5, 8)`; `lift_z: 2`; chiều cao đổi tool an toàn 15 mm |
+| XY | X `PE6`/`PF0`, Y `PE2`/`PF1`; 350 mm/s, 7000 mm/s² |
+| Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |
+| Bàn nhiệt | Heater `PA1`, sensor `PB0`, tối đa 120 °C |
+| Buồng in | Sensor `PB1`, quạt tuần hoàn `PF8` |
+| Làm mát điện tử | TMC `PF9`, CM4 `PF6`, MCU/vỏ `PF7` |
+| Đèn | LED buồng `PD15`; LED tool trên `PD3` của từng EBB36 |
 
-| Chức năng | Khai báo Phần cứng / Chân Pin | Giới hạn vận hành |
-| :--- | :--- | :--- |
-| **MCU Chính** | BTT Manta M8P V2.0 (`19b203d75137`) | CANbus 1 Mbps |
-| **Đầu dò / Homing Z** | Cartographer V3 (`da13d909ce34`) | Touch homing + Bed Mesh quét adaptive 55×55 |
-| **Cảm biến Input Shaper**| Onboard ADXL345 trên Cartographer | Gắn trên shuttle; X: MZV 43.6 Hz, Y: MZV 33.4 Hz |
-| **Động cơ CoreXY** | Stepper X: `PE6` / PF0 endstop; Stepper Y: `PE2` / PF1 endstop | Vận tốc max: 350 mm/s (test 500), Gia tốc: 7000 mm/s² (test 15k) |
-| **Khung Z 4 góc (QGL)** | Z0: `PG9`, Z1: `PB4`, Z2: `PG13`, Z3: `PB8` | Vận tốc Z: 70 mm/s (test 80), Gia tốc Z: 900 mm/s² (test 1k) |
-| **Bàn nhiệt AC** | Heater `PA1`, Sensor `PB0` (NTC 100K) | 220V 1000W AC qua SSR, max 120 °C |
-| **Nhiệt độ vỏ / Quạt bed**| Cảm biến vỏ: `PB1` (Generic 3950); Quạt bed: `PF8` | Điều khiển nhiệt độ buồng in tự động |
-| **Quạt CM4 / Vỏ máy** | Quạt CM4: `PF7`, Quạt vỏ máy: `PF9`, LED buồng in: `PD15` | Làm mát tự động theo ngưỡng nhiệt driver & MCU |
-| **Extruder & Quạt Tool** | 5 bo mạch CAN BTT EBB36 V1.2; Quạt tản nhiệt `PA0`, Quạt part `PA1` | Extruder: TMC2209 dòng 0.6A; Quạt part điều hướng tự động qua `M106` |
+## Quyền sở hữu hiệu chuẩn
 
----
+- Cartographer: home Z, chuẩn Touch, adaptive bed mesh và ADXL345 trên shuttle.
+- Axiscope: căn XY bằng camera crosshair và đo Z tool bằng microswitch PF2.
+- Khối `SAVE_CONFIG` trong `printer.cfg`: nguồn chuẩn cho offset XYZ T1–T4.
+- Các lệnh KTC `tools_calibrate` cũ bị chặn rõ trong `toolchanger-config.cfg`.
+- kTAMV, ToolVision, TKC, KCC và SexBolt chỉ còn là lịch sử.
 
-## 4. Cập nhật 1-Click trên Mainsail & Tối ưu Bộ nhớ
+## Hành vi triển khai
 
-### 4.1. Khởi tạo 1 lần trên máy in (Sparse Checkout — Tiết kiệm 97.7% dung lượng)
-Để tránh tải hơn 600 MB backup máy tính và lịch sử git cũ, chạy lệnh SSH một lần duy nhất:
-```bash
-git clone --depth=1 --filter=blob:none --sparse https://github.com/IDcrazy123/All-Config-Voron.git ~/All-Config-Voron
-cd ~/All-Config-Voron
-git sparse-checkout set config
-sudo systemctl restart moonraker
-```
+`scripts/install.sh` từ chối deploy nếu sáu link readonly KTC-Easy thiếu hoặc hỏng. Script sao lưu config live, giữ đường dẫn runtime của máy, áp dụng patch `tool_crash` đã review khi cần và giữ năm backup cài đặt gần nhất trên máy in.
 
-### 4.2. Vận hành hàng ngày
-- Đẩy code mới từ máy tính lên GitHub: `git push origin main`.
-- Trên web **Mainsail > Cài đặt > Trình quản lý cập nhật**, bấm nút **Update** tại mục `All-Config-Voron`.
-- Moonraker tự động kéo code, chạy `install.sh` (kiểm tra an toàn symlink, dọn sạch file `.md`, tự động giữ tối đa 5 bản backup gần nhất, rsync sang `~/printer_data/config`) và khởi động lại Klipper.
+Máy thật phải có Axiscope được cài sẵn và được quản lý bởi `[update_manager axiscope]` trong `moonraker.conf`; repository không cài dịch vụ này.
+
+Chỉ deploy khi máy in đang rảnh. Sau restart Moonraker/Klipper, kiểm tra `CALIBRATION_STATUS`, `CHECK_OFFSETS`, heater, quạt, homing và tool detection trước khi in.

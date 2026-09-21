@@ -1,107 +1,84 @@
-# OrcaSlicer profiles
+# OrcaSlicer Production Profiles
 
-[English](README.md) | [Tiếng Việt](README.vi.md)
+[English](README.md) | [Tiếng Việt](README.vi.md) | [Project overview](../README.md)
 
-This directory contains the repository copies of the OrcaSlicer user profiles
-for the five-tool Voron: three machine profiles, four process profiles and 15
-filament profiles. JSON files are the source artifacts; this README does not
-infer settings that are not present in them.
+This directory mirrors the active OrcaSlicer user profile selected from `%APPDATA%\OrcaSlicer\user`. On 2026-09-20 the selected profile ID was `838ce884-12ee-416b-9e1b-1c7503cf6b5f`; 18 JSON files were validated and synchronized.
 
-## Synchronization behavior
+## Active inventory
 
-Double-clicking `Sync-OrcaProfiles.cmd` runs:
+Machine profile:
 
-```powershell
-Sync-OrcaProfiles.ps1 -IncludeDiagnostics -Commit -Push
-```
+- `Voron Stealthchanger.json`
 
-This is the fully automated path: it selects the most recently edited Orca user
-profile, validates JSON, synchronizes changed profiles, includes configured
-diagnostics, writes the daily journal, creates a scoped Git commit and pushes
-it.
+Process profiles:
 
-Running the PowerShell script directly is safer for review because commit,
-push and diagnostics are opt-in:
+- `0.20mm ABS.json`
+- `0.20mm Multicolor PetG.json`
+- `0.20mm PETG.json`
+
+Filament profiles:
+
+- `ABS Tpoimns Black.json`
+- `ABS Tpoimns Pink.json`
+- `ABS-Pro Tinmory Black.json`
+- `PETG Bambu Basic Black.json`
+- `PETG Kabber Blue.json`
+- `PETG Noname Antums.json`
+- `PETG Tinmory Black.json`
+- `PETG Tinmory.json`
+- `PETG TPoimns Black.json`
+- `PETG TPoimns Gray.json`
+- `PETG TPoimns Orange.json`
+- `PETG TPoimns Red.json`
+- `PETG TPoimns White.json`
+- `PETG TPoimns Yellow.json`
+
+Six repository-only legacy presets were removed during the 2026-09-20 audit after confirming that no active profile inherited from them. Their original bytes remain in the dated pre-audit backup and Git history.
+
+## Latest synchronized changes
+
+- `Voron Stealthchanger.json`: all five `z_hop` values changed from `0.6` to `0.4` mm, matching the active Orca profile.
+- `0.20mm PETG.json`: synchronized the active Orca 2.4.0.2 process override, including painted brim, 6 s preheat, 10 mm tower brim, 40 mm prime tower, 40 mm³ prime volume, and 50 mm³/s maximum tower purge speed.
+- Analysis aliases under `extras/Orcasilcer setting/` now mirror `Voron Stealthchanger.json` and `0.20mm Multicolor PetG.json`.
+
+## Synchronization
+
+Review-only sync (updates files and writes a journal entry, but does not commit or push):
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass `
   -File ".\Orca Config\Sync-OrcaProfiles.ps1"
 ```
 
+One-click sync, scoped commit, and push:
+
+```text
+Orca Config\Sync-OrcaProfiles.cmd
+```
+
+The script selects the most recently edited Orca user profile unless `-ProfileId` is supplied. It parses every machine/process/filament JSON, rejects duplicate flat destination names, copies only changed bytes, backs up replaced files, refreshes the two analysis aliases, and records the operation in the daily journal.
+
 Useful switches:
 
-| Switch | Code behavior |
+| Switch | Behavior |
 | --- | --- |
-| `-ProfileId <id>` | Select this Orca user directory instead of the most recently edited one |
-| `-SkipAnalysisAliases` | Do not update the two analysis aliases under `extras/Orcasilcer setting/` |
-| `-IncludeDiagnostics` | Include diagnostics selected by the script in its scoped commit set |
-| `-Commit` | Stage only synchronization-owned paths and create a commit |
+| `-ProfileId <id>` | Select an explicit Orca user directory |
+| `-SkipAnalysisAliases` | Do not update the two files under `extras/Orcasilcer setting/` |
+| `-IncludeDiagnostics` | Include changed G-code/log diagnostics in the scoped commit |
+| `-Commit` | Stage only synchronization-owned paths and commit |
 | `-Push` | Implies `-Commit`, then pushes the current branch |
 
-The script reads `%APPDATA%\OrcaSlicer\user`, locates `machine`, `process` and
-`filament` JSON files, parses every selected file, and rejects duplicate flat
-destination names. It copies only changed files. Before replacing a changed
-destination that already exists, it saves that old file under
-`extras/backups/pre-orcaslicer-profile-sync-<timestamp>/`. A first-time copy has
-no old destination to back up.
-
-The optional analysis aliases are:
-
-- `extras/Orcasilcer setting/Printersetting.json`
-- `extras/Orcasilcer setting/MulticolorPETG.json`
-
-The directory spelling is retained because it is an existing repository path.
-
-## Profile inventory
-
-Machine profiles:
-
-- `Stealthchanger.json`
-- `Voron Stealthchanger.json`
-- `VoronStealthchanger.json`
-
-Process profiles:
-
-- `0.20 Tinmory.json`
-- `0.20mm ABS TPmoins.json`
-- `0.20mm ABS.json`
-- `0.20mm PETG Multimaterial.json`
-
-Filament profiles:
-
-- ABS: `ABS Tpoimns Black.json`, `ABS Tpoimns Pink.json`,
-  `ABS-Pro Tinmory Black.json`
-- PETG: `PETG Bambu Basic Black.json`, `PETG Bambu Basic.json`,
-  `PETG Kabber Blue.json`, `PETG Noname Antums.json`,
-  `PETG Tinmory Black.json`, `PETG Tinmory.json`,
-  `PETG TPoimns Black.json`, `PETG TPoimns Gray.json`,
-  `PETG TPoimns Orange.json`, `PETG TPoimns Red.json`,
-  `PETG TPoimns White.json`, `PETG TPoimns Yellow.json`
+The synchronizer intentionally does not delete repository JSON files that disappear from AppData. Review inheritance and references before manually retiring a preset.
 
 ## Restore to OrcaSlicer
 
-Orca user profiles normally live at:
-
-```text
-%APPDATA%\OrcaSlicer\user\<profile-id>\
-```
-
-Close OrcaSlicer before restoring files. Copy machine JSON to `machine`,
-process JSON to `process`, and filament JSON to `filament` under the intended
-profile ID. Do not choose the first directory blindly when several Orca
-accounts exist; identify the same profile ID recorded by the sync script.
-
-Example for one known profile directory:
+Close OrcaSlicer. Copy the machine JSON into `machine`, process JSON into `process`, and filament JSON into `filament` under the intended profile ID:
 
 ```powershell
 $profile = Join-Path $env:APPDATA 'OrcaSlicer\user\<profile-id>'
-Copy-Item '.\Orca Config\Voron Stealthchanger.json' `
-  (Join-Path $profile 'machine')
-Copy-Item '.\Orca Config\0.20mm PETG Multimaterial.json' `
-  (Join-Path $profile 'process')
-Copy-Item '.\Orca Config\PETG Bambu Basic.json' `
-  (Join-Path $profile 'filament')
+Copy-Item '.\Orca Config\Voron Stealthchanger.json' (Join-Path $profile 'machine')
+Copy-Item '.\Orca Config\0.20mm Multicolor PetG.json' (Join-Path $profile 'process')
+Copy-Item '.\Orca Config\PETG Bambu Basic Black.json' (Join-Path $profile 'filament')
 ```
 
-Open OrcaSlicer and verify the selected printer, process, filament mapping and
-tool count before slicing a production job.
+After opening OrcaSlicer, verify the printer, process, five filament assignments, tool count, start G-code, and prime-tower settings before slicing a production job.

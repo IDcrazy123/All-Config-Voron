@@ -147,7 +147,7 @@ if (-not $SkipAnalysisAliases) {
         },
         @{
             Category = "process"
-            SourceName = "0.20mm PETG Multimaterial.json"
+            SourceName = "0.20mm Multicolor PetG.json"
             Destination = Join-Path $analysisRoot "MulticolorPETG.json"
         }
     )
@@ -279,29 +279,29 @@ if ($changedItems.Count -gt 0 -or $changedDiagnosticRelativePaths.Count -gt 0) {
 
     $journalEntry = @"
 
-## $nextSection. Automatic OrcaSlicer profile synchronization
+## $nextSection. Đồng bộ tự động profile OrcaSlicer
 
-### Goal
-Copy the active OrcaSlicer user presets directly from AppData into the repository and synchronize requested G-code/log diagnostics without manual export.
+### Mục tiêu
+Chép preset OrcaSlicer active trực tiếp từ AppData vào repository và đồng bộ diagnostic G-code/log được yêu cầu mà không cần export thủ công.
 
-### Source
+### Nguồn
 - ``$profileRoot``
-- Selected profile ID: ``$ProfileId``
+- Profile ID đã chọn: ``$ProfileId``
 
-### Updated files
+### File đã cập nhật
 $(($changedRelativePaths | ForEach-Object { "- ``$_``" }) -join [Environment]::NewLine)
 
-### Backup
+### Sao lưu
 - ``$backupDescription``
 
-### Validation
-- All source and destination JSON files passed ``ConvertFrom-Json`` validation.
-- Exact source bytes were copied without reformatting.
+### Kiểm tra
+- Toàn bộ JSON nguồn và đích đạt kiểm tra ``ConvertFrom-Json``.
+- Chép nguyên byte nguồn, không format lại.
 
-### Result
-- $($changedItems.Count) repository JSON file(s) synchronized.
-- $($changedDiagnosticRelativePaths.Count) G-code/log diagnostic file(s) added or updated.
-- Use ``Orca Config\Sync-OrcaProfiles.cmd`` for one-click sync, commit and push.
+### Kết quả
+- Đã đồng bộ $($changedItems.Count) file JSON trong repository.
+- Đã thêm hoặc cập nhật $($changedDiagnosticRelativePaths.Count) file diagnostic G-code/log.
+- Dùng ``Orca Config\Sync-OrcaProfiles.cmd`` để đồng bộ, commit và push bằng một lần nhấp.
 "@
     $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
     [System.IO.File]::AppendAllText(

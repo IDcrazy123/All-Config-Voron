@@ -1,67 +1,45 @@
-# Chỉ mục tài liệu và chính sách ngôn ngữ
+# Chỉ mục Tài liệu
 
 [English](README.md) | [Tiếng Việt](README.vi.md)
 
-Chỉ mục này tách tài liệu hiện hành khỏi bằng chứng bất biến. Tài liệu do dự án
-sở hữu và đang dùng được duy trì theo cặp Anh–Việt. Journal lịch sử, snapshot
-backup và snapshot tải từ máy phải giữ nguyên nội dung tại thời điểm ghi; viết
-lại sẽ làm mất ý nghĩa rollback/audit.
-
-Baseline của lần cập nhật này là config production hiện tại, toàn bộ Markdown
-trong repository và commit upstream kTAMV `72421f2`, review ngày 2026-08-31.
+Tài liệu hiện hành mô tả code production đang được nạp tại thời điểm 2026-09-21. Báo cáo lịch sử được giữ bất biến và tách rõ để không nhầm lệnh retired với quy trình active.
 
 ## Tài liệu hiện hành
 
 | Chủ đề | English | Tiếng Việt |
 | --- | --- | --- |
-| Tổng quan project/hệ thống | [README](../../README.md) | [README](../../README.vi.md) |
-| Payload config hoạt động | [README](../../config/README.md) | [README](../../config/README.vi.md) |
-| Đồng bộ/profile OrcaSlicer | [README](../../Orca%20Config/README.md) | [README](../../Orca%20Config/README.vi.md) |
-| Vận hành StealthChanger | [Hướng dẫn](huong-dan-he-thong-stealthchanger.en.md) | [Hướng dẫn](huong-dan-he-thong-stealthchanger.md) |
-| Sử dụng kTAMV và đối chiếu phương pháp | [Hướng dẫn](ktamv-usage-comparison.en.md) | [Hướng dẫn](ktamv-usage-comparison.vi.md) |
-| Đo kiểm TEST_SPEED & Input Shaper (04/09/2026) | — | [Báo cáo](danh-gia-input-shaper-va-test-speed-2026-09-04.md) |
-| Cập nhật 1-Click Mainsail & Đối chiếu 51 file (04/09/2026) | — | [Hướng dẫn](danh-sach-doi-chieu-va-huong-dan-update-mainsail.md) |
+| Tổng quan dự án | [README](../../README.md) | [README](../../README.vi.md) |
+| Payload config active | [README](../../config/README.md) | [README](../../config/README.vi.md) |
+| Profile OrcaSlicer | [README](../../Orca%20Config/README.md) | [README](../../Orca%20Config/README.vi.md) |
+| Vận hành StealthChanger | [Guide](huong-dan-he-thong-stealthchanger.en.md) | [Hướng dẫn](huong-dan-he-thong-stealthchanger.md) |
+| Đối chiếu triển khai Mainsail | — | [Hướng dẫn](danh-sach-doi-chieu-va-huong-dan-update-mainsail.md) |
+| Dấu hiệu nhận biết lỗi hiệu chuẩn cũ | [Guide](legacy-calibration-troubleshooting.md) | Cùng tài liệu kỹ thuật |
+| Hiệu chuẩn Z đa tool Oxplow | [Phương pháp đầy đủ](Oxplow-Z-Offset-Comprehensive-Method.md) | [Hướng dẫn nhanh](Oxplow-Z-Offset-Guide.md) |
+| Đánh giá input shaper / tốc độ | — | [Báo cáo](danh-gia-input-shaper-va-test-speed-2026-09-04.md) |
 
-## Nội dung lịch sử và retired
+## Tài liệu lịch sử
 
-- `extras/Nhat-ky-chinh-sua/`: lịch sử kỹ thuật append-only. Entry cũ không được
-  dịch hoặc hiện đại hóa sau thời điểm ghi. Nhóm tài liệu hiện hành bên trên cung
-  cấp điều hướng song ngữ và mô tả trạng thái mới.
-- [`axiscope-cartographer/`](../axiscope-cartographer/README.md): bằng chứng fork
-  local không còn active, giữ cho rollback/tham khảo. Trạng thái local được tóm
-  tắt song ngữ trong [`FORK_INFO.md`](../axiscope-cartographer/FORK_INFO.md).
-- [`retired-configs/2026-08-20-config-merge/`](../retired-configs/2026-08-20-config-merge/README.md):
-  file không còn được `printer.cfg` include; README có cả hai ngôn ngữ.
-- [`retired-configs/2026-08-31-toolvision-removal/`](../retired-configs/2026-08-31-toolvision-removal/README.md):
-  CFG ToolVision cuối cùng của máy, giữ nguyên byte sau khi chuyển sang kTAMV.
-- [`retired-configs/2026-09-13-tkc-removal/`](../retired-configs/2026-09-13-tkc-removal/README.md):
-  Cấu hình TKC cuối cùng của máy đã nghỉ hưu nguyên byte; hệ thống chuẩn hóa sang kTAMV.
-- **ToolVision docs & proposals:** Toàn bộ các hướng dẫn cài đặt và đề xuất cũ liên quan tới ToolVision
-  đã được loại bỏ khỏi `docs/` để tránh sai lệch cấu hình; dữ liệu lịch sử được bảo toàn trong Git và bản
-  sao lưu [`pre-replace-toolvision-with-ktamv-20260831-113047`](../backups/pre-replace-toolvision-with-ktamv-20260831-113047/README.md).
-- `extras/Config download/`: snapshot tải từ máy, không phải tài liệu repository
-  hiện hành và không được sửa.
+Các hướng dẫn sau mô tả tích hợp đã retired và được chuyển vào [`history/`](history/README.md):
 
-## Snapshot rollback được theo dõi gần đây
+- hướng dẫn/đối chiếu kTAMV bản Anh–Việt;
+- ghi chú commissioning TKC ngày 2026-09-08.
 
-Chỉ thêm liên kết và context hiện tại ở đây; nội dung snapshot giữ bất biến.
+Không dùng chúng để cài đặt hoặc hiệu chuẩn máy hiện tại.
 
-1. [`pre-cleanup-kcc-tkc-and-ktamv-autocalib-20260913-171300`](../backups/pre-cleanup-kcc-tkc-and-ktamv-autocalib-20260913-171300/README.md) — trước khi gỡ bỏ toàn bộ module thử nghiệm KCC/TKC khỏi máy in và cài đặt macro cân chỉnh tự động kTAMV.
-2. [`pre-replace-toolvision-with-ktamv-20260831-113047`](../backups/pre-replace-toolvision-with-ktamv-20260831-113047/README.md) — trước khi gỡ tích hợp ToolVision active và cài kTAMV được pin.
-3. [`pre-move-toolvision-to-printer-setup-20260823-220605`](../backups/pre-move-toolvision-to-printer-setup-20260823-220605/README.md) — trước khi chuyển config ToolVision riêng của máy vào `Printer-Setup/` và định tuyến JSON dưới `Generated-Data/ToolVision/`.
-4. [`pre-toolvision-z-canary-20260823-211530`](../backups/pre-toolvision-z-canary-20260823-211530/README.md) — trước khi bật canary ToolVision PF2 chỉ báo cáo.
+## Bằng chứng bất biến
 
-Đây là snapshot được Git repository theo dõi, không phải tuyên bố các thư mục đó
-hiện tồn tại trên CM4. Hành động retention phía máy được ghi trong journal bất
-biến theo ngày tương ứng.
+- `extras/Nhat-ky-chinh-sua/`: lịch sử kỹ thuật theo ngày.
+- `extras/experiments/`: báo cáo và reproduction thô.
+- `extras/retired-configs/`: cấu hình cuối của backend đã gỡ.
+- `extras/backups/`: snapshot phục hồi trước thay đổi.
+- `extras/Config download/`: snapshot tải từ máy, không phải config active.
 
-## Quy tắc cập nhật tài liệu sau này
+Mười ZIP trùng byte hoàn toàn với thư mục snapshot đã giải nén được loại trong đợt rà soát 2026-09-20. `config-20260903-080600.zip` được giữ vì có sáu file ShakeTune không tồn tại trong thư mục giải nén. Các ZIP độc lập và toàn bộ backup recovery cũng được giữ.
 
-1. Đọc config và script đang nạp trước khi đổi mô tả hiện trạng.
-2. Gắn nhãn sự thật là active, observed, development/planned hoặc unknown.
-3. Cập nhật cả hai bản ngôn ngữ trong cùng commit.
-4. Không biến kế hoạch thành tuyên bố đã triển khai.
-5. Không viết lại journal cũ, README backup hoặc snapshot tải về; thêm guide/
-   index hiện hành mới.
-6. Khi code, path hoặc hành vi macro đổi, cập nhật cặp tài liệu liên quan và
-   journal ngày trong cùng thay đổi.
+## Quy tắc bảo trì
+
+1. Đọc code đang nạp trước khi đổi tuyên bố hiện trạng.
+2. Cập nhật cặp Anh–Việt cùng lúc.
+3. Không hiện đại hóa journal, report thí nghiệm, record backup hoặc snapshot tải về tại chỗ.
+4. Chuyển quy trình retired vào `history/` và thêm cảnh báo ngắn ở tài liệu hiện hành.
+5. Khi hành vi code đổi, cập nhật tài liệu và nhật ký ngày trong cùng commit.

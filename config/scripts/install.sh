@@ -112,5 +112,5 @@ fi
 echo "Installed configuration from ${SOURCE_CONFIG_DIR}"
 echo "Backup: ${BACKUP_DIR}"
 echo "KTC-Easy readonly symlinks were verified and preserved."
-echo "Axiscope tool alignment backend verified."
+echo "Axiscope is externally managed and was not modified by this deployment."
 echo "Review changes, then restart Moonraker and Klipper only while the printer is idle."
