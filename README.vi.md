@@ -2,7 +2,7 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Cấu hình active](config/README.vi.md) | [Tài liệu](extras/docs/README.vi.md) | [Profile OrcaSlicer](Orca%20Config/README.vi.md)
 
-Kho cấu hình Klipper production cho Voron 2.4 CoreXY 350 mm dùng năm đầu in StealthChanger. Hệ thống hiện tại dùng KTC-Easy để đổi tool, Cartographer V3 để home Z/quét mesh và Axiscope để hiệu chuẩn offset có người giám sát.
+Kho cấu hình Klipper production cho Voron 2.4 CoreXY 350 mm dùng năm đầu in StealthChanger. Hệ thống hiện tại dùng KTC-Easy để đổi tool, Cartographer V3 để home Z/quét mesh và thử nghiệm SexBolt `tools_calibrate` có người giám sát để đo offset tương đối giữa các tool.
 
 ## Kiến trúc production hiện tại
 
@@ -12,8 +12,7 @@ Kho cấu hình Klipper production cho Voron 2.4 CoreXY 350 mm dùng năm đầu
 | Toolhead | 5 × BTT EBB36 V1.2, extruder WW BMG, hotend TZ V6 2.0 |
 | Toolchanger | KTC-Easy, năm dock phía sau, cảm biến hiện diện OptoTap |
 | Home Z / mesh | Cartographer V3 Touch tại `(174, 168)`; mesh adaptive 55 × 55 |
-| Hiệu chuẩn XY tool | Camera crosshair Axiscope trên Web UI cổng 3000 |
-| Hiệu chuẩn Z tool | Microswitch Axiscope chân `^PF2` tại `(80, -5, 8)`; 10 mẫu ở 150 °C |
+| Hiệu chuẩn XYZ tool | SexBolt KTC-Easy trên `^PF2`; tâm `(80, -5.5)`, tiếp xúc quan sát gần Z12, tiếp cận an toàn Z18 |
 | Giới hạn chuyển động | XY 350 mm/s, 7000 mm/s²; Z 80 mm/s, 1000 mm/s² |
 | Bàn nhiệt | Silicone AC 1000 W qua SSR chân `PA1`; sensor `PB0`; tối đa 120 °C |
 | Làm mát | TMC `PF9`, CM4 `PF6`, MCU/vỏ `PF7`, tuần hoàn buồng `PF8` |
@@ -84,11 +83,11 @@ Danh sách profile active và quy trình đồng bộ nằm trong [`Orca Config/
 | Vòng đời bản in | `PRINT_START`, `PRINT_END`, `PAUSE`, `RESUME`, `CANCEL_PRINT`, `G32` |
 | Vệ sinh đầu phun | `CLEAN_NOZZLE`, `PURGE_AND_CLEAN`, `PRIME_LINES` |
 | Sấy nhựa | `START_DRYER`, `STOP_DRYER`, `DRYER_STATUS` |
-| Hiệu chuẩn/báo cáo | Axiscope Web UI cổng 3000, `CALIBRATION_STATUS`, `CHECK_OFFSETS` |
+| Hiệu chuẩn/báo cáo | `SEXBOLT_QUERY`, `CALIBRATE_MOVE_OVER_PROBE`, `CALIBRATE_ALL_OFFSETS`, `CALIBRATION_STATUS`, `CHECK_OFFSETS` |
 | Kiểm tra chuyển động/nhiệt | `TEST_SPEED`, `TEST_Z_SPEED`, `MEASURE_TOOL_HEATUP` |
 | Đèn/quạt | `LIGHTS_ON`, `LIGHTS_OFF`, `BED_FAN_ON`, `BED_FAN_OFF` |
 
-Các đường cũ `CALIBRATE_ALL_OFFSETS`, `CALIBRATE_MOVE_OVER_PROBE` và `CALIBRATE_NOZZLE_PROBE_OFFSET` bị chặn vì máy không còn backend KTC `tools_calibrate` hoặc `tool_probe_endstop` active.
+`CALIBRATE_MOVE_OVER_PROBE` và `CALIBRATE_ALL_OFFSETS` hiện dùng thử nghiệm SexBolt có người giám sát. `CALIBRATE_NOZZLE_PROBE_OFFSET` vẫn bị chặn để lần thử không ghi lại offset probe Cartographer.
 
 ## An toàn và hoàn tác
 
@@ -98,7 +97,7 @@ Các đường cũ `CALIBRATE_ALL_OFFSETS`, `CALIBRATE_MOVE_OVER_PROBE` và `CAL
 - Không triển khai trong lúc in hoặc đang đổi tool.
 - Mỗi lần chạy `install.sh` tạo snapshot tại `~/printer_data/config_backups/`.
 
-Đọc [`extras/docs/legacy-calibration-troubleshooting.md`](extras/docs/legacy-calibration-troubleshooting.md) để nhận biết nhanh lỗi từ ToolVision, kTAMV, TKC/KCC, SexBolt và các thử nghiệm Axiscope cũ.
+Đọc [`extras/docs/legacy-calibration-troubleshooting.md`](extras/docs/legacy-calibration-troubleshooting.md) để nhận biết nhanh lỗi từ ToolVision, kTAMV, TKC/KCC, các lần thử SexBolt trước và Axiscope.
 
 ## Ghi công
 

@@ -24,7 +24,7 @@ Thư mục này chứa payload do repository sở hữu và triển khai sang `~
 [include Printer-Setup/tool-crash.cfg]
 ```
 
-Axiscope là Klipper extra và dịch vụ web ngoài repository; không cần include `.cfg` riêng ngoài section `[axiscope]` trong `Printer-Setup/calibration-probe.cfg`.
+Thử nghiệm SexBolt có người giám sát dùng `[tools_calibrate]` của KTC-Easy trong `Printer-Setup/calibration-probe.cfg`. Axiscope vẫn được cài ngoài repository nhưng section Klipper bị tắt vì hai backend cùng chiếm đầu vào hiệu chuẩn PF2 và không thể tồn tại đồng thời.
 
 ## Quyền sở hữu
 
@@ -44,7 +44,7 @@ Axiscope là Klipper extra và dịch vụ web ngoài repository; không cần i
 | --- | --- |
 | MCU chính | CAN UUID `19b203d75137` |
 | Cartographer | CAN UUID `da13d909ce34`; Touch home tại `(174, 168)` |
-| Công tắc Axiscope Z | `^PF2`; `(80, -5, 8)`; `lift_z: 2`; chiều cao đổi tool an toàn 15 mm |
+| Công tắc hiệu chuẩn SexBolt | `^PF2`; tâm `(80, -5.5)`; nozzle tiếp xúc quan sát gần Z12; tiếp cận an toàn Z18 |
 | XY | X `PE6`/`PF0`, Y `PE2`/`PF1`; 350 mm/s, 7000 mm/s² |
 | Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |
 | Bàn nhiệt | Heater `PA1`, sensor `PB0`, tối đa 120 °C |
@@ -55,15 +55,15 @@ Axiscope là Klipper extra và dịch vụ web ngoài repository; không cần i
 ## Quyền sở hữu hiệu chuẩn
 
 - Cartographer: home Z, chuẩn Touch, adaptive bed mesh và ADXL345 trên shuttle.
-- Axiscope: căn XY bằng camera crosshair và đo Z tool bằng microswitch PF2.
+- SexBolt `tools_calibrate`: đo XYZ tương đối giữa các tool có người giám sát trên PF2.
 - Khối `SAVE_CONFIG` trong `printer.cfg`: nguồn chuẩn cho offset XYZ T1–T4.
-- Các lệnh KTC `tools_calibrate` cũ bị chặn rõ trong `toolchanger-config.cfg`.
-- kTAMV, ToolVision, TKC, KCC và SexBolt chỉ còn là lịch sử.
+- `CALIBRATE_MOVE_OVER_PROBE` và `CALIBRATE_ALL_OFFSETS` được bật với guard home/toolchanger; hiệu chuẩn offset probe vẫn bị chặn.
+- kTAMV, ToolVision, TKC, KCC, Axiscope và các cấu hình SexBolt cũ chỉ còn là tài liệu lịch sử.
 
 ## Hành vi triển khai
 
 `scripts/install.sh` từ chối deploy nếu sáu link readonly KTC-Easy thiếu hoặc hỏng. Script sao lưu config live, giữ đường dẫn runtime của máy, áp dụng patch `tool_crash` đã review khi cần và giữ năm backup cài đặt gần nhất trên máy in.
 
-Máy thật phải có Axiscope được cài sẵn và được quản lý bởi `[update_manager axiscope]` trong `moonraker.conf`; repository không cài dịch vụ này.
+Máy thật có thể giữ dịch vụ Axiscope và entry update-manager được quản lý bên ngoài, nhưng dịch vụ này không phải backend hiệu chuẩn Klipper active trong lần thử.
 
 Chỉ deploy khi máy in đang rảnh. Sau restart Moonraker/Klipper, kiểm tra `CALIBRATION_STATUS`, `CHECK_OFFSETS`, heater, quạt, homing và tool detection trước khi in.

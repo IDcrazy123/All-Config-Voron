@@ -56,3 +56,23 @@ Code, comment và tài liệu hiện hành thống nhất trên Axiscope + Carto
 ### Vấn đề còn lại
 - `toolchanger.status` là `uninitialized` ngay sau service restart, phù hợp trạng thái chưa home/chưa khởi tạo; không chạy macro chuyển động trong phiên triển khai. Xác nhận lại detection/tool state theo quy trình vận hành trước lần in kế tiếp.
 - Giữ stash trước triển khai trên máy để có thể đối chiếu hoặc phục hồi thủ công; không tự động apply/drop vì chứa thay đổi live cũ của người vận hành.
+
+## 2. Chuẩn bị thử nghiệm SexBolt tools_calibrate
+
+### Dữ liệu đo và nguyên nhân sửa
+- Người vận hành đã lắp SexBolt và đưa nozzle T0 tới tâm quả bóng tại `X80 Y-5.5 Z12`.
+- Macro cũ báo lỗi có chủ đích vì Axiscope đang chiếm PF2 và `[tools_calibrate]` bị tắt; hai Klipper extra này không thể được cấu hình đồng thời.
+- `spread: 7` không phù hợp giới hạn Y: lượt dò `y+` sẽ bắt đầu tại Y-12.5 trong khi `position_min` là Y-10.
+
+### Thay đổi
+- Thay `[axiscope]` bằng `[tools_calibrate]` trên `^PF2`; giữ Cartographer làm probe home Z/mesh.
+- Đặt tâm SexBolt `X80 Y-5.5`, Z tiếp cận an toàn 18 và ghi Z12 là chiều cao tiếp xúc quan sát được.
+- Dùng `spread: 3.5`; điểm bắt đầu Y thấp nhất là -9.0, còn 1 mm biên so với giới hạn máy.
+- Thêm `SEXBOLT_QUERY`, guard home/toolchanger cho các macro di chuyển và giữ `CALIBRATE_NOZZLE_PROBE_OFFSET` bị khóa.
+- Cập nhật README và hướng dẫn vận hành để yêu cầu kiểm tra công tắc `open`/`TRIGGERED` trước lần dò đầu tiên.
+
+### Sao lưu và kiểm tra trước triển khai
+- Backup: `extras/backups/pre-sexbolt-trial-20260921-203854/`.
+- `git diff --check`: đạt; chỉ có cảnh báo line ending theo môi trường Windows.
+- Dry parse bằng bản sao config trong `/tmp` trên máy in đã qua bước đọc config/Jinja và chỉ dừng ở giai đoạn debug MCU do không cung cấp dictionary cho mọi MCU; không có lỗi config hoặc template.
+- Chưa chạy chuyển động SexBolt hoặc ghi offset trong bước chuẩn bị này.

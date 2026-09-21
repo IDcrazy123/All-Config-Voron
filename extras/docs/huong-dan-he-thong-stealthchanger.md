@@ -5,18 +5,18 @@
 ## Quyền sở hữu backend
 
 - KTC-Easy quản lý gắp/thả tool, trạng thái tool active, đường dock và macro readonly.
-- Axiscope quản lý hiệu chuẩn XY/Z có người giám sát qua Web UI cổng 3000 và microswitch `^PF2`.
+- KTC-Easy `tools_calibrate` quản lý thử nghiệm SexBolt XYZ có người giám sát qua microswitch `^PF2`.
 - Cartographer quản lý home Z, chuẩn Touch, adaptive bed mesh và đo rung.
 - OrcaSlicer quản lý lựa chọn theo filament/process như pressure advance và prime tower.
 
-Không trộn quy trình kTAMV, ToolVision, TKC/KCC hoặc SexBolt đã retired với stack active.
+Không trộn quy trình kTAMV, ToolVision, TKC/KCC, Axiscope hoặc cấu hình SexBolt cũ với lần thử active.
 
 ## Trước khi in
 
 1. Xác nhận Klipper ready và không có lỗi MCU/CAN.
 2. Kiểm tra cả năm dock, không có tool nào gài nửa chừng.
 3. Đối chiếu tool KTC báo active với tool đang gắn vật lý.
-4. Làm sạch nozzle chuẩn nếu sắp chạy Cartographer Touch hoặc Axiscope Z.
+4. Làm sạch nozzle chuẩn nếu sắp chạy Cartographer Touch hoặc SexBolt.
 5. Kiểm tra Orca đã chọn đúng machine năm tool, process và mapping filament.
 
 ## Luồng in bình thường
@@ -29,13 +29,13 @@ Dùng `PAUSE`/`RESUME` thay vì tự di chuyển tool. `RESUME` khởi tạo KTC
 
 ## Hiệu chuẩn tool
 
-1. Mở Axiscope tại cổng 3000.
-2. Dùng camera crosshair để căn XY có giám sát.
-3. Dùng microswitch PF2 để đo Z; tọa độ production là `(80, -5, 8)`, 10 mẫu.
-4. Workflow gia nhiệt toàn bộ tool tới 150 °C, chờ tool đang chọn và nâng Z tối thiểu 15 mm trước pickup.
-5. Review offset, lưu bằng đường Axiscope/Klipper được hỗ trợ và chạy `CHECK_OFFSETS` trước bản in thử.
+1. Sau restart, chạy `SEXBOLT_QUERY` khi nhả và khi nhấn tay công tắc; chỉ tiếp tục khi kết quả lần lượt là `open` và `TRIGGERED`.
+2. Home XYZ, khởi tạo toolchanger, xác nhận tool detection đúng và vệ sinh nozzle.
+3. Chạy `CALIBRATE_MOVE_OVER_PROBE`; macro chỉ tới Z18 rồi vào tâm `(80, -5.5)`, không chạm công tắc.
+4. Khi vị trí an toàn đã đúng, chạy `CALIBRATE_ALL_OFFSETS` có người giám sát. Chu trình gia nhiệt từng nozzle đến 150 °C và dùng năm mẫu median.
+5. Chạy `CHECK_OFFSETS`, so sánh với baseline và chỉ `SAVE_CONFIG` sau khi kết quả hợp lý.
 
-Không gọi `CALIBRATE_ALL_OFFSETS` hoặc `CALIBRATE_MOVE_OVER_PROBE` cũ; các macro này bị chặn có chủ đích.
+`CALIBRATE_NOZZLE_PROBE_OFFSET` vẫn bị chặn để lần thử không thay đổi offset Cartographer.
 
 ## Vệ sinh nozzle
 

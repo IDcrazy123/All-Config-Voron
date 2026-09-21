@@ -8,7 +8,7 @@ Tài liệu này mô tả code hiện hành ngày 2026-09-21.
 | --- | --- | --- |
 | Config production | `config/` trong repository | Được `install.sh` triển khai |
 | KTC readonly | `~/klipper-toolchanger-easy/` | Link trong `toolchanger/readonly-configs/`; không sửa từ repository |
-| Axiscope | `~/axiscope` | Runtime ngoài repository, Moonraker quản lý |
+| Axiscope | `~/axiscope` | Runtime ngoài repository, Moonraker quản lý; không phải backend Klipper active trong thử nghiệm SexBolt |
 | Generated data | `Generated-Data/`, `ShakeTune_results/` | Giữ cục bộ, không bị rsync xóa |
 | Offset tool | `config/printer.cfg` `SAVE_CONFIG` | Phải đối chiếu với máy thật trước khi deploy |
 
@@ -18,7 +18,7 @@ Tài liệu này mô tả code hiện hành ngày 2026-09-21.
 2. Commit đã được review/push lên `origin/main`.
 3. `git status` ở checkout trên máy không có sửa đổi cục bộ cần giữ.
 4. Sáu symlink KTC readonly tồn tại và không gãy.
-5. Axiscope service đang active nếu cần hiệu chuẩn.
+5. Nếu thử SexBolt, xác nhận `[tools_calibrate]` được nạp và `SEXBOLT_QUERY` đổi đúng giữa `open`/`TRIGGERED` trước mọi chuyển động dò.
 
 ## Update
 
@@ -47,4 +47,4 @@ Script không cài hoặc xác thực binary/service Axiscope; Axiscope được
 
 ## Trạng thái máy được quan sát ngày 2026-09-21
 
-Máy thật truy cập SSH được; Klipper và Axiscope đều active. Checkout `~/All-Config-Voron` trên máy đang ở commit cũ và dirty, trong khi `~/printer_data/config` chứa phần lớn config mới hơn. Vì vậy phải làm sạch/đồng bộ checkout bằng Update Manager trước khi coi checkout trên máy là nguồn chuẩn. Không dùng checkout cũ để ghi đè config live.
+Checkout máy đã được fast-forward an toàn tới `origin/main`; trạng thái dirty cũ được giữ trong stash và installer đã tạo backup live trước deploy. Axiscope service vẫn được quản lý ngoài repository, nhưng thử nghiệm SexBolt thay section `[axiscope]` bằng `[tools_calibrate]` trong Klipper vì hai backend không thể cùng hoạt động trên PF2.

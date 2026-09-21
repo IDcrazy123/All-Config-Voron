@@ -2,7 +2,7 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Active config](config/README.md) | [Documentation](extras/docs/README.md) | [OrcaSlicer profiles](Orca%20Config/README.md)
 
-Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five StealthChanger toolheads. The current system uses KTC-Easy for tool handling, Cartographer V3 for Z homing and bed mesh, and Axiscope for attended tool-offset calibration.
+Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five StealthChanger toolheads. The current system uses KTC-Easy for tool handling, Cartographer V3 for Z homing and bed mesh, and an attended SexBolt `tools_calibrate` trial for relative tool offsets.
 
 ## Current production architecture
 
@@ -12,8 +12,7 @@ Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five Stealth
 | Toolheads | 5 × BTT EBB36 V1.2, WW BMG extruders, TZ V6 2.0 hotends |
 | Toolchanger | KTC-Easy, five rear docks, OptoTap presence sensing |
 | Z home / mesh | Cartographer V3 Touch at `(174, 168)`; adaptive 55 × 55 scan mesh |
-| Tool XY calibration | Axiscope camera crosshair in the Web UI on port 3000 |
-| Tool Z calibration | Axiscope microswitch on `^PF2` at `(80, -5, 8)`; 10 samples at 150 °C |
+| Tool XYZ calibration | KTC-Easy SexBolt on `^PF2`; center `(80, -5.5)`, observed contact near Z12, safe approach Z18 |
 | Motion limits | XY 350 mm/s, 7000 mm/s²; Z 80 mm/s, 1000 mm/s² |
 | Heated bed | 1000 W AC pad through SSR on `PA1`; sensor `PB0`; maximum 120 °C |
 | Cooling | TMC `PF9`, CM4 `PF6`, enclosure/MCU `PF7`, chamber circulation `PF8` |
@@ -84,11 +83,11 @@ The active Orca profile inventory and synchronization workflow are documented in
 | Print lifecycle | `PRINT_START`, `PRINT_END`, `PAUSE`, `RESUME`, `CANCEL_PRINT`, `G32` |
 | Nozzle service | `CLEAN_NOZZLE`, `PURGE_AND_CLEAN`, `PRIME_LINES` |
 | Filament drying | `START_DRYER`, `STOP_DRYER`, `DRYER_STATUS` |
-| Calibration/reporting | Axiscope Web UI on port 3000, `CALIBRATION_STATUS`, `CHECK_OFFSETS` |
+| Calibration/reporting | `SEXBOLT_QUERY`, `CALIBRATE_MOVE_OVER_PROBE`, `CALIBRATE_ALL_OFFSETS`, `CALIBRATION_STATUS`, `CHECK_OFFSETS` |
 | Motion/thermal tests | `TEST_SPEED`, `TEST_Z_SPEED`, `MEASURE_TOOL_HEATUP` |
 | Lighting/fans | `LIGHTS_ON`, `LIGHTS_OFF`, `BED_FAN_ON`, `BED_FAN_OFF` |
 
-Legacy `CALIBRATE_ALL_OFFSETS`, `CALIBRATE_MOVE_OVER_PROBE`, and `CALIBRATE_NOZZLE_PROBE_OFFSET` paths are blocked because this printer has no active KTC `tools_calibrate` or `tool_probe_endstop` backend.
+`CALIBRATE_MOVE_OVER_PROBE` and `CALIBRATE_ALL_OFFSETS` now use the attended SexBolt trial. `CALIBRATE_NOZZLE_PROBE_OFFSET` remains blocked so the trial cannot rewrite the Cartographer probe offset.
 
 ## Safety and rollback
 
@@ -98,7 +97,7 @@ Legacy `CALIBRATE_ALL_OFFSETS`, `CALIBRATE_MOVE_OVER_PROBE`, and `CALIBRATE_NOZZ
 - Do not deploy while printing or while a tool change is in progress.
 - Every `install.sh` run creates a timestamped printer-side snapshot under `~/printer_data/config_backups/`.
 
-Use [`extras/docs/legacy-calibration-troubleshooting.md`](extras/docs/legacy-calibration-troubleshooting.md) to recognize failure signatures from retired ToolVision, kTAMV, TKC/KCC, SexBolt, and early Axiscope trials.
+Use [`extras/docs/legacy-calibration-troubleshooting.md`](extras/docs/legacy-calibration-troubleshooting.md) to recognize failure signatures from retired ToolVision, kTAMV, TKC/KCC, earlier SexBolt attempts, and Axiscope trials.
 
 ## Credits
 

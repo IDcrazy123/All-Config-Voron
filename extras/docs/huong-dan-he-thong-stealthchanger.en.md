@@ -5,18 +5,18 @@
 ## Backend ownership
 
 - KTC-Easy owns tool pickup/dropoff, active-tool state, dock routes, and readonly macros.
-- Axiscope owns attended tool XY/Z calibration through the Web UI on port 3000 and microswitch `^PF2`.
+- KTC-Easy `tools_calibrate` owns the attended SexBolt XYZ trial through microswitch `^PF2`.
 - Cartographer owns Z homing, Touch reference, adaptive bed mesh, and resonance sensing.
 - OrcaSlicer owns per-filament/process choices such as pressure advance and prime-tower behavior.
 
-Do not combine retired kTAMV, ToolVision, TKC/KCC, or SexBolt procedures with the active stack.
+Do not combine retired kTAMV, ToolVision, TKC/KCC, Axiscope, or earlier SexBolt procedures with the active trial.
 
 ## Before printing
 
 1. Confirm Klipper is ready and no MCU/CAN error is present.
 2. Inspect all five docks and verify no tool is partially seated.
 3. Confirm the active tool reported by KTC matches the physically mounted tool.
-4. Clean the reference nozzle if Cartographer Touch or an Axiscope Z run will be used.
+4. Clean the reference nozzle if Cartographer Touch or a SexBolt run will be used.
 5. Verify Orca selected the correct five-tool machine, process, and filament mapping.
 
 ## Normal print flow
@@ -29,13 +29,13 @@ Use `PAUSE`/`RESUME` instead of ad-hoc tool motion. `RESUME` initializes KTC and
 
 ## Tool calibration
 
-1. Open Axiscope on port 3000.
-2. Use the camera crosshair for attended XY alignment.
-3. Use the PF2 microswitch workflow for Z; production coordinates are `(80, -5, 8)` with 10 samples.
-4. The workflow preheats all tools to 150 °C, waits for each selected tool, and raises Z to at least 15 mm before pickup.
-5. Review the measured offsets, persist them through the supported Axiscope/Klipper save path, and confirm `CHECK_OFFSETS` before a test print.
+1. After restart, run `SEXBOLT_QUERY` with the switch released and manually pressed; continue only if the results are `open` and `TRIGGERED` respectively.
+2. Home XYZ, initialize the toolchanger, confirm tool detection, and clean the nozzles.
+3. Run `CALIBRATE_MOVE_OVER_PROBE`; it only raises to Z18 and moves to `(80, -5.5)` without touching the switch.
+4. After verifying the safe position, run attended `CALIBRATE_ALL_OFFSETS`. It heats each nozzle to 150 °C and uses five median samples.
+5. Run `CHECK_OFFSETS`, compare with the baseline, and issue `SAVE_CONFIG` only after the result is plausible.
 
-Never invoke legacy `CALIBRATE_ALL_OFFSETS` or `CALIBRATE_MOVE_OVER_PROBE`; they are intentionally blocked.
+`CALIBRATE_NOZZLE_PROBE_OFFSET` remains blocked so this trial cannot modify the Cartographer offset.
 
 ## Nozzle cleaning
 
