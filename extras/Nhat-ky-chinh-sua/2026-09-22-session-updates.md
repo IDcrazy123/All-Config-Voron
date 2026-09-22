@@ -108,3 +108,19 @@ Trung bình hai lượt đầu trừ production, chỉ dùng để so sánh, kh�
 - Đã đồng bộ cấu hình, chưa chạy home, gia nhiệt, đổi tool, phép đo hoặc thử in. Sau restart máy chưa home và toolchanger `uninitialized` là trạng thái chờ khởi tạo, không phải lỗi nạp cấu hình.
 - Home với mặt bàn không có đế; đưa đầu in lên độ cao an toàn và ra khỏi đường lắp, rồi mới lắp đế. Căn tâm bi theo nozzle T0 tại X174/Y168, kiểm tra công tắc bằng `SEXBOLT_QUERY`, xác định Z tiếp xúc và Z bắt đầu dò trước khi mở khóa đo tự động.
 - Các thay đổi Printables/Oxplow có sẵn và file `AGENTS.md` chưa theo dõi không thuộc tác vụ, được giữ nguyên và không stage.
+
+## 3. Chẩn đoán chốt chặn chiều cao SexBolt lúc 18:16
+
+### Triệu chứng và đối chiếu chỉ đọc
+
+- Người vận hành báo `Center SexBolt contact_z/probe_z are unconfirmed` khi chạy `CALIBRATE_ALL_OFFSETS`, sau home/QGL; đồng thời cho biết đã tự đổi `spread: 7`, `lower_z: 1`.
+- Đọc [klippy.log trực tiếp trên máy](http://192.168.1.43/server/files/logs/klippy.log), hai file cấu hình live và Moonraker: đúng `spread: 7.0`, `lower_z: 1.0` đã được nạp. Không ghi đè thay đổi của người vận hành.
+- `_CALIBRATION_SWITCH` runtime là X174/Y168/Z55, `contact_z: -1`; `probe_z` không tồn tại vì dòng `variable_probe_z` đã bị comment trong file live.
+- QGL trong log hoàn tất với range `0.002989 < 0.007500`; lỗi được phát ra tại bước render guard chiều cao của macro, trước bất kỳ lệnh đo nào, không phải lỗi tolerance QGL hoặc do spread/lower_z.
+
+### Nguyên nhân và hướng xử lý
+
+- Z55 chỉ là độ cao di chuyển được xác nhận; chưa có Z tiếp xúc bi và Z bắt đầu dò của đế mới. `contact_z: -1` chủ động khóa chu trình. Comment `probe_z` không bỏ được khóa; sau khi sửa contact_z còn có thể gây lỗi biến thiếu.
+- Cần xác nhận Z nozzle T0 chạm đỉnh bi thực tế, khôi phục biến `probe_z` và đặt độ cao bắt đầu dò đã kiểm chứng sao cho `0 <= contact_z < probe_z <= 55`. Không tự gán Z55 làm chiều cao tiếp xúc hoặc dùng lại Z12 của đế cũ.
+- Snapshot: Klipper ready, XYZ đã home, Z55, nhưng toolchanger `uninitialized`/active tool -1. Source `toolchanger.py::_handle_command_error` xóa active tool và đưa trạng thái về uninitialized khi có command error; cần khởi tạo/xác nhận lại tool sau khi xử lý guard, không nhầm đây là bằng chứng tool rơi.
+- Phiên này chỉ đọc máy in và ghi nhật ký; không sửa cấu hình, restart, khởi tạo toolchanger hoặc gửi chuyển động. Chờ số đo chiều cao đế mới từ người vận hành.
