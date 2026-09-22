@@ -65,3 +65,46 @@ Trung bình hai lượt đầu trừ production, chỉ dùng để so sánh, kh�
 - Khi kết thúc thử nghiệm, người vận hành có thể FIRMWARE_RESTART lúc máy rảnh để bỏ offset pending và nạp lại bộ đã lưu; sau restart cần home theo quy trình trước chuyển động.
 - Kiểm tra tiếp xúc T0 và độ hồi của SexBolt; sau khi điều kiện cơ khí ổn định, đo lại T0 ở đầu/cuối chu trình để kiểm chứng tham chiếu. Không tăng tolerance để che bước nhảy, không bù tay +0.263 vào bộ lỗi.
 - Chỉ hai lượt đầu có mức lặp tương đối khả quan. Chưa đủ dữ liệu để thay offset production, nhất là Y T1/T2/T4 và Z T1 vốn đã được tinh chỉnh theo bản in.
+
+## 2. Chuyển SexBolt vào tâm bàn và khôi phục spread/lower_z mặc định
+
+### Mục tiêu và xác nhận của người vận hành
+
+- Chuyển mục tiêu đo từ `X80 Y-5.5` tới tâm bàn theo quy ước hiện tại `X174 Y168` cho đế giữ mới.
+- Người vận hành xác nhận đế chưa lắp và `Z55` là độ cao an toàn. Chưa xác nhận tâm bi thực tế hoặc Z nozzle T0 chạm bi của đế mới.
+- Theo yêu cầu bổ sung, đưa `spread` và `lower_z` về mặc định. Đọc trực tiếp `/home/voron/klipper/klippy/extras/tools_calibrate.py`: `spread` mặc định `5.0`, `lower_z` mặc định `0.5`.
+
+### File đã sửa đổi và sao lưu
+
+- `config/Printer-Setup/calibration-probe.cfg`: thông số dò, báo cáo trạng thái động, đường tiếp cận và chốt chặn chiều cao.
+- `config/toolchanger/toolchanger-config.cfg`: tọa độ mục tiêu và biến chiều cao của đế mới.
+- README EN/VI ở gốc và `config/`, cùng hướng dẫn StealthChanger EN/VI: đồng bộ thông số và quy trình đế tháo rời.
+- [Sao lưu repository và live trước thay đổi](<D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-sexbolt-bed-center-20260922-175811/>). Các bản live giữ nguyên override cũ `lower_z: 0.3`, `variable_z: 12.0`; bản repository trước sửa là `1.0` và `18.0`.
+- Bản sao lưu độc lập trên máy: `/home/voron/printer_data/config_backups/sexbolt-bed-center-20260922-175811/original/`, gồm hai file cấu hình và `printer.cfg` nguyên trạng. Đối chiếu SHA256 trước triển khai; không ghi đè bản sao lưu có sẵn.
+
+### Chi tiết và bảo vệ đường chạy
+
+- `_CALIBRATION_SWITCH`: `x: 174`, `y: 168`, `z: 55`; `probe_z: -1`, `contact_z: -1` là dấu hiệu chưa đo, không phải tọa độ được phép dò.
+- `spread: 3.5 -> 5.0`; `lower_z: 0.3 live / 1.0 repository -> 0.5`. Các điểm bắt đầu danh nghĩa `X169/179`, `Y163/173` không còn vướng giới hạn mép trước như vị trí cũ.
+- `CALIBRATE_MOVE_OVER_PROBE` mặc định nâng tới `max(Z hiện tại, 55)` trước XY, tới tâm rồi dừng ở Z55, không dò. Chỉ nhánh `PROBE=1` mới xuống độ cao bắt đầu dò đã đo.
+- `CALIBRATE_ALL_OFFSETS` chặn trước chọn tool, gia nhiệt và chuyển động nếu chưa có `0 <= contact_z < probe_z <= 55`; vẫn giữ kiểm tra home/toolchanger. Không dùng lại Z12 của đế cũ.
+- Review đường đổi tool phát hiện backend chỉ nâng `contact Z + final_lift_z (6)` sau đo; KTC dropoff sau đó nâng thêm 1 mm rồi đi ngang tới Y120, chưa đảm bảo thoát đế ở Z55.
+- Thêm `_CALIBRATE_SAFE_TRANSIT` nâng thẳng tại XY hiện tại, đánh giá Z runtime mỗi lần gọi, trước mọi `SELECT_TOOL` trong chu trình (6 lần khi đo 5 tool). Đã đối chiếu đường RESTORE trong source KTC đang cài.
+- Không sửa file KTC readonly, homing, mesh, PID hoặc offset production. Phải tháo đế trước `G28`, QGL, Cartographer Touch, mesh và in vì đường chạy đi qua vùng tâm bàn.
+
+### Kiểm tra và triển khai
+
+- Parse riêng hai file cấu hình và biên dịch 12 template bằng Jinja `2.11.3` của môi trường Klipper trên máy: đạt, không gửi lệnh chuyển động.
+- Render offline: đúng mặc định 5.0/0.5; giữ độ cao hiện tại nếu cao hơn 55; chặn chưa home/chưa khởi tạo toolchanger/chưa đo chiều cao/chiều cao sai; 5 lần tiếp cận dò và nâng an toàn trước cả 6 lần chọn tool đều đạt.
+- `git diff --check`: đạt. Chỉ triển khai hai file CFG, không chạy trình cài đặt đồng bộ rộng.
+- Kiểm tra ngay trước restart: Klipper ready, không in/paused, idle Ready, target bàn và cả 5 hotend bằng 0. Đã thông báo restart bỏ bộ offset thử nghiệm chưa lưu.
+- `FIRMWARE_RESTART` thành công; Klipper trở lại `ready`, nạp đúng `spread: 5.0`, `lower_z: 0.5`, `X174 Y168 Z55`, hai chiều cao chưa đo bằng `-1`.
+- `save_config_pending=false`; offset runtime T1-T4 trở lại đúng bộ production ở mục 1. Không chạy `SAVE_CONFIG`.
+- SHA256 hai file live trùng repository: calibration `da3142150b0354c74cae31bb9f4ccc0651affc909d36e290f87764099e19cf8c`, toolchanger `b47ab00367c24f89fd02d978563e16e3e1a4256d880261a521b0fe2ceb019d6f`.
+- `printer.cfg` giữ nguyên SHA256 `8d6b2958bab328e8afeace4b0d6aa11fb2f05854ceef9f738e9f083d978878b9` trước/sau triển khai.
+
+### Kết quả và việc còn lại
+
+- Đã đồng bộ cấu hình, chưa chạy home, gia nhiệt, đổi tool, phép đo hoặc thử in. Sau restart máy chưa home và toolchanger `uninitialized` là trạng thái chờ khởi tạo, không phải lỗi nạp cấu hình.
+- Home với mặt bàn không có đế; đưa đầu in lên độ cao an toàn và ra khỏi đường lắp, rồi mới lắp đế. Căn tâm bi theo nozzle T0 tại X174/Y168, kiểm tra công tắc bằng `SEXBOLT_QUERY`, xác định Z tiếp xúc và Z bắt đầu dò trước khi mở khóa đo tự động.
+- Các thay đổi Printables/Oxplow có sẵn và file `AGENTS.md` chưa theo dõi không thuộc tác vụ, được giữ nguyên và không stage.

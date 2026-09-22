@@ -44,7 +44,7 @@ Thử nghiệm SexBolt có người giám sát dùng `[tools_calibrate]` của K
 | --- | --- |
 | MCU chính | CAN UUID `19b203d75137` |
 | Cartographer | CAN UUID `da13d909ce34`; Touch home tại `(174, 168)` |
-| Công tắc hiệu chuẩn SexBolt | `^PF2`; tâm `(80, -5.5)`; nozzle tiếp xúc quan sát gần Z12; tiếp cận an toàn Z18 |
+| Công tắc hiệu chuẩn SexBolt | `^PF2`; đế tháo rời giữa bàn tại tọa độ cấu hình `(174, 168)`; mặc định upstream `spread: 5.0`, `lower_z: 0.5`; Z55 di chuyển đã xác nhận; chưa đo Z tiếp xúc/bắt đầu dò |
 | XY | X `PE6`/`PF0`, Y `PE2`/`PF1`; 350 mm/s, 7000 mm/s² |
 | Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |
 | Bàn nhiệt | Heater `PA1`, sensor `PB0`, tối đa 120 °C |
@@ -57,8 +57,12 @@ Thử nghiệm SexBolt có người giám sát dùng `[tools_calibrate]` của K
 - Cartographer: home Z, chuẩn Touch, adaptive bed mesh và ADXL345 trên shuttle.
 - SexBolt `tools_calibrate`: đo XYZ tương đối giữa các tool có người giám sát trên PF2.
 - Khối `SAVE_CONFIG` trong `printer.cfg`: nguồn chuẩn cho offset XYZ T1–T4.
-- `CALIBRATE_MOVE_OVER_PROBE` và `CALIBRATE_ALL_OFFSETS` được bật với guard home/toolchanger; hiệu chuẩn offset probe vẫn bị chặn.
+- `_CALIBRATION_SWITCH.z: 55` là độ cao di chuyển đã được người vận hành xác nhận. `CALIBRATE_MOVE_OVER_PROBE` mặc định đi tới tâm ở Z55 hoặc cao hơn, không dò chạm. `contact_z: -1` và `probe_z: -1` đánh dấu chiều cao tiếp xúc/bắt đầu dò chưa được đo. `CALIBRATE_ALL_OFFSETS` chặn trước khi chọn tool, gia nhiệt hoặc di chuyển cho đến khi cấu hình chiều cao hợp lệ; chế độ hạ nội bộ `PROBE=1` cũng phải vượt qua kiểm tra chiều cao. Các kiểm tra home/toolchanger vẫn áp dụng. `CALIBRATION_STATUS` báo các giá trị đang cấu hình. Hiệu chuẩn offset probe vẫn bị chặn.
 - kTAMV, ToolVision, TKC, KCC, Axiscope và các cấu hình SexBolt cũ chỉ còn là tài liệu lịch sử.
+
+Trước mọi `SELECT_TOOL` trong chu trình hiệu chuẩn, `_CALIBRATE_SAFE_TRANSIT` nâng thẳng lên ít nhất độ cao di chuyển Z55 đã cấu hình; macro không di chuyển XY.
+
+Phải tháo đế trước `G28`, QGL, bed mesh, Cartographer Touch hoặc in vì đường đi của các thao tác này trùng vùng giữa bàn. Home khi mặt bàn thông thoáng, đưa đầu in tới khoảng hở Z55 đã xác nhận và tránh đường lắp, rồi mới lắp đế. Xác nhận XY thực tế khi nozzle T0 nằm trên tâm bi và đo Z tiếp xúc/bắt đầu dò trước khi bật dò tự động. Chiều cao của vị trí phía trước cũ không áp dụng cho đế này.
 
 ## Hành vi triển khai
 

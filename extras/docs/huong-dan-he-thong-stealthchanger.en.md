@@ -18,6 +18,7 @@ Do not combine retired kTAMV, ToolVision, TKC/KCC, Axiscope, or earlier SexBolt 
 3. Confirm the active tool reported by KTC matches the physically mounted tool.
 4. Clean the reference nozzle if Cartographer Touch or a SexBolt run will be used.
 5. Verify Orca selected the correct five-tool machine, process, and filament mapping.
+6. Remove the center-bed SexBolt holder before homing, Cartographer Touch, mesh, or printing.
 
 ## Normal print flow
 
@@ -29,11 +30,15 @@ Use `PAUSE`/`RESUME` instead of ad-hoc tool motion. `RESUME` initializes KTC and
 
 ## Tool calibration
 
-1. After restart, run `SEXBOLT_QUERY` with the switch released and manually pressed; continue only if the results are `open` and `TRIGGERED` respectively.
-2. Home XYZ, initialize the toolchanger, confirm tool detection, and clean the nozzles.
-3. Run `CALIBRATE_MOVE_OVER_PROBE`; it only raises to Z18 and moves to `(80, -5.5)` without touching the switch.
-4. After verifying the safe position, run attended `CALIBRATE_ALL_OFFSETS`. It heats each nozzle to 150 °C and uses five median samples.
-5. Run `CHECK_OFFSETS`, compare with the baseline, and issue `SAVE_CONFIG` only after the result is plausible.
+The removable SexBolt holder now uses the configured bed-center position `(174, 168)`, with the upstream defaults `spread: 5.0` and `lower_z: 0.5`. Confirm the actual ball center with the T0 nozzle; the configured XY is not a new physical measurement. The operator confirmed Z55 as safe transit clearance, stored in `_CALIBRATION_SWITCH.z`. The new contact and probe-start heights remain unmeasured: `contact_z: -1` and `probe_z: -1` are disabled sentinels, not travel coordinates. Default `CALIBRATE_MOVE_OVER_PROBE` is available for travel at or above Z55 without probing. `CALIBRATE_ALL_OFFSETS` rejects the run before tool selection, heating, or movement until valid contact/probe-start heights are configured; its internal `PROBE=1` approach checks these heights before descending.
+
+1. Remove the holder and keep the build plate unobstructed for `G28`, QGL, bed mesh, and Cartographer Touch. KTC Z homing travels around `(174, 168)` at Z10; Touch also uses this center and mesh passes through the area at low Z. Do not run these operations with the holder installed.
+2. Home XYZ, finish any required leveling/Touch steps, initialize the toolchanger, confirm tool detection, and clean the nozzles while the holder is removed.
+3. Position the toolhead at the confirmed Z55 clearance and out of the installation path, then install the holder. Keep the axes homed. Do not reuse the old fixture's Z12/Z18 values for the new base.
+4. Check `CALIBRATION_STATUS`, which reports the current variables. Run attended `CALIBRATE_MOVE_OVER_PROBE` without `PROBE=1` to reach the configured center at or above Z55 without descending to the ball.
+5. Run `SEXBOLT_QUERY` with the switch released and manually pressed; continue only if the results are `open` and `TRIGGERED` respectively. Under attendance, confirm the T0 nozzle's ball-center XY and measure the new nozzle contact Z. Set `_CALIBRATION_SWITCH.contact_z` to this measurement and `.probe_z` to a verified probe-start height above contact and no higher than transit Z55. Keep `.z: 55` for XY transit. Confirm these values with `CALIBRATION_STATUS` before automatic probing.
+6. After confirming clearance, run attended `CALIBRATE_ALL_OFFSETS`. It heats each nozzle to 150 °C and uses five median samples. Before every tool change, it lifts vertically to at least transit Z55 before leaving the fixture for the dock.
+7. Run `CHECK_OFFSETS`, compare repeated complete runs with the saved baseline, and issue `SAVE_CONFIG` only after the result is consistent and plausible. Remove the holder again before any subsequent homing, leveling, mesh, Touch, or printing.
 
 `CALIBRATE_NOZZLE_PROBE_OFFSET` remains blocked so this trial cannot modify the Cartographer offset.
 

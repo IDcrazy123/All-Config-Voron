@@ -12,7 +12,7 @@ Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five Stealth
 | Toolheads | 5 × BTT EBB36 V1.2, WW BMG extruders, TZ V6 2.0 hotends |
 | Toolchanger | KTC-Easy, five rear docks, OptoTap presence sensing |
 | Z home / mesh | Cartographer V3 Touch at `(174, 168)`; adaptive 55 × 55 scan mesh |
-| Tool XYZ calibration | KTC-Easy SexBolt on `^PF2`; center `(80, -5.5)`, observed contact near Z12, safe approach Z18 |
+| Tool XYZ calibration | KTC-Easy SexBolt on `^PF2`; removable center-bed holder at configured `(174, 168)`; verified transit Z55; contact/probe-start heights still require measurement |
 | Motion limits | XY 350 mm/s, 7000 mm/s²; Z 80 mm/s, 1000 mm/s² |
 | Heated bed | 1000 W AC pad through SSR on `PA1`; sensor `PB0`; maximum 120 °C |
 | Cooling | TMC `PF9`, CM4 `PF6`, enclosure/MCU `PF7`, chamber circulation `PF8` |
@@ -87,7 +87,11 @@ The active Orca profile inventory and synchronization workflow are documented in
 | Motion/thermal tests | `TEST_SPEED`, `TEST_Z_SPEED`, `MEASURE_TOOL_HEATUP` |
 | Lighting/fans | `LIGHTS_ON`, `LIGHTS_OFF`, `BED_FAN_ON`, `BED_FAN_OFF` |
 
-`CALIBRATE_MOVE_OVER_PROBE` and `CALIBRATE_ALL_OFFSETS` now use the attended SexBolt trial. `CALIBRATE_NOZZLE_PROBE_OFFSET` remains blocked so the trial cannot rewrite the Cartographer probe offset.
+The attended SexBolt trial uses the upstream defaults `spread: 5.0` and `lower_z: 0.5`. `_CALIBRATION_SWITCH.z: 55` is the operator-confirmed transit clearance. By default, `CALIBRATE_MOVE_OVER_PROBE` travels to the configured center at or above Z55 without probing. The new holder's `contact_z: -1` and `probe_z: -1` remain unmeasured sentinels: `CALIBRATE_ALL_OFFSETS` rejects the run before tool selection, heating, or movement until both are valid. Its internal `PROBE=1` approach may descend below transit height only after these height checks pass. `CALIBRATION_STATUS` reports the configured values. `CALIBRATE_NOZZLE_PROBE_OFFSET` remains blocked so the trial cannot rewrite the Cartographer probe offset.
+
+Before each tool change, the calibration sequence lifts vertically to at least Z55 so the docking route leaves the fixture at transit clearance.
+
+Remove the holder before `G28`, QGL, bed mesh, Cartographer Touch, or printing: these operations use or cross the center of the bed. Home with the plate unobstructed, then position the toolhead at the confirmed Z55 clearance and outside the installation path before installing the holder. Confirm the T0 nozzle is centered over the ball and measure the contact/probe-start heights before enabling calibration. See the [tool calibration procedure](extras/docs/huong-dan-he-thong-stealthchanger.en.md#tool-calibration).
 
 ## Safety and rollback
 

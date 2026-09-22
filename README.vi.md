@@ -12,7 +12,7 @@ Kho cấu hình Klipper production cho Voron 2.4 CoreXY 350 mm dùng năm đầu
 | Toolhead | 5 × BTT EBB36 V1.2, extruder WW BMG, hotend TZ V6 2.0 |
 | Toolchanger | KTC-Easy, năm dock phía sau, cảm biến hiện diện OptoTap |
 | Home Z / mesh | Cartographer V3 Touch tại `(174, 168)`; mesh adaptive 55 × 55 |
-| Hiệu chuẩn XYZ tool | SexBolt KTC-Easy trên `^PF2`; tâm `(80, -5.5)`, tiếp xúc quan sát gần Z12, tiếp cận an toàn Z18 |
+| Hiệu chuẩn XYZ tool | SexBolt KTC-Easy trên `^PF2`; đế tháo rời giữa bàn tại tọa độ cấu hình `(174, 168)`; Z55 đã xác nhận an toàn để di chuyển; còn phải đo Z tiếp xúc/bắt đầu dò |
 | Giới hạn chuyển động | XY 350 mm/s, 7000 mm/s²; Z 80 mm/s, 1000 mm/s² |
 | Bàn nhiệt | Silicone AC 1000 W qua SSR chân `PA1`; sensor `PB0`; tối đa 120 °C |
 | Làm mát | TMC `PF9`, CM4 `PF6`, MCU/vỏ `PF7`, tuần hoàn buồng `PF8` |
@@ -87,7 +87,11 @@ Danh sách profile active và quy trình đồng bộ nằm trong [`Orca Config/
 | Kiểm tra chuyển động/nhiệt | `TEST_SPEED`, `TEST_Z_SPEED`, `MEASURE_TOOL_HEATUP` |
 | Đèn/quạt | `LIGHTS_ON`, `LIGHTS_OFF`, `BED_FAN_ON`, `BED_FAN_OFF` |
 
-`CALIBRATE_MOVE_OVER_PROBE` và `CALIBRATE_ALL_OFFSETS` hiện dùng thử nghiệm SexBolt có người giám sát. `CALIBRATE_NOZZLE_PROBE_OFFSET` vẫn bị chặn để lần thử không ghi lại offset probe Cartographer.
+Thử nghiệm SexBolt có người giám sát dùng giá trị mặc định upstream `spread: 5.0` và `lower_z: 0.5`. `_CALIBRATION_SWITCH.z: 55` là khoảng hở di chuyển đã được người vận hành xác nhận. Mặc định, `CALIBRATE_MOVE_OVER_PROBE` đi tới tâm cấu hình ở Z55 hoặc cao hơn, không dò chạm. `contact_z: -1` và `probe_z: -1` của đế mới vẫn đánh dấu chưa đo: `CALIBRATE_ALL_OFFSETS` từ chối trước khi chọn tool, gia nhiệt hoặc di chuyển cho đến khi cả hai giá trị hợp lệ. Chế độ tiếp cận nội bộ `PROBE=1` chỉ được hạ thấp hơn độ cao di chuyển sau khi vượt qua kiểm tra các chiều cao này. `CALIBRATION_STATUS` báo giá trị đang cấu hình. `CALIBRATE_NOZZLE_PROBE_OFFSET` vẫn bị chặn để lần thử không ghi lại offset probe Cartographer.
+
+Trước mỗi lần đổi tool, chu trình hiệu chuẩn nâng thẳng lên ít nhất Z55 để đường đi tới dock rời vùng đế ở độ cao di chuyển an toàn.
+
+Tháo đế trước `G28`, QGL, bed mesh, Cartographer Touch hoặc in vì các thao tác này sử dụng hoặc đi qua vùng giữa bàn. Home khi mặt bàn thông thoáng, sau đó đưa đầu in tới khoảng hở Z55 đã xác nhận và tránh đường lắp trước khi lắp đế. Xác nhận nozzle T0 nằm trên tâm bi và đo Z tiếp xúc/bắt đầu dò trước khi bật hiệu chuẩn. Xem [quy trình hiệu chuẩn tool](extras/docs/huong-dan-he-thong-stealthchanger.md#hiệu-chuẩn-tool).
 
 ## An toàn và hoàn tác
 

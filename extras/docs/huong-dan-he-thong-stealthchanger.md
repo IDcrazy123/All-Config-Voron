@@ -18,6 +18,7 @@ Không trộn quy trình kTAMV, ToolVision, TKC/KCC, Axiscope hoặc cấu hình
 3. Đối chiếu tool KTC báo active với tool đang gắn vật lý.
 4. Làm sạch nozzle chuẩn nếu sắp chạy Cartographer Touch hoặc SexBolt.
 5. Kiểm tra Orca đã chọn đúng machine năm tool, process và mapping filament.
+6. Tháo đế SexBolt giữa bàn trước khi home, Cartographer Touch, mesh hoặc in.
 
 ## Luồng in bình thường
 
@@ -29,11 +30,15 @@ Dùng `PAUSE`/`RESUME` thay vì tự di chuyển tool. `RESUME` khởi tạo KTC
 
 ## Hiệu chuẩn tool
 
-1. Sau restart, chạy `SEXBOLT_QUERY` khi nhả và khi nhấn tay công tắc; chỉ tiếp tục khi kết quả lần lượt là `open` và `TRIGGERED`.
-2. Home XYZ, khởi tạo toolchanger, xác nhận tool detection đúng và vệ sinh nozzle.
-3. Chạy `CALIBRATE_MOVE_OVER_PROBE`; macro chỉ tới Z18 rồi vào tâm `(80, -5.5)`, không chạm công tắc.
-4. Khi vị trí an toàn đã đúng, chạy `CALIBRATE_ALL_OFFSETS` có người giám sát. Chu trình gia nhiệt từng nozzle đến 150 °C và dùng năm mẫu median.
-5. Chạy `CHECK_OFFSETS`, so sánh với baseline và chỉ `SAVE_CONFIG` sau khi kết quả hợp lý.
+Đế SexBolt tháo rời hiện dùng tọa độ tâm bàn cấu hình `(174, 168)`, với giá trị mặc định upstream `spread: 5.0` và `lower_z: 0.5`. Cần xác nhận tâm bi thực tế bằng nozzle T0; XY cấu hình chưa phải kết quả đo vật lý mới. Người vận hành đã xác nhận Z55 là khoảng hở di chuyển an toàn, được lưu tại `_CALIBRATION_SWITCH.z`. Chiều cao tiếp xúc và bắt đầu dò mới chưa được đo: `contact_z: -1` và `probe_z: -1` là giá trị đánh dấu chưa sẵn sàng, không phải tọa độ di chuyển. Mặc định `CALIBRATE_MOVE_OVER_PROBE` cho phép đi ở Z55 hoặc cao hơn mà không dò chạm. `CALIBRATE_ALL_OFFSETS` từ chối trước khi chọn tool, gia nhiệt hoặc di chuyển cho đến khi cấu hình Z tiếp xúc/bắt đầu dò hợp lệ; chế độ tiếp cận nội bộ `PROBE=1` kiểm tra các chiều cao này trước khi hạ xuống.
+
+1. Tháo đế và để mặt bàn thông thoáng khi chạy `G28`, QGL, bed mesh và Cartographer Touch. Home Z của KTC đi quanh `(174, 168)` ở Z10; Touch cũng dùng tâm này và mesh đi qua vùng giữa bàn ở Z thấp. Không chạy các thao tác này khi còn lắp đế.
+2. Home XYZ, hoàn tất các bước cân gantry/Touch cần thiết, khởi tạo toolchanger, xác nhận tool detection đúng và vệ sinh nozzle khi chưa lắp đế.
+3. Đưa đầu in tới khoảng hở Z55 đã xác nhận và tránh đường lắp, rồi lắp đế. Giữ các trục ở trạng thái đã home. Không tái sử dụng Z12/Z18 của vị trí cũ cho đế mới.
+4. Kiểm tra `CALIBRATION_STATUS`, lệnh báo các biến hiện tại. Chạy `CALIBRATE_MOVE_OVER_PROBE` có người giám sát và không truyền `PROBE=1` để tới tâm cấu hình ở Z55 hoặc cao hơn, không hạ tới bi.
+5. Chạy `SEXBOLT_QUERY` khi nhả và khi nhấn tay công tắc; chỉ tiếp tục khi kết quả lần lượt là `open` và `TRIGGERED`. Có người giám sát khi xác nhận XY của nozzle T0 trên tâm bi và đo Z tiếp xúc mới. Đặt `_CALIBRATION_SWITCH.contact_z` theo số đo này và `.probe_z` theo chiều cao bắt đầu dò đã kiểm tra nằm trên điểm tiếp xúc, không cao hơn Z55 di chuyển. Giữ `.z: 55` cho di chuyển XY. Kiểm tra lại bằng `CALIBRATION_STATUS` trước khi dò tự động.
+6. Khi đã xác nhận khoảng hở an toàn, chạy `CALIBRATE_ALL_OFFSETS` có người giám sát. Chu trình gia nhiệt từng nozzle đến 150 °C và dùng năm mẫu median. Trước mỗi lần đổi tool, chu trình nâng thẳng lên ít nhất Z55 di chuyển rồi mới rời vùng đế tới dock.
+7. Chạy `CHECK_OFFSETS`, so sánh các lượt đo đầy đủ lặp lại với baseline đã lưu và chỉ `SAVE_CONFIG` khi kết quả ổn định, hợp lý. Tháo đế trước mọi lần home, cân gantry, mesh, Touch hoặc in tiếp theo.
 
 `CALIBRATE_NOZZLE_PROBE_OFFSET` vẫn bị chặn để lần thử không thay đổi offset Cartographer.
 

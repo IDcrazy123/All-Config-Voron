@@ -44,7 +44,7 @@ The attended SexBolt trial uses KTC-Easy `[tools_calibrate]` in `Printer-Setup/c
 | --- | --- |
 | Main MCU | CAN UUID `19b203d75137` |
 | Cartographer | CAN UUID `da13d909ce34`; Touch home at `(174, 168)` |
-| SexBolt calibration switch | `^PF2`; center `(80, -5.5)`; observed nozzle contact near Z12; safe approach Z18 |
+| SexBolt calibration switch | `^PF2`; removable center-bed holder at configured `(174, 168)`; upstream defaults `spread: 5.0`, `lower_z: 0.5`; transit Z55 confirmed; contact/probe-start Z unmeasured |
 | XY | X `PE6`/`PF0`, Y `PE2`/`PF1`; 350 mm/s, 7000 mm/s² |
 | Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |
 | Bed | Heater `PA1`, sensor `PB0`, maximum 120 °C |
@@ -57,8 +57,12 @@ The attended SexBolt trial uses KTC-Easy `[tools_calibrate]` in `Printer-Setup/c
 - Cartographer: Z homing, Touch reference, adaptive bed mesh, and shuttle ADXL345.
 - SexBolt `tools_calibrate`: attended relative XYZ measurement on PF2.
 - `printer.cfg` `SAVE_CONFIG`: authoritative T1–T4 XYZ offsets.
-- `CALIBRATE_MOVE_OVER_PROBE` and `CALIBRATE_ALL_OFFSETS` are enabled with homing/toolchanger guards; probe-offset calibration remains blocked.
+- `_CALIBRATION_SWITCH.z: 55` is the operator-confirmed transit height. Default `CALIBRATE_MOVE_OVER_PROBE` travels to the center at or above Z55 without probing. `contact_z: -1` and `probe_z: -1` mark the contact and probe-start heights as unmeasured. `CALIBRATE_ALL_OFFSETS` blocks before tool selection, heating, or movement until valid heights are configured; internal `PROBE=1` descent requires the same height checks. Homing/toolchanger checks still apply. `CALIBRATION_STATUS` reports the configured values. Probe-offset calibration remains blocked.
 - kTAMV, ToolVision, TKC, KCC, Axiscope, and earlier SexBolt configurations are historical references only.
+
+Before every `SELECT_TOOL` in the calibration sequence, `_CALIBRATE_SAFE_TRANSIT` lifts vertically to at least the configured transit Z55; it does not move XY.
+
+The holder must be removed before `G28`, QGL, bed mesh, Cartographer Touch, or printing because their paths overlap the bed center. Home with an unobstructed plate, position the toolhead at the confirmed Z55 clearance and outside the installation path, then install the holder. Confirm the T0 nozzle's actual ball-center XY and measure contact/probe-start Z before enabling automatic probing. The former front-mounted fixture's heights do not apply to this holder.
 
 ## Deployment behavior
 
