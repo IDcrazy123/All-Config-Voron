@@ -196,3 +196,19 @@ Range max-min, không gọi đây là repeatability thuần túy vì điều ki�
 - Giữ cố định cấu hình và cách lắp đế trong các lượt kiểm tra tiếp theo; kiểm tra độ giữ đế/bi, dây kéo và tiếp xúc nozzle, đồng thời quan sát T0 đầu/cuối để phát hiện tham chiếu dịch. Không tăng tolerance để che các bước nhảy.
 - Cần các lượt đầy đủ liên tiếp không retry/bước nhảy, rồi xác minh bằng mẫu in XY (ưu tiên T2 Y) và first-layer Z trước khi thay production. Kết quả complete hoặc năm mẫu cuối khít không bảo đảm toàn bộ chu trình đáng tin.
 - Chỉ đọc máy in, phân tích và ghi nhật ký; không sửa CFG, gửi G-code, restart, SAVE_CONFIG hoặc áp dụng offset. Offset runtime/pending đang khác production; chưa SAVE_CONFIG không có nghĩa máy đang dùng bộ production cũ.
+
+## 6. Đối chiếu riêng bộ 18:37 với bản đã lưu
+
+- Theo yêu cầu tiếp theo, kiểm tra lại `configfile.settings` qua Moonraker lúc 20:03:53: offset đã lưu T1–T4 vẫn là bộ production trong bảng mục5; `save_config_pending=false` tại snapshot này.
+- Chênh lệch dưới đây bằng **kết quả18:37 trừ giá trị đã lưu**, đơn vị mm, không phải giá trị tự động áp thêm:
+
+| Tool | Delta X | Delta Y | Delta Z |
+| --- | ---: | ---: | ---: |
+| T1 | -0.017250 | +0.022250 | -0.004500 |
+| T2 | -0.010625 | +0.146250 | -0.012500 |
+| T3 | -0.015500 | +0.084125 | +0.014500 |
+| T4 | -0.016125 | +0.013250 | -0.021900 |
+
+- X của cả bốn tool rất gần bản đã lưu, chênh tuyệt đối0.010625–0.017250 mm. Z chênh tối đa0.0219 mm tại T4; riêng T1 chỉ0.0045 mm. Khác biệt nổi bật là Y T2(+0.14625 mm), tiếp theo Y T3(+0.084125 mm).
+- Lượt18:37 không retry và có chất lượng nội bộ tốt hơn hai lượt sau, nhưng không đủ để xác nhận thay bộ production. Giữ Z đã tinh chỉnh bằng bản in, ưu tiên kiểm chứng XY T0/T2 và T0/T3 bằng mẫu in cùng các lượt đo lặp cùng cấu hình.
+- Chỉ đọc dữ liệu máy và ghi nhật ký; không sửa cấu hình, áp dụng offset hoặc gửi G-code.
