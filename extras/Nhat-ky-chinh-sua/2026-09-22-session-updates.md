@@ -124,3 +124,12 @@ Trung bình hai lượt đầu trừ production, chỉ dùng để so sánh, kh�
 - Cần xác nhận Z nozzle T0 chạm đỉnh bi thực tế, khôi phục biến `probe_z` và đặt độ cao bắt đầu dò đã kiểm chứng sao cho `0 <= contact_z < probe_z <= 55`. Không tự gán Z55 làm chiều cao tiếp xúc hoặc dùng lại Z12 của đế cũ.
 - Snapshot: Klipper ready, XYZ đã home, Z55, nhưng toolchanger `uninitialized`/active tool -1. Source `toolchanger.py::_handle_command_error` xóa active tool và đưa trạng thái về uninitialized khi có command error; cần khởi tạo/xác nhận lại tool sau khi xử lý guard, không nhầm đây là bằng chứng tool rơi.
 - Phiên này chỉ đọc máy in và ghi nhật ký; không sửa cấu hình, restart, khởi tạo toolchanger hoặc gửi chuyển động. Chờ số đo chiều cao đế mới từ người vận hành.
+
+## 4. Tiếp nhận chiều cao bi mới khoảng Z50
+
+- Người vận hành báo nozzle chạm bi khoảng Z50; đây là số quan sát gần đúng, chưa phải kết quả probe tự động.
+- Snapshot và source live được kiểm tra chỉ đọc: máy vẫn XYZ homed ở Z55, toolchanger uninitialized, `spread: 7`, `lower_z: 1`, `contact_z: -1`, `probe_z` bị comment.
+- Đề xuất `contact_z: -1 -> 50.0` (tham chiếu quan sát) và khôi phục `probe_z: 55.0`, giữ transit Z55 đã được người vận hành xác nhận. Không chọn một độ cao tiếp cận mới thấp hơn Z55 khi chưa kiểm chứng khoảng hở.
+- Source `locate_sensor` tự dò Z thực tế trước khi dò XY; `contact_z` của macro không được dùng làm kết quả đo hoặc offset. `run_probe` hiện có giới hạn mặc định 100 mm rồi chặn theo giới hạn trục, không phải 4 mm dù cấu hình đọc được `max_travel: 4`. Vì vậy khoảng 5 mm từ Z55 tới Z50 không bị giới hạn 4 mm; đồng thời Z50 không phải chốt dừng nếu công tắc không kích hoạt.
+- Cần kiểm tra công tắc nhả/nhấn và căn tâm bi, giữ lần đo đầu có người giám sát. `lower_z: 1` là độ hạ so với Z tiếp xúc vừa đo khi dò cạnh, không phải độ cao bắt đầu dò Z.
+- Chờ xác nhận áp dụng cặp chiều cao trên; chưa sửa cấu hình hoặc gửi bất kỳ lệnh G-code nào trong lượt này.
