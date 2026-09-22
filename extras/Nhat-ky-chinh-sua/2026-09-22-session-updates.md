@@ -212,3 +212,40 @@ Range max-min, không gọi đây là repeatability thuần túy vì điều ki�
 - X của cả bốn tool rất gần bản đã lưu, chênh tuyệt đối0.010625–0.017250 mm. Z chênh tối đa0.0219 mm tại T4; riêng T1 chỉ0.0045 mm. Khác biệt nổi bật là Y T2(+0.14625 mm), tiếp theo Y T3(+0.084125 mm).
 - Lượt18:37 không retry và có chất lượng nội bộ tốt hơn hai lượt sau, nhưng không đủ để xác nhận thay bộ production. Giữ Z đã tinh chỉnh bằng bản in, ưu tiên kiểm chứng XY T0/T2 và T0/T3 bằng mẫu in cùng các lượt đo lặp cùng cấu hình.
 - Chỉ đọc dữ liệu máy và ghi nhật ký; không sửa cấu hình, áp dụng offset hoặc gửi G-code.
+
+## 7. Áp dụng riêng Z của bộ 18:37 theo yêu cầu người vận hành
+
+### Yêu cầu và thay đổi
+
+- Người vận hành yêu cầu thay Z của bộ18:37 vào cấu hình hiện tại. Không áp dụng X/Y của SexBolt; không lấy số từ19:12,19:40 hoặc các lượt sau.
+- `config/printer.cfg`: chỉ sửa bốn dòng `gcode_z_offset` trong SAVE_CONFIG của T1–T4. Đây là thay thế giá trị tuyệt đối, không cộng delta hoặc cộng thêm bù Oxplow.
+- README EN/VI: cập nhật bốn giá trị Z trong bảng tool hiện tại, ghi rõ nguồn và trạng thái chưa thử first layer; giữ nguyên số liệu lịch sử trong các mục nhật ký trước.
+
+| Tool | X giữ nguyên | Y giữ nguyên | Z trước | Z sau |
+| --- | ---: | ---: | ---: | ---: |
+| T0 | 0 | 0 | 0 | 0 |
+| T1 | -0.139 | -0.341 | +0.2465 | +0.242 |
+| T2 | +1.095 | -0.090 | -0.2715 | -0.284 |
+| T3 | +0.003 | +0.369 | -0.2465 | -0.232 |
+| T4 | +0.213 | -0.007 | +0.1079 | +0.086 |
+
+### Sao lưu
+
+- [Bản gốc repository và live](<D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-sexbolt-z-1837-20260922-200957/>), có README nguồn dữ liệu. Hai file gốc trùng byte, SHA256 `8d6b2958bab328e8afeace4b0d6aa11fb2f05854ceef9f738e9f083d978878b9`.
+- Bản gốc độc lập trên máy: `/home/voron/printer_data/config_backups/sexbolt-z-1837-20260922-200957/original/printer.cfg`.
+
+### Kiểm tra và triển khai
+
+- Kiểm tra độc lập số Z với log18:37 và nguồn offset: bốn section tool trong SAVE_CONFIG là nguồn đã lưu; không có nguồn per-tool Z khác ghi đè trong config active.
+- So sánh byte trước/sau: chỉ đúng bốn dòng Z đổi, toàn bộ X/Y, PID, mesh, Cartographer, include và các byte còn lại giữ nguyên. Parse phần cấu hình và khối SAVE_CONFIG bằng parser strict: đạt.
+- Trước triển khai và restart: Klipper ready, máy standby/Ready, target mọi heater0, không có SAVE_CONFIG pending. Kiểm tra hash file gốc ngay trước ghi để không ghi đè chỉnh sửa mới của người vận hành.
+- Chỉ chép `printer.cfg` đã kiểm tra lên máy; không chạy installer hoặc đồng bộ rộng. Giữ nguyên SexBolt live `spread: 7`, `lower_z: 0.7`, XY174/168, contact50, probe/transit55.
+- `FIRMWARE_RESTART` thành công. Moonraker xác nhận `configfile.settings` và runtime T0–T4 cùng đúng bảng trên; `save_config_pending=false`. Không gửi `SAVE_CONFIG` để tránh ghi thêm dữ liệu ngoài phạm vi.
+- Hash `printer.cfg` mới ở repository và live: `d29aa55da363ae1e09711053b16f2788339a8ab322193b1480526acf84dd247a`.
+
+### Kết quả và việc còn lại
+
+- Bộ Z18:37 đã được lưu và nạp trên máy; X/Y đã lưu không đổi. Không chạy home, gia nhiệt, di chuyển, đo hoặc in thử.
+- Sau restart, trục chưa home và toolchanger uninitialized; cần tháo đế SexBolt khỏi bàn trước quy trình home/QGL/mesh/in.
+- Chưa xác minh first layer với bộ Z mới. Lựa chọn áp dụng này theo yêu cầu người vận hành, không làm thay đổi kết luận về giới hạn dữ liệu đo ở mục5–6. Quan sát bản in đầu tiên và dùng bản sao lưu nếu cần hoàn tác.
+- Không stage hoặc sửa các thay đổi Printables/Oxplow và file AGENTS.md có sẵn ngoài phạm vi.

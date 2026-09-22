@@ -26,10 +26,12 @@ Offsets below are the values currently persisted in `config/printer.cfg`.
 | Tool | CAN UUID | Dock `(X, Y, Z)` | Offset `(X, Y, Z)` |
 | --- | --- | --- | --- |
 | T0 | `441e1484ac41` | `(30.2, 1.3, 343)` | `(0, 0, 0)` reference |
-| T1 | `6475b5b9e028` | `(104, 1.1, 343)` | `(-0.139, -0.341, 0.2465)` |
-| T2 | `4ad9d622a836` | `(176, 1.6, 343)` | `(1.095, -0.090, -0.2715)` |
-| T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.2465)` |
-| T4 | `28650279df58` | `(321.5, 2.6, 343)` | `(0.213, -0.007, 0.1079)` |
+| T1 | `6475b5b9e028` | `(104, 1.1, 343)` | `(-0.139, -0.341, 0.242)` |
+| T2 | `4ad9d622a836` | `(176, 1.6, 343)` | `(1.095, -0.090, -0.284)` |
+| T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.232)` |
+| T4 | `28650279df58` | `(321.5, 2.6, 343)` | `(0.213, -0.007, 0.086)` |
+
+At the operator's request, only Z was replaced with the 2026-09-22 18:37 SexBolt results; saved X/Y was retained. First-layer validation of this Z set is still pending.
 
 Do not copy historical offsets from journals, downloaded snapshots, experiments, or retired configurations into production.
 
