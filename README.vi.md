@@ -26,12 +26,12 @@ Các offset dưới đây lấy trực tiếp từ `config/printer.cfg` đang qu
 | Tool | CAN UUID | Dock `(X, Y, Z)` | Offset `(X, Y, Z)` |
 | --- | --- | --- | --- |
 | T0 | `441e1484ac41` | `(30.2, 1.3, 343)` | `(0, 0, 0)` chuẩn |
-| T1 | `6475b5b9e028` | `(104, 1.1, 343)` | `(-0.139, -0.341, 0.242)` |
-| T2 | `4ad9d622a836` | `(176, 1.6, 343)` | `(1.095, -0.090, -0.284)` |
-| T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.232)` |
-| T4 | `28650279df58` | `(321.5, 2.6, 343)` | `(0.213, -0.007, 0.086)` |
+| T1 | `6475b5b9e028` | `(104, 1.1, 343)` | `(-0.139, -0.341, 0.2465)` |
+| T2 | `4ad9d622a836` | `(176, 1.6, 343)` | `(1.095, -0.090, -0.2715)` |
+| T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.2465)` |
+| T4 | `28650279df58` | `(321.5, 2.6, 343)` | `(0.213, -0.007, 0.1079)` |
 
-Theo yêu cầu người vận hành, chỉ Z được thay bằng kết quả SexBolt lúc 18:37 ngày 2026-09-22; X/Y đã lưu được giữ nguyên. Bộ Z này còn chờ kiểm chứng first layer.
+Theo yêu cầu người vận hành ngày 2026-09-23, chỉ Z được khôi phục về giá trị đã lưu trước thay đổi lúc 20:15 ngày 2026-09-22 (`7763e82`); X/Y hiện tại được giữ nguyên. Bộ Z SexBolt lúc 18:37 không còn được áp dụng. Chưa in thử trong lần hoàn tác này.
 
 Không chép offset lịch sử từ nhật ký, snapshot tải về, thí nghiệm hoặc cấu hình đã retired vào production.
 
