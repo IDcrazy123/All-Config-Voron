@@ -26,12 +26,12 @@ Các offset dưới đây lấy trực tiếp từ `config/printer.cfg` đang qu
 | Tool | CAN UUID | Dock `(X, Y, Z)` | Offset `(X, Y, Z)` |
 | --- | --- | --- | --- |
 | T0 | `441e1484ac41` | `(30.2, 1.3, 343)` | `(0, 0, 0)` chuẩn |
-| T1 | `6475b5b9e028` | `(104, 1.1, 343)` | `(-0.139, -0.341, 0.2465)` |
-| T2 | `4ad9d622a836` | `(176, 1.6, 343)` | `(1.095, -0.090, -0.2715)` |
-| T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.2465)` |
-| T4 | `28650279df58` | `(321.5, 2.6, 343)` | `(0.213, -0.007, 0.1079)` |
+| T1 | `6475b5b9e028` | `(104, 1.1, 343)` | `(-0.139, -0.341, 0.1665)` |
+| T2 | `4ad9d622a836` | `(176, 1.6, 343)` | `(1.095, -0.090, -0.3515)` |
+| T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.3265)` |
+| T4 | `28650279df58` | `(321.5, 2.6, 343)` | `(0.213, -0.007, 0.0279)` |
 
-Theo yêu cầu người vận hành ngày 2026-09-23, chỉ Z được khôi phục về giá trị đã lưu trước thay đổi lúc 20:15 ngày 2026-09-22 (`7763e82`); X/Y hiện tại được giữ nguyên. Bộ Z SexBolt lúc 18:37 không còn được áp dụng. Chưa in thử trong lần hoàn tác này.
+Ngày 2026-09-25, người vận hành xác nhận mức chỉnh thêm `-0.0800 mm` trên BTT/KlipperScreen cho từng tool T1-T4. Các giá trị đã lưu này đã cộng mức chỉnh đúng một lần vào bộ gốc khôi phục ngày 2026-09-23; giữ nguyên T0, X/Y và Cartographer. Không chỉnh lặp lại cùng mức babystep `-0.08 mm` sau khi nạp cấu hình này. Cần in first layer mới để kiểm chứng kết quả đã lưu.
 
 Không chép offset lịch sử từ nhật ký, snapshot tải về, thí nghiệm hoặc cấu hình đã retired vào production.
 

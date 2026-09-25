@@ -26,12 +26,12 @@ Offsets below are the values currently persisted in `config/printer.cfg`.
 | Tool | CAN UUID | Dock `(X, Y, Z)` | Offset `(X, Y, Z)` |
 | --- | --- | --- | --- |
 | T0 | `441e1484ac41` | `(30.2, 1.3, 343)` | `(0, 0, 0)` reference |
-| T1 | `6475b5b9e028` | `(104, 1.1, 343)` | `(-0.139, -0.341, 0.2465)` |
-| T2 | `4ad9d622a836` | `(176, 1.6, 343)` | `(1.095, -0.090, -0.2715)` |
-| T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.2465)` |
-| T4 | `28650279df58` | `(321.5, 2.6, 343)` | `(0.213, -0.007, 0.1079)` |
+| T1 | `6475b5b9e028` | `(104, 1.1, 343)` | `(-0.139, -0.341, 0.1665)` |
+| T2 | `4ad9d622a836` | `(176, 1.6, 343)` | `(1.095, -0.090, -0.3515)` |
+| T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.3265)` |
+| T4 | `28650279df58` | `(321.5, 2.6, 343)` | `(0.213, -0.007, 0.0279)` |
 
-At the operator's request on 2026-09-23, only Z was restored to the saved values from before the 2026-09-22 20:15 change (`7763e82`); current X/Y was retained. The 18:37 SexBolt Z set is no longer active. No print test was performed as part of this rollback.
+On 2026-09-25, the operator confirmed an additional `-0.0800 mm` BTT/KlipperScreen adjustment for each of T1-T4. These saved values include that adjustment once, applied to the baseline restored on 2026-09-23; T0, X/Y, and Cartographer remain unchanged. Do not repeat the same `-0.08 mm` babystep after reloading this configuration. A new first-layer print is still needed to verify the persisted result.
 
 Do not copy historical offsets from journals, downloaded snapshots, experiments, or retired configurations into production.
 
