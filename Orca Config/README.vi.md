@@ -2,7 +2,7 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Tổng quan dự án](../README.vi.md)
 
-Thư mục này phản chiếu profile OrcaSlicer active được chọn từ `%APPDATA%\OrcaSlicer\user`. Ngày 2026-09-20, profile được chọn có ID `838ce884-12ee-416b-9e1b-1c7503cf6b5f`; 18 file JSON đã được parse và đồng bộ.
+Thư mục này phản chiếu profile OrcaSlicer active được chọn từ `%APPDATA%\OrcaSlicer\user`. Ngày 2026-09-27, profile được chọn có ID `838ce884-12ee-416b-9e1b-1c7503cf6b5f`; 19 file JSON đã được parse và đồng bộ.
 
 ## Danh sách active
 
@@ -22,6 +22,7 @@ Filament:
 - `ABS Tpoimns Pink.json`
 - `ABS-Pro Tinmory Black.json`
 - `PETG Bambu Basic Black.json`
+- `PETG Bambu Basic White.json`
 - `PETG Kabber Blue.json`
 - `PETG Noname Antums.json`
 - `PETG Tinmory Black.json`
@@ -37,9 +38,12 @@ Sáu preset cũ chỉ còn trong repository đã bị loại trong đợt rà so
 
 ## Thay đổi vừa đồng bộ
 
-- `Voron Stealthchanger.json`: `z_hop` của cả năm tool đổi từ `0.6` xuống `0.4` mm theo profile Orca active.
-- `0.20mm PETG.json`: đồng bộ override process Orca 2.4.0.2 đang dùng, gồm painted brim, preheat 6 giây, brim tháp 10 mm, prime tower 40 mm, prime volume 40 mm³ và tốc độ purge tower tối đa 50 mm³/s.
-- Hai alias trong `extras/Orcasilcer setting/` hiện phản chiếu `Voron Stealthchanger.json` và `0.20mm Multicolor PetG.json`.
+- Đồng bộ toàn bộ trạng thái active đã sửa ngày 2026-09-26, gồm Spiral Lift 0,15 mm, retraction/tool-change, process override và preset mới `PETG Bambu Basic White.json`.
+- `Voron Stealthchanger.json`: đưa `retract_restart_extra` của cả năm tool từ 0,2 mm về 0 và bật phát quạt overhang sớm 0,5 giây.
+- `PETG Kabber Blue.json`: giảm số lớp khóa quạt kế thừa từ 3 xuống 2 để lớp vật lý 3 có cooling overhang.
+- `0.20mm Multicolor PetG.json`: bật xử lý small perimeter với threshold 5 mm và tốc độ 30 mm/s.
+- Reslice cô lập `RoboOctopus_4Color.3mf` bằng OrcaSlicer 2.4.2 đã xác nhận toàn bộ 88 restart lớp 3 của Arm1–Arm8 dùng `E0.5` thay cho `E0.7`, đồng thời T1 có cooling 10%/90%.
+- Hai alias trong `extras/Orcasilcer setting/` phản chiếu `Voron Stealthchanger.json` và `0.20mm Multicolor PetG.json`.
 
 ## Đồng bộ
 

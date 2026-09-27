@@ -2,7 +2,7 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Project overview](../README.md)
 
-This directory mirrors the active OrcaSlicer user profile selected from `%APPDATA%\OrcaSlicer\user`. On 2026-09-20 the selected profile ID was `838ce884-12ee-416b-9e1b-1c7503cf6b5f`; 18 JSON files were validated and synchronized.
+This directory mirrors the active OrcaSlicer user profile selected from `%APPDATA%\OrcaSlicer\user`. On 2026-09-27 the selected profile ID was `838ce884-12ee-416b-9e1b-1c7503cf6b5f`; 19 JSON files were validated and synchronized.
 
 ## Active inventory
 
@@ -22,6 +22,7 @@ Filament profiles:
 - `ABS Tpoimns Pink.json`
 - `ABS-Pro Tinmory Black.json`
 - `PETG Bambu Basic Black.json`
+- `PETG Bambu Basic White.json`
 - `PETG Kabber Blue.json`
 - `PETG Noname Antums.json`
 - `PETG Tinmory Black.json`
@@ -37,9 +38,12 @@ Six repository-only legacy presets were removed during the 2026-09-20 audit afte
 
 ## Latest synchronized changes
 
-- `Voron Stealthchanger.json`: all five `z_hop` values changed from `0.6` to `0.4` mm, matching the active Orca profile.
-- `0.20mm PETG.json`: synchronized the active Orca 2.4.0.2 process override, including painted brim, 6 s preheat, 10 mm tower brim, 40 mm prime tower, 40 mm³ prime volume, and 50 mm³/s maximum tower purge speed.
-- Analysis aliases under `extras/Orcasilcer setting/` now mirror `Voron Stealthchanger.json` and `0.20mm Multicolor PetG.json`.
+- Synchronized the complete active profile state changed on 2026-09-26, including the 0.15 mm Spiral Lift setup, retraction/tool-change values, process overrides, and the new `PETG Bambu Basic White.json` preset.
+- `Voron Stealthchanger.json`: reset all five `retract_restart_extra` values from 0.2 mm to 0, and enabled 0.5 s overhang-only fan lead time.
+- `PETG Kabber Blue.json`: changed the no-cooling window from three inherited layers to two, allowing overhang cooling on physical layer 3.
+- `0.20mm Multicolor PetG.json`: enabled small-perimeter handling with a 5 mm threshold and 30 mm/s speed.
+- An isolated OrcaSlicer 2.4.2 reslice of `RoboOctopus_4Color.3mf` confirmed all 88 Arm1–Arm8 layer-3 restarts now use `E0.5` instead of `E0.7`, with T1 cooling active at 10%/90%.
+- Analysis aliases under `extras/Orcasilcer setting/` mirror `Voron Stealthchanger.json` and `0.20mm Multicolor PetG.json`.
 
 ## Synchronization
 

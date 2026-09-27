@@ -14,8 +14,14 @@
 	"filament_max_volumetric_speed": [
 		"20"
 	],
+	"filament_retract_when_changing_layer": [
+		"0"
+	],
 	"filament_settings_id": [
 		"PETG TPoimns Yellow"
+	],
+	"filament_wipe": [
+		"0"
 	],
 	"from": "User",
 	"hot_plate_temp": [
