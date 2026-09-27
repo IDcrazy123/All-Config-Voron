@@ -220,3 +220,50 @@ Với Speed Factor 50%, kết quả mong đợi là object chạy 50%, toolchang
 - OrcaSlicer issue #7021: https://github.com/OrcaSlicer/OrcaSlicer/issues/7021
 - Klipper G-Codes (`M220`, `SAVE_GCODE_STATE`): https://www.klipper3d.org/G-Codes.html
 - Klipper status `gcode_move.speed_factor`: https://www.klipper3d.org/Status_Reference.html
+
+## 7. Audit G-code RoboOctopus mới sau khi chỉnh Orca
+
+### File được kiểm tra
+
+- `extras/gcode/RoboOctopus_4Color_PETG_2d5h19m.gcode`
+- OrcaSlicer 2.4.2, sinh lúc 2026-09-27 14:45:53.
+- Dung lượng: 331.240.522 byte.
+- SHA-256: `6433031E9A8BA79B30352F68A18A3E42697588523345BD3A30DA79BAD7FFC88A`.
+- Ước lượng: 2 ngày 5 giờ 18 phút 42 giây; 404 lớp và 1.167 lần đổi tool.
+
+### Các sửa đổi đã có hiệu lực
+
+1. `retract_restart_extra=0` và `retract_restart_extra_toolchange=0` cho cả năm tool. Toàn file không còn `E0.7` hoặc `E5.2`; layer 3 T1 có 89 deretraction `E0.5` đúng bằng lượng retract.
+2. T1 Blue dùng `close_fan_the_first_x_layers=2`; trong block T1 layer 3 có 25 lần `M106 S229`, 24 lần `M106 S25` và không có `S0` trong lúc in tám Arm. `fan_speedup_time=0.5` đã có trong footer.
+3. `small_perimeter_threshold=5 mm`, `small_perimeter_speed=30 mm/s`. 88,1% chiều dài extrusion của tám feature T1 layer 3 chạy không quá 30 mm/s.
+4. Z-hop đã hoạt động thật: `All Surfaces`, `Auto Lift`, 0,20 mm. Cả 164.663/164.663 chu kỳ deretraction `E0.5` đều có lift ít nhất 0,20 mm; không còn chu kỳ no-hop. Hop tối đa 0,40 mm khi trùng đổi layer.
+5. `tool_change_on_wipe_tower=1` đã có hiệu lực. Cả 1.167/1.167 lần đổi tool thật gọi `Tn` tại footprint tower X100,722–140,224/Y53,5224–68,5243; marker START/END cân bằng và không lồng nhau.
+6. Mọi toolchange unload đúng `E-5`; 1.164 lần reload tool đã dùng trước đó đúng `E5`. Ba lần chọn tool lần đầu không reload là hợp lý. Cả 1.168 `M109` đều khớp incoming tool.
+7. Không có NaN/Inf, feed âm/0, Z reversal bất thường, move gốc vượt `max_extrude_cross_section`, hoặc tọa độ vượt vùng máy. Bounds: X43,470–271,196; Y29,817–310,181; Z0,24–81,04 mm.
+
+### Lỗi chặn còn tồn tại: object labels/exclude
+
+- Footer vẫn có `gcode_label_objects=1` và `exclude_object=1`; G-code có 11 definitions cùng 6.465 cặp START/END hợp lệ.
+- Replay đúng `exclude_object.py` của Klipper commit máy `60fc7aa`, với Arm5 → Arm8 → Arm6 bị loại tại cùng thời điểm ngữ nghĩa như job cũ, vẫn tái hiện lỗi.
+- Khi rời Arm6 bằng T0, dòng G-code 1.132.287 là travel không có E: `G1 X229.7 Y303.812 Z3.24 F21000`.
+- Transform chèn ảo `+26,49419 mm E` trên quãng đường 96,47182 mm, tạo cross-section `0,660566 mm² > 0,640 mm²`; Klipper sẽ dừng bằng `Move exceeds maximum extrusion`.
+- Độ tin cậy của replay được kiểm tra bằng file cũ: cùng simulator tái tạo `+36,49416 mm E`, `1,590252 mm²`, khớp log thật `1,590 mm²`.
+- Z-hop mới chỉ làm thay đổi quãng travel nên hạ trị số lỗi; nó không sửa state `max_position_*` dùng chung giữa các extruder.
+- Labels tự thân không kích hoạt lỗi nếu không bấm exclude. Tuy nhiên, do job trước đã cần loại ba Arm, file mới không được xem là an toàn vận hành dài khi chức năng Exclude vẫn khả dụng. Khuyến nghị reslice với object labels tắt; không tăng `max_extrude_cross_section`.
+
+### Rủi ro còn lại cần coupon
+
+- Cooling T1 không còn tắt, nhưng 126,44/129,41 mm đường đùn layer 3 (97,7%) vẫn chạy `S25` xấp xỉ 10%; Arm1 và Arm8 không có đoạn `S229`. Cần xác nhận blower thực quay ổn định ở duty này và thử trong điều kiện chamber phù hợp.
+- 14,40/129,41 mm (11,1%) feature T1 layer 3 vẫn có target 100–120 mm/s do Arachne phân loại outer wall, dù phần còn lại đã xuống 30 mm/s. Nominal flow cao nhất tại đây 13,76 mm³/s, không chạm MVS 20.
+- Travel vẫn 350 mm/s, acceleration 7.000 mm/s² và SCV 9 khi in/12 khi travel; G-code phát mỗi mức SCV 218.660 lần, ghi đè baseline Klipper 5.
+- MVS vẫn 20 mm³/s; toàn job có 3,68% thể tích ở ít nhất 18 mm³/s và 2,62% ở ít nhất 19,5 mm³/s. Chưa có calibration riêng từng spool/tool.
+- Initial-layer infill vẫn 105 mm/s, `slow_down_layers=0`.
+- 164.663 Z-hop là tải chuyển động Z rất lớn. Ước lượng job tăng khoảng 9 giờ 10 phút so với G-code cũ; phần tăng là tổng hợp của Z-hop, đi đổi tool tại tower và các thay đổi tốc độ, không quy riêng cho một setting.
+- `M220 S100` vẫn có 1.168 lần và không restore, đúng quyết định giữ nguyên workaround: job chạy bình thường ở 100%, nhưng Speed Factor Mainsail vẫn mất sau toolchange.
+
+### Kết luận vận hành
+
+- Chưa chạy full plate 53 giờ từ file này nếu vẫn có khả năng dùng Exclude Object.
+- Tạo bản reslice tiếp theo với object labels tắt, sau đó audit lại marker trước khi gửi máy.
+- Trước full plate, in coupon 1–2 Arm để kiểm chứng airflow 10%, các đoạn outer-wall còn nhanh và tải của Auto Lift 0,20 mm.
+- Phiên này chỉ đọc và phân tích; không chỉnh G-code, profile Orca hoặc cấu hình máy.
