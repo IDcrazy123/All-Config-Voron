@@ -93,3 +93,50 @@ Khi mô phỏng các giá trị last/max theo từng extruder, cùng travel có 
 - Orca retraction: https://github.com/OrcaSlicer/OrcaSlicer/wiki/printer_extruder_retraction
 - Klipper exclude object guide: https://github.com/Klipper3d/klipper/blob/master/docs/Exclude_Object.md
 - Klipper source tại commit đang chạy: https://github.com/Klipper3d/klipper/blob/60fc7aa67/klippy/extras/exclude_object.py
+
+## 4. Audit toàn bộ G-code cũ và các rủi ro còn lại
+
+### Phạm vi và phần đã loại trừ
+
+- Đọc toàn bộ file cũ khoảng 335 MB/13,57 triệu dòng, 403 lần đổi lớp từ `Z=0.24` đến `Z=80.64`.
+- Không có `NaN`/`Inf`, Z đi lùi, tọa độ vượt khổ máy, lệnh nhiệt bị thiếu, chuyển đổi `M82/M83` sai hoặc bước nhảy E thật bất thường.
+- 1.167 lần đổi tool đều unload tổng đúng 5 mm; mỗi lần chọn tool đều có `M109`. Pressure Advance đúng theo T0/T1/T2/T3 là 0.072/0.060/0.066/0.076.
+- Lưu lượng lệnh bình thường không vượt `max_extrude_cross_section=0.64 mm²`; lỗi extrusion khi exclude vẫn là state-transform của Klipper, không phải G-code gốc đòi phun quá mức.
+- File lớn không làm Klippy nghẽn: không có bằng chứng buffer starvation hay tải host gây job abort.
+
+### Phát hiện chắc chắn
+
+1. `retract_restart_extra=+0.2 mm` ảnh hưởng toàn bộ job, không chỉ tám Arm ở lớp 3. Có 163.495 lần restart thường dùng `E0.7` sau retract 0,5 mm và 1.164 lần phục hồi đổi tool dùng `E5.2` sau unload 5 mm. Tổng dư lý thuyết là 32.931,8 mm filament, khoảng 79,2 cm³ hoặc xấp xỉ 99 g PETG. Footer của Orca không cộng phần restart-extra này nên ước lượng vật liệu cũ che giấu lượng dư. Không được tái dùng G-code cũ.
+2. Wipe tower đang là Type 2 nhưng `tool_change_on_wipe_tower=0`. Replay XY cho thấy 0/1.167 lần đổi tool thật xảy ra tại tháp; tất cả được gọi khi đầu in còn ở trên hoặc gần chi tiết, rồi mới đi tới tower. `t_command_restore_axis: Z` không phục hồi XY. Đây là rủi ro rỉ nhựa/va chạm độc lập với lỗi restart-extra.
+3. `M220 S100` xuất hiện 1.168 lần tại các block wipe/toolchange và không có restore. Mọi Speed Factor giảm trong Mainsail bị trả về 100% ở lần đổi đầu kế tiếp; không được dùng slider live làm biện pháp giảm tốc cho bài multi-tool này.
+4. Z-hop gần như không hoạt động vì `retract_lift_enforce=Top Only`: chỉ khoảng 198/156.827 chu kỳ retract-to-print có nâng Z đủ 0,15 mm; 6.194/6.222 lần chuyển object không nâng. Tại `sd_pos` của watchdog Arm5, G-code đang ở chuỗi travel 350 mm/s cùng Z ngay sau retract, nên tương quan với cơ chế nozzle quệt phần đã cong là rất mạnh, dù cảm biến không xác định vật bị chạm.
+5. Orca phát `SQUARE_CORNER_VELOCITY=9` khi in và `12` khi travel, mỗi mức 218.662 lần; G-code không dùng SCV 5 đặt trong `printer.cfg`. Travel đạt 350 mm/s, acceleration 7.000. Không vượt giới hạn slicer, nhưng tạo chuyển động gắt hơn baseline máy và tăng hậu quả khi đi qua island nhỏ.
+6. `filament_max_volumetric_speed=20 mm³/s` được dùng thật ở sparse/internal solid infill. Khoảng 8,1% thể tích extrusion được lệnh từ 18 mm³/s trở lên và khoảng 3,5% ở vùng 20 mm³/s. Giá trị 20 chưa có log hiệu chuẩn từng spool/hotend; nhật ký cũ từng giữ trần tạm 15 mm³/s. Đây là nguy cơ thiếu đùn/độ bám lớp về sau, không phải nguyên nhân blob T1 lớp 3.
+7. Lớp đầu dùng perimeter 30 mm/s nhưng bottom surface/infill 105 mm/s; `slow_down_layers=0`, nên không có ramp tốc độ các lớp đầu. Đây là rủi ro độ bám nền cho job 44 giờ nhiều vật, chưa thấy bằng chứng nó gây ba Arm bị loại.
+8. Chamber khoảng 49,5–49,7°C khi T1 in lớp lỗi, khoảng 53°C quanh watchdog; `PRINT_START` bật bed-fan 50% nhưng G-code không điều khiển exhaust thật. Nhiệt buồng cao có thể làm PETG island/overhang nguội chậm. Metadata exhaust không chứng minh quạt xả vật lý đang chạy.
+9. Tại lớp T1 kế tiếp có 176 cặp đổi PWM quạt 90%↔10% trong khoảng 102 giây. Với `fan_min_speed=10%` và không có phản hồi RPM, cần kiểm tra blower có tự khởi động/duy trì ở `M106 S25`; không suy đoán một duty tối thiểu khi chưa đo.
+10. Prime tower dùng khoảng 58.945 mm³, xấp xỉ 74 g PETG, cho 1.167 lần đổi tool. Đây là chi phí dự kiến của job; chỉ giảm purge/prime sau coupon nhiều tool, không giảm mù.
+
+### Thứ tự thay đổi đề xuất
+
+1. **Bắt buộc trước job dài:** reslice bằng profile đã sửa restart/cooling/small-perimeter; đặt `tool_change_on_wipe_tower=1`; tạm đặt `gcode_label_objects=0` cho multi-tool để không thể kích hoạt bug exclude-object hiện tại. Sau slice, kiểm tra mọi `Tn` nằm tại tower và không còn marker object.
+2. **Plate chẩn đoán 1–2 Arm:** `Z-hop enforcement=All Surfaces`, Spiral Lift 0,20 mm; travel 250 mm/s, travel acceleration 5.000 mm/s²; đưa jerk/SCV print và travel về 5 mm/s để khớp `printer.cfg`. Chỉ tăng hop lên 0,30 mm nếu vẫn có bằng chứng quệt; không áp toàn bộ profile trước khi đo thời gian và chuyển động Z phát sinh.
+3. **Độ bám lớp đầu:** thử initial-layer infill khoảng 50 mm/s và `slow_down_layers=3`; giữ nguyên brim gap 0,2 mm nếu không có dấu hiệu bong nền.
+4. **Vật liệu:** tạm dùng 15 mm³/s cho lượt xác minh độ tin cậy, rồi chạy Temperature Tower và Max Volumetric Speed cho đúng từng spool/tool; lưu kết quả bền vững trừ biên 10–15%. Với Bambu PETG Basic, preset hệ thống Orca hiện dùng MVS 13 và dải nozzle 230–270°C, trong khi profile job là 20 và 220/225°C; cần tower trước khi xác nhận nhiệt production.
+5. **Cooling:** chạy thử PETG với bed-fan tắt hoặc enclosure thông thoáng và theo dõi chamber thấp hơn; đây là thử nghiệm riêng, chưa sửa macro chung. Đo khả năng khởi động của từng blower ở 10%; chỉ sau đó mới nâng `fan_min_speed`/kickstart nếu cần.
+6. **Vận hành:** không dựa vào Speed Factor live vì `M220 S100`; không bật tùy chọn Orca mới “Wait for Temperature on Wipe Tower” khi KTC `pickup_gcode` đã có `M109`, trừ khi thiết kế lại và kiểm thử chuỗi nhiệt. Chưa sửa purge volume hay firmware motion dựa trên G-code cũ.
+
+### Trạng thái
+
+- Phiên audit này chỉ thay tài liệu; chưa sửa thêm profile Orca, cấu hình Klipper hoặc máy in.
+- Các thay đổi trên cần được áp theo từng nhóm và reslice/preview lại, ưu tiên coupon ngắn trước job đầy đủ.
+
+### Tham chiếu upstream bổ sung
+
+- Orca Type 2 wipe tower: https://github.com/OrcaSlicer/OrcaSlicer/wiki/printer_multimaterial_wipe_tower
+- Orca initial-layer speed: https://github.com/orcaslicer/orcaslicer/wiki/speed_settings_initial_layer_speed
+- Orca Z-hop: https://github.com/OrcaSlicer/OrcaSlicer/wiki/printer_extruder_z_hop
+- Orca calibration: https://github.com/OrcaSlicer/OrcaSlicer/wiki/Calibration/2b70123e50cc43b7f6003339030c76eb2a8067c6
+- Orca MVS: https://github.com/OrcaSlicer/OrcaSlicer/wiki/material_volumetric_speed_limitation
+- Orca `M220 S100` issue: https://github.com/OrcaSlicer/OrcaSlicer/issues/7021
+- Klipper G-code state: https://www.klipper3d.org/G-Codes.html
