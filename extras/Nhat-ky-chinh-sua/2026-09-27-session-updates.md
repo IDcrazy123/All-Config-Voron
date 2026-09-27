@@ -140,3 +140,14 @@ Khi mô phỏng các giá trị last/max theo từng extruder, cùng travel có 
 - Orca MVS: https://github.com/OrcaSlicer/OrcaSlicer/wiki/material_volumetric_speed_limitation
 - Orca `M220 S100` issue: https://github.com/OrcaSlicer/OrcaSlicer/issues/7021
 - Klipper G-code state: https://www.klipper3d.org/G-Codes.html
+
+## 5. Xác minh cách chỉnh Z-hop trong OrcaSlicer 2.4.2
+
+- Profile active hiện đặt cả năm tool: `On surfaces=Top Only`, `Z-hop type=Spiral Lift`, `Z-hop height=0.15 mm`, `Traveling angle=15°`, `Only lift Z above/below=0/0` và `retraction_minimum_travel=2 mm`.
+- Đối chiếu source OrcaSlicer tag v2.4.2 xác nhận `Top Only` chỉ cho lift khi extrusion role cuối là Top Solid Infill hoặc Ironing; nó không có nghĩa là mọi travel phía trên object. `All Surfaces` mới cho phép lift sau mọi retract/toolchange đủ điều kiện.
+- Z-hop vẫn phụ thuộc vào retraction: travel ngắn hơn ngưỡng hoặc travel bị bỏ retract sẽ không hop. `Auto Lift` không quyết định có hop hay không; nó chỉ chọn Spiral khi đường đầu travel cắt vùng overhang, ngược lại chọn Slope. Toolchange/layer change dùng Auto bị ép về Spiral.
+- Thiết lập coupon đề xuất: đổi `On surfaces` thành `All Surfaces` cho năm tool, tăng height lên 0,20 mm, giữ Spiral/15°/0/0 để thay đổi tối thiểu. Nếu vẫn quệt ngay tại điểm rời island, dùng `Normal Lift` để hoàn tất nâng Z trước chuyển động XY.
+- Không áp thẳng cho plate đầy đủ: G-code cũ có hơn 156 nghìn chu kỳ retract-to-print nên All Surfaces có thể tạo số hop rất lớn. Cần reslice 1–2 Arm và xác nhận sau retract có Z tăng khoảng 0,20 mm, sau đó hạ lại trước extrusion; Spiral có thể hiện bằng G2/G3 hoặc move XYZ, không nhất thiết là một dòng `G1 Z` riêng.
+- Đường dẫn UI: Advanced → Edit Printer preset → `Extruder 1`…`Extruder 5` → nhóm `Z-Hop`.
+- Tài liệu: https://github.com/OrcaSlicer/OrcaSlicer/wiki/printer_extruder_z_hop
+- Phiên này chỉ xác minh và đề xuất; chưa thay đổi profile active.
