@@ -151,3 +151,68 @@ Khi mô phỏng các giá trị last/max theo từng extruder, cùng travel có 
 - Đường dẫn UI: Advanced → Edit Printer preset → `Extruder 1`…`Extruder 5` → nhóm `Z-Hop`.
 - Tài liệu: https://github.com/OrcaSlicer/OrcaSlicer/wiki/printer_extruder_z_hop
 - Phiên này chỉ xác minh và đề xuất; chưa thay đổi profile active.
+
+## 6. Xác minh Speed Factor trong Mainsail bị trả về 100%
+
+### Triệu chứng
+
+- Khi giảm Speed Factor trong Mainsail, mức giảm chỉ giữ được đến lần đổi tool kế tiếp; sau đó giao diện và chuyển động trở lại 100%.
+- G-code cũ và bản reslice mới đều chứa 1.168 lệnh chính xác `M220 S100`: 1.167 lệnh trong các lần đổi tool thật và một lệnh ở final unload.
+- Không có `M220 B`, `M220 R`, `SAVE_GCODE_STATE` hoặc cơ chế tương đương để khôi phục mức Speed Factor trước đó.
+
+### Nguyên nhân gốc đã xác nhận
+
+- Đây không phải lỗi của Mainsail, KTC hoặc lần mất nguồn. Mainsail chỉ gửi `M220 S<phần-trăm>`; Klipper gán trực tiếp giá trị này vào `speed_factor`.
+- OrcaSlicer 2.4.2 Type 2 wipe tower gọi backup, đặt `M220 S100`, rồi gọi restore. Tuy nhiên, trong `WipeTower2.cpp`, backup/restore chỉ phát `M220 B/R` cho Marlin; nhánh Klipper không phát gì. Vì vậy lệnh `M220 S100` ghi đè mức người vận hành chọn và giá trị cũ bị mất.
+- Orca issue #7021 mô tả đúng lỗi này; issue đã đóng vì stale/not planned và source hiện tại vẫn còn logic tương tự. Không có setting Orca 2.4.2 để tắt riêng lệnh reset này.
+- KTC lưu G-code state sau khi `M220 S100` đã chạy, nên state của KTC cũng chỉ ghi nhớ 100% và không thể phục hồi mức cũ.
+
+### Phương án sửa đề xuất
+
+Không override `M220` toàn cục và không xóa mù mọi `M220 S100`, vì các lệnh reset ở `PRINT_END`/cancel/final unload là có chủ đích. Không dùng full `SAVE_GCODE_STATE` chỉ cho việc này vì nó còn lưu/khôi phục modes, vị trí cơ sở/G92, offsets, feed, M221 và trạng thái E.
+
+Dùng hai macro chỉ lưu riêng Speed Factor:
+
+```ini
+[gcode_macro ORCA_WIPE_SPEED_BEGIN]
+variable_saved_percent: 100.0
+gcode:
+  {% set pct = printer.gcode_move.speed_factor|float * 100.0 %}
+  SET_GCODE_VARIABLE MACRO=ORCA_WIPE_SPEED_BEGIN VARIABLE=saved_percent VALUE={pct}
+  M220 S100
+
+[gcode_macro ORCA_WIPE_SPEED_END]
+gcode:
+  {% set pct = printer["gcode_macro ORCA_WIPE_SPEED_BEGIN"].saved_percent|float %}
+  M220 S{pct}
+```
+
+Postprocessor Orca phải là state machine và fail-closed:
+
+1. Chỉ bọc một `CP TOOLCHANGE` khi block đó có đủ cặp `; WIPE_TOWER_START` / `; WIPE_TOWER_END`; thay đúng dòng `M220 S100` sau `WIPE_TOWER_START` bằng `ORCA_WIPE_SPEED_BEGIN`.
+2. Với block đã thay, chèn `ORCA_WIPE_SPEED_END` ngay trước marker `; CP TOOLCHANGE END`.
+3. Từ chối xuất file nếu block lồng nhau, marker không đóng, block wipe thiếu hoặc thừa reset, hay số wipe-start/wipe-end/BEGIN/END không bằng nhau.
+4. Không sửa block final unload không có marker wipe, reset cuối job hoặc các macro `PRINT_END`/cancel. Với file này, kết quả đúng phải là 1.167 BEGIN + 1.167 END và còn đúng một `M220 S100` ở final unload.
+
+Với Speed Factor 50%, kết quả mong đợi là object chạy 50%, toolchange/wipe tower tạm chạy 100%, rồi object tự trở lại 50%. Nếu chỉ xóa reset trong tower thì slider cũng được giữ, nhưng docking/unload/wipe sẽ chịu cả mức tăng trên 100%; phương án này không được khuyến nghị cho máy nhiều tool.
+
+### Xác minh bắt buộc trước production
+
+- Test lạnh: đặt `M220 S50`, gọi BEGIN và xác nhận 100%, gọi END và xác nhận trở lại 50%.
+- Xác nhận không đổi XYZ, E, tool transform, G90/G91, M82/M83 hoặc M221.
+- Post-process coupon hai tool; kiểm tra số BEGIN bằng số END, bằng số cặp wipe tower được bọc, và chỉ còn reset có chủ đích ngoài các block đó.
+- In coupon ở 50–70%; quan sát tower/toolchange lên 100% rồi object trở lại giá trị đã chọn.
+- Không chỉnh slider trong lúc đang ở giữa BEGIN/END, vì END có chủ đích phục hồi giá trị đã lưu trước block.
+- Xác nhận cancel và `PRINT_END` vẫn trả Speed Factor về 100%.
+
+### Trạng thái
+
+- Phiên này chỉ xác minh nguyên nhân và thiết kế cách sửa; chưa thay đổi cấu hình Klipper, profile Orca hoặc G-code production.
+- Cần tạo backup, cài macro, thêm postprocessor, replay lạnh và in coupon trước khi dùng cho job dài.
+
+### Tham chiếu
+
+- OrcaSlicer 2.4.2 `WipeTower2.cpp`: https://github.com/OrcaSlicer/OrcaSlicer/blob/v2.4.2/src/libslic3r/GCode/WipeTower2.cpp
+- OrcaSlicer issue #7021: https://github.com/OrcaSlicer/OrcaSlicer/issues/7021
+- Klipper G-Codes (`M220`, `SAVE_GCODE_STATE`): https://www.klipper3d.org/G-Codes.html
+- Klipper status `gcode_move.speed_factor`: https://www.klipper3d.org/Status_Reference.html
