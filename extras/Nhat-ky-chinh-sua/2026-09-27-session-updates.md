@@ -268,3 +268,12 @@ Với Speed Factor 50%, kết quả mong đợi là object chạy 50%, toolchang
 - Tạo bản reslice tiếp theo với cả Label Objects và Exclude Objects tắt, sau đó xác nhận không còn lệnh `EXCLUDE_OBJECT_*` trước khi gửi máy.
 - Trước full plate, in coupon 1–2 Arm để kiểm chứng airflow 10%, các đoạn outer-wall còn nhanh và tải của Auto Lift 0,20 mm.
 - Phiên này chỉ đọc và phân tích; không chỉnh G-code, profile Orca hoặc cấu hình máy.
+
+## 8. Đánh giá ngưỡng quạt PETG Kabber Blue
+
+- Ảnh Orca hiện đặt Min fan 10% tại layer time 30 s, Max fan 40% tại 12 s, Keep fan always on và slowdown bật, overhang threshold 10% với fan overhang 90%.
+- Ý nghĩa: layer ít nhất 30 s chạy mức Min; từ 30 xuống 12 s nội suy Min → Max; layer không quá 12 s mới đạt Max. `Full fan speed at layer=0` tắt ramp tự động, nên sau hai lớp không quạt, target cooling có hiệu lực ngay ở lớp 3.
+- Audit G-code chứng minh lớp lỗi là layer dài: 97,7% chiều dài T1 của tám Arm dùng `M106 S25` xấp xỉ 10%. Do đó tăng Max 40 → 80 không làm layer lỗi đạt 80%; thay đổi có tác dụng trực tiếp là tăng Min 10 → 20.
+- Thiết lập coupon đề xuất: Min 20%/30 s, Max 60%/12 s; giữ overhang 90%, Keep fan always on và slowdown. Chỉ thử Max 80% nếu coupon vẫn curl/nhão nhưng layer adhesion vẫn tốt; không áp 80% thẳng cho full job.
+- T1 `[fan_generic T1_part_fan]` hiện không khai báo `kick_start_time` hoặc `off_below`. Trước khi tin mức 20%, test lạnh `SET_FAN_SPEED FAN=T1_part_fan SPEED=0.20`, xác nhận quạt tự khởi động nhiều lần, rồi tắt bằng `SET_FAN_SPEED FAN=T1_part_fan SPEED=0`.
+- Phiên này chỉ đưa khuyến nghị; chưa thay profile hoặc cấu hình.
