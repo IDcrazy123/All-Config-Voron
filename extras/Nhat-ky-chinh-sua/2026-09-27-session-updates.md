@@ -277,3 +277,16 @@ Với Speed Factor 50%, kết quả mong đợi là object chạy 50%, toolchang
 - Thiết lập coupon đề xuất: Min 20%/30 s, Max 60%/12 s; giữ overhang 90%, Keep fan always on và slowdown. Chỉ thử Max 80% nếu coupon vẫn curl/nhão nhưng layer adhesion vẫn tốt; không áp 80% thẳng cho full job.
 - T1 `[fan_generic T1_part_fan]` hiện không khai báo `kick_start_time` hoặc `off_below`. Trước khi tin mức 20%, test lạnh `SET_FAN_SPEED FAN=T1_part_fan SPEED=0.20`, xác nhận quạt tự khởi động nhiều lần, rồi tắt bằng `SET_FAN_SPEED FAN=T1_part_fan SPEED=0`.
 - Phiên này chỉ đưa khuyến nghị; chưa thay profile hoặc cấu hình.
+
+## 9. Đánh giá cooling cho A4T dual FastFlag FBJB0410B24
+
+- A4T dùng hai blower 4010 cho part cooling và tác giả A4T khuyến nghị blower GDStime 24 V 12.000 RPM. Không tìm thấy datasheet công khai được lập chỉ mục cho đúng SKU FastFlag `FBJB0410B24`, nên không suy đoán CFM, dòng điện hoặc ngưỡng PWM chỉ từ mã model.
+- Cấu hình production dùng một ngõ PWM chung cho cả cụm: `T1_part_fan` trên `EBB1:PA1`. Live Klipper báo `max_power=1`, PWM 100 Hz, `kick_start_time=0.1 s`, `off_below=0` và không có tachometer (`rpm=null`). Phần trăm Orca được cấp đồng thời cho cả hai quạt, không bị chia đôi; phần mềm cũng không thể phát hiện một trong hai quạt bị đứng.
+- Profile AppData đã được người vận hành sửa lúc 15:51 thành Min 20% tại 20 s và Max 100% tại 8 s cho Kabber Blue/Bambu Black/Bambu White. Các thay đổi này chưa đồng bộ về repo và không có trong G-code sinh lúc 14:45; G-code đó vẫn dùng 10% tại 30 s → 40% tại 12 s.
+- Baseline PETG đề xuất cho coupon A4T: Min 20% tại 30 s, Max 60% tại 12 s, tắt quạt hai lớp đầu, `Full fan speed at layer=0`, Keep fan always on và slowdown bật, Min print speed 10 mm/s. Overhang/external bridge dùng 80%; chỉ giữ/tăng 90% nếu cầu vẫn xệ. Không dùng 100% làm Max cooling thường trước khi có coupon chứng minh layer adhesion còn tốt.
+- Với RoboOctopus, layer 3 là layer dài nên chủ yếu nhận Min fan. Vì vậy phải sửa Min 10 → 20%; tăng riêng Max lên 80–100% không xử lý trực tiếp lỗi layer 3.
+- Trước khi chốt, cần thử từ OFF ở 10%, 15%, 20% và 25%, mỗi mức 10 lần, đồng thời quan sát riêng cả hai blower. Cooling floor cuối cùng là giá trị lớn hơn giữa 20% và ngưỡng thấp nhất giúp cả hai quạt khởi động 10/10 cộng biên 5 điểm phần trăm.
+- OrcaSlicer 2.4.2 có sẵn `fan_kickstart` và `part_cooling_fan_min_pwm` trong Machine preset; đây là setting native, không cần macro/plugin. Chưa bật mù trong phiên này. Sau đo vật lý, có thể đặt minimum non-zero PWM bằng ngưỡng đã đo; chỉ thêm kick-start 0,2–0,3 s nếu Klipper mặc định 0,1 s không khởi động cả hai quạt ổn định.
+- Cần xác nhận cả hai backflow inhibitor của A4T đã lắp đúng, hai quạt quay đúng chiều và đường gió không bị cản. Cooling chỉ xử lý vật liệu còn mềm/curl; không thay thế các sửa `retract_restart_extra`, tốc độ micro-island và Z-hop đã xác minh.
+- Tham chiếu: https://github.com/Armchair-Heavy-Industries/A4T ; https://github.com/OrcaSlicer/OrcaSlicer/wiki/material_cooling ; https://github.com/OrcaSlicer/OrcaSlicer/wiki/printer_basic_information_cooling_fan ; https://www.klipper3d.org/Config_Reference.html#fan
+- Phiên này chỉ đọc cấu hình/profile và đưa khuyến nghị; không thay đổi Klipper hoặc profile Orca.
