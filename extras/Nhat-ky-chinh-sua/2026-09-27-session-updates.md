@@ -249,7 +249,8 @@ Với Speed Factor 50%, kết quả mong đợi là object chạy 50%, toolchang
 - Transform chèn ảo `+26,49419 mm E` trên quãng đường 96,47182 mm, tạo cross-section `0,660566 mm² > 0,640 mm²`; Klipper sẽ dừng bằng `Move exceeds maximum extrusion`.
 - Độ tin cậy của replay được kiểm tra bằng file cũ: cùng simulator tái tạo `+36,49416 mm E`, `1,590252 mm²`, khớp log thật `1,590 mm²`.
 - Z-hop mới chỉ làm thay đổi quãng travel nên hạ trị số lỗi; nó không sửa state `max_position_*` dùng chung giữa các extruder.
-- Labels tự thân không kích hoạt lỗi nếu không bấm exclude. Tuy nhiên, do job trước đã cần loại ba Arm, file mới không được xem là an toàn vận hành dài khi chức năng Exclude vẫn khả dụng. Khuyến nghị reslice với object labels tắt; không tăng `max_extrude_cross_section`.
+- Labels tự thân không kích hoạt lỗi nếu không bấm exclude. Tuy nhiên, do job trước đã cần loại ba Arm, file mới không được xem là an toàn vận hành dài khi chức năng Exclude vẫn khả dụng. Khuyến nghị vào Process → Others → G-code Output, tắt cả `Label Objects` và `Exclude Objects`, rồi reslice; file mới phải có 0 `EXCLUDE_OBJECT_DEFINE/START/END`. Không tăng `max_extrude_cross_section`.
+- `PRINT_START` hiện gọi `BED_MESH_CALIBRATE ADAPTIVE=1`; khi không có object definitions, Klipper tự dùng full configured mesh thay vì adaptive mesh. Đây là fallback an toàn nhưng làm startup lâu hơn. Muốn giữ adaptive mesh lẫn khả năng exclude phải sửa/backport firmware và HIL-test riêng, không dùng workaround chưa kiểm chứng cho job này.
 
 ### Rủi ro còn lại cần coupon
 
@@ -264,6 +265,6 @@ Với Speed Factor 50%, kết quả mong đợi là object chạy 50%, toolchang
 ### Kết luận vận hành
 
 - Chưa chạy full plate 53 giờ từ file này nếu vẫn có khả năng dùng Exclude Object.
-- Tạo bản reslice tiếp theo với object labels tắt, sau đó audit lại marker trước khi gửi máy.
+- Tạo bản reslice tiếp theo với cả Label Objects và Exclude Objects tắt, sau đó xác nhận không còn lệnh `EXCLUDE_OBJECT_*` trước khi gửi máy.
 - Trước full plate, in coupon 1–2 Arm để kiểm chứng airflow 10%, các đoạn outer-wall còn nhanh và tải của Auto Lift 0,20 mm.
 - Phiên này chỉ đọc và phân tích; không chỉnh G-code, profile Orca hoặc cấu hình máy.
