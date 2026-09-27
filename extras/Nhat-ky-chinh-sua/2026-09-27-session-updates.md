@@ -212,6 +212,7 @@ Với Speed Factor 50%, kết quả mong đợi là object chạy 50%, toolchang
 - Nếu luôn in ở Speed Factor 100% thì lệnh thừa này không làm thay đổi tốc độ và không tự gây abort. Nếu dùng Mainsail để giảm hoặc tăng tốc, mọi điều chỉnh sẽ bị mất ở lần đổi tool kế tiếp; với 1.167 lần đổi tool của job này, live tuning thực tế không đáng tin cậy. Điều đó có thể làm mất biện pháp giảm tốc để hạn chế curl/va chạm hoặc chất lượng kém, nhưng không phải nguyên nhân trực tiếp của blob lớp 3 đã xác định ở mục 2.
 - Kiểm tra upstream ngày 2026-09-27: OrcaSlicer `v2.4.2` (phát hành 2026-07-07) vẫn là stable mới nhất. Nhánh `main` tại `6a07853933` ngày 2026-09-26 vẫn phát vô điều kiện `M220 S100`, còn backup/restore vẫn chỉ hỗ trợ Marlin; nightly vì vậy cũng chưa có bản sửa này.
 - Klipper `master` tại `ce7002bedf` ngày 2026-09-18 vẫn có cùng implementation `M220` như commit máy đang chạy `60fc7aa67`: lệnh mới ghi đè trực tiếp Speed Factor. Đây là semantics đúng của `M220`, không phải lỗi Klipper; cập nhật Klipper hoặc Mainsail không thể tự phục hồi giá trị mà Orca đã ghi đè.
+- Quyết định vận hành: không cài macro hoặc postprocessor M220 ở thời điểm này để tránh phải quản lý workaround khi Orca cập nhật. Giữ nguyên cấu hình production; khi in multi-tool, đặt tốc độ trong profile và reslice, không xem Speed Factor Mainsail là giá trị được giữ qua toolchange. Chỉ đánh giá lại sau khi G-code từ một bản Orca mới được xác nhận không còn reset không phục hồi.
 
 ### Tham chiếu
 
