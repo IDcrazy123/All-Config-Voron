@@ -141,3 +141,48 @@ Không sửa cấu hình, không restart dịch vụ và không điều khiển 
 
 - Chưa tạo backup vì chưa sửa file cấu hình.
 - Chờ người vận hành duyệt phương án và giá trị commissioning trước khi backup, triển khai, kiểm tra cú pháp, dry-run có giám sát và commit phần cấu hình.
+
+## 5. Triển khai purge và vệ sinh T0 hai giai đoạn trước Cartographer Touch
+
+### Quyết định sau khi duyệt
+
+- Người vận hành dừng hướng nghiên cứu vị trí camera/timelapse và duyệt triển khai cải tiến vệ sinh nozzle theo số đo thực tế.
+- Giá trị purge đề xuất ban đầu trong mục 4 đã được đánh giá lại sau khi phát hiện `PRINT_END` retract tổng cộng `10 mm` (`E-2` rồi `E-8`). `15 mm` gross chỉ còn khoảng `5 mm` nhựa thực, tương đương `12.03 mm³`, nên không đủ tin cậy để tạo cục purge rõ ràng.
+- Macro start chính thức của Bambu A1/A1 mini/P1S/X1 dùng chuỗi explicit `E50 + E50 + E5`, rồi retract ngắn `E-0.5`. Tổng này phục vụ cả workflow load/switch/flush của Bambu nên không sao chép nguyên `105 mm`; cấu hình này chọn `40 mm` gross ở `F200`, tối đa khoảng `96.21 mm³` nếu T0 không có retract trước đó, hoặc khoảng `72.16 mm³` nhựa ra thực nếu phải bù đủ retract `10 mm`.
+- Nguồn chính thức được đối chiếu: [Bambu P1S start profile](https://github.com/bambulab/BambuStudio/blob/7e048cf7b5622277503d9ec3ea1e4d1c83b95475/resources/profiles/BBL/machine/Bambu%20Lab%20P1S%200.4%20nozzle%20template%20machine_start_gcode.json), [Bambu X1C start profile](https://github.com/bambulab/BambuStudio/blob/7e048cf7b5622277503d9ec3ea1e4d1c83b95475/resources/profiles/BBL/machine/Bambu%20Lab%20X1%20Carbon%200.4%20nozzle%20template%20machine_start_gcode.json), [Bambu A1 start profile](https://github.com/bambulab/BambuStudio/blob/ceba5cc20ab34ed70a9b0458b590276b5b50726f/resources/profiles/BBL/machine/Bambu%20Lab%20A1%200.4%20nozzle%20template%20machine_start_gcode.json). Không tìm được video startup/wipe chính thức từ kênh Bambu có thể xác minh; video blob lớn chỉ được coi là quan sát thứ cấp, còn định lượng lấy từ profile chính thức.
+
+### Sao lưu
+
+- Tạo `extras/backups/pre-improve-nozzle-clean-20260929-195313/` trước khi sửa từng file cấu hình.
+- Bản sao gồm `nozzle-clean.cfg`, `print-macros.cfg`, `tool-temp-bench.cfg` và `README.md` mô tả phạm vi/rollback.
+
+### Thay đổi cấu hình
+
+- `config/Printer-Setup/nozzle-clean.cfg`:
+  - Chỉ cho phép T0 đã được cảm biến xác nhận, KTC `ready`, XYZ đã home, `_PRINT_STATE` là `idle/starting`, offset X/Y/Z bằng 0 và mesh đã clear.
+  - Thêm `MODE=DEEP` và `MODE=TOUCH`; `TOUCH` cấm purge và yêu cầu QGL đã áp dụng.
+  - Purge tại `X315 Y1 Z6`, mặc định `40 mm` ở `F200`, sau đó retract `0.8 mm` ở `F300`; purge chỉ chạy ở `170..280 °C` và helper runtime kiểm `can_extrude` sau khi đã chờ nhiệt.
+  - Thay circular scrub bằng đường G1 nhiều track/hai hướng. Mọi tiếp xúc nằm trong `X278..311`, `Y-9..-1`; mặc định `CLEAN_Z=1.0`, hard-limit tham số `0.5..1.0`.
+  - Mọi XY ra/vào trạm chạy ở `Z>=15`; hạ qua approach `Z3`, nâng thẳng khỏi silicone rồi mới rời vùng.
+  - Lượt deep đầu lấy cục khi nozzle đã xuống `<=170 °C`; lượt cuối và toàn bộ mode Touch chờ đúng cửa sổ `148..150 °C`, sau đó xác nhận upper bound `<=150 °C` trước Cartographer.
+  - Thêm guard riêng cho các helper nội bộ, kể cả tọa độ purge với sai số `0.2 mm`, để gọi nhầm từ console không thể extrude/chạy đường lau tùy ý.
+- `config/Printer-Setup/print-macros.cfg`:
+  - Sau khi chọn T0, chạy deep clean; chỉ auto-purge khi slicer truyền `T0_TEMP>0`, dùng đúng nhiệt vật liệu và `PURGE=40`.
+  - Ngay sau QGL và trước `CARTOGRAPHER_TOUCH_HOME`, chạy `MODE=TOUCH`, `CLEAN_Z=1.0`, một lượt, không purge.
+  - Bỏ các `M109` deadband cũ; macro mới dùng `TEMPERATURE_WAIT ... MAXIMUM=150` rõ ràng.
+- `config/Printer-Setup/tool-temp-bench.cfg`: đồng bộ điểm park cao từ bucket cũ sang `X315 Y1`, vẫn giữ `Z>=15` và không hạ tới purge/pad.
+- Cập nhật tài liệu Việt/Anh về tọa độ, hai mode, lượng purge, guard và yêu cầu commissioning có giám sát.
+
+### Kiểm tra tĩnh
+
+- `git diff --check`: đạt, không có whitespace error.
+- `RawConfigParser`: parse thành công và không trùng section cho `nozzle-clean.cfg`, `print-macros.cfg`, `tool-temp-bench.cfg`.
+- Jinja parser với delimiter tương thích Klipper: parse thành công toàn bộ template trong hai file macro chính.
+- Render mô phỏng cả `DEEP`, `TOUCH` và helper: xác nhận mesh đã clear có dạng `[[]]` được chấp nhận, mesh thật bị chặn, helper purge chỉ chạy gần `X315 Y1 Z6`, purge chờ đủ nhiệt yêu cầu, và lượt cuối có cửa sổ `148..150 °C`.
+- Mô phỏng toàn bộ lệnh G1 của cả hai hướng lau: extrema tiếp xúc đúng `X278..311`, `Y-9..-1`, `Z1.0`; không có XY ngoài pad khi Z thấp.
+- Rà soát độc lập về Klipper/Jinja và chuyển động đã phát hiện rồi sửa hai lỗi trước commit: trạng thái `BED_MESH_CLEAR` là `[[]]` thay vì `[]`, và biên purge 170 °C phải chờ ít nhất đúng 170 °C trước khi kiểm `can_extrude`.
+
+### Trạng thái và giới hạn
+
+- Chưa gửi G-code, chưa restart Klipper và chưa điều khiển máy trong phiên triển khai repository.
+- Cấu hình vượt qua kiểm tra tĩnh, nhưng chưa được commissioning vật lý. Lượt đầu phải có người giám sát để xác nhận cục purge `40 mm` rơi/gãy gọn trong bucket tại `X315 Y1 Z6`, nozzle tiếp xúc vừa đủ ở `Z1.0`, và không kéo sợi sang silicone. Chỉ hạ Z theo bước `0.1 mm` khi quan sát cho thấy chưa chạm đều; không thấp hơn `Z0.5`.

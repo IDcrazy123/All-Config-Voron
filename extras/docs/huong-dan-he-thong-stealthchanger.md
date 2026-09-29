@@ -44,7 +44,11 @@ Dùng `PAUSE`/`RESUME` thay vì tự di chuyển tool. `RESUME` khởi tạo KTC
 
 ## Vệ sinh nozzle
 
-`CLEAN_NOZZLE` yêu cầu KTC có tool active. Macro dùng bucket `(320, -8)`, cọ silicone X 277–309 và Z vệ sinh 1.2 mm. `PURGE_AND_CLEAN` đùn nhựa ở nhiệt vật liệu rồi hạ về nhiệt vệ sinh.
+`CLEAN_NOZZLE` chỉ chạy với T0 đã được cảm biến xác nhận, KTC ở trạng thái `ready`, XYZ đã home, offset bằng 0 và mesh đã clear. Điểm xả là `X315 Y1 Z6`; đường vệ sinh nằm trong vùng đệm an toàn `X278–311`, `Y-9…-1` của miếng silicone đo được `X277–312`, `Y-10…0`. Z tiếp xúc mặc định là `1.0 mm` và macro chỉ chấp nhận `0.5–1.0 mm`.
+
+`MODE=DEEP` có thể purge nóng rồi lau nhiều track/hai hướng, sau đó hoàn tất lượt cuối ở tối đa 150 °C. `PRINT_START` tự purge T0 `40 mm` tại nhiệt độ vật liệu khi slicer cung cấp `T0_TEMP`; lượng này bù `10 mm` retract của `PRINT_END` và còn khoảng `30 mm` nhựa thực tạo cục. Nếu job không dùng T0 thì không tự đoán nhiệt purge. `MODE=TOUCH` cấm purge, yêu cầu QGL đã áp dụng và thực hiện một lượt lau ngắn ở tối đa 150 °C ngay trước `CARTOGRAPHER_TOUCH_HOME`.
+
+Lệnh thủ công cần truyền nhiệt vật liệu rõ ràng, ví dụ `PURGE_AND_CLEAN PURGE_TEMP=250`. Lần chạy đầu ở tọa độ mới phải có người giám sát; bắt đầu với `CLEAN_Z=1.0` và chỉ hạ dần sau khi xác nhận tiếp xúc thực tế.
 
 ## Quy tắc phục hồi
 

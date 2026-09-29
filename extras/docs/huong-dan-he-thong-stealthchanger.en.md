@@ -44,7 +44,11 @@ The removable SexBolt holder now uses the configured bed-center position `(174, 
 
 ## Nozzle cleaning
 
-`CLEAN_NOZZLE` requires a KTC active tool. It uses the bucket at `(320, -8)`, the silicone brush from X 277 to 309, and cleaning Z 1.2 mm. `PURGE_AND_CLEAN` additionally purges at material temperature before cooling to the cleaning temperature.
+`CLEAN_NOZZLE` runs only with sensor-verified T0, KTC in the `ready` state, XYZ homed, zero live offsets, and no active bed mesh. The purge point is `X315 Y1 Z6`; the wipe path stays inside the `X278–311`, `Y-9…-1` safety inset of the measured `X277–312`, `Y-10…0` silicone pad. The default contact Z is `1.0 mm`, and the macro accepts only `0.5–1.0 mm`.
+
+`MODE=DEEP` can hot-purge, wipe multiple tracks in alternating directions, and complete its final pass at no more than 150 °C. `PRINT_START` automatically purges T0 by `40 mm` at material temperature when the slicer supplies `T0_TEMP`; this recovers the `10 mm` `PRINT_END` retract and leaves about `30 mm` of visible output to form a blob. It does not guess a purge temperature when T0 is unused. `MODE=TOUCH` prohibits purging, requires QGL to be applied, and performs one short pass at no more than 150 °C immediately before `CARTOGRAPHER_TOUCH_HOME`.
+
+Manual use must provide the loaded material temperature explicitly, for example `PURGE_AND_CLEAN PURGE_TEMP=250`. The first run at the new coordinates must be attended; start at `CLEAN_Z=1.0` and lower it only after physically confirming contact.
 
 ## Recovery rules
 
