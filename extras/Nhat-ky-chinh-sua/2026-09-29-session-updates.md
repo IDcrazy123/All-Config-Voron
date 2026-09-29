@@ -81,3 +81,23 @@
 4. Bất kỳ thay đổi vị trí, lens hoặc resolution nào cũng làm mất hiệu lực calibration camera-origin/MPP của workflow thị giác trước đây; cần calibrate lại nếu dùng workflow đó.
 
 Không sửa cấu hình, không restart dịch vụ và không điều khiển chuyển động máy trong phiên kiểm tra này.
+
+## 3. A/B góc nhìn MF-500 tại vị trí quan sát toàn bàn
+
+### Phép thử
+
+- Sau khi người vận hành đưa camera về vị trí quan sát toàn bàn, snapshot raw `1280x720` cho thấy bàn 350×350 mm gần như nằm trọn khung và cân ngang. Cạnh bàn sau chiếm khoảng 648 px; cạnh trước còn khoảng 10–25 px trong snapshot đầu tiên và có thêm lề khi toolhead di chuyển ra sau.
+- Trước phép thử, Moonraker xác nhận máy `standby`. Không sửa `crowsnest.conf`: chỉ dừng riêng Crowsnest tạm thời, chạy camera-streamer snapshot-only trên loopback port 8090 ở `1280x960 MJPEG @ 30 FPS`, lấy một frame rồi dừng tiến trình thử và khởi động lại Crowsnest.
+- Đăng ký đặc trưng giữa hai ảnh A/B tìm được 482 inlier. Ảnh 960p là ảnh 720p phóng `1.333×`, với miền ngang tương ứng chỉ còn khoảng `x=160..1119` của ảnh 720p; miền dọc vẫn tương ứng `y=0..719`.
+
+### Kết quả
+
+- Mode `1280x960` không bổ sung cảnh phía trên/dưới. Nó giữ nguyên FOV dọc, cắt khoảng 160 px ở mỗi bên của ảnh 720p và làm mất tổng cộng khoảng 25% FOV ngang.
+- Vì vậy `1280x720` vẫn là mode có góc nhìn hữu dụng lớn nhất đã đo trên camera này. Tăng độ phân giải hoặc chuyển 4:3 không tạo được góc rộng hơn; không có control zoom-out/crop trên V4L2.
+- Với mô hình hình chữ nhật của người vận hành: chuyển từ trung điểm cạnh trên sang trung điểm cạnh dưới là phép đối xứng 180°. Nếu giữ cùng độ cao, khoảng lùi và hướng chĩa vào tâm, lens hiện tại vẫn phù hợp như vị trí đang dùng.
+- Chuyển sang góc trái phía dưới không tương đương đối xứng: đường chéo và chênh lệch khoảng cách tới bốn góc làm yêu cầu FOV dọc/chéo lớn hơn. Khung hiện tại chỉ có lề hữu hạn, còn mode 4:3 lại cắt ngang; vì vậy không nên coi lens hiện tại là bảo đảm phủ toàn bàn ở góc nếu vị trí mới thấp hơn hoặc gần hơn. Cần đặt thử ở đúng gá, hoặc tăng độ cao/khoảng lùi; nếu vẫn cắt thì phải dùng lens tiêu cự ngắn hơn/camera wide-angle.
+
+### Trạng thái hoàn nguyên
+
+- Crowsnest đã trở về capture `1280x720`; snapshot hoạt động, `dropped=0` và bộ đếm frame tiếp tục tăng.
+- Klipper không restart, không có chuyển động máy và trạng thái in sau phép thử vẫn là `standby`.
