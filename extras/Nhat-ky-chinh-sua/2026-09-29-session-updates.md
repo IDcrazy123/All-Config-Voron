@@ -55,3 +55,29 @@
 
 - Cần kiểm tra trực tiếp harness/termination/nguồn EBB1 để xác định linh kiện vật lý cuối cùng. Không thể xác nhận một crimp, dây hay transceiver cụ thể chỉ từ log.
 - Sau sửa phần cứng cần lưu counters trước/sau coupon. Một lượt idle với counters bằng 0 không đủ điều kiện đóng sự cố.
+
+## 2. Kiểm tra góc nhìn camera MF-500
+
+### Trạng thái trực tiếp
+
+- Kiểm tra read-only trên máy xác nhận chỉ có một camera UVC Sunplus `1bcf:0c18`, product `MF500 camera`, nối tại `/dev/video0`.
+- Crowsnest đang chạy `camera-streamer` ở `1280x720`, MJPEG, 30 FPS. Endpoint trạng thái xác nhận capture, snapshot, stream và H.264 đều ở 1280×720; tại thời điểm kiểm tra không có frame bị drop.
+- Moonraker/Mainsail có hai entry `VoronBed` và `Axiscope`, nhưng cả hai đều trỏ tới cùng `/webcam`; đây không phải hai camera vật lý độc lập.
+- Snapshot raw `/webcam/?action=snapshot` đúng 1280×720. Khung raw không bị Mainsail crop, nhưng camera đang bị roll/nghiêng và chĩa lên: phần lớn ảnh là trần/tường/phản sáng, còn vùng máy in chỉ chiếm dải bên phải. Giới hạn quan sát hữu dụng hiện tại chủ yếu do hướng gá, không phải do phần mềm cắt mất khung.
+
+### Khả năng FOV và giới hạn phần mềm
+
+- V4L2 không expose control zoom, pan, tilt, focus hoặc ROI/crop có thể sử dụng. Crop bounds/default đều là toàn bộ 1280×720. Không có setting Crowsnest/Mainsail nào tạo thêm cảnh nằm ngoài góc quang học của lens.
+- MF-500 quảng bá các mode MJPEG 30 FPS gồm `1280x720`, `1280x960`, `1920x1080` và `2560x1440`. Tăng từ 720p lên 1080p/1440p cùng tỷ lệ 16:9 chỉ tăng số pixel, không bảo đảm tăng góc nhìn; hai mode cao này trước đây đã gây màn hình đen qua WebRTC.
+- `1280x960` 4:3 là phép thử cấu hình duy nhất có khả năng lấy thêm phần trên/dưới nếu firmware đang crop sensor ở 16:9. Mức tăng lý thuyết tối đa là 33% số pixel theo chiều dọc, nhưng phải A/B snapshot từ cùng vị trí vì firmware có thể chỉ scale/crop theo cách khác. FOV ngang không tăng.
+- Tài liệu MF-500 lưu trong repository ghi sensor 1/3-inch và lens được chọn theo góc/tiêu cự nhu cầu. Không có tiêu cự hoặc FOV của lens đang lắp trong USB descriptor hay cấu hình, nên chưa thể xác nhận chính xác 90°, 100° hoặc 120° từ model camera.
+- Calibration cũ khoảng `0.023 mm/px` ở khoảng cách gần cho ước lượng HFOV thực tế cỡ 40–60° tùy khoảng cách quang học thật; đây là lens normal/moderate chứ không có bằng chứng là ultra-wide 90–120°. Ảnh Mainsail lịch sử `extras/pictures/Screenshot 2026-06-12 213902.png` cho thấy khi đặt đúng vị trí xa, lens hiện tại nhìn được gần trọn bàn 350×350 mm.
+
+### Kết luận và đề xuất
+
+1. Ưu tiên chỉnh lại gá: xoay camera về ngang, chĩa tâm vào bàn in và nếu cần đưa camera lùi/cao hơn. Đây là cách an toàn và có khả năng tăng vùng quan sát hữu dụng nhiều nhất mà không đổi phần mềm.
+2. Nếu sau khi chỉnh gá vẫn thiếu chiều dọc, sao lưu `crowsnest.conf`, thử A/B `1280x960` và đổi aspect ratio Mainsail sang 4:3; đo coverage, FPS và độ ổn định rồi mới quyết định giữ hay hoàn tác.
+3. Muốn tăng FOV quang học thật sự, cần lens tiêu cự ngắn hơn phù hợp sensor 1/3-inch hoặc camera wide-angle khác. Phải xác minh ren lens/image circle trước khi mua; lens quá rộng có thể gây méo barrel/fisheye, mờ rìa và giảm độ chính xác nhận dạng nozzle.
+4. Bất kỳ thay đổi vị trí, lens hoặc resolution nào cũng làm mất hiệu lực calibration camera-origin/MPP của workflow thị giác trước đây; cần calibrate lại nếu dùng workflow đó.
+
+Không sửa cấu hình, không restart dịch vụ và không điều khiển chuyển động máy trong phiên kiểm tra này.
