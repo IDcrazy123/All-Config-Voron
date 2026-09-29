@@ -101,3 +101,43 @@ Không sửa cấu hình, không restart dịch vụ và không điều khiển 
 
 - Crowsnest đã trở về capture `1280x720`; snapshot hoạt động, `dropped=0` và bộ đếm frame tiếp tục tăng.
 - Klipper không restart, không có chuyển động máy và trạng thái in sau phép thử vẫn là `standby`.
+
+## 4. Nghiên cứu cải tiến vệ sinh T0 trước Cartographer Touch
+
+### Phạm vi và số đo mới
+
+- Chỉ audit cấu hình, tài liệu và nguồn Bambu; chưa sửa cấu hình máy, chưa gửi G-code và chưa điều khiển máy.
+- Vùng silicone do người vận hành đo lại: `X=277..312`, `Y=0..-10`; nozzle bắt đầu/chạm trong vùng `Z=1.0..0.5`.
+- Điểm purge mới yêu cầu: `X315 Y1 Z6`.
+- Biên chuyển động production: `X=0..348`, `Y=-10..336`. Đường làm việc đề xuất inset 1 mm là `X=278..311`, `Y=-1..-9`, nên còn 1 mm so với cả mép silicone và hard limit Y=-10.
+
+### Audit macro hiện tại
+
+- `PRINT_START` gọi `CLEAN_NOZZLE TEMP=150 WIPES=5` hai lần, nhưng cả hai lần đều `PURGE=0`; purge/prime thật chỉ diễn ra sau Cartographer Touch và mesh.
+- Circular scrub hiện tại chạy ở `Z1.2`, cao hơn vùng tiếp xúc mới nên có khả năng không chạm silicone.
+- Flick hiện hạ tới `Z0.7` rồi chạy `X307..320` tại `Y-8`; đoạn `X312..320` nằm ngoài vùng silicone đã xác nhận.
+- Các cung hiện tại có extrema `X277..312`, `Y-9.5..-6.5`; chỉ còn 0.5 mm so với hard limit Y=-10. Lịch sử đã từng ghi lỗi out-of-range `Y=-10.041`, nên phương án mới ưu tiên G1 có extrema chứng minh được.
+- Purge hiện tại diễn ra ở `X320 Y-8 Z>=15`, không khớp điểm purge mới.
+
+### Đối chiếu Bambu chính thức và video
+
+- Machine start G-code chính thức của A1/A1 mini/P1S/X1 cho thấy mẫu chung: purge ở nhiệt vật liệu hoặc nhiệt flush, retract ngắn, bật quạt và shake/wipe để tách sợi, làm sạch cơ khí nhiều track/hướng, hạ và chờ khoảng 140 C, rồi mới ABL/Z contact.
+- A1/A1 mini còn kết hợp touch-off nhiều điểm, brush/silicone và hard-rub trên exposed steel; P1S/X1 dùng nhiều đường hard-rub và cung tròn trên vùng thép. Những lệnh firmware riêng như `G380`, `G29.2`, `M1002`, `M622/M623`, soft-endstop và Z âm không được chuyển sang Klipper.
+- A2L mới dùng enhanced-brush dạng G1 nhiều hướng; đây là phần phù hợp nhất để quy đổi sang pad silicone của máy.
+- Video X1C thực tế của bên thứ ba xác nhận thứ tự purge ở chute, bed nâng, wipe/rub ở mép sau rồi mới leveling. Video A1 mini ngắn xác nhận nozzle chạy ngang, áp sát dãy silicone; video không được dùng để suy ra nhiệt độ hoặc tốc độ.
+- Cartographer chính thức yêu cầu nozzle sạch và nhiệt Touch không vượt quá 150 C; cấu hình production đang dùng 150 C nên phương án giữ nhiệt chuẩn này và thêm wait giới hạn trên chính xác trước Touch.
+
+### Phương án đề xuất chờ duyệt
+
+1. Chia thành hai pha: lần đầu trước soak là purge có điều kiện tại `X315 Y1 Z6` rồi deep-clean; lần cuối ngay trước `CARTOGRAPHER_TOUCH_HOME` là short-clean không purge ở 150 C rồi Touch ngay.
+2. Chỉ auto-purge khi slicer truyền `T0_TEMP>0`; dùng chính nhiệt T0 và purge nhỏ khoảng 8 mm. Nếu T0 không dùng trong job thì không đoán vật liệu/nhiệt purge, chỉ soften-and-wipe ở 150 C.
+3. Sau purge: retract bảo thủ 0.8 mm, bật quạt, đặt 150 C, bắt đầu lấy cục ở tối đa 170 C và hoàn tất lượt cuối sau khi nozzle đã xuống không quá 150 C.
+4. Thay G2/G3 bằng đường G1 enhanced-brush scale theo pad: anchor `X311 Y-5`, rồi lần lượt `Y-1 -> X294.5 -> Y-9 -> X278 -> Y-1 -> X294.5 -> Y-9 -> X311 -> Y-5`. Extrema tiếp xúc luôn là `X278..311`, `Y-9..-1`.
+5. Commissioning bắt đầu ở `Z1.0`; chỉ hạ theo bước 0.1 mm tới `Z0.9/Z0.8` khi test có giám sát cho thấy tiếp xúc chưa đều; không cho phép thấp hơn `Z0.5`. Luôn nâng Z thẳng đứng khỏi pad trước khi đi ra ngoài.
+6. Thêm validation/hard-abort cho active T0/KTC-ready, XYZ homed, QGL applied ở lượt pre-Touch, `WIPE_Z`, số pass, chiều dài và nhiệt purge. Nếu kiểm `can_extrude` sau M109 thì dùng helper macro riêng vì Jinja của macro ngoài được render trước khi motion thực thi.
+7. Không mô phỏng hard-rub thép/Z âm của Bambu khi máy chưa có bề mặt hy sinh và phép đo Z riêng. Silicone-only có thể cải thiện mạnh nhưng không bảo đảm bóc được nhựa cháy/cục lớn như hệ Bambu nhiều bề mặt.
+
+### Trạng thái
+
+- Chưa tạo backup vì chưa sửa file cấu hình.
+- Chờ người vận hành duyệt phương án và giá trị commissioning trước khi backup, triển khai, kiểm tra cú pháp, dry-run có giám sát và commit phần cấu hình.
