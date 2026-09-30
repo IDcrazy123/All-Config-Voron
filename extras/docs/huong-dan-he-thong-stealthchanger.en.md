@@ -37,7 +37,7 @@ Production ownership is: Axiscope camera for XY; the PF2 switch at `(80, -8)` fo
 3. Position the toolhead at Z15 and out of the installation path, then install the holder. Keep the axes homed.
 4. Check `CALIBRATION_STATUS`, then run attended `CALIBRATE_MOVE_OVER_PROBE` to reach X80/Y-8 at Z15 without probing.
 5. Run `QUERY_ENDSTOPS` with the switch released and manually pressed; continue only when the `Axiscope` line reads `open` and `TRIGGERED`, respectively.
-6. After confirming clearance, run attended `CALIBRATE_COARSE_Z_OFFSETS` with E-stop ready. It heats each nozzle to 150 °C, starts probing at Z3, takes five samples, and reports preliminary relative-Z results only.
+6. After confirming clearance and both switch states, run attended `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1` with E-stop ready. Without `CONFIRM=1`, the wrapper rejects the request before motion or heating. It heats each nozzle to 150 °C, starts probing at Z3, takes five samples, and reports preliminary relative-Z results only.
 7. Use the Axiscope interface on port 3000 for XY, then apply reviewed results manually with a backup. Never use automatic saving for Z. Finalize each Z with a first-layer test and run `CHECK_OFFSETS` for review. Remove the holder before any subsequent homing, leveling, mesh, Touch, or printing.
 
 `CALIBRATE_NOZZLE_PROBE_OFFSET` remains blocked so this trial cannot modify the Cartographer offset.

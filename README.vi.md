@@ -89,7 +89,7 @@ Danh sách profile active và quy trình đồng bộ nằm trong [`Orca Config/
 | Kiểm tra chuyển động/nhiệt | `TEST_SPEED`, `TEST_Z_SPEED`, `MEASURE_TOOL_HEATUP` |
 | Đèn/quạt | `LIGHTS_ON`, `LIGHTS_OFF`, `BED_FAN_ON`, `BED_FAN_OFF` |
 
-Axiscope là backend `probe_multi_axis` duy nhất đang hoạt động. Workflow camera của Axiscope đo XY; công tắc PF2 tại `(80, -8)` chỉ cho kết quả Z tương đối sơ bộ. Đường dò bắt đầu tại Z3, cao hơn 1 mm so với mép trên của vùng chạm quan sát Z0–2, dùng năm mẫu và gia nhiệt từng nozzle đã chọn tới 150 °C. Z15 vẫn là độ cao di chuyển XY/đổi tool an toàn. Cố ý không cho Axiscope tự ghi file cấu hình: phải xem lại kết quả, nhập XY thủ công sau khi sao lưu, và chốt từng Z production bằng test first-layer có giám sát. `CALIBRATE_ALL_OFFSETS` tiếp tục bị chặn để tránh dùng nhầm workflow XYZ đã nghỉ hưu.
+Axiscope là backend `probe_multi_axis` duy nhất đang hoạt động. Workflow camera của Axiscope đo XY; công tắc PF2 tại `(80, -8)` chỉ cho kết quả Z tương đối sơ bộ. Đường dò bắt đầu tại Z3, cao hơn 1 mm so với mép trên của vùng chạm quan sát Z0–2, dùng năm mẫu và gia nhiệt từng nozzle đã chọn tới 150 °C. Z15 vẫn là độ cao di chuyển XY/đổi tool an toàn. Sau khi dùng `QUERY_ENDSTOPS` xác nhận `Axiscope:open` và `Axiscope:TRIGGERED`, phải chủ động gọi `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1` trong khi có người giám sát. Cố ý không cho Axiscope tự ghi file cấu hình: phải xem lại kết quả, nhập XY thủ công sau khi sao lưu, và chốt từng Z production bằng test first-layer. `CALIBRATE_ALL_OFFSETS` tiếp tục bị chặn để tránh dùng nhầm workflow XYZ đã nghỉ hưu.
 
 Trước mỗi lần đổi tool, chu trình hiệu chuẩn nâng thẳng lên ít nhất Z15 để đường đi tới dock rời công tắc ở độ cao an toàn.
 

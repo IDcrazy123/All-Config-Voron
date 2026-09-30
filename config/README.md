@@ -57,7 +57,7 @@ This directory is the repository-owned payload deployed to `~/printer_data/confi
 - Cartographer: Z homing, Touch reference, adaptive bed mesh, and shuttle ADXL345.
 - Axiscope: camera-assisted XY measurement and attended coarse relative-Z measurement on PF2.
 - `printer.cfg` `SAVE_CONFIG`: authoritative T1–T4 XYZ offsets.
-- `_CALIBRATION_SWITCH.z: 15` is the safe XY/tool-change transit height. Axiscope starts at Z3 over the observed Z0–2 contact range. `CALIBRATE_COARSE_Z_OFFSETS` reports preliminary Z only. Axiscope config writes are disabled; XY changes are reviewed and applied manually, while final Z always comes from first-layer tests. The retired `CALIBRATE_ALL_OFFSETS` and probe-offset calibration remain blocked.
+- `_CALIBRATION_SWITCH.z: 15` is the safe XY/tool-change transit height. Axiscope starts at Z3 over the observed Z0–2 contact range. After checking both PF2 states with `QUERY_ENDSTOPS`, use `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1`; it reports preliminary Z only. Axiscope config writes and legacy KTC save helpers are disabled; XY changes are reviewed and applied manually, while final Z always comes from first-layer tests. The retired `CALIBRATE_ALL_OFFSETS` and probe-offset calibration remain blocked.
 - kTAMV, ToolVision, TKC, KCC, and earlier SexBolt configurations are historical references only.
 
 Before every tool change in the calibration sequence, `_CALIBRATE_SAFE_TRANSIT` lifts vertically to at least the configured transit Z15; it does not move XY.

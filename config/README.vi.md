@@ -57,7 +57,7 @@ Thư mục này chứa payload do repository sở hữu và triển khai sang `~
 - Cartographer: home Z, chuẩn Touch, adaptive bed mesh và ADXL345 trên shuttle.
 - Axiscope: đo XY bằng camera và đo Z tương đối sơ bộ có người giám sát trên PF2.
 - Khối `SAVE_CONFIG` trong `printer.cfg`: nguồn chuẩn cho offset XYZ T1–T4.
-- `_CALIBRATION_SWITCH.z: 15` là độ cao di chuyển XY/đổi tool an toàn. Axiscope bắt đầu tại Z3 trên vùng chạm quan sát Z0–2. `CALIBRATE_COARSE_Z_OFFSETS` chỉ báo Z sơ bộ. Axiscope không được tự ghi file cấu hình; XY được xem lại rồi nhập thủ công, còn Z cuối luôn lấy từ test first-layer. `CALIBRATE_ALL_OFFSETS` cũ và hiệu chuẩn offset probe tiếp tục bị chặn.
+- `_CALIBRATION_SWITCH.z: 15` là độ cao di chuyển XY/đổi tool an toàn. Axiscope bắt đầu tại Z3 trên vùng chạm quan sát Z0–2. Sau khi kiểm tra cả hai trạng thái PF2 bằng `QUERY_ENDSTOPS`, dùng `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1`; lệnh chỉ báo Z sơ bộ. Axiscope và helper KTC cũ không được tự ghi file cấu hình; XY được xem lại rồi nhập thủ công, còn Z cuối luôn lấy từ test first-layer. `CALIBRATE_ALL_OFFSETS` cũ và hiệu chuẩn offset probe tiếp tục bị chặn.
 - kTAMV, ToolVision, TKC, KCC và các cấu hình SexBolt cũ chỉ còn là tài liệu lịch sử.
 
 Trước mỗi lần đổi tool trong chu trình hiệu chuẩn, `_CALIBRATE_SAFE_TRANSIT` nâng thẳng lên ít nhất độ cao di chuyển Z15 đã cấu hình; macro không di chuyển XY.

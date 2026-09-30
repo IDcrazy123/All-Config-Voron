@@ -37,7 +37,7 @@ Phân quyền production là: Axiscope camera đo XY; công tắc PF2 tại `(80
 3. Đưa đầu in tới khoảng hở Z15 và tránh đường lắp, rồi lắp đế. Giữ các trục ở trạng thái đã home.
 4. Kiểm tra `CALIBRATION_STATUS`, rồi chạy `CALIBRATE_MOVE_OVER_PROBE` có người giám sát để tới X80/Y-8 ở Z15 mà không dò chạm.
 5. Chạy `QUERY_ENDSTOPS` khi nhả và khi nhấn tay công tắc; chỉ tiếp tục khi dòng `Axiscope` lần lượt là `open` và `TRIGGERED`.
-6. Khi đã xác nhận khoảng hở an toàn, chạy `CALIBRATE_COARSE_Z_OFFSETS` có người giám sát và sẵn E-stop. Chu trình gia nhiệt từng nozzle đến 150 °C, bắt đầu dò tại Z3, dùng năm mẫu và chỉ báo kết quả Z tương đối sơ bộ.
+6. Khi đã xác nhận khoảng hở an toàn và cả hai trạng thái công tắc, chạy `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1` có người giám sát và sẵn E-stop. Không có `CONFIRM=1`, macro sẽ từ chối trước mọi chuyển động/gia nhiệt. Chu trình gia nhiệt từng nozzle đến 150 °C, bắt đầu dò tại Z3, dùng năm mẫu và chỉ báo kết quả Z tương đối sơ bộ.
 7. Dùng giao diện Axiscope port 3000 để đo XY, nhập kết quả đã xem xét vào cấu hình sau khi sao lưu. Không dùng nút lưu tự động cho Z. Chốt từng Z bằng test first-layer, rồi chạy `CHECK_OFFSETS` để đối chiếu. Tháo đế trước mọi lần home, cân gantry, mesh, Touch hoặc in tiếp theo.
 
 `CALIBRATE_NOZZLE_PROBE_OFFSET` vẫn bị chặn để lần thử không thay đổi offset Cartographer.

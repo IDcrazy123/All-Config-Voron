@@ -108,3 +108,46 @@ Source Axiscope xác nhận module chỉ báo Z tương đối, còn chức năn
 ### Kết quả
 
 Đã đồng bộ đúng trạng thái profile OrcaSlicer active và tạo backup trước khi ghi.
+
+## 4. Audit logic và comment của toàn bộ cấu hình Klipper
+
+### Mục tiêu
+
+Rà soát 25 file `.cfg`, đối chiếu logic thực thi với comment và workflow production hiện tại; sửa các mô tả sai ngữ cảnh và khóa đường gọi legacy có thể gây hiểu nhầm.
+
+### Phạm vi kiểm tra
+
+- Toàn bộ `config/**/*.cfg`, gồm include order, section/macro trùng có chủ đích, pin, giới hạn trục, năm tool, print start/end, prime, nozzle clean, dryer, LED, crash detection, calibration và các file KTC readonly.
+- Không sửa `config/toolchanger/readonly-configs/`; mọi chặn tương thích được đặt trong file user-owned nạp sau.
+
+### File đã sửa đổi
+
+- `config/Printer-Setup/calibration-probe.cfg` — sửa ngữ cảnh công tắc phía trước, thêm xác nhận bắt buộc và override chặn helper lưu offset legacy.
+- `config/toolchanger/toolchanger-config.cfg` — sửa comment “bed center” sai với X80/Y-8.
+- `config/toolchanger/tools/T0.cfg` đến `T4.cfg` — thống nhất ownership: Axiscope cho XY, first-layer cho Z cuối, SAVE_CONFIG chỉ lưu kết quả đã review.
+- README/config README/hướng dẫn StealthChanger — đồng bộ cú pháp `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1`.
+
+### Sao lưu
+
+- [Backup byte chính xác](<D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-cfg-logic-comment-audit-exact-20260930-162700/>) — hash từng file trùng Git blob tại `df85e8d`.
+- `pre-cfg-logic-comment-audit-20260930-162500` được giữ nguyên theo quy tắc không ghi đè; bản này đúng nội dung nhưng line-ending đã được chuẩn hóa, không dùng làm rollback byte-exact.
+
+### Phát hiện và sửa đổi
+
+- X80/Y-8 là vị trí phía trước, không phải giữa bàn; sửa toàn bộ comment/message `.cfg` liên quan.
+- T0/T3 nói Axiscope quản lý cả XYZ, trái quyết định first-layer quản lý Z cuối; chuẩn hóa comment cả T0–T4.
+- `_SAVE_TOOL_OFFSET` và `_SAVE_Z_TOOL_OFFSET` từ KTC readonly vẫn tham chiếu `printer.tools_calibrate` đã gỡ. Thêm override user-owned để từ chối rõ ràng thay vì lỗi template hoặc lưu nhầm Z sơ bộ.
+- `CALIBRATE_COARSE_Z_OFFSETS` trước đây chỉ in lời nhắc kiểm tra endstop rồi chạy ngay. Nay bắt buộc `CONFIRM=1`; thiếu xác nhận sẽ dừng trước chuyển động/gia nhiệt.
+- Không phát hiện pin trùng ngoài các alias hợp lệ; các section lặp lại đều là chuỗi override có chủ đích theo include order.
+- Cấu trúc tham số extruder T0–T4 đồng nhất; khác biệt rotation distance, UUID, pin và dock là giá trị riêng từng tool.
+
+### Kiểm tra
+
+- `git diff --check`: đạt.
+- 25 file `.cfg` đã được inventory; 6 file readonly chỉ đọc, không sửa.
+- Chưa gửi lệnh chuyển động, gia nhiệt, home hay calibration trong bước audit tĩnh.
+
+### Vấn đề còn lại
+
+- Cần triển khai khi máy idle, `FIRMWARE_RESTART` để Klipper parse và chạy các macro báo cáo không chuyển động.
+- Commissioning vật lý PF2 vẫn cần người vận hành xác nhận trạng thái nhấn `Axiscope:TRIGGERED` trước khi dùng `CONFIRM=1`.
