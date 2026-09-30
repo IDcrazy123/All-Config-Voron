@@ -54,9 +54,13 @@ Source Axiscope xác nhận module chỉ báo Z tương đối, còn chức năn
 
 - `git diff --check`: đạt.
 - Đối chiếu source Axiscope: `MOVE_TO_ZSWITCH` đi tới `zswitch_z_pos + lift_z`; `PROBE_ZSWITCH` dò xuống tối đa 10 mm; không tự lưu kết quả Z.
-- Chưa chạy chuyển động/heat/calibration. Cần parse/restart Klipper và commissioning công tắc có người giám sát trước lần đo đầu.
+- Commit `93c60f8` đã push lên `origin/main`; máy thật fast-forward tới đúng commit.
+- Installer tạo backup live `/home/voron/printer_data/config_backups/config-install-20260930-155541` trước khi đồng bộ.
+- `FIRMWARE_RESTART` thành công; Klipper `ready`, không có config error/traceback. Object `axiscope` báo X80, Y-8, Z2 và `can_save_config=false`.
+- `QUERY_ENDSTOPS` không chuyển động trả `Axiscope:open`; stepper Z vẫn `TRIGGERED` sau restart là trạng thái endstop Z riêng, không phải PF2 Axiscope.
+- Không chạy chuyển động, heat hoặc calibration. Sau restart máy `standby`, heater target 0, XYZ chưa home và toolchanger uninitialized với T0 được sensor nhận.
 
 ### Vấn đề còn lại
 
-- Trước lần đo đầu, chạy `QUERY_ENDSTOPS` khi nhả/nhấn công tắc và xác nhận dòng `Axiscope` lần lượt `open`/`TRIGGERED`; quan sát đường tới X80/Y-8/Z3.
+- Trạng thái nhả `Axiscope:open` đã xác nhận. Trước lần đo đầu, người vận hành phải nhấn tay công tắc rồi chạy lại `QUERY_ENDSTOPS` để xác nhận `Axiscope:TRIGGERED`; quan sát đường tới X80/Y-8/Z3.
 - Macro `CALIBRATE_COARSE_Z_OFFSETS` phải chạy có người giám sát, sẵn E-stop. Không dùng kết quả làm Z cuối nếu chưa in first-layer.
