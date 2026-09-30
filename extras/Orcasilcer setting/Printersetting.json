@@ -50,7 +50,6 @@
 		"Direct Drive Standard",
 		"Direct Drive Standard"
 	],
-	"fan_speedup_overhangs": "1",
 	"fan_speedup_time": "0.5",
 	"from": "User",
 	"inherits": "Voron 2.4 350 0.4 nozzle",
@@ -158,11 +157,11 @@
 		"0"
 	],
 	"retract_lift_enforce": [
-		"Top Only",
-		"Top Only",
-		"Top Only",
-		"Top Only",
-		"Top Only"
+		"All Surfaces",
+		"All Surfaces",
+		"All Surfaces",
+		"All Surfaces",
+		"All Surfaces"
 	],
 	"retract_restart_extra": [
 		"0",
@@ -237,17 +236,17 @@
 		"1"
 	],
 	"z_hop": [
-		"0.15",
-		"0.15",
-		"0.15",
-		"0.15",
-		"0.15"
+		"0.2",
+		"0.2",
+		"0.2",
+		"0.2",
+		"0.2"
 	],
 	"z_hop_types": [
-		"Spiral Lift",
-		"Spiral Lift",
-		"Spiral Lift",
-		"Spiral Lift",
-		"Spiral Lift"
+		"Auto Lift",
+		"Auto Lift",
+		"Auto Lift",
+		"Auto Lift",
+		"Auto Lift"
 	]
 }

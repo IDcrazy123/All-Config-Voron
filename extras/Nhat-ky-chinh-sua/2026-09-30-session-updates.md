@@ -64,3 +64,47 @@ Source Axiscope xác nhận module chỉ báo Z tương đối, còn chức năn
 
 - Trạng thái nhả `Axiscope:open` đã xác nhận. Trước lần đo đầu, người vận hành phải nhấn tay công tắc rồi chạy lại `QUERY_ENDSTOPS` để xác nhận `Axiscope:TRIGGERED`; quan sát đường tới X80/Y-8/Z3.
 - Macro `CALIBRATE_COARSE_Z_OFFSETS` phải chạy có người giám sát, sẵn E-stop. Không dùng kết quả làm Z cuối nếu chưa in first-layer.
+
+## 3. Đồng bộ profile OrcaSlicer active
+
+### Mục tiêu
+
+Đồng bộ trực tiếp 19 preset machine/process/filament của profile OrcaSlicer active vào repository, chỉ chép các file có byte thay đổi.
+
+### Nguồn
+
+- `C:\Users\batca\AppData\Roaming\OrcaSlicer\user\838ce884-12ee-416b-9e1b-1c7503cf6b5f`
+- Profile ID: `838ce884-12ee-416b-9e1b-1c7503cf6b5f`
+
+### File đã cập nhật
+
+- `Orca Config/Voron Stealthchanger.json`
+- `Orca Config/0.20mm Multicolor PetG.json`
+- `Orca Config/PETG Bambu Basic Black.json`
+- `Orca Config/PETG Bambu Basic White.json`
+- `Orca Config/PETG Kabber Blue.json`
+- `Orca Config/PETG TPoimns Red.json`
+- `extras/Orcasilcer setting/Printersetting.json`
+- `extras/Orcasilcer setting/MulticolorPETG.json`
+
+### Sao lưu
+
+- [Bản sao trước đồng bộ](<D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-orcaslicer-profile-sync-20260930-155959/>)
+
+### Chi tiết thay đổi
+
+- Machine profile: đổi Z-hop của cả năm tool từ `0.15 mm / Spiral Lift / Top Only` sang `0.20 mm / Auto Lift / All Surfaces`; giữ `fan_speedup_time: 0.5`.
+- Process PETG đa màu: đặt `exclude_object=0` và `gcode_label_objects=0` để tránh bug Klipper trộn trạng thái E giữa các extruder khi exclude.
+- PETG Bambu Basic Black/White và Kabber Blue: thêm cooling layer time 20 s, fan 20–100% và slow-down threshold 8 s.
+- PETG TPoimns Red: khóa quạt hai lớp đầu, cooling layer time 30 s, fan tối đa 60%, overhang 90% từ ngưỡng 10% và slow-down threshold 12 s.
+- Hai alias phân tích được đồng bộ byte với machine/process tương ứng.
+
+### Kiểm tra
+
+- Toàn bộ 19 JSON nguồn và đích parse thành công bằng `ConvertFrom-Json`.
+- Profile máy vẫn giữ đúng `PRINT_START`, host `192.168.1.43`, năm extruder và `retract_restart_extra=0`.
+- Không đưa G-code/log diagnostic hoặc thay đổi Printables đang tồn tại vào phạm vi.
+
+### Kết quả
+
+Đã đồng bộ đúng trạng thái profile OrcaSlicer active và tạo backup trước khi ghi.

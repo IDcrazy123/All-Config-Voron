@@ -2,7 +2,7 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Tổng quan dự án](../README.vi.md)
 
-Thư mục này phản chiếu profile OrcaSlicer active được chọn từ `%APPDATA%\OrcaSlicer\user`. Ngày 2026-09-27, profile được chọn có ID `838ce884-12ee-416b-9e1b-1c7503cf6b5f`; 19 file JSON đã được parse và đồng bộ.
+Thư mục này phản chiếu profile OrcaSlicer active được chọn từ `%APPDATA%\OrcaSlicer\user`. Ngày 2026-09-30, profile được chọn có ID `838ce884-12ee-416b-9e1b-1c7503cf6b5f`; 19 file JSON đã được parse và đồng bộ.
 
 ## Danh sách active
 
@@ -38,8 +38,11 @@ Sáu preset cũ chỉ còn trong repository đã bị loại trong đợt rà so
 
 ## Thay đổi vừa đồng bộ
 
-- Đồng bộ toàn bộ trạng thái active đã sửa ngày 2026-09-26, gồm Spiral Lift 0,15 mm, retraction/tool-change, process override và preset mới `PETG Bambu Basic White.json`.
-- `Voron Stealthchanger.json`: đưa `retract_restart_extra` của cả năm tool từ 0,2 mm về 0 và bật phát quạt overhang sớm 0,5 giây.
+- `Voron Stealthchanger.json`: đổi Z-hop của cả năm tool sang `0,20 mm`, `Auto Lift`, `All Surfaces`; giữ `retract_restart_extra=0` và thời gian phát quạt sớm `0,5 s`.
+- `0.20mm Multicolor PetG.json`: tắt `exclude_object` và `gcode_label_objects` để tránh lỗi Klipper trộn trạng thái E giữa nhiều extruder.
+- Bổ sung cooling override đang active cho PETG Bambu Basic Black/White, Kabber Blue và TPoimns Red.
+- Các giá trị retraction/tool-change và preset `PETG Bambu Basic White.json` từ baseline 2026-09-26 tiếp tục được giữ.
+- `Voron Stealthchanger.json`: tiếp tục giữ `retract_restart_extra` của cả năm tool ở 0 và phát quạt sớm 0,5 giây.
 - `PETG Kabber Blue.json`: giảm số lớp khóa quạt kế thừa từ 3 xuống 2 để lớp vật lý 3 có cooling overhang.
 - `0.20mm Multicolor PetG.json`: bật xử lý small perimeter với threshold 5 mm và tốc độ 30 mm/s.
 - Reslice cô lập `RoboOctopus_4Color.3mf` bằng OrcaSlicer 2.4.2 đã xác nhận toàn bộ 88 restart lớp 3 của Arm1–Arm8 dùng `E0.5` thay cho `E0.7`, đồng thời T1 có cooling 10%/90%.

@@ -5,6 +5,15 @@
 	"enable_pressure_advance": [
 		"1"
 	],
+	"fan_cooling_layer_time": [
+		"20"
+	],
+	"fan_max_speed": [
+		"100"
+	],
+	"fan_min_speed": [
+		"20"
+	],
 	"filament_extruder_variant": [
 		"Direct Drive Standard"
 	],
@@ -40,6 +49,9 @@
 	],
 	"pressure_advance": [
 		"0.076"
+	],
+	"slow_down_layer_time": [
+		"8"
 	],
 	"version": "2.4.0.2"
 }

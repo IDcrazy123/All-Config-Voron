@@ -2,7 +2,7 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Project overview](../README.md)
 
-This directory mirrors the active OrcaSlicer user profile selected from `%APPDATA%\OrcaSlicer\user`. On 2026-09-27 the selected profile ID was `838ce884-12ee-416b-9e1b-1c7503cf6b5f`; 19 JSON files were validated and synchronized.
+This directory mirrors the active OrcaSlicer user profile selected from `%APPDATA%\OrcaSlicer\user`. On 2026-09-30 the selected profile ID was `838ce884-12ee-416b-9e1b-1c7503cf6b5f`; 19 JSON files were validated and synchronized.
 
 ## Active inventory
 
@@ -38,8 +38,11 @@ Six repository-only legacy presets were removed during the 2026-09-20 audit afte
 
 ## Latest synchronized changes
 
-- Synchronized the complete active profile state changed on 2026-09-26, including the 0.15 mm Spiral Lift setup, retraction/tool-change values, process overrides, and the new `PETG Bambu Basic White.json` preset.
-- `Voron Stealthchanger.json`: reset all five `retract_restart_extra` values from 0.2 mm to 0, and enabled 0.5 s overhang-only fan lead time.
+- `Voron Stealthchanger.json`: changed all five tools to `0.20 mm`, `Auto Lift`, `All Surfaces` Z-hop while preserving zero restart-extra and the 0.5 s fan lead time.
+- `0.20mm Multicolor PetG.json`: disabled `exclude_object` and `gcode_label_objects` to avoid Klipper's shared-E-state multi-extruder exclusion defect.
+- Synchronized active cooling overrides for Bambu Basic Black/White, Kabber Blue, and TPoimns Red PETG.
+- Retained the retraction/tool-change values and `PETG Bambu Basic White.json` preset from the 2026-09-26 baseline.
+- `Voron Stealthchanger.json`: continues to keep all five `retract_restart_extra` values at 0 with a 0.5 s fan lead time.
 - `PETG Kabber Blue.json`: changed the no-cooling window from three inherited layers to two, allowing overhang cooling on physical layer 3.
 - `0.20mm Multicolor PetG.json`: enabled small-perimeter handling with a 5 mm threshold and 30 mm/s speed.
 - An isolated OrcaSlicer 2.4.2 reslice of `RoboOctopus_4Color.3mf` confirmed all 88 Arm1–Arm8 layer-3 restarts now use `E0.5` instead of `E0.7`, with T1 cooling active at 10%/90%.
