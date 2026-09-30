@@ -145,9 +145,13 @@ Rà soát 25 file `.cfg`, đối chiếu logic thực thi với comment và work
 
 - `git diff --check`: đạt.
 - 25 file `.cfg` đã được inventory; 6 file readonly chỉ đọc, không sửa.
-- Chưa gửi lệnh chuyển động, gia nhiệt, home hay calibration trong bước audit tĩnh.
+- Commit `7c9873c` đã push và triển khai khi máy `standby`, virtual SD inactive, heater target 0, XYZ chưa home.
+- Installer tạo backup live `/home/voron/printer_data/config_backups/config-install-20260930-165724` trước khi đồng bộ.
+- `FIRMWARE_RESTART` thành công; Klipper trở lại `ready`, không có config error/traceback.
+- G-code help xác nhận các override final đang active: `_SAVE_TOOL_OFFSET`, `_SAVE_Z_TOOL_OFFSET` và `CALIBRATE_ALL_OFFSETS` đều mang mô tả disabled; macro coarse-Z mang mô tả preliminary-only.
+- `CALIBRATION_STATUS` và `CHECK_OFFSETS` render thành công, báo đúng X80/Y-8, Z0–2, start Z3 và giữ nguyên offset production T0–T4.
+- Không gửi lệnh chuyển động, gia nhiệt, home hay calibration trong toàn bộ audit/runtime check.
 
 ### Vấn đề còn lại
 
-- Cần triển khai khi máy idle, `FIRMWARE_RESTART` để Klipper parse và chạy các macro báo cáo không chuyển động.
 - Commissioning vật lý PF2 vẫn cần người vận hành xác nhận trạng thái nhấn `Axiscope:TRIGGERED` trước khi dùng `CONFIRM=1`.
