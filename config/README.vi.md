@@ -24,7 +24,7 @@ Thư mục này chứa payload do repository sở hữu và triển khai sang `~
 [include Printer-Setup/tool-crash.cfg]
 ```
 
-Thử nghiệm SexBolt có người giám sát dùng `[tools_calibrate]` của KTC-Easy trong `Printer-Setup/calibration-probe.cfg`. Axiscope vẫn được cài ngoài repository nhưng section Klipper bị tắt vì hai backend cùng chiếm đầu vào hiệu chuẩn PF2 và không thể tồn tại đồng thời.
+`Printer-Setup/calibration-probe.cfg` bật Axiscope làm backend `probe_multi_axis` duy nhất. Axiscope quản lý đo XY bằng camera; công tắc PF2 tháo rời cho Z tương đối sơ bộ; test first-layer quyết định Z production cuối.
 
 ## Quyền sở hữu
 
@@ -44,7 +44,7 @@ Thử nghiệm SexBolt có người giám sát dùng `[tools_calibrate]` của K
 | --- | --- |
 | MCU chính | CAN UUID `19b203d75137` |
 | Cartographer | CAN UUID `da13d909ce34`; Touch home tại `(174, 168)` |
-| Công tắc hiệu chuẩn SexBolt | `^PF2`; đế tháo rời giữa bàn tại tọa độ cấu hình `(174, 168)`; mặc định upstream `spread: 5.0`, `lower_z: 0.5`; Z55 di chuyển đã xác nhận; chưa đo Z tiếp xúc/bắt đầu dò |
+| Công tắc hiệu chuẩn Z sơ bộ | `^PF2`; đế tại `(80, -8)`; vùng chạm quan sát Z0–2; Axiscope bắt đầu tại Z3 và di chuyển an toàn ở Z15 |
 | XY | X `PE6`/`PF0`, Y `PE2`/`PF1`; 350 mm/s, 7000 mm/s² |
 | Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |
 | Bàn nhiệt | Heater `PA1`, sensor `PB0`, tối đa 120 °C |
@@ -55,19 +55,19 @@ Thử nghiệm SexBolt có người giám sát dùng `[tools_calibrate]` của K
 ## Quyền sở hữu hiệu chuẩn
 
 - Cartographer: home Z, chuẩn Touch, adaptive bed mesh và ADXL345 trên shuttle.
-- SexBolt `tools_calibrate`: đo XYZ tương đối giữa các tool có người giám sát trên PF2.
+- Axiscope: đo XY bằng camera và đo Z tương đối sơ bộ có người giám sát trên PF2.
 - Khối `SAVE_CONFIG` trong `printer.cfg`: nguồn chuẩn cho offset XYZ T1–T4.
-- `_CALIBRATION_SWITCH.z: 55` là độ cao di chuyển đã được người vận hành xác nhận. `CALIBRATE_MOVE_OVER_PROBE` mặc định đi tới tâm ở Z55 hoặc cao hơn, không dò chạm. `contact_z: -1` và `probe_z: -1` đánh dấu chiều cao tiếp xúc/bắt đầu dò chưa được đo. `CALIBRATE_ALL_OFFSETS` chặn trước khi chọn tool, gia nhiệt hoặc di chuyển cho đến khi cấu hình chiều cao hợp lệ; chế độ hạ nội bộ `PROBE=1` cũng phải vượt qua kiểm tra chiều cao. Các kiểm tra home/toolchanger vẫn áp dụng. `CALIBRATION_STATUS` báo các giá trị đang cấu hình. Hiệu chuẩn offset probe vẫn bị chặn.
-- kTAMV, ToolVision, TKC, KCC, Axiscope và các cấu hình SexBolt cũ chỉ còn là tài liệu lịch sử.
+- `_CALIBRATION_SWITCH.z: 15` là độ cao di chuyển XY/đổi tool an toàn. Axiscope bắt đầu tại Z3 trên vùng chạm quan sát Z0–2. `CALIBRATE_COARSE_Z_OFFSETS` chỉ báo Z sơ bộ. Axiscope không được tự ghi file cấu hình; XY được xem lại rồi nhập thủ công, còn Z cuối luôn lấy từ test first-layer. `CALIBRATE_ALL_OFFSETS` cũ và hiệu chuẩn offset probe tiếp tục bị chặn.
+- kTAMV, ToolVision, TKC, KCC và các cấu hình SexBolt cũ chỉ còn là tài liệu lịch sử.
 
-Trước mọi `SELECT_TOOL` trong chu trình hiệu chuẩn, `_CALIBRATE_SAFE_TRANSIT` nâng thẳng lên ít nhất độ cao di chuyển Z55 đã cấu hình; macro không di chuyển XY.
+Trước mỗi lần đổi tool trong chu trình hiệu chuẩn, `_CALIBRATE_SAFE_TRANSIT` nâng thẳng lên ít nhất độ cao di chuyển Z15 đã cấu hình; macro không di chuyển XY.
 
-Phải tháo đế trước `G28`, QGL, bed mesh, Cartographer Touch hoặc in vì đường đi của các thao tác này trùng vùng giữa bàn. Home khi mặt bàn thông thoáng, đưa đầu in tới khoảng hở Z55 đã xác nhận và tránh đường lắp, rồi mới lắp đế. Xác nhận XY thực tế khi nozzle T0 nằm trên tâm bi và đo Z tiếp xúc/bắt đầu dò trước khi bật dò tự động. Chiều cao của vị trí phía trước cũ không áp dụng cho đế này.
+Phải tháo đế trước `G28`, QGL, bed mesh, Cartographer Touch hoặc in. Home khi mặt bàn thông thoáng, nâng tới Z15, lắp đế rồi xác nhận X80/Y-8 và trạng thái công tắc PF2 trước khi dò có người giám sát.
 
 ## Hành vi triển khai
 
 `scripts/install.sh` từ chối deploy nếu sáu link readonly KTC-Easy thiếu hoặc hỏng. Script sao lưu config live, giữ đường dẫn runtime của máy, áp dụng patch `tool_crash` đã review khi cần và giữ năm backup cài đặt gần nhất trên máy in.
 
-Máy thật có thể giữ dịch vụ Axiscope và entry update-manager được quản lý bên ngoài, nhưng dịch vụ này không phải backend hiệu chuẩn Klipper active trong lần thử.
+Dịch vụ và Klipper extra Axiscope được Moonraker quản lý bên ngoài; repository chỉ triển khai phần tích hợp `.cfg`.
 
 Chỉ deploy khi máy in đang rảnh. Sau restart Moonraker/Klipper, kiểm tra `CALIBRATION_STATUS`, `CHECK_OFFSETS`, heater, quạt, homing và tool detection trước khi in.

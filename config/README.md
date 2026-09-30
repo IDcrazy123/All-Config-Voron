@@ -24,7 +24,7 @@ This directory is the repository-owned payload deployed to `~/printer_data/confi
 [include Printer-Setup/tool-crash.cfg]
 ```
 
-The attended SexBolt trial uses KTC-Easy `[tools_calibrate]` in `Printer-Setup/calibration-probe.cfg`. Axiscope remains installed externally but its Klipper section is disabled because both backends claim the same PF2 calibration input and cannot coexist.
+`Printer-Setup/calibration-probe.cfg` activates Axiscope as the only `probe_multi_axis` backend. Axiscope owns camera-assisted XY; the removable PF2 switch provides coarse relative Z; first-layer tests own final production Z.
 
 ## Ownership
 
@@ -44,7 +44,7 @@ The attended SexBolt trial uses KTC-Easy `[tools_calibrate]` in `Printer-Setup/c
 | --- | --- |
 | Main MCU | CAN UUID `19b203d75137` |
 | Cartographer | CAN UUID `da13d909ce34`; Touch home at `(174, 168)` |
-| SexBolt calibration switch | `^PF2`; removable center-bed holder at configured `(174, 168)`; upstream defaults `spread: 5.0`, `lower_z: 0.5`; transit Z55 confirmed; contact/probe-start Z unmeasured |
+| Coarse-Z calibration switch | `^PF2`; holder at `(80, -8)`; observed contact range Z0–2; Axiscope starts at Z3 and uses Z15 transit |
 | XY | X `PE6`/`PF0`, Y `PE2`/`PF1`; 350 mm/s, 7000 mm/s² |
 | Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |
 | Bed | Heater `PA1`, sensor `PB0`, maximum 120 °C |
@@ -55,19 +55,19 @@ The attended SexBolt trial uses KTC-Easy `[tools_calibrate]` in `Printer-Setup/c
 ## Calibration ownership
 
 - Cartographer: Z homing, Touch reference, adaptive bed mesh, and shuttle ADXL345.
-- SexBolt `tools_calibrate`: attended relative XYZ measurement on PF2.
+- Axiscope: camera-assisted XY measurement and attended coarse relative-Z measurement on PF2.
 - `printer.cfg` `SAVE_CONFIG`: authoritative T1–T4 XYZ offsets.
-- `_CALIBRATION_SWITCH.z: 55` is the operator-confirmed transit height. Default `CALIBRATE_MOVE_OVER_PROBE` travels to the center at or above Z55 without probing. `contact_z: -1` and `probe_z: -1` mark the contact and probe-start heights as unmeasured. `CALIBRATE_ALL_OFFSETS` blocks before tool selection, heating, or movement until valid heights are configured; internal `PROBE=1` descent requires the same height checks. Homing/toolchanger checks still apply. `CALIBRATION_STATUS` reports the configured values. Probe-offset calibration remains blocked.
-- kTAMV, ToolVision, TKC, KCC, Axiscope, and earlier SexBolt configurations are historical references only.
+- `_CALIBRATION_SWITCH.z: 15` is the safe XY/tool-change transit height. Axiscope starts at Z3 over the observed Z0–2 contact range. `CALIBRATE_COARSE_Z_OFFSETS` reports preliminary Z only. Axiscope config writes are disabled; XY changes are reviewed and applied manually, while final Z always comes from first-layer tests. The retired `CALIBRATE_ALL_OFFSETS` and probe-offset calibration remain blocked.
+- kTAMV, ToolVision, TKC, KCC, and earlier SexBolt configurations are historical references only.
 
-Before every `SELECT_TOOL` in the calibration sequence, `_CALIBRATE_SAFE_TRANSIT` lifts vertically to at least the configured transit Z55; it does not move XY.
+Before every tool change in the calibration sequence, `_CALIBRATE_SAFE_TRANSIT` lifts vertically to at least the configured transit Z15; it does not move XY.
 
-The holder must be removed before `G28`, QGL, bed mesh, Cartographer Touch, or printing because their paths overlap the bed center. Home with an unobstructed plate, position the toolhead at the confirmed Z55 clearance and outside the installation path, then install the holder. Confirm the T0 nozzle's actual ball-center XY and measure contact/probe-start Z before enabling automatic probing. The former front-mounted fixture's heights do not apply to this holder.
+The holder must be removed before `G28`, QGL, bed mesh, Cartographer Touch, or printing. Home with an unobstructed plate, raise to Z15, install the holder, then verify X80/Y-8 and the PF2 switch state before attended probing.
 
 ## Deployment behavior
 
 `scripts/install.sh` refuses deployment if the six KTC-Easy readonly links are missing or broken. It backs up the live config, preserves machine-local runtime paths, applies the reviewed `tool_crash` patch when necessary, and retains five printer-side install backups.
 
-The live machine may retain the externally managed Axiscope service and update-manager entry, but the service is not the active Klipper calibration backend during this trial.
+The Axiscope service and Klipper extra are externally managed through Moonraker; repository deployment changes only their `.cfg` integration.
 
 Run configuration deployment only while the printer is idle, then restart Moonraker/Klipper and verify `CALIBRATION_STATUS`, `CHECK_OFFSETS`, heaters, fans, homing, and tool detection before printing.

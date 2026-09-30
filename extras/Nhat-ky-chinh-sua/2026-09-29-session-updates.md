@@ -186,3 +186,50 @@ Không sửa cấu hình, không restart dịch vụ và không điều khiển 
 
 - Chưa gửi G-code, chưa restart Klipper và chưa điều khiển máy trong phiên triển khai repository.
 - Cấu hình vượt qua kiểm tra tĩnh, nhưng chưa được commissioning vật lý. Lượt đầu phải có người giám sát để xác nhận cục purge `40 mm` rơi/gãy gọn trong bucket tại `X315 Y1 Z6`, nozzle tiếp xúc vừa đủ ở `Z1.0`, và không kéo sợi sang silicone. Chỉ hạ Z theo bước `0.1 mm` khi quan sát cho thấy chưa chạm đều; không thấp hơn `Z0.5`.
+
+## 6. Triển khai live và audit cập nhật tại 192.168.1.43
+
+### Trạng thái an toàn trước khi cập nhật
+
+- Moonraker/Klipper báo `ready`; máy `standby`, virtual SD không active, không pause và không có file đang in.
+- XYZ chưa home; mọi target của bed và năm extruder đều bằng `0 °C`. Tool sensor nhận T0, nhưng không gửi G-code, không home, không đổi tool, không di chuyển và không gia nhiệt trong toàn bộ phiên.
+- Repo live `/home/voron/All-Config-Voron` sạch ở `41283d875c73`; sáu symlink KTC-Easy trong `toolchanger/readonly-configs` hợp lệ; bản vá active-tool validation trong `tool_crash.py` đã có sẵn; filesystem còn khoảng 12 GB.
+
+### Triển khai All-Config-Voron
+
+- Gọi Moonraker Update Manager đưa repo live `41283d875c73 → 9dd6aac53bf8`, sau đó xác nhận repo sạch và trùng `origin/main`.
+- Phát hiện `install_script: config/scripts/install.sh` không phải post-update hook: Moonraker chỉ parse script để tìm package (`No packages found in script`) rồi restart Klipper; ba file macro live vẫn giữ hash cũ và không có backup mới. Vì vậy chạy trực tiếp `bash /home/voron/All-Config-Voron/config/scripts/install.sh` khi máy vẫn idle.
+- Installer tạo backup đầy đủ `/home/voron/printer_data/config_backups/config-install-20260929-203558`, xác nhận KTC readonly links, giữ Axiscope ngoài phạm vi và chép cấu hình mới. Sau `RESTART`, Klipper trở lại `ready`.
+- Đối chiếu source/live xác nhận macro mới đã có purge `X315 Y1 Z6`, `PURGE=40`, hai mode `DEEP/TOUCH` và vùng lau đã giới hạn. `nozzle-clean.cfg` và `tool-temp-bench.cfg` trùng SHA-256 local/live; `print-macros.cfg` trùng Git blob và `diff` bằng 0 (working tree Windows dùng line ending khác nên SHA-256 thô khác).
+
+### Xung đột cấu hình live và khắc phục
+
+- Lần rsync đầu làm lộ hai hiệu chỉnh thực tế chỉ tồn tại trên máy: `spread 7.0 / lower_z 0.7` bị repo đưa về `5.0 / 0.5`; `contact_z 50 / probe_z 55` bị đưa về `-1 / -1`. Klipper vẫn parse được nhưng không được phép chạy calibration ở giá trị `-1`.
+- Tạo thêm bản lưu live `/home/voron/printer_data/config_backups/pre-calibration-restore-20260929-203724/`, sau đó khôi phục đúng hai file từ backup `203558`. Restart lần hai thành công; giá trị effective hiện là `spread=7.0`, `lower_z=0.7`, `variable_z=55`, `variable_contact_z=50`, `variable_probe_z=55`.
+- Để lần triển khai sau không lặp regression, đồng bộ các giá trị người vận hành đã xác nhận vào repository:
+  - `config/Printer-Setup/calibration-probe.cfg`
+  - `config/toolchanger/toolchanger-config.cfg`
+
+### Sao lưu repository
+
+- [calibration-probe.cfg](<D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-persist-live-calibration-20260929-203905/calibration-probe.cfg>)
+- [toolchanger-config.cfg](<D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-persist-live-calibration-20260929-203905/toolchanger-config.cfg>)
+- [README backup](<D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-persist-live-calibration-20260929-203905/README.md>)
+
+### Audit và quyết định cập nhật thành phần
+
+- **Đã cập nhật:** Mainsail `v2.18.2 → v2.19.0`. Đây là frontend stable; endpoint web trả HTTP 200 sau cập nhật và máy in vẫn `ready/standby`.
+- **Đã cập nhật Moonraker:** `985c1d0 → 9e676eb` (`v0.11.0-3`); symlink timelapse untracked được giữ, API và Klipper vẫn ready. Máy không có section `[timelapse]`, nên endpoint render 404 là trạng thái chưa bật sẵn, không phải regression.
+- **Đã cập nhật Klipper host:** `60fc7aa → 7bc4d094` (`v0.13.0-777`); không flash MCU. Không có path upstream trùng 12 plugin untracked; toàn bộ symlink và `tool_crash.py` được giữ. Đã tạo bundle rollback trước update.
+- **Đã cập nhật KlipperScreen:** `fbe7451c → 3f08a9f7` (`v0.4.7-191`); service active, websocket và printer state khởi tạo lại bình thường.
+- **Đã cập nhật Sonar:** `0d1d7c8 → 74494cc3` (`v0.2.0-2`). Không có `sonar.conf`; mặc định `enable=False`, nên service thoát `0/SUCCESS` và ở `inactive/dead` như thiết kế.
+- **Đã cập nhật toàn bộ 48 thao tác package hệ thống:** 42 upgrade + 6 package mới, 0 remove. `dpkg --audit` sạch và mô phỏng `full-upgrade` còn `0 upgraded`; reboot và kiểm tra hậu khởi động được ghi trong nhật ký 2026-09-30.
+- Crowsnest, timelapse, Cartographer stable `1.9.0`, ShakeTune, KTC-Easy, Axiscope và mainsail-config đều đang latest theo Update Manager.
+
+### Rủi ro còn lại và kiểm tra sau cập nhật
+
+- Klipper `ready`, service Klipper/Moonraker/KlipperScreen/Crowsnest active; sáu KTC symlink còn hợp lệ; lần khởi động mới không có config error, traceback, shutdown hay `Timer too close`.
+- Máy vẫn `standby`, XYZ chưa home, toàn bộ heater target `0`, virtual SD inactive và T0 được sensor nhận. Toolchanger `uninitialized` là trạng thái bình thường sau restart khi chưa home/initialize.
+- Cartographer plugin `1.9.0` có upstream issue [#510](https://github.com/Cartographer3D/cartographer3d-plugin/issues/510) về Touch sample âm bị clamp ở movement floor; máy này có `position_min: -5`. Guard liên quan mới chỉ ở beta `1.10.x`, nên không tự chuyển beta. Lần `PRINT_START`/Touch Home đầu tiên sau thay đổi phải có người giám sát và sẵn E-stop.
+- Macro clean/purge mới chưa được commissioning cơ khí. Lượt purge/wipe đầu tiên vẫn phải quan sát bucket, khả năng tách cục nhựa và tiếp xúc silicone ở `Z1.0`; không tự động hạ thấp hơn nếu chưa đánh giá trực tiếp.
+- Với cấu trúc hiện tại, nút Update của `All-Config-Voron` chỉ pull repo; sau đó vẫn phải chạy installer backup-first thủ công. Không coi Git HEAD mới là bằng chứng rằng config live đã được triển khai.

@@ -2,7 +2,7 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Active config](config/README.md) | [Documentation](extras/docs/README.md) | [OrcaSlicer profiles](Orca%20Config/README.md)
 
-Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five StealthChanger toolheads. The current system uses KTC-Easy for tool handling, Cartographer V3 for Z homing and bed mesh, and an attended SexBolt `tools_calibrate` trial for relative tool offsets.
+Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five StealthChanger toolheads. KTC-Easy handles tool changes, Cartographer V3 handles Z homing and bed mesh, Axiscope measures XY, the PF2 switch provides coarse relative Z, and first-layer tests determine final production Z.
 
 ## Current production architecture
 
@@ -12,7 +12,7 @@ Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five Stealth
 | Toolheads | 5 × BTT EBB36 V1.2, WW BMG extruders, TZ V6 2.0 hotends |
 | Toolchanger | KTC-Easy, five rear docks, OptoTap presence sensing |
 | Z home / mesh | Cartographer V3 Touch at `(174, 168)`; adaptive 55 × 55 scan mesh |
-| Tool XYZ calibration | KTC-Easy SexBolt on `^PF2`; removable center-bed holder at configured `(174, 168)`; verified transit Z55; contact/probe-start heights still require measurement |
+| Tool calibration | Axiscope camera for XY; PF2 switch at `(80, -8)` for coarse Z from Z3 over the observed Z0–2 contact range; first-layer tests for final Z |
 | Motion limits | XY 350 mm/s, 7000 mm/s²; Z 80 mm/s, 1000 mm/s² |
 | Heated bed | 1000 W AC pad through SSR on `PA1`; sensor `PB0`; maximum 120 °C |
 | Cooling | TMC `PF9`, CM4 `PF6`, enclosure/MCU `PF7`, chamber circulation `PF8` |
@@ -85,15 +85,15 @@ The active Orca profile inventory and synchronization workflow are documented in
 | Print lifecycle | `PRINT_START`, `PRINT_END`, `PAUSE`, `RESUME`, `CANCEL_PRINT`, `G32` |
 | Nozzle service | `CLEAN_NOZZLE`, `PURGE_AND_CLEAN`, `PRIME_LINES` |
 | Filament drying | `START_DRYER`, `STOP_DRYER`, `DRYER_STATUS` |
-| Calibration/reporting | `SEXBOLT_QUERY`, `CALIBRATE_MOVE_OVER_PROBE`, `CALIBRATE_ALL_OFFSETS`, `CALIBRATION_STATUS`, `CHECK_OFFSETS` |
+| Calibration/reporting | `QUERY_ENDSTOPS`, `CALIBRATE_MOVE_OVER_PROBE`, `CALIBRATE_COARSE_Z_OFFSETS`, `CALIBRATION_STATUS`, `CHECK_OFFSETS` |
 | Motion/thermal tests | `TEST_SPEED`, `TEST_Z_SPEED`, `MEASURE_TOOL_HEATUP` |
 | Lighting/fans | `LIGHTS_ON`, `LIGHTS_OFF`, `BED_FAN_ON`, `BED_FAN_OFF` |
 
-The attended SexBolt trial uses the upstream defaults `spread: 5.0` and `lower_z: 0.5`. `_CALIBRATION_SWITCH.z: 55` is the operator-confirmed transit clearance. By default, `CALIBRATE_MOVE_OVER_PROBE` travels to the configured center at or above Z55 without probing. The new holder's `contact_z: -1` and `probe_z: -1` remain unmeasured sentinels: `CALIBRATE_ALL_OFFSETS` rejects the run before tool selection, heating, or movement until both are valid. Its internal `PROBE=1` approach may descend below transit height only after these height checks pass. `CALIBRATION_STATUS` reports the configured values. `CALIBRATE_NOZZLE_PROBE_OFFSET` remains blocked so the trial cannot rewrite the Cartographer probe offset.
+Axiscope is the sole active `probe_multi_axis` backend. Its camera workflow measures XY, while the PF2 switch at `(80, -8)` provides only a preliminary relative-Z result. The switch path starts at Z3, 1 mm above the upper edge of the observed Z0–2 contact range, uses five samples, and heats each selected nozzle to 150 °C. Z15 remains the safe XY/tool-change transit height. Automatic Axiscope config writes are intentionally disabled: review measurements, apply XY manually with backup, and finalize every production Z offset with an attended first-layer test. `CALIBRATE_ALL_OFFSETS` remains blocked to prevent the retired combined-XYZ workflow from being used.
 
-Before each tool change, the calibration sequence lifts vertically to at least Z55 so the docking route leaves the fixture at transit clearance.
+Before each tool change, the calibration sequence lifts vertically to at least Z15 so the docking route leaves the switch at transit clearance.
 
-Remove the holder before `G28`, QGL, bed mesh, Cartographer Touch, or printing: these operations use or cross the center of the bed. Home with the plate unobstructed, then position the toolhead at the confirmed Z55 clearance and outside the installation path before installing the holder. Confirm the T0 nozzle is centered over the ball and measure the contact/probe-start heights before enabling calibration. See the [tool calibration procedure](extras/docs/huong-dan-he-thong-stealthchanger.en.md#tool-calibration).
+Remove the holder before `G28`, QGL, bed mesh, Cartographer Touch, or printing. Home with the plate unobstructed, move to safe Z15, install the holder, verify X80/Y-8 and the switch state, then run any attended coarse-Z measurement. See the [tool calibration procedure](extras/docs/huong-dan-he-thong-stealthchanger.en.md#tool-calibration).
 
 ## Safety and rollback
 
