@@ -61,3 +61,19 @@ Mapping ban đầu đã được khôi phục trong repo và trên máy in.
 
 ### Vấn đề còn lại
 Máy vẫn chưa home X/Y; cần home lại trước khi di chuyển/in.
+## 3. Kiểm tra loa tích hợp BTT HDMI5 V1.2
+
+### Triệu chứng
+- Phát thử WAV qua HDMI hiện dòng `Playing WAVE...` nhưng người vận hành không nghe thấy âm thanh.
+- Ảnh bo mạch HDMI5 V1.2 có cụm loa tròn tích hợp ở mặt sau.
+
+### Phân tích
+- ALSA HDMI device `hdmi:CARD=vc4hdmi0,DEV=0` chấp nhận luồng âm thanh; điều đó chưa chứng minh loa vật lý phát được tiếng.
+- Cấu hình boot có `hdmi_drive=1`, giá trị được tài liệu Raspberry Pi mô tả là DVI/no sound; `vcgencmd get_config hdmi_drive` trả `unknown` trên hệ thống KMS này nên chưa xác minh dòng đó có hiệu lực.
+
+### Hướng kiểm tra tiếp theo
+- Đề xuất phát sóng sine 1 kHz qua HDMI bằng `speaker-test -D hdmi:CARD=vc4hdmi0,DEV=0 -c 2 -t sine -f 1000 -l 3`.
+- Nếu vẫn im lặng, thử tai nghe có dây ở jack 3,5 mm của màn hình để phân biệt lỗi luồng HDMI với loa/amplifier tích hợp.
+
+### Kết quả
+Chưa xác nhận loa phát được âm thanh; chưa sửa cấu hình hoặc bật cảnh báo.
