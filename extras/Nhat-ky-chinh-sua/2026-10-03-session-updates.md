@@ -77,3 +77,16 @@ Máy vẫn chưa home X/Y; cần home lại trước khi di chuyển/in.
 
 ### Kết quả
 Chưa xác nhận loa phát được âm thanh; chưa sửa cấu hình hoặc bật cảnh báo.
+
+## 4. Tra cứu giới hạn hành trình trục Z
+
+### Yêu cầu
+Xác định tọa độ Z lớn nhất được cấu hình cho máy in.
+
+### File đã đọc
+- `config/printer.cfg` — xác nhận cấu hình phần cứng được include.
+- `config/Printer-Setup/hardware.cfg` — `[stepper_z] position_max: 347`.
+- `config/Printer-Setup/test-speed.cfg` — macro `TEST_Z_SPEED` mặc định chạy tới Z320 và giới hạn Z_MAX tối đa bằng trần trục trừ 25 mm.
+
+### Kết quả
+Giới hạn Z tối đa theo cấu hình phần mềm là 347 mm. Macro kiểm tra tốc độ Z mặc định chỉ chạy tới Z320. Không sửa cấu hình; bản sao lưu không cần thiết.
