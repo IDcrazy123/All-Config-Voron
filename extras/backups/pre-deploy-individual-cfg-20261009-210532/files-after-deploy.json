@@ -1,0 +1,70 @@
+{
+  "files_match": [
+    ".gitattributes",
+    ".gitignore",
+    "KlipperScreen.conf",
+    "Printer-Setup/calibration-probe.cfg",
+    "Printer-Setup/fans-leds.cfg",
+    "Printer-Setup/filament-dryer.cfg",
+    "Printer-Setup/hardware.cfg",
+    "Printer-Setup/input-shaper.cfg",
+    "Printer-Setup/nozzle-clean.cfg",
+    "Printer-Setup/prime-lines.cfg",
+    "Printer-Setup/print-macros.cfg",
+    "Printer-Setup/test-speed.cfg",
+    "Printer-Setup/tool-crash.cfg",
+    "Printer-Setup/tool-temp-bench.cfg",
+    "crowsnest.conf",
+    "mainsail.cfg",
+    "moonraker.conf",
+    "printer.cfg",
+    "scripts/cleanup-voron.sh",
+    "scripts/install.sh",
+    "scripts/patches/tool_crash-active-tool-validation.patch",
+    "scripts/update.sh",
+    "toolchanger/toolchanger-config.cfg",
+    "toolchanger/tools/T0.cfg",
+    "toolchanger/tools/T1.cfg",
+    "toolchanger/tools/T2.cfg",
+    "toolchanger/tools/T3.cfg",
+    "toolchanger/tools/T4.cfg"
+  ],
+  "mismatch": [],
+  "readonly_links": [
+    {
+      "name": "toolchanger.cfg",
+      "target": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/toolchanger.cfg"
+    },
+    {
+      "name": "crash-detection.cfg",
+      "target": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/crash-detection.cfg"
+    },
+    {
+      "name": "calibrate-offsets.cfg",
+      "target": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/calibrate-offsets.cfg"
+    },
+    {
+      "name": "toolchanger-macros.cfg",
+      "target": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/toolchanger-macros.cfg"
+    },
+    {
+      "name": "toolchanger-include.cfg",
+      "target": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/user-configs/toolchanger-include_scanner.cfg"
+    },
+    {
+      "name": "homing.cfg",
+      "target": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/homing.cfg"
+    }
+  ],
+  "unchanged_preserved": [
+    ".gitattributes",
+    ".gitignore",
+    "KlipperScreen.conf",
+    "crowsnest.conf",
+    "mainsail.cfg",
+    "moonraker.conf",
+    "scripts/cleanup-voron.sh",
+    "scripts/patches/tool_crash-active-tool-validation.patch",
+    "scripts/update.sh"
+  ]
+}

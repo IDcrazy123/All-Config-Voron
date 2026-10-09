@@ -1,0 +1,1 @@
+Live Klipper environment Jinja: 2.11.3 include files: 25 templates compiled: 126

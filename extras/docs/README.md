@@ -10,7 +10,7 @@ Current documents describe the loaded production code reviewed on 2026-10-09. Hi
 | --- | --- | --- |
 | Code/machine audit 2026-10-09 | [Report](project-audit-2026-10-09.md) | English technical report |
 | Adaptation to another machine | [Guide](machine-adaptation.md) | English technical guide |
-| Sharing existing CFG files individually | [Implementation guide](sharing-cfg-files.md) | File prerequisites, local edits and verified limits; repository only |
+| Sharing existing CFG files individually | [Implementation guide](sharing-cfg-files.md) | File prerequisites/local edits; deployed to current printer, no physical feature tests |
 | Sharing design rationale | [Revised proposal](stealthchanger-sharing-proposal.md) | Implemented scope/status is recorded in the guide above |
 | Project overview | [README](../../README.md) | [README](../../README.vi.md) |
 | Active config payload | [README](../../config/README.md) | [README](../../config/README.vi.md) |

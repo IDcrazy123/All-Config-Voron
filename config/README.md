@@ -40,7 +40,7 @@ This directory is the repository-owned payload deployed to `~/printer_data/confi
 
 ## Individual CFG sharing
 
-Use the [individual-file sharing guide](../extras/docs/sharing-cfg-files.md) to send an existing feature CFG without this full payload. All 18 user-owned CFGs now declare prerequisites and local adaptation points. Settings stay at their native owners; no global EDIT HERE/profile file is required. Benchmark/prime/cleaner/dryer can omit optional project helpers under their declared contracts. Hardware/lifecycle/calibration references retain their documented integration requirements and open issues.
+Use the [individual-file sharing guide](../extras/docs/sharing-cfg-files.md) to send an existing feature CFG without this full payload. All 18 user-owned CFGs now declare prerequisites and local adaptation points. Settings stay at their native owners; no global EDIT HERE/profile file is required. Benchmark/prime/cleaner/dryer can omit optional project helpers under their declared contracts. Hardware/lifecycle/calibration references retain their documented integration requirements and open issues. The sharing changes were deployed to the current printer on 2026-10-09 with a successful Klipper reload and read-only verification; feature motion/heating remains untested.
 
 ## Adaptation inputs
 

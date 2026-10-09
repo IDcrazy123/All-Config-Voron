@@ -163,3 +163,40 @@ Loại phụ thuộc chéo không cần thiết và giả định tên/số tool
 - EXCLUDE_OBJECT nhiều tool chưa sửa; CAN T1 đã sửa theo người vận hành.
 - END/CANCEL lift tại max-Z và frame tọa độ, crash CANCEL parking, Axiscope return-to-T0, inherited damping KTC vẫn mở. Phần diagnostic đã sửa lệnh/guard/restore như mô tả, nhưng cần commissioning có người giám sát trước dùng trên máy khác.
 - Calibration/hardware/lifecycle references vẫn có phụ thuộc được ghi rõ; không hứa mọi file chỉ sửa vài số là dùng trên mọi loại máy. Người nhận giữ PID, offsets, limits và đo dock/pad/mesh của máy họ.
+
+## 5. Triển khai cấu hình chia sẻ từng CFG lên máy in
+
+### Mục tiêu
+Thực hiện yêu cầu triển khai bộ cấu hình đã kiểm tra, source commit `4041d5ee90db9b1e55485d40402ef5ed0c82cad2`, tới `voron@192.168.1.43` và kiểm tra Klipper nạp lại.
+
+### Kiểm tra trước ghi
+- Moonraker/Klipper ready; job `panel-latch-2020-6_0mm-no-logo_ABS_1h39m.gcode` complete, Idle, không paused, toolchanger ready nhưng không tool mounted. XYZ chưa homed; tất cả bed/hotend target 0, dryer/benchmark không chạy, _PRINT_STATE idle.
+- Đọc cấu hình live trước ghi: 28 file tương ứng payload, không có file thiếu. Native hardware/geometry/limits và SAVE_CONFIG khớp source; không thay đổi PID, current, UUID, pin, dock hay calibration thực tế.
+- Soak variables mới ABS90/PETG60/hot-bed90/PLA30 phản ánh defaults đã review trong commit audit; không có chỉnh tuning mới trong tác vụ deploy.
+- Source staging lấy từ git archive của commit đã push, không lấy Printables/G-code hoặc file untracked đang chỉnh. Chuỗi include dùng sáu readonly file live: 25 file, 126 template biên dịch thành công bằng Jinja 2.11.3 trong klippy-env thực tế.
+- Installer dry-run xác nhận chỉ 18 CFG user-owned và `scripts/install.sh` khác nội dung. File không đổi được giữ timestamp/mode ở staging để không ghi thừa vào destination. mainsail.cfg/service config giữ nguyên.
+
+### Sao lưu
+- [Bản ghi triển khai và backup live local](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-deploy-individual-cfg-20261009-210532/deployment-record.md>).
+- `live-config-before.tar`: bản chính xác của 28 file payload live trước ghi; không tải secrets hoặc generated results vào Git.
+- Backup đầy đủ trên máy in do installer tạo trước rsync: `/home/voron/printer_data/config_backups/config-install-20261009-210823-F2BuYW`.
+- Backup giữ sáu readonly symlink và destination-only files; không xóa config/backup cũ. Sao lưu nhật ký và các docs trước cập nhật trạng thái deploy trong cùng thư mục local.
+
+### Triển khai
+- Chạy install.sh từ staging `/tmp/voron-deploy-4041d5e.9vXTYN` với Moonraker cùng máy `http://127.0.0.1:7125`. Idle được installer kiểm tra lại ngay trước ghi.
+- Cập nhật 18 CFG và installer. Runtime tool_crash đã có patch active-tool-validation nên không phải patch lại; Axiscope/runtime/plugin và readonly KTC không bị sửa.
+- So sánh sau ghi: 28/28 file payload khớp source, chín file không đổi giữ chính xác nội dung cũ; sáu symlink readonly nguyên target và còn hợp lệ.
+- Kiểm tra lại Idle/print/pause/toolchanger/dryer/benchmark/heater targets trước gửi `POST /printer/restart`; RESTART trả ok. Không cần restart Moonraker vì service configuration không đổi.
+
+### Kết quả kiểm tra sau restart
+- Klipper `v0.13.0-777-g7bc4d0946-dirty`: **ready / Printer is ready**. Moonraker không failed component hoặc warning; registry nạp đủ T0–T4, `_TOOL_HEATUP_START_TIMER` mới đã có.
+- Heater bed và năm hotend target 0; _PRINT_STATE idle, dryer/benchmark không chạy. Toolchanger uninitialized và XYZ chưa homed là trạng thái sau restart; không tự initialize/home để tránh chuyển động không được yêu cầu.
+- Lệnh chỉ đọc `CALIBRATION_STATUS`, `CHECK_OFFSETS`, `QUERY_ENDSTOPS` trả ok. Axiscope active; endstop Axiscope/X/Y/Z open ở mẫu kiểm tra.
+- Offset được báo: T0=(0,0,0); T1=(-0.139,-0.341,0.1665); T2=(1.095,-0.09,-0.3515); T3=(0.003,0.369,-0.3265); T4=(0.213,-0.007,0.0279), khớp calibration hiện hành.
+- Mẫu CAN sau startup: mcu, EBB0–EBB4, cartographer đều active; rx_error/tx_error/tx_retries 0. Không có config-load error hoặc shutdown trong phần startup vừa kiểm tra.
+- Có một traceback `Write g-code response / BlockingIOError: [Errno 11] Resource temporarily unavailable` tại `gcode.py:_respond_raw` khi khởi động. Đối chiếu runtime cho thấy handler catch os.error, ghi log và tắt output-pipe flag; không shutdown Klipper. API/read-only commands hoạt động sau đó. Không sửa runtime vì đây chưa phải bằng chứng lỗi CFG mới; lưu trace trong `verification-after-restart.json` để theo dõi kênh serial response nếu cần.
+- Không homing, toolchange, gia nhiệt, calibration hoặc test in. Đây là xác nhận deploy/config loading và kiểm tra chỉ đọc, chưa là commissioning tính năng vật lý.
+
+### Tài liệu và việc còn lại
+- Cập nhật sharing guide và hai cặp README để phân biệt đã deploy máy hiện tại với chưa thử motion/heating/máy khác; source CFG không thay thêm trong tác vụ này.
+- EXCLUDE_OBJECT nhiều tool, END/CANCEL max-Z/frame, crash cancel parking, Axiscope return-to-T0 và inherited KTC damping vẫn mở; triển khai không được hiểu là đã sửa các issue đó.

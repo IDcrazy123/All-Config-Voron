@@ -10,7 +10,7 @@ Tài liệu hiện hành mô tả code production đang được nạp được 
 | --- | --- | --- |
 | Tổng duyệt code và đối chiếu máy 2026-10-09 | [Báo cáo](project-audit-2026-10-09.md) | Bản kỹ thuật tiếng Anh |
 | Điều chỉnh cấu hình cho máy khác | [Hướng dẫn](machine-adaptation.md) | Bản kỹ thuật tiếng Anh |
-| Chia sẻ riêng từng file CFG hiện có | [Hướng dẫn đã thực hiện](sharing-cfg-files.md) | Phụ thuộc, chỗ sửa tại file và giới hạn kiểm chứng; chưa đưa lên máy |
+| Chia sẻ riêng từng file CFG hiện có | [Hướng dẫn đã thực hiện](sharing-cfg-files.md) | Phụ thuộc/chỗ sửa tại file; đã nạp máy hiện tại, chưa thử chuyển động/nhiệt |
 | Cơ sở thiết kế chia sẻ CFG | [Đề xuất đã điều chỉnh](stealthchanger-sharing-proposal.md) | Phạm vi thực hiện nằm trong hướng dẫn phía trên |
 | Tổng quan dự án | [README](../../README.md) | [README](../../README.vi.md) |
 | Payload config active | [README](../../config/README.md) | [README](../../config/README.vi.md) |

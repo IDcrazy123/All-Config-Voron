@@ -1,6 +1,6 @@
 # Sharing individual CFG files
 
-Implemented in the repository on 2026-10-09; not deployed or physically tested on the printer. This guide records the current implementation of the [revised proposal](stealthchanger-sharing-proposal.md).
+Implemented and deployed to the current printer (192.168.1.43) on 2026-10-09. Klipper reloaded successfully; feature motion/heating and printing were not physically tested. This guide records the current implementation of the [revised proposal](stealthchanger-sharing-proposal.md).
 
 Send the **existing complete CFG** for a feature. The receiver keeps their existing Klipper/KTC setup, includes that one file once, and edits values at their current native section or macro. No global parameter file, EDIT HERE block, generated package, or renamed macro framework is required.
 

@@ -1,0 +1,233 @@
+{
+  "files": [
+    {
+      "path": ".gitattributes",
+      "same_content": true,
+      "sha256": "068162d4bebae0e6e6e908025f9e81ffe5afa8d1b6599b9d342a15eca16e659c",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/.gitattributes"
+    },
+    {
+      "path": ".gitignore",
+      "same_content": true,
+      "sha256": "5d37dfee8f4f010a522e61f19bb289ab435ca34d33b196c05adc355767760563",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/.gitignore"
+    },
+    {
+      "path": "KlipperScreen.conf",
+      "same_content": true,
+      "sha256": "cc6e0876093e5ecf8dcd56580b83636f3c900abacee4b436934404b920a99f3a",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/KlipperScreen.conf"
+    },
+    {
+      "path": "Printer-Setup/calibration-probe.cfg",
+      "same_content": false,
+      "sha256": "1f1ee9c615402a50ac186cdf99bee0d1d6b68cb8348163444ce3c5c05423f0f5",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/calibration-probe.cfg"
+    },
+    {
+      "path": "Printer-Setup/fans-leds.cfg",
+      "same_content": false,
+      "sha256": "d8ef571b7b14151c045619973956fa00861fea20a97f6916f6a0bc25313862af",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/fans-leds.cfg"
+    },
+    {
+      "path": "Printer-Setup/filament-dryer.cfg",
+      "same_content": false,
+      "sha256": "48f67b535fe580e1cf6f37d4c5a4da5138fe79d20c0e96f99a9f15b713bd2137",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/filament-dryer.cfg"
+    },
+    {
+      "path": "Printer-Setup/hardware.cfg",
+      "same_content": false,
+      "sha256": "0c5c592688bfaec33308e647c482914520c2d8324b5540b1d4fdff00a9999103",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/hardware.cfg"
+    },
+    {
+      "path": "Printer-Setup/input-shaper.cfg",
+      "same_content": false,
+      "sha256": "4599ed718892334b955806b7c80eca4f45be3d442384310aa3bd77020de196d1",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/input-shaper.cfg"
+    },
+    {
+      "path": "Printer-Setup/nozzle-clean.cfg",
+      "same_content": false,
+      "sha256": "88b8d4bb4a4ce9f695fac5189d0721d53ae2f1ab31bd8c346add540fd3835eec",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/nozzle-clean.cfg"
+    },
+    {
+      "path": "Printer-Setup/prime-lines.cfg",
+      "same_content": false,
+      "sha256": "20acac5f37c9d91194b6bd14a809dd6f2fe702dc4e64473c93c264a5ce022ffa",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/prime-lines.cfg"
+    },
+    {
+      "path": "Printer-Setup/print-macros.cfg",
+      "same_content": false,
+      "sha256": "35f443ab47607c0a7f44612b3579250cd1641b1cff90a084bdf43c4377286184",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/print-macros.cfg"
+    },
+    {
+      "path": "Printer-Setup/test-speed.cfg",
+      "same_content": false,
+      "sha256": "aef6c6ae85dd504277ae2cd3b82e016b61615a034c7255ea09183862e6fac922",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/test-speed.cfg"
+    },
+    {
+      "path": "Printer-Setup/tool-crash.cfg",
+      "same_content": false,
+      "sha256": "a7cdf0dc1e0b9083fb221333f53c7ce8f5d854bb6b8ae47924fd53a5c0ac9f99",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/tool-crash.cfg"
+    },
+    {
+      "path": "Printer-Setup/tool-temp-bench.cfg",
+      "same_content": false,
+      "sha256": "044fd00f0e3d64c36600e4362ab1dc7fe37434e7ae2073d84a80ab3b43581ddd",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/tool-temp-bench.cfg"
+    },
+    {
+      "path": "crowsnest.conf",
+      "same_content": true,
+      "sha256": "1840b160412ed9cfcba662121ca35d1efa1944cd16cfef42f3408cee3a000d0e",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/crowsnest.conf"
+    },
+    {
+      "path": "mainsail.cfg",
+      "same_content": true,
+      "sha256": "afaa498606c81fe36441c6d87b63b401bbfb37efeb79ee327c2861a7965a14c2",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/mainsail.cfg"
+    },
+    {
+      "path": "moonraker.conf",
+      "same_content": true,
+      "sha256": "9f3b3c919f3e483f6741abd9978e4c329170a99c818864ef1459296610159cb4",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/moonraker.conf"
+    },
+    {
+      "path": "printer.cfg",
+      "same_content": false,
+      "sha256": "260cd79bd9fcfcce4e8c07449306b088e65ddfa1f73aa25fde845b30af98b2cc",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/printer.cfg"
+    },
+    {
+      "path": "scripts/cleanup-voron.sh",
+      "same_content": true,
+      "sha256": "d1a9b09752cfcc5e53d21ebe875fa0a3adf734923fe2f1af40ba541ef0727e5c",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/scripts/cleanup-voron.sh"
+    },
+    {
+      "path": "scripts/install.sh",
+      "same_content": false,
+      "sha256": "964161e9e399d57e7168b20acb60ab4fd7d86c4da56c7f2aca37fd6d3b322a67",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/scripts/install.sh"
+    },
+    {
+      "path": "scripts/patches/tool_crash-active-tool-validation.patch",
+      "same_content": true,
+      "sha256": "44f8dea72d2c0ea23fc4027ffca1dd78f046c4b64f7418ace510e072bb0dcaf1",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/scripts/patches/tool_crash-active-tool-validation.patch"
+    },
+    {
+      "path": "scripts/update.sh",
+      "same_content": true,
+      "sha256": "fd3629f7b7f4f19c6129d40744a6a00533d75c891354198efdef3a29ef914336",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/scripts/update.sh"
+    },
+    {
+      "path": "toolchanger/toolchanger-config.cfg",
+      "same_content": false,
+      "sha256": "97bad0d9bbe397506e3746dade0c0404cdd70fe8de1ecbdabad03f4458620b56",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/toolchanger/toolchanger-config.cfg"
+    },
+    {
+      "path": "toolchanger/tools/T0.cfg",
+      "same_content": false,
+      "sha256": "9cb0eda981014b42021adabed88e0fee3431f649ae78e69f1d4c31df4cf04299",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/toolchanger/tools/T0.cfg"
+    },
+    {
+      "path": "toolchanger/tools/T1.cfg",
+      "same_content": false,
+      "sha256": "dc5a89c73a1ca1a46a9c1206c39b931328d816ef9afbd2c115a24b278874e14c",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/toolchanger/tools/T1.cfg"
+    },
+    {
+      "path": "toolchanger/tools/T2.cfg",
+      "same_content": false,
+      "sha256": "e12e9d6fb17a2d8562725a444e35a04ef11660497b1feedc7e5237077b477ea7",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/toolchanger/tools/T2.cfg"
+    },
+    {
+      "path": "toolchanger/tools/T3.cfg",
+      "same_content": false,
+      "sha256": "5be665e9005fceaf857feb8669965e235088613a1956f529924f2447d8aeac15",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/toolchanger/tools/T3.cfg"
+    },
+    {
+      "path": "toolchanger/tools/T4.cfg",
+      "same_content": false,
+      "sha256": "25eec0987cdfb4825589f89554c1a995e494450366766650f2464489cd215500",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/toolchanger/tools/T4.cfg"
+    }
+  ],
+  "native_changes": [],
+  "macro_variable_changes": [
+    [
+      "Printer-Setup/print-macros.cfg",
+      "gcode_macro _PRINT_START_HEAT_SOAK",
+      "variable_abs_soak",
+      null,
+      "90"
+    ],
+    [
+      "Printer-Setup/print-macros.cfg",
+      "gcode_macro _PRINT_START_HEAT_SOAK",
+      "variable_petg_soak",
+      null,
+      "60"
+    ],
+    [
+      "Printer-Setup/print-macros.cfg",
+      "gcode_macro _PRINT_START_HEAT_SOAK",
+      "variable_hot_bed_soak",
+      null,
+      "90"
+    ],
+    [
+      "Printer-Setup/print-macros.cfg",
+      "gcode_macro _PRINT_START_HEAT_SOAK",
+      "variable_pla_soak",
+      null,
+      "30"
+    ]
+  ],
+  "missing": [],
+  "save_config_equal": true
+}

@@ -1,0 +1,31 @@
+tool_crash active-tool validation patch is already installed.
+.d..t...... ./
+>f.st...... printer.cfg
+.d..t...... Printer-Setup/
+>f.st...... Printer-Setup/calibration-probe.cfg
+>f.st...... Printer-Setup/fans-leds.cfg
+>f.st...... Printer-Setup/filament-dryer.cfg
+>f.st...... Printer-Setup/hardware.cfg
+>f.st...... Printer-Setup/input-shaper.cfg
+>f.st...... Printer-Setup/nozzle-clean.cfg
+>f.st...... Printer-Setup/prime-lines.cfg
+>f.st...... Printer-Setup/print-macros.cfg
+>f.st...... Printer-Setup/test-speed.cfg
+>f.st...... Printer-Setup/tool-crash.cfg
+>f.st...... Printer-Setup/tool-temp-bench.cfg
+.d..t...... scripts/
+>f.st...... scripts/install.sh
+.d..t...... scripts/patches/
+.d..t...... toolchanger/
+>f.st...... toolchanger/toolchanger-config.cfg
+.d..t...... toolchanger/tools/
+>f.st...... toolchanger/tools/T0.cfg
+>f.st...... toolchanger/tools/T1.cfg
+>f.st...... toolchanger/tools/T2.cfg
+>f.st...... toolchanger/tools/T3.cfg
+>f.st...... toolchanger/tools/T4.cfg
+Installed configuration from /tmp/voron-deploy-4041d5e.9vXTYN/config
+Backup: /home/voron/printer_data/config_backups/config-install-20261009-210823-F2BuYW
+KTC-Easy readonly symlinks were verified and preserved.
+Axiscope is externally managed and was not modified by this deployment.
+Review changes, then restart Moonraker and Klipper only while the printer is idle.
