@@ -2,12 +2,14 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md)
 
-Tài liệu hiện hành mô tả code production đang được nạp tại thời điểm 2026-09-21. Báo cáo lịch sử được giữ bất biến và tách rõ để không nhầm lệnh retired với quy trình active.
+Tài liệu hiện hành mô tả code production đang được nạp được rà soát ngày 2026-10-09. Báo cáo lịch sử được giữ bất biến và tách rõ để không nhầm lệnh retired với quy trình active.
 
 ## Tài liệu hiện hành
 
 | Chủ đề | English | Tiếng Việt |
 | --- | --- | --- |
+| Tổng duyệt code và đối chiếu máy 2026-10-09 | [Báo cáo](project-audit-2026-10-09.md) | Bản kỹ thuật tiếng Anh |
+| Điều chỉnh cấu hình cho máy khác | [Hướng dẫn](machine-adaptation.md) | Bản kỹ thuật tiếng Anh |
 | Tổng quan dự án | [README](../../README.md) | [README](../../README.vi.md) |
 | Payload config active | [README](../../config/README.md) | [README](../../config/README.vi.md) |
 | Profile OrcaSlicer | [README](../../Orca%20Config/README.md) | [README](../../Orca%20Config/README.vi.md) |

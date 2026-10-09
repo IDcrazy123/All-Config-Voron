@@ -1,0 +1,83 @@
+# Production code and machine audit — 2026-10-09
+
+## Scope and evidence
+
+Reviewed the current include graph, all production `.cfg`/`.conf` files, deployment/update/cleanup scripts, the crash patch/reference source, 19 active Orca JSON profiles and their synchronizer. Historical journals, issues and decisions were consulted as evidence; archived experiments/downloads/backups and large G-code artifacts are not a second active configuration and were not exhaustively audited line by line.
+
+Read-only Moonraker and SSH inspection reached `192.168.1.43`, user `voron`. Before edits, all 32 corresponding config/script/patch files matched the repository after normalizing line endings/trailing newline; all six KTC readonly links were valid. Klipper was ready and a real ABS job was running. No G-code, heating, motion, deployment, service restart or runtime patch was sent.
+
+Observed runtime revisions: Klipper `7bc4d0946`, KTC-Easy `e881fe4`, Axiscope `9a1a9ef`; Moonraker `v0.11.0-3-g9e676eb`. Local config snapshots and runtime source were inspected, and compact SHA-256 evidence is under `extras/audits/2026-10-09/`. Runtime checkout revisions do not prove clean upstream source: the active-tool crash patch is a deliberate local change.
+
+The operator confirmed that the T1 CAN fault is fixed. A current sample showed EBB1 `rx_error=0`, `tx_error=0`, `tx_retries=0`; this is a point-in-time observation. The repair method was not provided. Multi-tool `EXCLUDE_OBJECT` remains unfixed, as explicitly confirmed by the operator and supported by the inspected shared extrusion-state code.
+
+This is a comparison with live configuration/status/source, not a measurement of wiring, dock alignment, brush pressure, heater cartridge specifications or mechanical clearance.
+
+## Findings and disposition
+
+| ID | Priority | Finding and consequence | Disposition |
+| --- | --- | --- | --- |
+| A01 | P1 | Installer used `rsync --delete`; an unrelated destination-only `.cfg` could be removed on another machine. It also automatically removed old backups and local Markdown. | Fixed: nondeleting sync, no automatic pruning; unique backup directory; dry run added. Matching payload filenames still overwrite after backup. |
+| A02 | P1 | Deployment had no machine-state check and skipped a missing `tool_crash.py` with a warning even though the payload requires `[tool_crash]`. | Fixed: fail-closed Moonraker checks for print/pause/toolchange/manual-motion/dryer/benchmark state, required crash runtime and patch, and recheck before writing. Operator must still prevent a job starting after the check. |
+| A03 | P1 | Heat benchmark could alter a heater or move the head during a print and its timer could later shut down print-owned heat. `PRINT_START`/dryer could also start during a benchmark. | Fixed: mutual start guards; invalid timeout/boolean controls rejected. These guards cover standard macro entry points, not arbitrary manual heater commands or another plugin. |
+| A04 | P1 | `PRINT_END` clamps its later absolute park Z but first issues an unconditional relative `G1 Z5 E-8`. At physical Z345 with max347, that requests Z350, aborting before heater-off/cleanup. End/cancel absolute Z clamps also mix physical `toolhead.position.z` with G-code coordinates when offsets remain active. | Open: redesign the lift in one coordinate frame and cap the initial relative lift; move essential shutdown into a sequence that remains effective on movement errors. No motion values changed in this audit. |
+| A05 | P1 | Axiscope `cmd_CALIBRATE_ALL_Z_OFFSETS` directly issues final `T0` after the last probe, before `finish_gcode`. The probe returns to its start near Z3, so the configured safe-transit finish hook arrives too late for that first final toolchange. | Open: add/patch a pre-final-toolchange hook or reviewed wrapper with a separate state-aware lift. Verify all approach/return paths while attended; do not assume the finish hook protects the final T0. |
+| A06 | P1 | Crash handler pauses without XYZ parking, but standard Mainsail `CANCEL_PRINT` parks before `_CUSTOM_CANCEL_CLEANUP` runs. Cancel after a detached/skewed tool can therefore move XYZ without proving safe attachment. | Open: store a crash-recovery flag and route cancel to a no-motion shutdown path until the operator explicitly confirms recovery. Requires a reviewed recovery flow and physical tests. |
+| A07 | P2 | KTC's inherited tool damping ratios are `0.1` and truthy; `after_change_gcode` picks them even though per-tool frequency overrides are zero/commented. The global measured ratios are X `0.124`, Y `0.080`, but `_ACTIVE_INPUT_SHAPER` on the running machine reports X/Y `0.1`. | Confirmed mismatch. Proposed fix: select the entire global profile when no per-tool profile is explicitly enabled, then verify actual runtime shaping. Deferred because this changes effective motion tuning. |
+| A08 | P2 | `TEST_Z_SPEED` sends unsupported `SET_VELOCITY_LIMIT Z_VELOCITY/Z_ACCEL`. Live `toolhead.py` accepts only VELOCITY/ACCEL/SCV/MINIMUM_CRUISE_RATIO. CoreXY retains configured Z caps, so the requested Z acceleration is never tested. | Corrected comments. Proposed redesign: supported global VELOCITY/ACCEL for pure-Z moves, capped by configured Z limits, with save/restore and attended tests. Higher Z limits require an explicit calibrated configuration change. |
+| A09 | P2 | Benchmark assumed T0–T4, `extruderN`, max290 and a separately copied bucket position. Shutdown helpers and prime standby lookup also guessed names. KTC deadband macro indexed `tool_names` directly with the number. | Fixed selected helpers using paired tool numbers/names and configured extruder/fan/max-temp/station inputs. User-owned deadband override keeps the existing ±2 C default and resolves sparse numbers. T0 remains required elsewhere. |
+| A10 | P2 | `PRIME_LINES` only emitted an error response for a missing initial temperature or bad initial tool and could still leave the caller proceeding. X minimum-length clamps could overfill a tiny bed's slot layout. | Fixed: abort before prime output on invalid initial conditions and impossible X layout. Further Y/mesh/object clearance needs machine-specific commissioning. |
+| A11 | P2 | Prime lines at Y0/3/6 may lie outside the adaptive mesh subset, and slot/wipe paths can overlap a sliced object. Negative tool Y minima describe dock/brush travel, not the printable bed. | Open adaptation contract: reserve prime area in slicer; verify mesh coverage/edge extrapolation and every final wipe. Do not use axis limits alone as printable-bed boundaries. |
+| A12 | P2 | Only the multicolor PETG process explicitly disables labels and exclusion. ABS/PETG inherit other options; `[exclude_object]` still exposes the runtime feature. | Open: inspect each new multi-tool slice. Keep exclusion disabled until a per-extruder state backport passes replay and attended coupons. Reslicing/raising extrusion limits does not fix the module. |
+| A13 | P2 | `TEST_SPEED` disables crash detection without restoring it, lacks print-state/parameter guards, and restores configured rather than prior runtime motion limits. Other diagnostic/calibration entry points also lack mutual ownership guards. | Open: define exclusive attended diagnostic mode and remember/restore prior state. Comments now describe the detector behavior. No high-speed tests were run. |
+| A14 | P2 | Cleaner is intentionally T0-only, with measured contact guards and multiple fixed-name thermal/fan references. Dryer, runout, G32/QGL and calibration also contain physical positions. | Added owner-specific comments and an input worksheet; proposed future machine profile. Do not remove safety checks or scale dock/brush geometry from bed size. |
+| A15 | P2 | Automatic soak uses the bed temperature captured before a long preparation sequence; a hot-to-cooler transition intentionally skips cooling waits. It does not establish universal thermal equilibrium for every enclosure/material. | Exposed existing soak constants as variables without changing defaults. Use measured settings/manual SOAK for a new enclosure; review cooling-to-lower-target workflow separately. |
+| A16 | P3 | LED documentation claimed 10 states, priority arbitration, zero overhead, SPI frames and if/else assignment scoping restrictions. There are 11 tool states; the last executed setter wins, loop scoping differs from if/else, and command delivery is queued. | Corrected comments. Colors and hardware values unchanged. |
+| A17 | P3 | README dock Y values predated the 2026-10-07 live sync; `params_close_y` was described as a relative distance; a mesh comment referred to a nonexistent private alias. | Corrected values/comments to match live configuration and code. |
+| A18 | P3 | Dryer RH message asserted filament was completely dry from chamber humidity. Its elapsed time and benchmark timer count callbacks rather than monotonic wall time. | Corrected RH wording; timer redesign proposed if precise elapsed time is required. Existing NTC has no humidity field, so RH stopping is inactive on this machine. |
+| A19 | P3 | Orca synchronization backs up replaced presets but omits those backup paths from its scoped commit; journal backup entries are not absolute links. The `.cmd` also force-includes diagnostics by default. | Open tooling follow-up: stage newly created backup records in the scoped commit, comply with journal links, and make large diagnostics opt-in for a shared package. Existing user changes to Printables/G-code were left untouched. |
+| A20 | P3 | Source, runtime checkouts, workstation rules and historical examples contain overlapping descriptions. Archived `extras/tool_crash/tool_crash.py` is the upstream reference; it lacks the downstream active-tool patch. | Current workspace overview/issues updated; reference remains unchanged. Document that users must install the reviewed patch, not copy a reference and assume equivalence. |
+
+Priority denotes consequence/sequence for this review. An open code-path defect is not a claim that a physical crash occurred during this session.
+
+## Module-by-module review
+
+| Module | Specific logic checked | Result / limit |
+| --- | --- | --- |
+| `printer.cfg` and hardware | Include ordering/option merging, five extruder PID owners, bed PID, saved probe models/mesh/twist/tool offsets, MCU/pin scopes, XY/Z ranges and heater verification | Current files agree with loaded machine settings; measured values preserved. No electrical measurements or PID tests. |
+| Calibration/probe | Axiscope conflict guard, no automatic file writes, coarse/final Z ownership, switch report duplication, lift hooks, Cartographer mesh/probe coordinates | No `[tools_calibrate]` active; A05 and duplicate switch inputs remain. |
+| KTC + T0–T4 | Registered-number/name relation, extruder/fan mapping, pickup verification, standby timing, paths and relative/absolute coordinate comments | Valid readonly ownership and current dock map. A07; physical alignments remain operator measurements. |
+| Print lifecycle | Whole-template evaluation, helper sequencing after home/waits, dryer/benchmark handoff, T0 clean/touch, used-tool priming, active extruder shutdown | Standard start ownership guarded; A04/A11/A15 remain. |
+| Prime lines | Used-tool counting including initial fallback, slot allocation, final-tool order, next-tool heat, extrusion scaling/retract | Default five-tool order preserved; invalid initial/X-layout conditions now fail. |
+| Nozzle clean | Physical detection, zero-offset/no-mesh/QGL guards, deferred `can_extrude`, strict Touch upper-temperature wait, fan restoration and bounded contact path | Existing station contract retained and documented. Temperature/helper failures still lack a finally-like restoration path. |
+| Fans/LED/Mainsail | Hook ordering, KTC-aware resume, no-motion crash pause, cancel ordering, delayed fan ownership, state/LED conventions | Comment and mapping fixes; A06 remains. Resume also evaluates temperature before initialization commands execute; a recovered tool differing from the prior active one needs a later-render validation helper. |
+| Dryer | Print/dryer mutual ownership, four-zone airflow, optional humidity, callback cancellation, park sequence and native idle behavior | Benchmark guard added. Live heater commands register a lookahead callback and sync print time, supporting current keepalive. Do not infer idle failure just because no G1 is issued; recheck on other forks. |
+| Crash runtime/patch | Edge callback shared across pins, active-tool watchdog validation, polling threshold, queued pause response, patch marker | Live downstream patch present; queued G-code pause remains delayed by accepted motion. |
+| Motion/thermal diagnostics | Parameter semantics, loaded Klipper command implementation, geometry reuse and heater bounds | A08/A13; bench ownership and mapping fixed. |
+| Install/update/cleanup | Archive wrapper, KTC links, patch preflight, backup paths, rsync exclusions/deletion and retention | Installer protections added. `update.sh` remains fork/ARCHIVE_URL dependent; destructive standalone cleanup needs explicit review. |
+| Host configs | Moonraker integrations/trust ranges, camera ID/50 Hz, generated screen settings | Current file parity confirmed; these are not portable hardware/service defaults. |
+| Orca | All 19 JSONs, five-tool arrays, start temperature clauses, PA/flow/MVS/retract/cooling, inheritance, label/exclusion settings and sync script | Machine-specific measured/inherited values documented; no preset retuning or new slicing in this audit. |
+
+## Proposed work sequence
+
+1. Fix A04/A05/A06 with explicit coordinate-frame and recovery contracts. Render/replay boundary cases first, then conduct attended low-speed, no-extrusion path tests while the printer is idle.
+2. Backport `EXCLUDE_OBJECT` state per extruder against the installed Klipper API; replay the known September job and relative/absolute-E, toolchange, retract, reset and exclusion/unexclusion cases. Run a small attended multi-tool coupon before exposing the feature again.
+3. Review A07 with actual shaper command/status evidence, then correct global/per-tool profile selection after approval of the tuning behavior. Redesign diagnostics A08/A13 with supported commands and state restoration.
+4. Introduce a separately versioned machine-profile layer, retaining the worksheet's physical owners. Support optional cleaner/dryer/LED/calibration features by checking full dependency/caller chains.
+5. Add an adaptation validator for tool mappings, expanded dock paths, printable areas, prime bounds and calibration ownership. Pin compatible external runtimes and separate generic macro updates from machine-local calibration deployment.
+
+## Validation and rollback
+
+Offline checks use the same Jinja delimiters and linear include/option-merge behavior as the inspected Klipper reader. Regression cases cover custom tool names/sparse numbers, heater limits, station reuse, default/custom/manual soak, prime ordering/invalid inputs and benchmark ownership. Installer fixtures use a temporary filesystem and fake Moonraker/rsync to check refusal paths, dry run, nondeleting arguments and preservation/uniqueness of backups. The rsync stub does not validate rsync's copying implementation.
+
+Run `python extras/tests/test_portability.py` and `python extras/tests/test_install_preflight.py`; the former needs Jinja2 and the latter Bash. On Windows set `VORON_TEST_BASH` to the Git Bash executable. Shell syntax and `git diff --check` are also checked. These checks are not a full Klipper startup, hardware simulation, or physical print test. No new code was deployed to the running printer.
+
+All edited configuration/scripts and affected documentation were backed up in this task's `extras/backups/pre-project-audit-*` directory before editing. Rollback must use those original paths and a normal reviewed idle deployment; no existing backup was overwritten or pruned.
+
+## Primary references
+
+- [Klipper command templates](https://www.klipper3d.org/Command_Templates.html): whole-macro evaluation and G-code state.
+- [Klipper G-code reference](https://www.klipper3d.org/G-Codes.html#set_velocity_limit): supported motion-limit command parameters.
+- [Klipper configuration reference](https://www.klipper3d.org/Config_Reference.html): standard heater/probe/macro options.
+- [KTC-Easy source](https://github.com/jwellman80/klipper-toolchanger-easy): external toolchanger ownership; installed source was also read directly.
+
+Version-specific conclusions above use the installed runtime source rather than assuming that a newer upstream checkout is equivalent.

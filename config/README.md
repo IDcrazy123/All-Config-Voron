@@ -38,6 +38,10 @@ This directory is the repository-owned payload deployed to `~/printer_data/confi
 | `scripts/` | Git/user; deploy, update, cleanup, and reviewed runtime patch |
 | `moonraker.conf` | Git/user; API and update-manager definitions |
 
+## Adaptation inputs
+
+Use the [machine adaptation guide](../extras/docs/machine-adaptation.md) before copying this payload. The named macro variable blocks are the supported adjustment points; measured pins, offsets, docks, and heater/motion limits remain in their original files. A safe preview is `VORON_DEPLOY_DRY_RUN=1 bash config/scripts/install.sh` from the repository root on the idle target host.
+
 ## Authoritative hardware values
 
 | Function | Active value |
@@ -66,7 +70,7 @@ The holder must be removed before `G28`, QGL, bed mesh, Cartographer Touch, or p
 
 ## Deployment behavior
 
-`scripts/install.sh` refuses deployment if the six KTC-Easy readonly links are missing or broken. It backs up the live config, preserves machine-local runtime paths, applies the reviewed `tool_crash` patch when necessary, and retains five printer-side install backups.
+`scripts/install.sh` refuses deployment if the six KTC-Easy readonly links are missing or broken. It backs up the live config, preserves machine-local runtime paths, applies the reviewed `tool_crash` patch when necessary, and preserves all existing install backups and destination-only files. It checks the same printer through Moonraker before writing and fails if the required crash runtime/patch is missing.
 
 The Axiscope service and Klipper extra are externally managed through Moonraker; repository deployment changes only their `.cfg` integration.
 

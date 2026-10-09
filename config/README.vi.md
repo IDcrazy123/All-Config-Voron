@@ -64,9 +64,13 @@ Trước mỗi lần đổi tool trong chu trình hiệu chuẩn, `_CALIBRATE_SA
 
 Phải tháo đế trước `G28`, QGL, bed mesh, Cartographer Touch hoặc in. Home khi mặt bàn thông thoáng, nâng tới Z15, lắp đế rồi xác nhận X80/Y-8 và trạng thái công tắc PF2 trước khi dò có người giám sát.
 
+## Thông số để dùng trên máy khác
+
+Xem [hướng dẫn điều chỉnh](../extras/docs/machine-adaptation.md). Chỉnh các block biến của macro và thông số phần cứng tại file sở hữu chúng; không chép PID, dock hay offset của máy này sang máy khác. Chạy thử đồng bộ khi máy đích rảnh bằng `VORON_DEPLOY_DRY_RUN=1 bash config/scripts/install.sh`; lệnh chỉ xem trước.
+
 ## Hành vi triển khai
 
-`scripts/install.sh` từ chối deploy nếu sáu link readonly KTC-Easy thiếu hoặc hỏng. Script sao lưu config live, giữ đường dẫn runtime của máy, áp dụng patch `tool_crash` đã review khi cần và giữ năm backup cài đặt gần nhất trên máy in.
+`scripts/install.sh` từ chối deploy nếu sáu link readonly KTC-Easy thiếu hoặc hỏng. Script sao lưu config live, giữ đường dẫn runtime của máy, áp dụng patch `tool_crash` đã review khi cần và giữ toàn bộ backup hiện có cùng file riêng tại đích. Script kiểm tra trạng thái máy qua Moonraker trước khi ghi và dừng nếu thiếu runtime/patch chống rơi tool.
 
 Dịch vụ và Klipper extra Axiscope được Moonraker quản lý bên ngoài; repository chỉ triển khai phần tích hợp `.cfg`.
 

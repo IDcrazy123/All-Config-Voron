@@ -77,6 +77,10 @@ Useful switches:
 
 The synchronizer intentionally does not delete repository JSON files that disappear from AppData. Review inheritance and references before manually retiring a preset.
 
+## Sharing with a different printer
+
+Change `print_host`, printable area/height, nozzle/tool arrays, printer compatibility, inherited base presets, and the `Tn_TEMP` start-G-code clauses to match your machine. The Klipper macros enumerate registered tools, but Orca arrays still require one entry per configured extruder. Do not copy measured PA/flow/MVS values without testing your filament and hotend. See the [adaptation guide](../extras/docs/machine-adaptation.md). Multi-tool `EXCLUDE_OBJECT` remains unresolved on the audited Klipper build; only the multicolor PETG process explicitly disables both labels and exclusion, so check other process presets and newly sliced G-code.
+
 ## Restore to OrcaSlicer
 
 Close OrcaSlicer. Copy the machine JSON into `machine`, process JSON into `process`, and filament JSON into `filament` under the intended profile ID:

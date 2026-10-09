@@ -2,12 +2,14 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md)
 
-Current documents describe the loaded production code as of 2026-09-21. Historical reports remain immutable and are clearly separated so retired commands are not mistaken for active procedures.
+Current documents describe the loaded production code reviewed on 2026-10-09. Historical reports remain immutable and are clearly separated so retired commands are not mistaken for active procedures.
 
 ## Current documentation
 
 | Topic | English | Vietnamese |
 | --- | --- | --- |
+| Code/machine audit 2026-10-09 | [Report](project-audit-2026-10-09.md) | English technical report |
+| Adaptation to another machine | [Guide](machine-adaptation.md) | English technical guide |
 | Project overview | [README](../../README.md) | [README](../../README.vi.md) |
 | Active config payload | [README](../../config/README.md) | [README](../../config/README.vi.md) |
 | OrcaSlicer profiles | [README](../../Orca%20Config/README.md) | [README](../../Orca%20Config/README.vi.md) |

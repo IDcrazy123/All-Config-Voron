@@ -10,7 +10,7 @@ Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five Stealth
 | --- | --- |
 | Controller / host | BTT Manta M8P V2.0 + BTT CM4, CAN interface `can0` |
 | Toolheads | 5 × BTT EBB36 V1.2, WW BMG extruders, TZ V6 2.0 hotends |
-| Toolchanger | KTC-Easy, five rear docks, OptoTap presence sensing |
+| Toolchanger | KTC-Easy, five docks at measured park coordinates, OptoTap presence sensing |
 | Z home / mesh | Cartographer V3 Touch at `(174, 168)`; adaptive 55 × 55 scan mesh |
 | Tool calibration | Axiscope camera for XY; PF2 switch at `(80, -8)` for coarse Z from Z3 over the observed Z0–2 contact range; first-layer tests for final Z |
 | Motion limits | XY 350 mm/s, 7000 mm/s²; Z 80 mm/s, 1000 mm/s² |
@@ -25,11 +25,11 @@ Offsets below are the values currently persisted in `config/printer.cfg`.
 
 | Tool | CAN UUID | Dock `(X, Y, Z)` | Offset `(X, Y, Z)` |
 | --- | --- | --- | --- |
-| T0 | `441e1484ac41` | `(30.2, 1.3, 343)` | `(0, 0, 0)` reference |
-| T1 | `6475b5b9e028` | `(104, 1.1, 343)` | `(-0.139, -0.341, 0.1665)` |
-| T2 | `4ad9d622a836` | `(176, 1.6, 343)` | `(1.095, -0.090, -0.3515)` |
+| T0 | `441e1484ac41` | `(30.2, 1.8, 343)` | `(0, 0, 0)` reference |
+| T1 | `6475b5b9e028` | `(104, 1.5, 343)` | `(-0.139, -0.341, 0.1665)` |
+| T2 | `4ad9d622a836` | `(176, 2.1, 343)` | `(1.095, -0.090, -0.3515)` |
 | T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.3265)` |
-| T4 | `28650279df58` | `(321.5, 2.6, 343)` | `(0.213, -0.007, 0.0279)` |
+| T4 | `28650279df58` | `(321.5, 3.1, 343)` | `(0.213, -0.007, 0.0279)` |
 
 On 2026-09-25, the operator confirmed an additional `-0.0800 mm` BTT/KlipperScreen adjustment for each of T1-T4. These saved values include that adjustment once, applied to the baseline restored on 2026-09-23; T0, X/Y, and Cartographer remain unchanged. Do not repeat the same `-0.08 mm` babystep after reloading this configuration. A new first-layer print is still needed to verify the persisted result.
 
@@ -52,6 +52,10 @@ extras/Nhat-ky-chinh-sua/   Daily engineering journal
 
 `config/toolchanger/readonly-configs/` is owned by KTC-Easy. Never edit it manually.
 
+## Adapt this configuration to another machine
+
+Start with the [machine adaptation guide](extras/docs/machine-adaptation.md), which maps each measured input to its owning file, explains the reusable macro logic, and lists the remaining hardware-specific contracts. See the [2026-10-09 audit](extras/docs/project-audit-2026-10-09.md) for confirmed defects and proposed follow-up work. This is a working machine profile, so importing it also imports its MCU identities, pins, docks, and calibration data.
+
 ## Deployment
 
 The recommended printer checkout uses sparse clone to avoid downloading historical artifacts:
@@ -64,7 +68,7 @@ git sparse-checkout set config
 bash config/scripts/install.sh
 ```
 
-`install.sh` verifies the six KTC-Easy readonly symlinks, validates/applies the reviewed active-tool patch to `tool_crash.py`, backs up the live configuration, deploys repository-owned files while preserving runtime data, and keeps the five newest printer-side install backups.
+`install.sh` verifies the six KTC-Easy readonly symlinks, validates/applies the reviewed active-tool patch to `tool_crash.py`, backs up the live configuration, deploys repository-owned files while preserving runtime data, and preserves destination-only files and all existing install backups. It refuses to write when Moonraker cannot confirm an idle printer, requires the crash runtime/patch, and supports `VORON_DEPLOY_DRY_RUN=1`.
 
 Axiscope is an external runtime managed by its Moonraker update-manager entry. The repository deployer does not install or modify Axiscope.
 

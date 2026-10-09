@@ -10,7 +10,7 @@ Kho cấu hình Klipper production cho Voron 2.4 CoreXY 350 mm dùng năm đầu
 | --- | --- |
 | Controller / host | BTT Manta M8P V2.0 + BTT CM4, CAN `can0` |
 | Toolhead | 5 × BTT EBB36 V1.2, extruder WW BMG, hotend TZ V6 2.0 |
-| Toolchanger | KTC-Easy, năm dock phía sau, cảm biến hiện diện OptoTap |
+| Toolchanger | KTC-Easy, năm dock tại tọa độ đã đo, cảm biến hiện diện OptoTap |
 | Home Z / mesh | Cartographer V3 Touch tại `(174, 168)`; mesh adaptive 55 × 55 |
 | Hiệu chuẩn tool | Camera Axiscope cho XY; công tắc PF2 tại `(80, -8)` cho Z sơ bộ từ Z3 trên vùng chạm quan sát Z0–2; test first-layer cho Z cuối |
 | Giới hạn chuyển động | XY 350 mm/s, 7000 mm/s²; Z 80 mm/s, 1000 mm/s² |
@@ -25,11 +25,11 @@ Các offset dưới đây lấy trực tiếp từ `config/printer.cfg` đang qu
 
 | Tool | CAN UUID | Dock `(X, Y, Z)` | Offset `(X, Y, Z)` |
 | --- | --- | --- | --- |
-| T0 | `441e1484ac41` | `(30.2, 1.3, 343)` | `(0, 0, 0)` chuẩn |
-| T1 | `6475b5b9e028` | `(104, 1.1, 343)` | `(-0.139, -0.341, 0.1665)` |
-| T2 | `4ad9d622a836` | `(176, 1.6, 343)` | `(1.095, -0.090, -0.3515)` |
+| T0 | `441e1484ac41` | `(30.2, 1.8, 343)` | `(0, 0, 0)` chuẩn |
+| T1 | `6475b5b9e028` | `(104, 1.5, 343)` | `(-0.139, -0.341, 0.1665)` |
+| T2 | `4ad9d622a836` | `(176, 2.1, 343)` | `(1.095, -0.090, -0.3515)` |
 | T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.3265)` |
-| T4 | `28650279df58` | `(321.5, 2.6, 343)` | `(0.213, -0.007, 0.0279)` |
+| T4 | `28650279df58` | `(321.5, 3.1, 343)` | `(0.213, -0.007, 0.0279)` |
 
 Ngày 2026-09-25, người vận hành xác nhận mức chỉnh thêm `-0.0800 mm` trên BTT/KlipperScreen cho từng tool T1-T4. Các giá trị đã lưu này đã cộng mức chỉnh đúng một lần vào bộ gốc khôi phục ngày 2026-09-23; giữ nguyên T0, X/Y và Cartographer. Không chỉnh lặp lại cùng mức babystep `-0.08 mm` sau khi nạp cấu hình này. Cần in first layer mới để kiểm chứng kết quả đã lưu.
 
@@ -52,6 +52,10 @@ extras/Nhat-ky-chinh-sua/   Nhật ký kỹ thuật hàng ngày
 
 `config/toolchanger/readonly-configs/` thuộc quyền sở hữu KTC-Easy; không sửa thủ công.
 
+## Điều chỉnh cho máy khác
+
+Đọc [hướng dẫn thông số cần đổi](extras/docs/machine-adaptation.md) để biết từng giá trị nằm ở đâu và phần logic nào dùng chung. [Báo cáo rà soát 2026-10-09](extras/docs/project-audit-2026-10-09.md) ghi các lỗi đã xác nhận và việc cần kiểm chứng tiếp. Đây là profile của một máy thật; người dùng khác phải thay MCU, pin, dock và dữ liệu hiệu chuẩn của chính máy họ.
+
 ## Triển khai
 
 Nên dùng sparse clone trên máy in để không tải các artifact lịch sử:
@@ -64,7 +68,7 @@ git sparse-checkout set config
 bash config/scripts/install.sh
 ```
 
-`install.sh` kiểm tra sáu symlink readonly của KTC-Easy, kiểm tra/áp dụng patch active-tool cho `tool_crash.py`, sao lưu config đang chạy, triển khai file do repository sở hữu và chỉ giữ năm backup cài đặt gần nhất trên máy.
+`install.sh` kiểm tra sáu symlink readonly của KTC-Easy, kiểm tra/áp dụng patch active-tool cho `tool_crash.py`, sao lưu config đang chạy, triển khai file do repository sở hữu và giữ các file riêng tại đích cùng mọi backup hiện có. Script từ chối ghi khi Moonraker chưa xác nhận máy rảnh, yêu cầu runtime/patch chống rơi tool và hỗ trợ `VORON_DEPLOY_DRY_RUN=1`.
 
 Axiscope là runtime ngoài repository, được quản lý bởi Moonraker Update Manager. Script triển khai không cài hoặc sửa Axiscope.
 

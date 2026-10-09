@@ -1,0 +1,50 @@
+{
+  "captured_at": "2026-10-09T17:30:58.273140+07:00",
+  "access": "read-only Moonraker GET and SSH filesystem/source reads",
+  "printer_state": "printing",
+  "job": "panel-latch-2020-6_0mm-no-logo_ABS_1h39m.gcode",
+  "runtime_revisions": {
+    "klipper": "7bc4d0946",
+    "ktc_easy": "e881fe4",
+    "axiscope": "9a1a9ef"
+  },
+  "config_content_parity_before_edits": true,
+  "compared_files": 32,
+  "loaded_axes": "xyz",
+  "axis_minimum": [
+    0.0,
+    -10.0,
+    -5.0
+  ],
+  "axis_maximum": [
+    348.0,
+    336.0,
+    347.0
+  ],
+  "tool_numbers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "klipper_warnings": [],
+  "operator_updates": {
+    "T1_CAN": "Fixed, confirmed by operator 2026-10-09; repair details not provided",
+    "multitool_exclude_object": "Unfixed, confirmed by operator 2026-10-09"
+  },
+  "shaper_cache_later_observed": {
+    "x_freq": 43.6,
+    "x_damping": 0.1,
+    "y_freq": 33.4,
+    "y_damping": 0.1
+  },
+  "validation": {
+    "loaded_cfg_files": 25,
+    "compiled_templates": 125,
+    "offline_regression_tests": 14,
+    "default_command_sequences_compared": 5,
+    "physical_settings_changed": false,
+    "runtime_deployment": false
+  }
+}

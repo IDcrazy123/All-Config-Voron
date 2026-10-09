@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONFIG_DIR="${HOME}/printer_data/config"
-BACKUP_ROOT="${HOME}/printer_data/config_backups"
-BACKUP_DIR="${BACKUP_ROOT}/config-install-$(date +%Y%m%d-%H%M%S)"
+# Sharing: use absolute paths for a different printer_data layout. Point the
+# Moonraker URL at the SAME printer; the idle check must not query another host.
+CONFIG_DIR="${VORON_CONFIG_DIR:-${HOME}/printer_data/config}"
+BACKUP_ROOT="${VORON_BACKUP_ROOT:-${HOME}/printer_data/config_backups}"
+MOONRAKER_URL="${VORON_MOONRAKER_URL:-http://127.0.0.1:7125}"
+DRY_RUN="${VORON_DEPLOY_DRY_RUN:-0}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_CONFIG_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 TOOL_CRASH_SOURCE="${HOME}/klipper/klippy/extras/tool_crash.py"
@@ -24,6 +27,56 @@ if [[ ! -f "${SOURCE_CONFIG_DIR}/printer.cfg" ]]; then
   echo "ERROR: printer.cfg was not found in ${SOURCE_CONFIG_DIR}" >&2
   exit 1
 fi
+
+if [[ "${DRY_RUN}" != 0 && "${DRY_RUN}" != 1 ]]; then
+  echo "ERROR: VORON_DEPLOY_DRY_RUN must be 0 or 1." >&2
+  exit 1
+fi
+CONFIG_DIR="$(realpath -m "${CONFIG_DIR}")"
+BACKUP_ROOT="$(realpath -m "${BACKUP_ROOT}")"
+if [[ "${CONFIG_DIR}" == / || "${CONFIG_DIR}" == "${HOME}" ||
+      "${CONFIG_DIR}" == "${SOURCE_CONFIG_DIR}" ||
+      "${BACKUP_ROOT}" == "${CONFIG_DIR}" ||
+      "${BACKUP_ROOT}" == "${CONFIG_DIR}/"* ]]; then
+  echo "ERROR: unsafe destination or backup path." >&2
+  exit 1
+fi
+KTC_READONLY_DIR="${CONFIG_DIR}/toolchanger/readonly-configs"
+
+# Fail before backup, rsync, or runtime patching if printer state cannot be
+# verified. No G-code is sent. Recheck immediately before the first write.
+check_printer_idle() {
+  python3 - "${MOONRAKER_URL}" <<'PY'
+import json, sys, urllib.request
+url = sys.argv[1].rstrip('/') + '/printer/objects/query?print_stats&pause_resume&toolchanger&idle_timeout&gcode_macro%20_PRINT_STATE&gcode_macro%20_DRYER_STATUS&gcode_macro%20_TOOL_HEATUP_VARS'
+try:
+    with urllib.request.urlopen(url, timeout=5) as response:
+        state = json.load(response)['result']['status']
+    required = ('print_stats', 'pause_resume', 'toolchanger', 'idle_timeout')
+    if any(name not in state for name in required):
+        raise ValueError('required printer state is unavailable')
+    if state['print_stats'].get('state') not in ('standby', 'complete', 'cancelled', 'error', 'printing', 'paused'):
+        raise ValueError('print state is unknown')
+    if not isinstance(state['pause_resume'].get('is_paused'), bool):
+        raise ValueError('pause state is unknown')
+    if state['idle_timeout'].get('state') not in ('Idle', 'Ready', 'Printing'):
+        raise ValueError('motion/idle state is unknown')
+    if state['toolchanger'].get('status') not in ('uninitialized', 'initializing', 'ready', 'changing', 'error'):
+        raise ValueError('toolchanger state is unknown')
+    busy = (state['print_stats'].get('state') in ('printing', 'paused')
+            or state['pause_resume']['is_paused']
+            or state['idle_timeout'].get('state') == 'Printing'
+            or state['toolchanger'].get('status') in ('changing', 'initializing')
+            or state.get('gcode_macro _PRINT_STATE', {}).get('state') in ('starting', 'printing', 'paused', 'drying')
+            or state.get('gcode_macro _DRYER_STATUS', {}).get('is_drying', 0)
+            or state.get('gcode_macro _TOOL_HEATUP_VARS', {}).get('is_running', 0))
+    if busy:
+        raise ValueError('printer is moving, printing, paused, changing tools, drying, or benchmarking')
+except Exception as error:
+    sys.exit('ERROR: deployment requires a verified idle printer: ' + str(error))
+PY
+}
+check_printer_idle
 
 # KTC-Easy is the sole owner of readonly-configs. All-Config deploys only the
 # user-owned toolchanger-config.cfg and tools/T*.cfg files. Refuse deployment
@@ -46,9 +99,14 @@ fi
 # Preflight the machine-local tool_crash runtime before deploying config. The
 # upstream plugin is an independent checkout/copy, so All-Config stores only a
 # minimal downstream patch and reapplies it after a future upstream reinstall.
+if [[ ! -f "${TOOL_CRASH_PATCH}" ]]; then
+  echo "ERROR: reviewed tool_crash patch is missing; no configuration was changed." >&2
+  exit 1
+fi
 if [[ -f "${TOOL_CRASH_PATCH}" ]]; then
   if [[ ! -f "${TOOL_CRASH_SOURCE}" ]]; then
-    echo "WARNING: tool_crash.py is not installed; runtime patch was skipped." >&2
+    echo "ERROR: tool_crash.py is required by this payload; install the runtime first." >&2
+    exit 1
   elif grep -Fq "${TOOL_CRASH_PATCH_MARKER}" "${TOOL_CRASH_SOURCE}"; then
     echo "tool_crash active-tool validation patch is already installed."
   elif patch --dry-run --fuzz=0 --forward --batch \
@@ -62,16 +120,25 @@ if [[ -f "${TOOL_CRASH_PATCH}" ]]; then
   fi
 fi
 
-mkdir -p "${CONFIG_DIR}" "${BACKUP_DIR}"
-if [[ -d "${CONFIG_DIR}" ]]; then
-  rsync -a "${CONFIG_DIR}/" "${BACKUP_DIR}/"
+RSYNC_MODE=()
+if [[ "${DRY_RUN}" == 1 ]]; then
+  RSYNC_MODE+=(--dry-run)
+  echo "Dry run: no config, backup, or runtime files will be written."
+else
+  check_printer_idle
+  mkdir -p "${BACKUP_ROOT}"
+  BACKUP_DIR="$(mktemp -d "${BACKUP_ROOT}/config-install-$(date +%Y%m%d-%H%M%S)-XXXXXX")"
+  mkdir -p "${CONFIG_DIR}"
+  if [[ -d "${CONFIG_DIR}" ]]; then
+    rsync -a "${CONFIG_DIR}/" "${BACKUP_DIR}/"
+  fi
 fi
 
 # Deploy only repository-owned configuration. On-printer backups, calibration
 # state/results, ShakeTune output, downloaded snapshots, and printer-local
 # files remain untouched. KTC-Easy owns readonly-configs and external Git
 # runtimes live outside CONFIG_DIR.
-rsync -a --delete --itemize-changes \
+rsync -a "${RSYNC_MODE[@]}" --itemize-changes \
   --exclude ".codex-backups/" \
   --exclude ".moonraker.conf.bkp" \
   --exclude "Generated-Data/" \
@@ -84,22 +151,10 @@ rsync -a --delete --itemize-changes \
   --exclude "*.md" \
   "${SOURCE_CONFIG_DIR}/" "${CONFIG_DIR}/"
 
-# Purge any leftover markdown documentation from config directory to keep printer lean
-find "${CONFIG_DIR}" -maxdepth 1 -type f \( -name "*.md" -o -name "*.markdown" \) -delete 2>/dev/null || true
+# Preserve destination-only files and every existing backup. Removing retired
+# includes/configuration is a separate reviewed migration, never rsync --delete.
 
-# Prune old config backups on the printer, keeping only the 5 most recent
-if [[ -d "${BACKUP_ROOT}" ]]; then
-  mapfile -t OLD_BACKUPS < <(
-    find "${BACKUP_ROOT}" -maxdepth 1 -mindepth 1 -type d -name "config-install-*" | sort -r | tail -n +6
-  )
-  for old_backup in "${OLD_BACKUPS[@]:-}"; do
-    if [[ -n "${old_backup}" && -d "${old_backup}" ]]; then
-      rm -rf -- "${old_backup}"
-    fi
-  done
-fi
-
-if (( TOOL_CRASH_PATCH_NEEDED )); then
+if (( TOOL_CRASH_PATCH_NEEDED )) && [[ "${DRY_RUN}" == 0 ]]; then
   mkdir -p "${BACKUP_DIR}/runtime"
   cp -a "${TOOL_CRASH_SOURCE}" "${BACKUP_DIR}/runtime/tool_crash.py"
   patch --fuzz=0 --forward --batch \
@@ -109,8 +164,12 @@ if (( TOOL_CRASH_PATCH_NEEDED )); then
 fi
 
 
-echo "Installed configuration from ${SOURCE_CONFIG_DIR}"
-echo "Backup: ${BACKUP_DIR}"
+if [[ "${DRY_RUN}" == 1 ]]; then
+  echo "Dry run complete. Runtime patch required: ${TOOL_CRASH_PATCH_NEEDED}"
+else
+  echo "Installed configuration from ${SOURCE_CONFIG_DIR}"
+  echo "Backup: ${BACKUP_DIR}"
+fi
 echo "KTC-Easy readonly symlinks were verified and preserved."
 echo "Axiscope is externally managed and was not modified by this deployment."
 echo "Review changes, then restart Moonraker and Klipper only while the printer is idle."
