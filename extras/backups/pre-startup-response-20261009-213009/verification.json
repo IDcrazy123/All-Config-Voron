@@ -1,0 +1,637 @@
+{
+  "info": {
+    "state": "ready",
+    "state_message": "Printer is ready",
+    "hostname": "voron-local",
+    "klipper_path": "/home/voron/klipper",
+    "python_path": "/home/voron/klippy-env/bin/python",
+    "process_id": 8125,
+    "user_id": 1000,
+    "group_id": 1000,
+    "log_file": "/home/voron/printer_data/logs/klippy.log",
+    "config_file": "/home/voron/printer_data/config/printer.cfg",
+    "software_version": "v0.13.0-777-g7bc4d0946-dirty",
+    "cpu_info": "4 core ?"
+  },
+  "pid_after": "8125",
+  "startups": [
+    {
+      "start": "Fri Oct  9 21:33:51 2026 (1791556431.5 17385.9)",
+      "failures": [],
+      "cartographer_loaded": true
+    },
+    {
+      "start": "Fri Oct  9 21:34:42 2026 (1791556482.8 17437.2)",
+      "failures": [],
+      "cartographer_loaded": true
+    }
+  ],
+  "legacy_response": "ok FIRMWARE_NAME:Klipper FIRMWARE_VERSION:v0.13.0-777-g7bc4d0946-dirty\n",
+  "observed_serial_clients_before": [
+    "8125"
+  ],
+  "status": {
+    "print_stats": {
+      "filename": "",
+      "total_duration": 0.0,
+      "print_duration": 0.0,
+      "filament_used": 0.0,
+      "state": "standby",
+      "message": "",
+      "info": {
+        "total_layer": null,
+        "current_layer": null
+      }
+    },
+    "pause_resume": {
+      "is_paused": false
+    },
+    "idle_timeout": {
+      "state": "Ready",
+      "printing_time": 0.0,
+      "idle_timeout": 1800.0
+    },
+    "toolhead": {
+      "homed_axes": "",
+      "axis_minimum": [
+        0.0,
+        -10.0,
+        -5.0,
+        0
+      ],
+      "axis_maximum": [
+        348.0,
+        336.0,
+        347.0,
+        0
+      ],
+      "print_time": 17458.580738774992,
+      "stalls": 0,
+      "estimated_print_time": 17535.959168038462,
+      "extruder": "extruder",
+      "position": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max_velocity": 350.0,
+      "max_accel": 7000.0,
+      "minimum_cruise_ratio": 0.5,
+      "square_corner_velocity": 5.0,
+      "extra_axes": {
+        "extruder": 3
+      }
+    },
+    "toolchanger": {
+      "params_safe_y": 120,
+      "params_close_y": 30,
+      "params_fast_speed": 15000,
+      "params_path_speed": 900,
+      "params_dropoff_path": [
+        {
+          "y": 9.5,
+          "z": 3
+        },
+        {
+          "y": 9.5,
+          "z": 1.5
+        },
+        {
+          "y": 5.5,
+          "z": 0
+        },
+        {
+          "z": 0,
+          "y": 0,
+          "f": 0.5
+        },
+        {
+          "z": -12,
+          "y": 0
+        },
+        {
+          "z": -12,
+          "y": 16
+        }
+      ],
+      "params_pickup_path": [
+        {
+          "z": -12,
+          "y": 16
+        },
+        {
+          "z": -12,
+          "y": 0
+        },
+        {
+          "z": 0,
+          "y": 0,
+          "f": 0.5,
+          "verify": 1
+        },
+        {
+          "y": 5.5,
+          "z": 0
+        },
+        {
+          "y": 9.5,
+          "z": 1.5
+        },
+        {
+          "y": 9.5,
+          "z": 3
+        }
+      ],
+      "params_input_shaper_freq_x": 0,
+      "params_input_shaper_type_x": "mzv",
+      "params_input_shaper_damping_ratio_x": 0.1,
+      "params_input_shaper_freq_y": 0,
+      "params_input_shaper_type_y": "mzv",
+      "params_input_shaper_damping_ratio_y": 0.1,
+      "name": "toolchanger",
+      "status": "uninitialized",
+      "tool": null,
+      "tool_number": -1,
+      "detected_tool": "tool T0",
+      "detected_tool_number": 0,
+      "tool_numbers": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "tool_names": [
+        "tool T0",
+        "tool T1",
+        "tool T2",
+        "tool T3",
+        "tool T4"
+      ],
+      "has_detection": true
+    },
+    "gcode_macro _PRINT_STATE": {
+      "state": "idle"
+    },
+    "gcode_macro _DRYER_STATUS": {
+      "time_remaining": 0,
+      "total_time": 0,
+      "bed_temp": 0.0,
+      "chamber_target": 0.0,
+      "humidity_target": 0.0,
+      "base_fan_speed": 0.0,
+      "current_fan_speed": 0.0,
+      "material": "CUSTOM",
+      "is_drying": 0
+    },
+    "gcode_macro _TOOL_HEATUP_VARS": {
+      "is_running": 0,
+      "tool": 0,
+      "extruder": "extruder",
+      "start_temp": 150.0,
+      "target_temp": 220.0,
+      "timeout": 180.0,
+      "elapsed": 0.0,
+      "cooldown": 1,
+      "tick": 0.5
+    },
+    "heater_bed": {
+      "temperature": 31.57,
+      "target": 0.0,
+      "power": 0.0
+    },
+    "mcu": {
+      "mcu_version": "v0.13.0-593-g2f05309d5",
+      "mcu_build_versions": "gcc: (15:12.2.rel1-1) 12.2.1 20221205 binutils: (2.40-2+18+b1) 2.40",
+      "mcu_constants": {
+        "ADC_MAX": 4095,
+        "BUS_PINS_i2c1_PB6_PB7": "PB6,PB7",
+        "BUS_PINS_i2c1_PB8_PB9": "PB8,PB9",
+        "BUS_PINS_i2c2_PB10_PB11": "PB10,PB11",
+        "BUS_PINS_i2c3_PA8_PC9": "PA8,PC9",
+        "BUS_PINS_spi1": "PA6,PA7,PA5",
+        "BUS_PINS_spi1a": "PB4,PB5,PB3",
+        "BUS_PINS_spi2": "PB14,PB15,PB13",
+        "BUS_PINS_spi2a": "PC2,PC3,PB10",
+        "BUS_PINS_spi2b": "PI2,PI3,PI1",
+        "BUS_PINS_spi3a": "PC11,PC12,PC10",
+        "BUS_PINS_spi4": "PE13,PE14,PE12",
+        "BUS_PINS_spi5": "PF8,PF9,PF7",
+        "BUS_PINS_spi5a": "PH7,PF11,PH6",
+        "BUS_PINS_spi6": "PG12,PG14,PG13",
+        "CANBUS_BRIDGE": 1,
+        "CLOCK_FREQ": 520000000,
+        "MCU": "stm32h723xx",
+        "PWM_MAX": 32768,
+        "RECEIVE_WINDOW": 192,
+        "RESERVE_PINS_CAN": "PD0,PD1",
+        "RESERVE_PINS_USB": "PA11,PA12",
+        "RESERVE_PINS_crystal": "PH0,PH1",
+        "STATS_SUMSQ_BASE": 256,
+        "STEPPER_STEP_BOTH_EDGE": 1
+      },
+      "mcu_kconfig": null,
+      "last_stats": {
+        "mcu_awake": 0.001,
+        "mcu_task_avg": 1e-06,
+        "mcu_task_stddev": 1e-06,
+        "bytes_write": 4654,
+        "bytes_read": 23291,
+        "bytes_retransmit": 0,
+        "bytes_invalid": 0,
+        "send_seq": 444,
+        "receive_seq": 444,
+        "retransmit_seq": 0,
+        "srtt": 0.0,
+        "rttvar": 0.0,
+        "rto": 0.025,
+        "ready_bytes": 0,
+        "upcoming_bytes": 0,
+        "freq": 519984329
+      }
+    },
+    "mcu EBB0": {
+      "mcu_version": "v0.13.0-628-g373f200ca",
+      "mcu_build_versions": "gcc: (15:12.2.rel1-1) 12.2.1 20221205 binutils: (2.40-2+18+b1) 2.40",
+      "mcu_constants": {
+        "ADC_MAX": 4095,
+        "BUS_PINS_i2c1_PA9_PA10": "PA9,PA10",
+        "BUS_PINS_i2c1_PB6_PB7": "PB6,PB7",
+        "BUS_PINS_i2c1_PB8_PB9": "PB8,PB9",
+        "BUS_PINS_i2c2_PA7_PA6": "PA7,PA6",
+        "BUS_PINS_i2c2_PB10_PB11": "PB10,PB11",
+        "BUS_PINS_i2c2_PB13_PB14": "PB13,PB14",
+        "BUS_PINS_i2c3_PA7_PA6": "PA7,PA6",
+        "BUS_PINS_i2c3_PB3_PB4": "PB3,PB4",
+        "BUS_PINS_i2c3_PC0_PC1": "PC0,PC1",
+        "BUS_PINS_spi1": "PA6,PA7,PA5",
+        "BUS_PINS_spi1_PA6_PA7_PA5": "PA6,PA7,PA5",
+        "BUS_PINS_spi1_PB4_PB5_PB3": "PB4,PB5,PB3",
+        "BUS_PINS_spi1a": "PB4,PB5,PB3",
+        "BUS_PINS_spi2": "PB14,PB15,PB13",
+        "BUS_PINS_spi2_PB14_PB15_PB13": "PB14,PB15,PB13",
+        "BUS_PINS_spi2_PB2_PB11_PB10": "PB2,PB11,PB10",
+        "BUS_PINS_spi2_PB6_PB7_PB8": "PB6,PB7,PB8",
+        "BUS_PINS_spi2_PC2_PC3_PB10": "PC2,PC3,PB10",
+        "BUS_PINS_spi2a": "PC2,PC3,PB10",
+        "BUS_PINS_spi3": "PB4,PB5,PB3",
+        "BUS_PINS_spi3_PB4_PB5_PB3": "PB4,PB5,PB3",
+        "BUS_PINS_spi3_PC11_PC12_PC10": "PC11,PC12,PC10",
+        "CANBUS_FREQUENCY": 1000000,
+        "CLOCK_FREQ": 64000000,
+        "MCU": "stm32g0b1xx",
+        "PWM_MAX": 32768,
+        "RECEIVE_WINDOW": 192,
+        "RESERVE_PINS_CAN": "PB0,PB1",
+        "RESERVE_PINS_crystal": "PF0,PF1",
+        "STATS_SUMSQ_BASE": 256,
+        "STEPPER_OPTIMIZED_EDGE": 8,
+        "STEPPER_STEP_BOTH_EDGE": 1
+      },
+      "mcu_kconfig": null,
+      "last_stats": {
+        "mcu_awake": 0.001,
+        "mcu_task_avg": 1e-05,
+        "mcu_task_stddev": 1e-05,
+        "bytes_write": 2510,
+        "bytes_read": 12968,
+        "bytes_retransmit": 0,
+        "bytes_invalid": 0,
+        "send_seq": 327,
+        "receive_seq": 327,
+        "retransmit_seq": 0,
+        "srtt": 0.001,
+        "rttvar": 0.001,
+        "rto": 0.025,
+        "ready_bytes": 0,
+        "upcoming_bytes": 0,
+        "freq": 63999211,
+        "adj": 64001197
+      }
+    },
+    "mcu EBB1": {
+      "mcu_version": "v0.13.0-628-g373f200ca",
+      "mcu_build_versions": "gcc: (15:12.2.rel1-1) 12.2.1 20221205 binutils: (2.40-2+18+b1) 2.40",
+      "mcu_constants": {
+        "ADC_MAX": 4095,
+        "BUS_PINS_i2c1_PA9_PA10": "PA9,PA10",
+        "BUS_PINS_i2c1_PB6_PB7": "PB6,PB7",
+        "BUS_PINS_i2c1_PB8_PB9": "PB8,PB9",
+        "BUS_PINS_i2c2_PA7_PA6": "PA7,PA6",
+        "BUS_PINS_i2c2_PB10_PB11": "PB10,PB11",
+        "BUS_PINS_i2c2_PB13_PB14": "PB13,PB14",
+        "BUS_PINS_i2c3_PA7_PA6": "PA7,PA6",
+        "BUS_PINS_i2c3_PB3_PB4": "PB3,PB4",
+        "BUS_PINS_i2c3_PC0_PC1": "PC0,PC1",
+        "BUS_PINS_spi1": "PA6,PA7,PA5",
+        "BUS_PINS_spi1_PA6_PA7_PA5": "PA6,PA7,PA5",
+        "BUS_PINS_spi1_PB4_PB5_PB3": "PB4,PB5,PB3",
+        "BUS_PINS_spi1a": "PB4,PB5,PB3",
+        "BUS_PINS_spi2": "PB14,PB15,PB13",
+        "BUS_PINS_spi2_PB14_PB15_PB13": "PB14,PB15,PB13",
+        "BUS_PINS_spi2_PB2_PB11_PB10": "PB2,PB11,PB10",
+        "BUS_PINS_spi2_PB6_PB7_PB8": "PB6,PB7,PB8",
+        "BUS_PINS_spi2_PC2_PC3_PB10": "PC2,PC3,PB10",
+        "BUS_PINS_spi2a": "PC2,PC3,PB10",
+        "BUS_PINS_spi3": "PB4,PB5,PB3",
+        "BUS_PINS_spi3_PB4_PB5_PB3": "PB4,PB5,PB3",
+        "BUS_PINS_spi3_PC11_PC12_PC10": "PC11,PC12,PC10",
+        "CANBUS_FREQUENCY": 1000000,
+        "CLOCK_FREQ": 64000000,
+        "MCU": "stm32g0b1xx",
+        "PWM_MAX": 32768,
+        "RECEIVE_WINDOW": 192,
+        "RESERVE_PINS_CAN": "PB0,PB1",
+        "RESERVE_PINS_crystal": "PF0,PF1",
+        "STATS_SUMSQ_BASE": 256,
+        "STEPPER_OPTIMIZED_EDGE": 8,
+        "STEPPER_STEP_BOTH_EDGE": 1
+      },
+      "mcu_kconfig": null,
+      "last_stats": {
+        "mcu_awake": 0.001,
+        "mcu_task_avg": 1e-05,
+        "mcu_task_stddev": 1e-05,
+        "bytes_write": 2468,
+        "bytes_read": 12851,
+        "bytes_retransmit": 0,
+        "bytes_invalid": 0,
+        "send_seq": 315,
+        "receive_seq": 315,
+        "retransmit_seq": 0,
+        "srtt": 0.0,
+        "rttvar": 0.0,
+        "rto": 0.025,
+        "ready_bytes": 0,
+        "upcoming_bytes": 0,
+        "freq": 63999255,
+        "adj": 64001235
+      }
+    },
+    "mcu EBB2": {
+      "mcu_version": "v0.13.0-593-g2f05309d5",
+      "mcu_build_versions": "gcc: (15:12.2.rel1-1) 12.2.1 20221205 binutils: (2.40-2+18+b1) 2.40",
+      "mcu_constants": {
+        "ADC_MAX": 4095,
+        "BUS_PINS_i2c1_PA9_PA10": "PA9,PA10",
+        "BUS_PINS_i2c1_PB6_PB7": "PB6,PB7",
+        "BUS_PINS_i2c1_PB8_PB9": "PB8,PB9",
+        "BUS_PINS_i2c2_PA7_PA6": "PA7,PA6",
+        "BUS_PINS_i2c2_PB10_PB11": "PB10,PB11",
+        "BUS_PINS_i2c2_PB13_PB14": "PB13,PB14",
+        "BUS_PINS_i2c3_PA7_PA6": "PA7,PA6",
+        "BUS_PINS_i2c3_PB3_PB4": "PB3,PB4",
+        "BUS_PINS_i2c3_PC0_PC1": "PC0,PC1",
+        "BUS_PINS_spi1": "PA6,PA7,PA5",
+        "BUS_PINS_spi1_PA6_PA7_PA5": "PA6,PA7,PA5",
+        "BUS_PINS_spi1_PB4_PB5_PB3": "PB4,PB5,PB3",
+        "BUS_PINS_spi1a": "PB4,PB5,PB3",
+        "BUS_PINS_spi2": "PB14,PB15,PB13",
+        "BUS_PINS_spi2_PB14_PB15_PB13": "PB14,PB15,PB13",
+        "BUS_PINS_spi2_PB2_PB11_PB10": "PB2,PB11,PB10",
+        "BUS_PINS_spi2_PB6_PB7_PB8": "PB6,PB7,PB8",
+        "BUS_PINS_spi2_PC2_PC3_PB10": "PC2,PC3,PB10",
+        "BUS_PINS_spi2a": "PC2,PC3,PB10",
+        "BUS_PINS_spi3": "PB4,PB5,PB3",
+        "BUS_PINS_spi3_PB4_PB5_PB3": "PB4,PB5,PB3",
+        "BUS_PINS_spi3_PC11_PC12_PC10": "PC11,PC12,PC10",
+        "CANBUS_FREQUENCY": 1000000,
+        "CLOCK_FREQ": 64000000,
+        "MCU": "stm32g0b1xx",
+        "PWM_MAX": 32768,
+        "RECEIVE_WINDOW": 192,
+        "RESERVE_PINS_CAN": "PB0,PB1",
+        "RESERVE_PINS_crystal": "PF0,PF1",
+        "STATS_SUMSQ_BASE": 256,
+        "STEPPER_OPTIMIZED_EDGE": 8,
+        "STEPPER_STEP_BOTH_EDGE": 1
+      },
+      "mcu_kconfig": null,
+      "last_stats": {
+        "mcu_awake": 0.001,
+        "mcu_task_avg": 1e-05,
+        "mcu_task_stddev": 1e-05,
+        "bytes_write": 2503,
+        "bytes_read": 12880,
+        "bytes_retransmit": 0,
+        "bytes_invalid": 0,
+        "send_seq": 324,
+        "receive_seq": 324,
+        "retransmit_seq": 0,
+        "srtt": 0.001,
+        "rttvar": 0.0,
+        "rto": 0.025,
+        "ready_bytes": 0,
+        "upcoming_bytes": 0,
+        "freq": 63999155,
+        "adj": 64001060
+      }
+    },
+    "mcu EBB3": {
+      "mcu_version": "v0.13.0-636-g293e1e9d5",
+      "mcu_build_versions": "gcc: (15:12.2.rel1-1) 12.2.1 20221205 binutils: (2.40-2+18+b1) 2.40",
+      "mcu_constants": {
+        "ADC_MAX": 4095,
+        "BUS_PINS_i2c1_PA9_PA10": "PA9,PA10",
+        "BUS_PINS_i2c1_PB6_PB7": "PB6,PB7",
+        "BUS_PINS_i2c1_PB8_PB9": "PB8,PB9",
+        "BUS_PINS_i2c2_PA7_PA6": "PA7,PA6",
+        "BUS_PINS_i2c2_PB10_PB11": "PB10,PB11",
+        "BUS_PINS_i2c2_PB13_PB14": "PB13,PB14",
+        "BUS_PINS_i2c3_PA7_PA6": "PA7,PA6",
+        "BUS_PINS_i2c3_PB3_PB4": "PB3,PB4",
+        "BUS_PINS_i2c3_PC0_PC1": "PC0,PC1",
+        "BUS_PINS_spi1": "PA6,PA7,PA5",
+        "BUS_PINS_spi1_PA6_PA7_PA5": "PA6,PA7,PA5",
+        "BUS_PINS_spi1_PB4_PB5_PB3": "PB4,PB5,PB3",
+        "BUS_PINS_spi1a": "PB4,PB5,PB3",
+        "BUS_PINS_spi2": "PB14,PB15,PB13",
+        "BUS_PINS_spi2_PB14_PB15_PB13": "PB14,PB15,PB13",
+        "BUS_PINS_spi2_PB2_PB11_PB10": "PB2,PB11,PB10",
+        "BUS_PINS_spi2_PB6_PB7_PB8": "PB6,PB7,PB8",
+        "BUS_PINS_spi2_PC2_PC3_PB10": "PC2,PC3,PB10",
+        "BUS_PINS_spi2a": "PC2,PC3,PB10",
+        "BUS_PINS_spi3": "PB4,PB5,PB3",
+        "BUS_PINS_spi3_PB4_PB5_PB3": "PB4,PB5,PB3",
+        "BUS_PINS_spi3_PC11_PC12_PC10": "PC11,PC12,PC10",
+        "CANBUS_FREQUENCY": 1000000,
+        "CLOCK_FREQ": 64000000,
+        "MCU": "stm32g0b1xx",
+        "PWM_MAX": 32768,
+        "RECEIVE_WINDOW": 192,
+        "RESERVE_PINS_CAN": "PB0,PB1",
+        "RESERVE_PINS_crystal": "PF0,PF1",
+        "STATS_SUMSQ_BASE": 256,
+        "STEPPER_OPTIMIZED_EDGE": 8,
+        "STEPPER_STEP_BOTH_EDGE": 1
+      },
+      "mcu_kconfig": null,
+      "last_stats": {
+        "mcu_awake": 0.001,
+        "mcu_task_avg": 1e-05,
+        "mcu_task_stddev": 1e-05,
+        "bytes_write": 2424,
+        "bytes_read": 12778,
+        "bytes_retransmit": 0,
+        "bytes_invalid": 0,
+        "send_seq": 309,
+        "receive_seq": 309,
+        "retransmit_seq": 0,
+        "srtt": 0.0,
+        "rttvar": 0.0,
+        "rto": 0.025,
+        "ready_bytes": 0,
+        "upcoming_bytes": 0,
+        "freq": 63999203,
+        "adj": 64001088
+      }
+    },
+    "mcu EBB4": {
+      "mcu_version": "v0.13.0-593-g2f05309d5",
+      "mcu_build_versions": "gcc: (15:12.2.rel1-1) 12.2.1 20221205 binutils: (2.40-2+18+b1) 2.40",
+      "mcu_constants": {
+        "ADC_MAX": 4095,
+        "BUS_PINS_i2c1_PA9_PA10": "PA9,PA10",
+        "BUS_PINS_i2c1_PB6_PB7": "PB6,PB7",
+        "BUS_PINS_i2c1_PB8_PB9": "PB8,PB9",
+        "BUS_PINS_i2c2_PA7_PA6": "PA7,PA6",
+        "BUS_PINS_i2c2_PB10_PB11": "PB10,PB11",
+        "BUS_PINS_i2c2_PB13_PB14": "PB13,PB14",
+        "BUS_PINS_i2c3_PA7_PA6": "PA7,PA6",
+        "BUS_PINS_i2c3_PB3_PB4": "PB3,PB4",
+        "BUS_PINS_i2c3_PC0_PC1": "PC0,PC1",
+        "BUS_PINS_spi1": "PA6,PA7,PA5",
+        "BUS_PINS_spi1_PA6_PA7_PA5": "PA6,PA7,PA5",
+        "BUS_PINS_spi1_PB4_PB5_PB3": "PB4,PB5,PB3",
+        "BUS_PINS_spi1a": "PB4,PB5,PB3",
+        "BUS_PINS_spi2": "PB14,PB15,PB13",
+        "BUS_PINS_spi2_PB14_PB15_PB13": "PB14,PB15,PB13",
+        "BUS_PINS_spi2_PB2_PB11_PB10": "PB2,PB11,PB10",
+        "BUS_PINS_spi2_PB6_PB7_PB8": "PB6,PB7,PB8",
+        "BUS_PINS_spi2_PC2_PC3_PB10": "PC2,PC3,PB10",
+        "BUS_PINS_spi2a": "PC2,PC3,PB10",
+        "BUS_PINS_spi3": "PB4,PB5,PB3",
+        "BUS_PINS_spi3_PB4_PB5_PB3": "PB4,PB5,PB3",
+        "BUS_PINS_spi3_PC11_PC12_PC10": "PC11,PC12,PC10",
+        "CANBUS_FREQUENCY": 1000000,
+        "CLOCK_FREQ": 64000000,
+        "MCU": "stm32g0b1xx",
+        "PWM_MAX": 32768,
+        "RECEIVE_WINDOW": 192,
+        "RESERVE_PINS_CAN": "PB0,PB1",
+        "RESERVE_PINS_crystal": "PF0,PF1",
+        "STATS_SUMSQ_BASE": 256,
+        "STEPPER_OPTIMIZED_EDGE": 8,
+        "STEPPER_STEP_BOTH_EDGE": 1
+      },
+      "mcu_kconfig": null,
+      "last_stats": {
+        "mcu_awake": 0.001,
+        "mcu_task_avg": 1e-05,
+        "mcu_task_stddev": 1e-05,
+        "bytes_write": 2426,
+        "bytes_read": 12727,
+        "bytes_retransmit": 0,
+        "bytes_invalid": 0,
+        "send_seq": 303,
+        "receive_seq": 303,
+        "retransmit_seq": 0,
+        "srtt": 0.001,
+        "rttvar": 0.0,
+        "rto": 0.025,
+        "ready_bytes": 0,
+        "upcoming_bytes": 0,
+        "freq": 63999129,
+        "adj": 64001049
+      }
+    },
+    "mcu cartographer": {
+      "mcu_version": "CARTOGRAPHER V3 6.1.0",
+      "mcu_build_versions": "",
+      "mcu_constants": {
+        "ADC_MAX": 4095,
+        "BUS_PINS_i2c1_PB6_PB7": "PB6,PB7",
+        "BUS_PINS_spi1": "PA6,PA7,PA5",
+        "CANBUS_FREQUENCY": 1000000,
+        "CARTOGRAPHER_ADC_SMOOTH_COUNT": 16,
+        "CLOCK_FREQ": 48000000,
+        "INITIAL_PINS": "PA1",
+        "MCU": "stm32f042x6",
+        "PWM_MAX": 32768,
+        "RECEIVE_WINDOW": 192,
+        "RESERVE_PINS_CAN": "PA11,PA12",
+        "RESERVE_PINS_crystal": "PF0,PF1",
+        "STATS_SUMSQ_BASE": 256,
+        "STEPPER_OPTIMIZED_EDGE": 6,
+        "STEPPER_STEP_BOTH_EDGE": 1
+      },
+      "mcu_kconfig": null,
+      "last_stats": {
+        "mcu_awake": 0.027,
+        "mcu_task_avg": 1e-05,
+        "mcu_task_stddev": 2.4e-05,
+        "bytes_write": 1685,
+        "bytes_read": 13773,
+        "bytes_retransmit": 0,
+        "bytes_invalid": 0,
+        "send_seq": 246,
+        "receive_seq": 246,
+        "retransmit_seq": 0,
+        "srtt": 0.001,
+        "rttvar": 0.0,
+        "rto": 0.025,
+        "ready_bytes": 0,
+        "upcoming_bytes": 0,
+        "freq": 47999807,
+        "adj": 48001214
+      }
+    },
+    "extruder": {
+      "temperature": 32.4,
+      "target": 0.0,
+      "power": 0.0,
+      "can_extrude": false,
+      "pressure_advance": 0.0,
+      "smooth_time": 0.04,
+      "motion_queue": null
+    },
+    "extruder1": {
+      "temperature": 55.55,
+      "target": 0.0,
+      "power": 0.0,
+      "can_extrude": false,
+      "pressure_advance": 0.0,
+      "smooth_time": 0.04,
+      "motion_queue": null
+    },
+    "extruder2": {
+      "temperature": 32.08,
+      "target": 0.0,
+      "power": 0.0,
+      "can_extrude": false,
+      "pressure_advance": 0.0,
+      "smooth_time": 0.04,
+      "motion_queue": null
+    },
+    "extruder3": {
+      "temperature": 32.6,
+      "target": 0.0,
+      "power": 0.0,
+      "can_extrude": false,
+      "pressure_advance": 0.0,
+      "smooth_time": 0.04,
+      "motion_queue": null
+    },
+    "extruder4": {
+      "temperature": 32.69,
+      "target": 0.0,
+      "power": 0.0,
+      "can_extrude": false,
+      "pressure_advance": 0.0,
+      "smooth_time": 0.04,
+      "motion_queue": null
+    }
+  },
+  "gcode_sha256": "4ba80ab638b6fa49b92ea07906a198fd49ed08dff42fafebff64be55da600dc8"
+}

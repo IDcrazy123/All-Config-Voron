@@ -200,3 +200,39 @@ Thực hiện yêu cầu triển khai bộ cấu hình đã kiểm tra, source c
 ### Tài liệu và việc còn lại
 - Cập nhật sharing guide và hai cặp README để phân biệt đã deploy máy hiện tại với chưa thử motion/heating/máy khác; source CFG không thay thêm trong tác vụ này.
 - EXCLUDE_OBJECT nhiều tool, END/CANCEL max-Z/frame, crash cancel parking, Axiscope return-to-T0 và inherited KTC damping vẫn mở; triển khai không được hiểu là đã sửa các issue đó.
+
+## 6. Kiểm tra sau vận hành và sửa phản hồi G-code lúc khởi động
+
+### Yêu cầu và bằng chứng
+- Người dùng báo đã chạy nhiều thao tác, máy ổn định; yêu cầu kiểm tra lỗi tiềm tàng và sửa lỗi response lúc startup.
+- Console có G28, QGL và nhiều lượt đổi T0–T4 không response lỗi. Đây là thao tác người vận hành, không phải motion test do assistant chạy.
+- Máy standby/unpaused, _PRINT_STATE idle, dryer/benchmark dừng, các heater target 0 trước ghi và trước restart. T0 đang mounted trước service restart.
+- CAN T1 vẫn được xem là đã sửa theo người dùng; EXCLUDE_OBJECT nhiều tool còn mở.
+
+### Nguyên nhân và thay đổi
+- Runtime Klipper `7bc4d09465d31cd30fc0822e8d0abe02cc8c547f`: GCodeIO bật pipe lúc startup, ghi vào PTY nonblocking dù không có serial consumer quan sát được. Output tích lũy qua soft restart gây EAGAIN. Moonraker dùng Unix API socket nên vẫn nhận response.
+- Thêm `config/scripts/patches/klipper-pty-client-gate.patch`: pipe khởi tạo inactive; input handler hiện có bật lại khi client gửi dữ liệu. Không thay command processor, exception handler, debug-file input hoặc API output subscription; không retry blocking hay chỉ che traceback.
+- Đã áp dụng vào runtime thật `/home/voron/klipper/klippy/gcode.py` bằng thay file atomic sau SHA/context/syntax checks. Bản patch artifact mới cũng có tại `printer_data/config/scripts/patches/`; installer không tự áp dụng core patch này.
+- Không thay CFG, PID, sensor_type, currents, limits, dock hoặc calibration. Không sửa mainsail.cfg/readonly KTC. Client legacy chờ banner tự phát phải gửi command trước; backpressure sau khi client active vẫn là giới hạn hiện có.
+- Git attributes giữ LF cho riêng patch mới để khi checkout Windows rồi chuyển sang máy Linux vẫn giữ context; đã sao lưu attributes trước sửa.
+
+### Sao lưu
+- [Backup local trước sửa](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-startup-response-20261009-213009/README.md>): gcode.py live gốc, hai docs index, nhật ký và KNOWN_ISSUES.
+- Backup runtime trên máy: `/home/voron/printer_data/config_backups/runtime-pty-20261009-213009/gcode.py`; không ghi đè backup cũ.
+- SHA-256 gốc `a2bcd6949b4263f608eaa71ba1cdfb713553542b7b90de739241b624f06415ae`; sau patch `4ba80ab638b6fa49b92ea07906a198fd49ed08dff42fafebff64be55da600dc8`.
+
+### Kiểm tra và kết quả
+- `test_klipper_pty.py`: 6/6 test đạt trên Linux/klippy-env với source thật và PTY riêng; tái hiện baseline đầy buffer, patched startup/restart không ghi vào pipe chưa active, API vẫn đủ responses, M115 client-first hoạt động, error handler/recovery/debug input giữ nguyên. Không nối PTY fixture vào máy in.
+- Windows: cả suite 38 tests chạy, 34 đạt và 4 PTY tests skip đúng nền tảng; 4 bài này đã đạt riêng trên Linux. 32 tests CFG/portability/installer trước đó vẫn đạt. Kiểm tra native options/macro templates và whitespace Git không lỗi.
+- Service restart qua Moonraker thành công lúc 21:33:51; PID 767 → 8125 chứng minh core module được nạp mới. Soft RESTART lúc 21:34:42 cũng ready; Cartographer loaded ở cả hai startup, không Write g-code response/traceback/config-load failure/shutdown transition mới. Không sửa/xóa traceback lịch sử.
+- M115 API trả firmware identity; M115 trên klippy.serial thật trả `ok FIRMWARE_NAME:Klipper ...`. Probe serial chỉ thực hiện sau kiểm tra không có client khác quan sát được; không gửi heater/motion command.
+- Snapshot sau hai restart: ready, standby, unpaused, targets/power 0, dryer/bench dừng, registry T0–T4. XYZ unhomed, toolchanger uninitialized/T0 detected tại snapshot đó; người vận hành tiếp tục thao tác sau kiểm tra nên không suy diễn snapshot thành trạng thái cuối bất biến.
+- Snapshot riêng từ 7 object `canbus_stats ...` có bus active và rx_error/tx_error/tx_retries 0; không lấy số mặc định từ MCU serial stats để khẳng định CAN sạch.
+- Assistant không homing, toolchange, gia nhiệt, calibration hoặc test in. Các lệnh T1 heater xuất hiện sau kiểm tra là thao tác ngoài lệnh audit.
+
+### Rủi ro còn mở và tài liệu
+- [Báo cáo bổ sung và cách bảo trì/rollback patch](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/docs/startup-response-and-risk-review-2026-10-09.md>) liệt kê trigger/hậu quả/đề xuất/test cho END max-Z/frame, crash cancel, Axiscope final T0, multi-tool exclusion, KTC damping, diagnostic interruption/timer và prime/mesh clearance.
+- Xác minh lại SHA runtime Axiscope và exclude_object khớp source đã đọc trong audit; lỗi vẫn tồn tại. Không chạy calibration/exclusion để kích lỗi trên máy thật.
+- Đính chính diễn đạt cũ: early park Mainsail khi CANCEL là có điều kiện park_at_cancel, máy hiện không bật. Nguy cơ hiện hữu vẫn nằm ở _CUSTOM_CANCEL_CLEANUP tự lift/UNSELECT/park khi XYZ homed dù tool có thể lệch/rơi sau crash.
+- T1 ban đầu ~56°C so với tool khác ~32–33°C, target/power 0. Người dùng xác nhận lượt in trước chỉ T0/T4 và yêu cầu để kiểm tra sau. Không kết luận sensor hỏng hoặc tự chỉnh PID; cần nguội hoàn toàn/đo độc lập, vì console sau đó có thử T1 target100 rồi off làm history hiện tại không phù hợp làm baseline nguội.
+- Cập nhật hai docs index và workspace KNOWN_ISSUES, giữ audit/backup/journal cũ làm lịch sử. Runtime patch phải được kiểm tra lại sau update Klipper; không bắt buộc người nhận CFG dùng nó.

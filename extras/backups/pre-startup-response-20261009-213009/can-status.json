@@ -1,0 +1,49 @@
+{
+  "result": {
+    "eventtime": 17647.673440481,
+    "status": {
+      "canbus_stats mcu": {
+        "rx_error": 0,
+        "tx_error": 0,
+        "tx_retries": 0,
+        "bus_state": "active"
+      },
+      "canbus_stats EBB0": {
+        "rx_error": 0,
+        "tx_error": 0,
+        "tx_retries": 0,
+        "bus_state": "active"
+      },
+      "canbus_stats EBB1": {
+        "rx_error": 0,
+        "tx_error": 0,
+        "tx_retries": 0,
+        "bus_state": "active"
+      },
+      "canbus_stats EBB2": {
+        "rx_error": 0,
+        "tx_error": 0,
+        "tx_retries": 0,
+        "bus_state": "active"
+      },
+      "canbus_stats EBB3": {
+        "rx_error": 0,
+        "tx_error": 0,
+        "tx_retries": 0,
+        "bus_state": "active"
+      },
+      "canbus_stats EBB4": {
+        "rx_error": 0,
+        "tx_error": 0,
+        "tx_retries": 0,
+        "bus_state": "active"
+      },
+      "canbus_stats cartographer": {
+        "rx_error": 0,
+        "tx_error": 0,
+        "tx_retries": 0,
+        "bus_state": "active"
+      }
+    }
+  }
+}

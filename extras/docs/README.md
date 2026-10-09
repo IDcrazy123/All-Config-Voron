@@ -9,6 +9,7 @@ Current documents describe the loaded production code reviewed on 2026-10-09. Hi
 | Topic | English | Vietnamese |
 | --- | --- | --- |
 | Code/machine audit 2026-10-09 | [Report](project-audit-2026-10-09.md) | English technical report |
+| Startup G-code response and remaining risks | [Follow-up](startup-response-and-risk-review-2026-10-09.md) | Runtime fix verified; motion/exclusion risks remain open |
 | Adaptation to another machine | [Guide](machine-adaptation.md) | English technical guide |
 | Sharing existing CFG files individually | [Implementation guide](sharing-cfg-files.md) | File prerequisites/local edits; deployed to current printer, no physical feature tests |
 | Sharing design rationale | [Revised proposal](stealthchanger-sharing-proposal.md) | Implemented scope/status is recorded in the guide above |

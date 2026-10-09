@@ -1,2 +1,4 @@
 # Immutable recovery snapshots must remain byte-for-byte identical.
 /extras/backups/** -text -diff -whitespace
+# Preserve exact Linux line endings for this optional runtime patch.
+/config/scripts/patches/klipper-pty-client-gate.patch text eol=lf

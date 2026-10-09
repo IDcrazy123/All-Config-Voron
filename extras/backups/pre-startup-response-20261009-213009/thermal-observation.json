@@ -1,0 +1,42 @@
+[
+  {
+    "heater": "extruder",
+    "samples": 292,
+    "min": 32.34,
+    "max": 32.45,
+    "avg": 32.42,
+    "nonzero_target_last5min": 0
+  },
+  {
+    "heater": "extruder1",
+    "samples": 292,
+    "min": 55.49,
+    "max": 98.19,
+    "avg": 59.43,
+    "nonzero_target_last5min": 8
+  },
+  {
+    "heater": "extruder2",
+    "samples": 292,
+    "min": 32.02,
+    "max": 32.22,
+    "avg": 32.12,
+    "nonzero_target_last5min": 0
+  },
+  {
+    "heater": "extruder3",
+    "samples": 292,
+    "min": 32.51,
+    "max": 32.8,
+    "avg": 32.66,
+    "nonzero_target_last5min": 0
+  },
+  {
+    "heater": "extruder4",
+    "samples": 292,
+    "min": 32.61,
+    "max": 32.89,
+    "avg": 32.74,
+    "nonzero_target_last5min": 0
+  }
+]
