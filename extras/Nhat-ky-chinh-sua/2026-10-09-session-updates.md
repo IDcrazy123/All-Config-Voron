@@ -125,3 +125,41 @@ Người dùng không chấp nhận gom thông số vào EDIT HERE; mục tiêu 
 
 ### Việc còn lại
 Áp dụng các thay đổi nhỏ theo từng CFG và kiểm tra file đó trong fixture chỉ có phụ thuộc được công bố, thay vì nạp cả repository. Các issue production của mục 1 vẫn giữ nguyên; CAN T1 đã sửa, EXCLUDE_OBJECT nhiều tool chưa sửa.
+
+## 4. Chuẩn bị các CFG hiện có để chia sẻ riêng từng file
+
+### Mục tiêu
+Thực hiện yêu cầu chia sẻ một CFG cho người có dự án StealthChanger tương tự. Giữ tên file/macro và thông số tại section/macro đang sử dụng; không tạo khối EDIT HERE, global profile hay framework mới.
+
+### Sao lưu
+- [Bản gốc 18 CFG, test, chỉ mục và nhật ký trước sửa](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-individual-cfg-sharing-20261009-193324/README.md>).
+- Tất cả CFG được sao lưu trước khi sửa. Bản sao lưu cũ giữ nguyên; không sửa KTC readonly hoặc upstream mainsail.cfg.
+
+### File đã sửa đổi và chi tiết
+- Cả 18 CFG do người dùng sở hữu: `printer.cfg`, 11 file `Printer-Setup/*.cfg`, `toolchanger/toolchanger-config.cfg`, `tools/T0.cfg` đến `T4.cfg`. Thêm comment tiếng Anh về phạm vi chia sẻ, phụ thuộc thật, include/xung đột, chỗ cần chỉnh, đơn vị/hệ tọa độ, thông số cần đồng bộ và dữ liệu calibration thuộc máy nhận.
+- `tool-temp-bench.cfg`: cleaner/LED/dryer/private state tùy chọn; không có cleaner thì không park mặc định. Hỗ trợ PARK_X/Y/Z ngay tại lời gọi; yêu cầu đủ ba tọa độ, tool đang mounted, XYZ homed, offset zero và bounds hợp lệ. Đánh dấu đang chạy trước chờ nhiệt; thêm `_TOOL_HEATUP_START_TIMER` kiểm tra lại sau bước chuẩn bị. Callback/STOP nhường heater khi có print/pause hoặc state không chắc chắn; timer hủy khi heater target đổi. STOP không xóa được lệnh đã queue trong Klipper. Timer vẫn đếm tick, không hứa thời gian monotonic tuyệt đối.
+- `prime-lines.cfg`: giữ registry tool động và geometry hiện có; kiểm tra heater/temperature của mọi tool được dùng trước khi phát lệnh. Comment giải thích first-layer/travel/line/extrusion owners.
+- `nozzle-clean.cfg`: giữ hạn chế T0/extruder, pad/contact/thermal/offset/mesh/QGL; fan được tìm theo tool registry thay vì khóa tên T0_part_fan. LED/private operation state tùy chọn; native print/pause luôn cần. STARTING=1 dành cho lời gọi pre-extrusion của PRINT_START bên nhận và được truyền xuống helper; nếu có _PRINT_STATE thì state đó luôn ưu tiên.
+- `filament-dryer.cfg`: LED/benchmark/private state/bed_fan_off_delay tùy chọn; callback delayed được kiểm tra qua configfile.config, không giả định có get_status. Yêu cầu fan thật và sensor thật khi đặt target chamber/humidity; CHAMBER=0 cho bed-only, FAN=0 được giữ cả lúc start và timer. Kiểm tra max_temp bed theo máy nhận; overheat không nâng một BED custom thấp lên 45. PARK=1 phải homed/zero offsets/bounds hợp lệ, giữ Z200 + KTC docking + X175/Y310; dùng PARK=0 khi chưa xác minh đường đi. Không auto-home từ snapshot stale. Native pause/unknown state khiến callback nhường nhiệt/quạt cho print.
+- `test-speed.cfg`: thêm preflight idle/unpaused, homed/QGL nếu có, zero offsets, positive parameters và pattern bounds; phép thử không vượt caps cấu hình. Bỏ lệnh chủ động tắt crash detector vì plugin không công bố trạng thái enable để khôi phục chính xác. TEST_Z_SPEED bỏ Z_VELOCITY/Z_ACCEL không được Klipper hỗ trợ, dùng VELOCITY/ACCEL hợp lệ cho pure-Z cycle; native Z caps vẫn áp dụng. Khôi phục giới hạn runtime tại entry khi hoàn tất bình thường, không lấy defaults từ config. Interruption/error vẫn có thể bỏ qua restore và cần kiểm tra trước tiếp tục.
+- `tool-crash.cfg`: kiểm tra hợp đồng Mainsail RESUME variables và PAUSE rename_existing trước khi handler phát lệnh. Giữ detector values/no-XYZ crash pause; CANCEL_PRINT bên nhận vẫn phải review riêng.
+- `toolchanger-config.cfg`: change hooks không bắt buộc LED, _PRINT_STATE hoặc biến color trong macro Tn của người nhận; trạng thái print/pause native là fallback. Không sửa đường dock hoặc shaper tuning.
+- `tools/T0..T4.cfg`: delayed runout giữ project handler khi có; nếu thiếu, fallback PAUSE tại chỗ chỉ cho tool đang active, còn hết filament sau debounce, đang printing và chưa paused. Giữ nguyên pins, UUID, PID/current/offset/docks. Comment input-shaper sửa lời hứa sai rằng bỏ frequency override là giữ được global damping.
+- Thêm [hướng dẫn chia sẻ thực tế từng file](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/docs/sharing-cfg-files.md>), cập nhật cặp README config/docs Anh–Việt. File hardware/lifecycle/calibration được công bố là reference/integration với phụ thuộc thật, không quảng bá tất cả là một include dùng ngay.
+- Thêm `extras/tests/test_individual_cfg.py`; cập nhật regression benchmark trong `test_portability.py` theo continuation mới. Các thay đổi Printables/G-code có sẵn trước tác vụ không được stage/commit.
+
+### Lý do
+Loại phụ thuộc chéo không cần thiết và giả định tên/số tool, đồng thời giữ việc chỉnh thông số tại chủ sở hữu thực. Comment phải cho người nhận biết chính xác phần nào chỉ cần sửa thông số và phần nào cần backend/wiring/workflow tương đương, tránh hứa mức độc lập không có thật.
+
+### Kiểm tra và kết quả
+- `VORON_TEST_BASH="D:\App Installs\Git\bin\bash.exe"` cùng `python -m unittest discover -s extras/tests -v`: **32/32 đạt**, không skip (18 isolated-feature tests, 10 portability tests, 4 installer tests).
+- Chuỗi include local gồm 25 file; biên dịch **126 Jinja templates**. Fixture riêng feature không nạp trạng thái/LED của cả dự án để che phụ thuộc.
+- Kiểm tra 2/5/6 tool, số không liên tục 0/7, custom extruder/fan, thiếu helper/sensor/callback, park/offset/contact/print/pause, timer handoff/ownership, native runout fallback, motion cap và runtime restore.
+- So sánh toàn bộ option cũ ngoài G-code hooks trên 18 CFG với bản backup: giá trị hardware, PID/current/limits/geometry/native options không đổi. SAVE_CONFIG giữ nguyên. Representative cleaner/prime/dryer motion/heat commands ở mặc định hợp lệ khớp backup.
+- Kiểm tra 18/18 sharing headers, liên kết docs và Git whitespace. Test chỉ mô phỏng render/variable writes, không xác nhận firmware/plugin loading hoặc clearance/nhiệt/concurrency trên máy thật.
+- Không SSH/deploy, restart Klipper, gửi G-code, chạy heater/motion hay test in trong tác vụ này. Các chỉnh sửa hiện có trong repository.
+
+### Vấn đề còn lại
+- EXCLUDE_OBJECT nhiều tool chưa sửa; CAN T1 đã sửa theo người vận hành.
+- END/CANCEL lift tại max-Z và frame tọa độ, crash CANCEL parking, Axiscope return-to-T0, inherited damping KTC vẫn mở. Phần diagnostic đã sửa lệnh/guard/restore như mô tả, nhưng cần commissioning có người giám sát trước dùng trên máy khác.
+- Calibration/hardware/lifecycle references vẫn có phụ thuộc được ghi rõ; không hứa mọi file chỉ sửa vài số là dùng trên mọi loại máy. Người nhận giữ PID, offsets, limits và đo dock/pad/mesh của máy họ.

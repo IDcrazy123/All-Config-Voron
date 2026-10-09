@@ -38,6 +38,10 @@ Thư mục này chứa payload do repository sở hữu và triển khai sang `~
 | `scripts/` | Git/người dùng; deploy, update, cleanup và runtime patch đã review |
 | `moonraker.conf` | Git/người dùng; API và Update Manager |
 
+## Chia sẻ riêng từng CFG
+
+Xem [hướng dẫn chia sẻ từng file](../extras/docs/sharing-cfg-files.md) để gửi một CFG tính năng hiện có mà không yêu cầu toàn bộ payload. Cả 18 CFG do người dùng sở hữu đã có comment về phụ thuộc và chỗ cần đổi. Thông số giữ tại section/macro đang sử dụng, không cần khối EDIT HERE/profile chung. Benchmark/prime/cleaner/dryer có thể thiếu các helper tùy chọn theo điều kiện công bố. File phần cứng/lifecycle/calibration vẫn giữ các phụ thuộc tích hợp và lỗi còn mở đã ghi rõ; thay đổi chưa đưa lên máy.
+
 ## Giá trị phần cứng chuẩn
 
 | Chức năng | Giá trị active |

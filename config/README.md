@@ -38,9 +38,13 @@ This directory is the repository-owned payload deployed to `~/printer_data/confi
 | `scripts/` | Git/user; deploy, update, cleanup, and reviewed runtime patch |
 | `moonraker.conf` | Git/user; API and update-manager definitions |
 
+## Individual CFG sharing
+
+Use the [individual-file sharing guide](../extras/docs/sharing-cfg-files.md) to send an existing feature CFG without this full payload. All 18 user-owned CFGs now declare prerequisites and local adaptation points. Settings stay at their native owners; no global EDIT HERE/profile file is required. Benchmark/prime/cleaner/dryer can omit optional project helpers under their declared contracts. Hardware/lifecycle/calibration references retain their documented integration requirements and open issues.
+
 ## Adaptation inputs
 
-Use the [machine adaptation guide](../extras/docs/machine-adaptation.md) before copying this payload. The named macro variable blocks are the supported adjustment points; measured pins, offsets, docks, and heater/motion limits remain in their original files. A safe preview is `VORON_DEPLOY_DRY_RUN=1 bash config/scripts/install.sh` from the repository root on the idle target host.
+Use the [machine adaptation guide](../extras/docs/machine-adaptation.md) before copying this payload. Existing variables and native sections own their adjustment points; measured pins, offsets, docks, and heater/motion limits remain in their original files. A safe preview is `VORON_DEPLOY_DRY_RUN=1 bash config/scripts/install.sh` from the repository root on the idle target host.
 
 ## Authoritative hardware values
 

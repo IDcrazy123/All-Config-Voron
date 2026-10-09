@@ -135,7 +135,12 @@ class PortabilityTests(unittest.TestCase):
         p['configfile']['config']['fan_generic spare_cooling'] = {}
         p['fan_generic spare_cooling'] = {'speed': 0}
         out = render('MEASURE_TOOL_HEATUP', p, {'TOOL': '7', 'TARGET': '240'})
-        self.assertIn('HEATER=extruder1 TARGET=240.0', out)
+        self.assertIn('VARIABLE=extruder VALUE="\'extruder1\'"', out)
+        self.assertIn('VARIABLE=target_temp VALUE=240.0', out)
+        self.assertIn('_TOOL_HEATUP_START_TIMER', out)
+        p['gcode_macro _TOOL_HEATUP_VARS'].update(
+            is_running=1, extruder='extruder1', target_temp=240.0)
+        self.assertIn('HEATER=extruder1 TARGET=240.0', render('_TOOL_HEATUP_START_TIMER', p))
         p['configfile']['settings']['extruder1']['max_temp'] = 230
         with self.assertRaisesRegex(ValueError, 'max_temp'):
             render('MEASURE_TOOL_HEATUP', p, {'TOOL': '7', 'TARGET': '240'})
