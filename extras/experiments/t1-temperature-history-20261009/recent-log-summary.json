@@ -1,0 +1,9341 @@
+{
+  "inventory": [
+    {
+      "file": "/home/voron/printer_data/logs/klippy.log.2026-10-04",
+      "bytes": 188113401,
+      "valid_stats": 60124,
+      "undated_stats": 14469
+    },
+    {
+      "file": "/home/voron/printer_data/logs/klippy.log.2026-10-05",
+      "bytes": 22255345,
+      "valid_stats": 7581,
+      "undated_stats": 0
+    },
+    {
+      "file": "/home/voron/printer_data/logs/klippy.log.2026-10-06",
+      "bytes": 28046911,
+      "valid_stats": 7797,
+      "undated_stats": 0
+    },
+    {
+      "file": "/home/voron/printer_data/logs/klippy.log.2026-10-07",
+      "bytes": 23762499,
+      "valid_stats": 7686,
+      "undated_stats": 0
+    },
+    {
+      "file": "/home/voron/printer_data/logs/klippy.log.2026-10-08",
+      "bytes": 153279841,
+      "valid_stats": 50526,
+      "undated_stats": 0
+    },
+    {
+      "file": "/home/voron/printer_data/logs/klippy.log",
+      "bytes": 120972210,
+      "valid_stats": 40700,
+      "undated_stats": 0
+    }
+  ],
+  "daily": [
+    {
+      "day": "2026-10-04",
+      "samples": 45655,
+      "all_heaters_off_others_below_40": {
+        "samples": 2712,
+        "t1_min": 30.2,
+        "t1_max": 63.0,
+        "t1_median": 51.4,
+        "high_samples": 1808,
+        "first": {
+          "file": "klippy.log.2026-10-04",
+          "line": 21833,
+          "time": "2026-10-04 04:03:44",
+          "mono": 32.3,
+          "temperatures": [
+            28.4,
+            30.2,
+            28.6,
+            28.4,
+            28.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        "last": {
+          "file": "klippy.log.2026-10-04",
+          "line": 460650,
+          "time": "2026-10-04 23:59:59",
+          "mono": 14114.4,
+          "temperatures": [
+            37.7,
+            51.0,
+            38.1,
+            38.9,
+            38.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 9154.5
+        },
+        "first_high": {
+          "file": "klippy.log.2026-10-04",
+          "line": 307297,
+          "time": "2026-10-04 15:41:58",
+          "mono": 9419.1,
+          "temperatures": [
+            38.2,
+            62.9,
+            38.5,
+            40.0,
+            40.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 9377.6
+        },
+        "coolest": {
+          "file": "klippy.log.2026-10-04",
+          "line": 21833,
+          "time": "2026-10-04 04:03:44",
+          "mono": 32.3,
+          "temperatures": [
+            28.4,
+            30.2,
+            28.6,
+            28.4,
+            28.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      },
+      "same_after_30min_t1_off": {
+        "samples": 1019,
+        "t1_min": 50.0,
+        "t1_max": 63.0,
+        "t1_median": 51.8,
+        "high_samples": 1019,
+        "first": {
+          "file": "klippy.log.2026-10-04",
+          "line": 307297,
+          "time": "2026-10-04 15:41:58",
+          "mono": 9419.1,
+          "temperatures": [
+            38.2,
+            62.9,
+            38.5,
+            40.0,
+            40.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 9377.6
+        },
+        "last": {
+          "file": "klippy.log.2026-10-04",
+          "line": 460650,
+          "time": "2026-10-04 23:59:59",
+          "mono": 14114.4,
+          "temperatures": [
+            37.7,
+            51.0,
+            38.1,
+            38.9,
+            38.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 9154.5
+        },
+        "first_high": {
+          "file": "klippy.log.2026-10-04",
+          "line": 307297,
+          "time": "2026-10-04 15:41:58",
+          "mono": 9419.1,
+          "temperatures": [
+            38.2,
+            62.9,
+            38.5,
+            40.0,
+            40.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 9377.6
+        },
+        "coolest": {
+          "file": "klippy.log.2026-10-04",
+          "line": 460170,
+          "time": "2026-10-04 23:51:23",
+          "mono": 13598.9,
+          "temperatures": [
+            38.8,
+            50.0,
+            39.4,
+            40.0,
+            39.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 8639.0
+        }
+      }
+    },
+    {
+      "day": "2026-10-05",
+      "samples": 7653,
+      "all_heaters_off_others_below_40": {
+        "samples": 7653,
+        "t1_min": 27.1,
+        "t1_max": 58.0,
+        "t1_median": 53.3,
+        "high_samples": 7581,
+        "first": {
+          "file": "klippy.log.2026-10-05",
+          "line": 3636,
+          "time": "2026-10-05 00:00:00",
+          "mono": 14115.4,
+          "temperatures": [
+            37.6,
+            50.7,
+            38.1,
+            38.9,
+            38.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 9155.5
+        },
+        "last": {
+          "file": "klippy.log.2026-10-06",
+          "line": 3830,
+          "time": "2026-10-05 02:26:35",
+          "mono": 102.4,
+          "temperatures": [
+            25.3,
+            27.2,
+            25.2,
+            25.2,
+            25.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 71.0
+        },
+        "first_high": {
+          "file": "klippy.log.2026-10-05",
+          "line": 3636,
+          "time": "2026-10-05 00:00:00",
+          "mono": 14115.4,
+          "temperatures": [
+            37.6,
+            50.7,
+            38.1,
+            38.9,
+            38.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 9155.5
+        },
+        "coolest": {
+          "file": "klippy.log.2026-10-06",
+          "line": 3735,
+          "time": "2026-10-05 02:25:28",
+          "mono": 35.4,
+          "temperatures": [
+            25.2,
+            27.1,
+            25.2,
+            25.1,
+            25.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 4.0
+        }
+      },
+      "same_after_30min_t1_off": {
+        "samples": 7581,
+        "t1_min": 50.0,
+        "t1_max": 58.0,
+        "t1_median": 53.3,
+        "high_samples": 7581,
+        "first": {
+          "file": "klippy.log.2026-10-05",
+          "line": 3636,
+          "time": "2026-10-05 00:00:00",
+          "mono": 14115.4,
+          "temperatures": [
+            37.6,
+            50.7,
+            38.1,
+            38.9,
+            38.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 9155.5
+        },
+        "last": {
+          "file": "klippy.log.2026-10-05",
+          "line": 11216,
+          "time": "2026-10-05 02:24:57",
+          "mono": 22813.1,
+          "temperatures": [
+            31.8,
+            54.0,
+            32.0,
+            32.2,
+            32.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 17853.2
+        },
+        "first_high": {
+          "file": "klippy.log.2026-10-05",
+          "line": 3636,
+          "time": "2026-10-05 00:00:00",
+          "mono": 14115.4,
+          "temperatures": [
+            37.6,
+            50.7,
+            38.1,
+            38.9,
+            38.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 9155.5
+        },
+        "coolest": {
+          "file": "klippy.log.2026-10-05",
+          "line": 3785,
+          "time": "2026-10-05 00:02:29",
+          "mono": 14264.5,
+          "temperatures": [
+            37.3,
+            50.0,
+            37.7,
+            38.6,
+            38.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 9304.6
+        }
+      }
+    },
+    {
+      "day": "2026-10-06",
+      "samples": 7798,
+      "all_heaters_off_others_below_40": {
+        "samples": 3326,
+        "t1_min": 27.2,
+        "t1_max": 56.2,
+        "t1_median": 44.0,
+        "high_samples": 1767,
+        "first": {
+          "file": "klippy.log.2026-10-06",
+          "line": 7559,
+          "time": "2026-10-06 06:13:54",
+          "mono": 30.3,
+          "temperatures": [
+            25.2,
+            27.2,
+            25.1,
+            25.1,
+            25.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        "last": {
+          "file": "klippy.log.2026-10-07",
+          "line": 5211,
+          "time": "2026-10-06 21:35:54",
+          "mono": 1324.6,
+          "temperatures": [
+            26.5,
+            41.8,
+            26.6,
+            26.5,
+            26.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 1293.1
+        },
+        "first_high": {
+          "file": "klippy.log.2026-10-06",
+          "line": 56821,
+          "time": "2026-10-06 19:15:01",
+          "mono": 103.2,
+          "temperatures": [
+            30.2,
+            41.1,
+            30.3,
+            30.1,
+            29.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 73.1
+        },
+        "coolest": {
+          "file": "klippy.log.2026-10-06",
+          "line": 7559,
+          "time": "2026-10-06 06:13:54",
+          "mono": 30.3,
+          "temperatures": [
+            25.2,
+            27.2,
+            25.1,
+            25.1,
+            25.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      },
+      "same_after_30min_t1_off": null
+    },
+    {
+      "day": "2026-10-07",
+      "samples": 7676,
+      "all_heaters_off_others_below_40": {
+        "samples": 767,
+        "t1_min": 26.2,
+        "t1_max": 55.0,
+        "t1_median": 52.5,
+        "high_samples": 705,
+        "first": {
+          "file": "klippy.log.2026-10-07",
+          "line": 8937,
+          "time": "2026-10-07 18:36:03",
+          "mono": 1334.2,
+          "temperatures": [
+            26.4,
+            42.3,
+            26.7,
+            26.5,
+            26.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        "last": {
+          "file": "klippy.log.2026-10-08",
+          "line": 3676,
+          "time": "2026-10-07 20:48:16",
+          "mono": 91.9,
+          "temperatures": [
+            24.3,
+            38.7,
+            24.1,
+            24.3,
+            24.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 62.0
+        },
+        "first_high": {
+          "file": "klippy.log.2026-10-07",
+          "line": 8937,
+          "time": "2026-10-07 18:36:03",
+          "mono": 1334.2,
+          "temperatures": [
+            26.4,
+            42.3,
+            26.7,
+            26.5,
+            26.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        "coolest": {
+          "file": "klippy.log.2026-10-07",
+          "line": 51755,
+          "time": "2026-10-07 20:47:14",
+          "mono": 29.9,
+          "temperatures": [
+            24.3,
+            26.2,
+            24.2,
+            24.3,
+            24.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      },
+      "same_after_30min_t1_off": {
+        "samples": 565,
+        "t1_min": 50.0,
+        "t1_max": 55.0,
+        "t1_median": 53.1,
+        "high_samples": 565,
+        "first": {
+          "file": "klippy.log.2026-10-07",
+          "line": 47455,
+          "time": "2026-10-07 20:37:39",
+          "mono": 8629.8,
+          "temperatures": [
+            38.4,
+            53.3,
+            38.9,
+            39.4,
+            40.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 7295.6
+        },
+        "last": {
+          "file": "klippy.log.2026-10-07",
+          "line": 48026,
+          "time": "2026-10-07 20:47:15",
+          "mono": 9206.3,
+          "temperatures": [
+            36.5,
+            51.0,
+            36.9,
+            38.0,
+            38.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 7872.1
+        },
+        "first_high": {
+          "file": "klippy.log.2026-10-07",
+          "line": 47455,
+          "time": "2026-10-07 20:37:39",
+          "mono": 8629.8,
+          "temperatures": [
+            38.4,
+            53.3,
+            38.9,
+            39.4,
+            40.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 7295.6
+        },
+        "coolest": {
+          "file": "klippy.log.2026-10-07",
+          "line": 47560,
+          "time": "2026-10-07 20:39:28",
+          "mono": 8738.9,
+          "temperatures": [
+            38.0,
+            50.0,
+            38.5,
+            39.0,
+            39.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 7404.7
+        }
+      }
+    },
+    {
+      "day": "2026-10-08",
+      "samples": 50462,
+      "all_heaters_off_others_below_40": {
+        "samples": 18447,
+        "t1_min": 50.0,
+        "t1_max": 73.0,
+        "t1_median": 58.1,
+        "high_samples": 18447,
+        "first": {
+          "file": "klippy.log.2026-10-08",
+          "line": 153841,
+          "time": "2026-10-08 14:05:50",
+          "mono": 16043.3,
+          "temperatures": [
+            38.1,
+            55.0,
+            38.5,
+            40.0,
+            40.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 15957.4
+        },
+        "last": {
+          "file": "klippy.log.2026-10-08",
+          "line": 253969,
+          "time": "2026-10-08 23:59:59",
+          "mono": 51692.0,
+          "temperatures": [
+            30.5,
+            69.0,
+            30.8,
+            31.3,
+            31.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 51606.1
+        },
+        "first_high": {
+          "file": "klippy.log.2026-10-08",
+          "line": 153841,
+          "time": "2026-10-08 14:05:50",
+          "mono": 16043.3,
+          "temperatures": [
+            38.1,
+            55.0,
+            38.5,
+            40.0,
+            40.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 15957.4
+        },
+        "coolest": {
+          "file": "klippy.log.2026-10-08",
+          "line": 160217,
+          "time": "2026-10-08 15:54:28",
+          "mono": 22561.6,
+          "temperatures": [
+            31.9,
+            50.0,
+            32.2,
+            32.6,
+            32.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 22475.7
+        }
+      },
+      "same_after_30min_t1_off": {
+        "samples": 18447,
+        "t1_min": 50.0,
+        "t1_max": 73.0,
+        "t1_median": 58.1,
+        "high_samples": 18447,
+        "first": {
+          "file": "klippy.log.2026-10-08",
+          "line": 153841,
+          "time": "2026-10-08 14:05:50",
+          "mono": 16043.3,
+          "temperatures": [
+            38.1,
+            55.0,
+            38.5,
+            40.0,
+            40.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 15957.4
+        },
+        "last": {
+          "file": "klippy.log.2026-10-08",
+          "line": 253969,
+          "time": "2026-10-08 23:59:59",
+          "mono": 51692.0,
+          "temperatures": [
+            30.5,
+            69.0,
+            30.8,
+            31.3,
+            31.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 51606.1
+        },
+        "first_high": {
+          "file": "klippy.log.2026-10-08",
+          "line": 153841,
+          "time": "2026-10-08 14:05:50",
+          "mono": 16043.3,
+          "temperatures": [
+            38.1,
+            55.0,
+            38.5,
+            40.0,
+            40.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 15957.4
+        },
+        "coolest": {
+          "file": "klippy.log.2026-10-08",
+          "line": 160217,
+          "time": "2026-10-08 15:54:28",
+          "mono": 22561.6,
+          "temperatures": [
+            31.9,
+            50.0,
+            32.2,
+            32.6,
+            32.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 22475.7
+        }
+      }
+    },
+    {
+      "day": "2026-10-09",
+      "samples": 40701,
+      "all_heaters_off_others_below_40": {
+        "samples": 30387,
+        "t1_min": 49.3,
+        "t1_max": 221.3,
+        "t1_median": 61.5,
+        "high_samples": 30387,
+        "first": {
+          "file": "klippy.log.2026-10-08",
+          "line": 253970,
+          "time": "2026-10-09 00:00:00",
+          "mono": 51693.0,
+          "temperatures": [
+            30.5,
+            69.0,
+            30.8,
+            31.3,
+            31.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 51607.1
+        },
+        "last": {
+          "file": "klippy.log",
+          "line": 127244,
+          "time": "2026-10-09 21:49:35",
+          "mono": 18330.3,
+          "temperatures": [
+            31.7,
+            179.4,
+            31.8,
+            32.0,
+            32.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 18.0
+        },
+        "first_high": {
+          "file": "klippy.log.2026-10-08",
+          "line": 253970,
+          "time": "2026-10-09 00:00:00",
+          "mono": 51693.0,
+          "temperatures": [
+            30.5,
+            69.0,
+            30.8,
+            31.3,
+            31.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 51607.1
+        },
+        "coolest": {
+          "file": "klippy.log",
+          "line": 30694,
+          "time": "2026-10-09 06:32:08",
+          "mono": 483.3,
+          "temperatures": [
+            28.1,
+            49.3,
+            28.2,
+            28.1,
+            28.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 452.4
+        }
+      },
+      "same_after_30min_t1_off": {
+        "samples": 26359,
+        "t1_min": 50.0,
+        "t1_max": 72.2,
+        "t1_median": 62.6,
+        "high_samples": 26359,
+        "first": {
+          "file": "klippy.log.2026-10-08",
+          "line": 253970,
+          "time": "2026-10-09 00:00:00",
+          "mono": 51693.0,
+          "temperatures": [
+            30.5,
+            69.0,
+            30.8,
+            31.3,
+            31.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 51607.1
+        },
+        "last": {
+          "file": "klippy.log",
+          "line": 111930,
+          "time": "2026-10-09 10:49:07",
+          "mono": 15902.1,
+          "temperatures": [
+            33.3,
+            57.4,
+            33.4,
+            34.4,
+            34.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 15871.2
+        },
+        "first_high": {
+          "file": "klippy.log.2026-10-08",
+          "line": 253970,
+          "time": "2026-10-09 00:00:00",
+          "mono": 51693.0,
+          "temperatures": [
+            30.5,
+            69.0,
+            30.8,
+            31.3,
+            31.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 51607.1
+        },
+        "coolest": {
+          "file": "klippy.log",
+          "line": 23830,
+          "time": "2026-10-09 05:43:25",
+          "mono": 72298.3,
+          "temperatures": [
+            27.8,
+            50.0,
+            28.0,
+            28.1,
+            28.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 72212.4
+        }
+      }
+    }
+  ],
+  "sessions": [
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 18116,
+      "start": "2026-10-04 04:03:31",
+      "epoch": 1791061411.1,
+      "first": {
+        "file": "klippy.log.2026-10-04",
+        "line": 21833,
+        "time": "2026-10-04 04:03:44",
+        "mono": 32.3,
+        "temperatures": [
+          28.4,
+          30.2,
+          28.6,
+          28.4,
+          28.6
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791061424.6999998,
+          "file": "klippy.log.2026-10-04",
+          "line": 21833,
+          "time": "2026-10-04 04:03:44",
+          "mono": 32.3,
+          "temperatures": [
+            28.4,
+            30.2,
+            28.6,
+            28.4,
+            28.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791061484.8,
+          "file": "klippy.log.2026-10-04",
+          "line": 21897,
+          "time": "2026-10-04 04:04:44",
+          "mono": 92.4,
+          "temperatures": [
+            28.5,
+            30.8,
+            28.6,
+            28.5,
+            28.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 23572,
+      "start": "2026-10-04 07:58:11",
+      "epoch": 1791075491.0,
+      "first": {
+        "file": "klippy.log.2026-10-04",
+        "line": 27290,
+        "time": "2026-10-04 07:58:18",
+        "mono": 1567.7,
+        "temperatures": [
+          128.8,
+          31.7,
+          29.0,
+          28.8,
+          127.1
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791075498.9,
+          "file": "klippy.log.2026-10-04",
+          "line": 27290,
+          "time": "2026-10-04 07:58:18",
+          "mono": 1567.7,
+          "temperatures": [
+            128.8,
+            31.7,
+            29.0,
+            28.8,
+            127.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791075558.9,
+          "file": "klippy.log.2026-10-04",
+          "line": 27354,
+          "time": "2026-10-04 07:59:18",
+          "mono": 1627.7,
+          "temperatures": [
+            81.6,
+            31.7,
+            29.1,
+            28.9,
+            75.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        },
+        {
+          "epoch": 1791075618.9,
+          "file": "klippy.log.2026-10-04",
+          "line": 27414,
+          "time": "2026-10-04 08:00:18",
+          "mono": 1687.7,
+          "temperatures": [
+            60.0,
+            31.9,
+            29.1,
+            29.0,
+            52.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.0
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 28917,
+      "start": "2026-10-04 08:00:42",
+      "epoch": 1791075642.4,
+      "first": {
+        "file": "klippy.log.2026-10-04",
+        "line": 32634,
+        "time": "2026-10-04 08:00:50",
+        "mono": 1719.1,
+        "temperatures": [
+          53.2,
+          31.8,
+          29.2,
+          29.2,
+          46.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791075650.3,
+          "file": "klippy.log.2026-10-04",
+          "line": 32634,
+          "time": "2026-10-04 08:00:50",
+          "mono": 1719.1,
+          "temperatures": [
+            53.2,
+            31.8,
+            29.2,
+            29.2,
+            46.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791075710.4,
+          "file": "klippy.log.2026-10-04",
+          "line": 32698,
+          "time": "2026-10-04 08:01:50",
+          "mono": 1779.2,
+          "temperatures": [
+            46.2,
+            31.8,
+            29.3,
+            29.3,
+            42.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 34182,
+      "start": "2026-10-04 08:02:00",
+      "epoch": 1791075720.6,
+      "first": null,
+      "samples_first_10min": [],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 37840,
+      "start": "2026-10-04 08:02:17",
+      "epoch": 1791075737.1,
+      "first": null,
+      "samples_first_10min": [],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 41892,
+      "start": "2026-10-04 08:02:51",
+      "epoch": 1791075771.1,
+      "first": {
+        "file": "klippy.log.2026-10-04",
+        "line": 45610,
+        "time": "2026-10-04 08:02:59",
+        "mono": 40.9,
+        "temperatures": [
+          39.7,
+          31.9,
+          29.4,
+          29.3,
+          36.7
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791075779.7,
+          "file": "klippy.log.2026-10-04",
+          "line": 45610,
+          "time": "2026-10-04 08:02:59",
+          "mono": 40.9,
+          "temperatures": [
+            39.7,
+            31.9,
+            29.4,
+            29.3,
+            36.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791075839.8,
+          "file": "klippy.log.2026-10-04",
+          "line": 45701,
+          "time": "2026-10-04 08:03:59",
+          "mono": 101.0,
+          "temperatures": [
+            37.5,
+            31.8,
+            29.5,
+            29.4,
+            35.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        },
+        {
+          "epoch": 1791075899.8,
+          "file": "klippy.log.2026-10-04",
+          "line": 45866,
+          "time": "2026-10-04 08:04:59",
+          "mono": 161.0,
+          "temperatures": [
+            36.0,
+            31.9,
+            29.5,
+            29.4,
+            34.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.1
+        },
+        {
+          "epoch": 1791075959.8,
+          "file": "klippy.log.2026-10-04",
+          "line": 46155,
+          "time": "2026-10-04 08:05:59",
+          "mono": 221.0,
+          "temperatures": [
+            34.8,
+            31.9,
+            29.5,
+            29.5,
+            33.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 180.1
+        },
+        {
+          "epoch": 1791076019.8,
+          "file": "klippy.log.2026-10-04",
+          "line": 46428,
+          "time": "2026-10-04 08:06:59",
+          "mono": 281.0,
+          "temperatures": [
+            34.1,
+            32.0,
+            29.6,
+            29.4,
+            32.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 240.1
+        },
+        {
+          "epoch": 1791076079.8999999,
+          "file": "klippy.log.2026-10-04",
+          "line": 46508,
+          "time": "2026-10-04 08:07:59",
+          "mono": 341.1,
+          "temperatures": [
+            151.5,
+            37.3,
+            29.6,
+            29.6,
+            150.7
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.027
+          ],
+          "t1_off_observed_seconds": 300.2
+        },
+        {
+          "epoch": 1791076139.8999999,
+          "file": "klippy.log.2026-10-04",
+          "line": 46568,
+          "time": "2026-10-04 08:08:59",
+          "mono": 401.1,
+          "temperatures": [
+            150.7,
+            32.1,
+            29.6,
+            29.6,
+            151.1
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.07,
+            0.0,
+            0.0,
+            0.0,
+            0.05
+          ],
+          "t1_off_observed_seconds": 360.2
+        },
+        {
+          "epoch": 1791076200.0,
+          "file": "klippy.log.2026-10-04",
+          "line": 46633,
+          "time": "2026-10-04 08:10:00",
+          "mono": 461.2,
+          "temperatures": [
+            150.8,
+            32.1,
+            29.6,
+            29.9,
+            150.6
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.029,
+            0.0,
+            0.0,
+            0.0,
+            0.014
+          ],
+          "t1_off_observed_seconds": 420.3
+        },
+        {
+          "epoch": 1791076260.0,
+          "file": "klippy.log.2026-10-04",
+          "line": 46693,
+          "time": "2026-10-04 08:11:00",
+          "mono": 521.2,
+          "temperatures": [
+            149.4,
+            36.3,
+            29.8,
+            30.0,
+            149.5
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.207,
+            0.0,
+            0.0,
+            0.0,
+            0.227
+          ],
+          "t1_off_observed_seconds": 480.3
+        },
+        {
+          "epoch": 1791076320.0,
+          "file": "klippy.log.2026-10-04",
+          "line": 46754,
+          "time": "2026-10-04 08:12:00",
+          "mono": 581.2,
+          "temperatures": [
+            149.4,
+            32.4,
+            29.8,
+            30.2,
+            150.1
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.206,
+            0.0,
+            0.0,
+            0.0,
+            0.152
+          ],
+          "t1_off_observed_seconds": 540.3
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 218615,
+      "start": "2026-10-04 13:04:58",
+      "epoch": 1791093898.0,
+      "first": null,
+      "samples_first_10min": [],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 222705,
+      "start": "2026-10-04 13:05:32",
+      "epoch": 1791093932.9,
+      "first": {
+        "file": "klippy.log.2026-10-04",
+        "line": 226422,
+        "time": "2026-10-04 13:05:40",
+        "mono": 41.5,
+        "temperatures": [
+          70.7,
+          63.5,
+          39.8,
+          40.2,
+          64.7
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791093940.8000002,
+          "file": "klippy.log.2026-10-04",
+          "line": 226422,
+          "time": "2026-10-04 13:05:40",
+          "mono": 41.5,
+          "temperatures": [
+            70.7,
+            63.5,
+            39.8,
+            40.2,
+            64.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791094000.8000002,
+          "file": "klippy.log.2026-10-04",
+          "line": 226496,
+          "time": "2026-10-04 13:06:40",
+          "mono": 101.5,
+          "temperatures": [
+            57.8,
+            63.1,
+            39.6,
+            39.9,
+            52.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        },
+        {
+          "epoch": 1791094060.8000002,
+          "file": "klippy.log.2026-10-04",
+          "line": 226556,
+          "time": "2026-10-04 13:07:40",
+          "mono": 161.5,
+          "temperatures": [
+            50.2,
+            61.7,
+            39.5,
+            39.8,
+            47.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.0
+        },
+        {
+          "epoch": 1791094120.9,
+          "file": "klippy.log.2026-10-04",
+          "line": 226616,
+          "time": "2026-10-04 13:08:40",
+          "mono": 221.6,
+          "temperatures": [
+            47.0,
+            60.4,
+            39.4,
+            39.7,
+            45.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 180.1
+        },
+        {
+          "epoch": 1791094181.0000002,
+          "file": "klippy.log.2026-10-04",
+          "line": 226676,
+          "time": "2026-10-04 13:09:41",
+          "mono": 281.7,
+          "temperatures": [
+            45.0,
+            63.4,
+            39.3,
+            39.6,
+            43.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 240.2
+        },
+        {
+          "epoch": 1791094241.0000002,
+          "file": "klippy.log.2026-10-04",
+          "line": 226736,
+          "time": "2026-10-04 13:10:41",
+          "mono": 341.7,
+          "temperatures": [
+            43.7,
+            62.3,
+            39.2,
+            39.6,
+            43.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 300.2
+        },
+        {
+          "epoch": 1791094301.1000001,
+          "file": "klippy.log.2026-10-04",
+          "line": 226796,
+          "time": "2026-10-04 13:11:41",
+          "mono": 401.8,
+          "temperatures": [
+            42.6,
+            62.0,
+            39.2,
+            39.5,
+            42.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 360.3
+        },
+        {
+          "epoch": 1791094361.1000001,
+          "file": "klippy.log.2026-10-04",
+          "line": 226856,
+          "time": "2026-10-04 13:12:41",
+          "mono": 461.8,
+          "temperatures": [
+            41.8,
+            58.5,
+            39.1,
+            39.5,
+            41.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 420.3
+        },
+        {
+          "epoch": 1791094421.2000003,
+          "file": "klippy.log.2026-10-04",
+          "line": 226935,
+          "time": "2026-10-04 13:13:41",
+          "mono": 521.9,
+          "temperatures": [
+            150.7,
+            59.5,
+            39.1,
+            39.5,
+            152.6
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.517,
+            0.0,
+            0.0,
+            0.0,
+            0.333
+          ],
+          "t1_off_observed_seconds": 480.4
+        },
+        {
+          "epoch": 1791094481.2000003,
+          "file": "klippy.log.2026-10-04",
+          "line": 226998,
+          "time": "2026-10-04 13:14:41",
+          "mono": 581.9,
+          "temperatures": [
+            150.1,
+            59.1,
+            39.1,
+            39.5,
+            150.5
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.159,
+            0.0,
+            0.0,
+            0.0,
+            0.094
+          ],
+          "t1_off_observed_seconds": 540.4
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-04",
+        "line": 307297,
+        "time": "2026-10-04 15:41:58",
+        "mono": 9419.1,
+        "temperatures": [
+          38.2,
+          62.9,
+          38.5,
+          40.0,
+          40.0
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 9377.6
+      },
+      "first_high_after_30min_off": {
+        "file": "klippy.log.2026-10-04",
+        "line": 307297,
+        "time": "2026-10-04 15:41:58",
+        "mono": 9419.1,
+        "temperatures": [
+          38.2,
+          62.9,
+          38.5,
+          40.0,
+          40.0
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 9377.6
+      }
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 367009,
+      "start": "2026-10-04 17:11:02",
+      "epoch": 1791108662.8,
+      "first": {
+        "file": "klippy.log.2026-10-04",
+        "line": 370726,
+        "time": "2026-10-04 17:11:16",
+        "mono": 31.4,
+        "temperatures": [
+          28.5,
+          30.9,
+          29.0,
+          29.0,
+          29.0
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791108676.4,
+          "file": "klippy.log.2026-10-04",
+          "line": 370726,
+          "time": "2026-10-04 17:11:16",
+          "mono": 31.4,
+          "temperatures": [
+            28.5,
+            30.9,
+            29.0,
+            29.0,
+            29.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 372273,
+      "start": "2026-10-04 20:04:43",
+      "epoch": 1791119083.1,
+      "first": null,
+      "samples_first_10min": [],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 376519,
+      "start": "2026-10-04 20:05:23",
+      "epoch": 1791119123.7,
+      "first": {
+        "file": "klippy.log.2026-10-04",
+        "line": 380237,
+        "time": "2026-10-04 20:05:31",
+        "mono": 46.7,
+        "temperatures": [
+          28.4,
+          30.9,
+          28.9,
+          28.9,
+          28.6
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791119131.6000001,
+          "file": "klippy.log.2026-10-04",
+          "line": 380237,
+          "time": "2026-10-04 20:05:31",
+          "mono": 46.7,
+          "temperatures": [
+            28.4,
+            30.9,
+            28.9,
+            28.9,
+            28.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791119191.6000001,
+          "file": "klippy.log.2026-10-04",
+          "line": 380301,
+          "time": "2026-10-04 20:06:31",
+          "mono": 106.7,
+          "temperatures": [
+            28.5,
+            30.9,
+            29.0,
+            28.9,
+            28.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        },
+        {
+          "epoch": 1791119396.7,
+          "file": "klippy.log.2026-10-04",
+          "line": 380306,
+          "time": "2026-10-04 20:09:56",
+          "mono": 311.8,
+          "temperatures": [
+            28.6,
+            31.3,
+            29.0,
+            28.9,
+            28.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 265.1
+        },
+        {
+          "epoch": 1791119456.8000002,
+          "file": "klippy.log.2026-10-04",
+          "line": 380374,
+          "time": "2026-10-04 20:10:56",
+          "mono": 371.9,
+          "temperatures": [
+            28.6,
+            31.5,
+            29.0,
+            28.9,
+            28.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 325.2
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 381916,
+      "start": "2026-10-04 20:11:52",
+      "epoch": 1791119512.2,
+      "first": {
+        "file": "klippy.log.2026-10-04",
+        "line": 385633,
+        "time": "2026-10-04 20:12:00",
+        "mono": 435.3,
+        "temperatures": [
+          28.6,
+          31.4,
+          28.7,
+          28.8,
+          28.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791119520.1,
+          "file": "klippy.log.2026-10-04",
+          "line": 385633,
+          "time": "2026-10-04 20:12:00",
+          "mono": 435.3,
+          "temperatures": [
+            28.6,
+            31.4,
+            28.7,
+            28.8,
+            28.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 387186,
+      "start": "2026-10-04 20:12:58",
+      "epoch": 1791119578.3,
+      "first": {
+        "file": "klippy.log.2026-10-04",
+        "line": 390903,
+        "time": "2026-10-04 20:13:06",
+        "mono": 501.6,
+        "temperatures": [
+          28.6,
+          31.4,
+          29.0,
+          28.8,
+          28.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791119586.3999999,
+          "file": "klippy.log.2026-10-04",
+          "line": 390903,
+          "time": "2026-10-04 20:13:06",
+          "mono": 501.6,
+          "temperatures": [
+            28.6,
+            31.4,
+            29.0,
+            28.8,
+            28.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791119646.3999999,
+          "file": "klippy.log.2026-10-04",
+          "line": 390993,
+          "time": "2026-10-04 20:14:06",
+          "mono": 561.6,
+          "temperatures": [
+            28.6,
+            31.4,
+            29.0,
+            28.8,
+            28.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        },
+        {
+          "epoch": 1791119706.3999999,
+          "file": "klippy.log.2026-10-04",
+          "line": 391157,
+          "time": "2026-10-04 20:15:06",
+          "mono": 621.6,
+          "temperatures": [
+            28.6,
+            31.4,
+            29.0,
+            28.8,
+            28.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.0
+        },
+        {
+          "epoch": 1791119766.5,
+          "file": "klippy.log.2026-10-04",
+          "line": 391448,
+          "time": "2026-10-04 20:16:06",
+          "mono": 681.7,
+          "temperatures": [
+            28.6,
+            31.7,
+            29.1,
+            28.9,
+            28.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 180.1
+        },
+        {
+          "epoch": 1791119826.5,
+          "file": "klippy.log.2026-10-04",
+          "line": 391509,
+          "time": "2026-10-04 20:17:06",
+          "mono": 741.7,
+          "temperatures": [
+            28.6,
+            31.8,
+            29.1,
+            28.9,
+            28.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 240.1
+        },
+        {
+          "epoch": 1791119886.5,
+          "file": "klippy.log.2026-10-04",
+          "line": 391570,
+          "time": "2026-10-04 20:18:06",
+          "mono": 801.7,
+          "temperatures": [
+            28.6,
+            40.5,
+            29.1,
+            28.8,
+            28.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 300.1
+        },
+        {
+          "epoch": 1791119946.6,
+          "file": "klippy.log.2026-10-04",
+          "line": 391630,
+          "time": "2026-10-04 20:19:06",
+          "mono": 861.8,
+          "temperatures": [
+            28.6,
+            40.1,
+            29.0,
+            28.9,
+            28.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 360.2
+        },
+        {
+          "epoch": 1791120006.6,
+          "file": "klippy.log.2026-10-04",
+          "line": 391690,
+          "time": "2026-10-04 20:20:06",
+          "mono": 921.8,
+          "temperatures": [
+            28.6,
+            41.9,
+            29.0,
+            28.8,
+            28.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 420.2
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-04",
+        "line": 391564,
+        "time": "2026-10-04 20:18:00",
+        "mono": 795.7,
+        "temperatures": [
+          28.6,
+          40.1,
+          29.1,
+          28.9,
+          28.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 294.1
+      },
+      "first_high_after_30min_off": {
+        "file": "klippy.log.2026-10-04",
+        "line": 392380,
+        "time": "2026-10-04 20:43:06",
+        "mono": 2301.7,
+        "temperatures": [
+          29.2,
+          54.2,
+          29.7,
+          29.2,
+          29.3
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 1800.1
+      }
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 394886,
+      "start": "2026-10-04 20:58:09",
+      "epoch": 1791122289.4,
+      "first": {
+        "file": "klippy.log.2026-10-04",
+        "line": 398608,
+        "time": "2026-10-04 20:58:17",
+        "mono": 3212.5,
+        "temperatures": [
+          136.7,
+          60.8,
+          31.2,
+          31.4,
+          133.7
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791122297.3000002,
+          "file": "klippy.log.2026-10-04",
+          "line": 398608,
+          "time": "2026-10-04 20:58:17",
+          "mono": 3212.5,
+          "temperatures": [
+            136.7,
+            60.8,
+            31.2,
+            31.4,
+            133.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791122357.3000002,
+          "file": "klippy.log.2026-10-04",
+          "line": 398672,
+          "time": "2026-10-04 20:59:17",
+          "mono": 3272.5,
+          "temperatures": [
+            98.3,
+            59.9,
+            31.5,
+            31.9,
+            86.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        },
+        {
+          "epoch": 1791122417.4,
+          "file": "klippy.log.2026-10-04",
+          "line": 398732,
+          "time": "2026-10-04 21:00:17",
+          "mono": 3332.6,
+          "temperatures": [
+            77.6,
+            59.1,
+            31.9,
+            32.2,
+            62.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.1
+        },
+        {
+          "epoch": 1791122477.4,
+          "file": "klippy.log.2026-10-04",
+          "line": 398792,
+          "time": "2026-10-04 21:01:17",
+          "mono": 3392.6,
+          "temperatures": [
+            65.7,
+            59.4,
+            32.1,
+            32.6,
+            51.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 180.1
+        },
+        {
+          "epoch": 1791122537.5000002,
+          "file": "klippy.log.2026-10-04",
+          "line": 398852,
+          "time": "2026-10-04 21:02:17",
+          "mono": 3452.7,
+          "temperatures": [
+            58.6,
+            58.6,
+            32.3,
+            32.9,
+            47.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 240.2
+        },
+        {
+          "epoch": 1791122597.5000002,
+          "file": "klippy.log.2026-10-04",
+          "line": 398912,
+          "time": "2026-10-04 21:03:17",
+          "mono": 3512.7,
+          "temperatures": [
+            54.3,
+            59.9,
+            32.7,
+            33.0,
+            45.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 300.2
+        },
+        {
+          "epoch": 1791122657.7000003,
+          "file": "klippy.log.2026-10-04",
+          "line": 398972,
+          "time": "2026-10-04 21:04:17",
+          "mono": 3572.9,
+          "temperatures": [
+            51.7,
+            57.8,
+            33.0,
+            33.2,
+            43.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 360.4
+        },
+        {
+          "epoch": 1791122717.8000002,
+          "file": "klippy.log.2026-10-04",
+          "line": 399032,
+          "time": "2026-10-04 21:05:17",
+          "mono": 3633.0,
+          "temperatures": [
+            50.2,
+            58.8,
+            33.3,
+            33.4,
+            42.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 420.5
+        },
+        {
+          "epoch": 1791122777.8000002,
+          "file": "klippy.log.2026-10-04",
+          "line": 399092,
+          "time": "2026-10-04 21:06:17",
+          "mono": 3693.0,
+          "temperatures": [
+            50.0,
+            58.9,
+            33.5,
+            33.5,
+            41.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 480.5
+        },
+        {
+          "epoch": 1791122837.9,
+          "file": "klippy.log.2026-10-04",
+          "line": 399152,
+          "time": "2026-10-04 21:07:17",
+          "mono": 3753.1,
+          "temperatures": [
+            50.0,
+            58.1,
+            33.8,
+            33.5,
+            41.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 540.6
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-04",
+      "line": 401965,
+      "start": "2026-10-04 21:27:16",
+      "epoch": 1791124036.7,
+      "first": {
+        "file": "klippy.log.2026-10-04",
+        "line": 405687,
+        "time": "2026-10-04 21:27:24",
+        "mono": 4959.9,
+        "temperatures": [
+          133.9,
+          59.8,
+          36.2,
+          34.8,
+          135.6
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791124044.6000001,
+          "file": "klippy.log.2026-10-04",
+          "line": 405687,
+          "time": "2026-10-04 21:27:24",
+          "mono": 4959.9,
+          "temperatures": [
+            133.9,
+            59.8,
+            36.2,
+            34.8,
+            135.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791124104.7,
+          "file": "klippy.log.2026-10-04",
+          "line": 405773,
+          "time": "2026-10-04 21:28:24",
+          "mono": 5020.0,
+          "temperatures": [
+            150.9,
+            59.6,
+            36.3,
+            35.0,
+            150.3
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.079
+          ],
+          "t1_off_observed_seconds": 60.1
+        },
+        {
+          "epoch": 1791124164.7,
+          "file": "klippy.log.2026-10-04",
+          "line": 405833,
+          "time": "2026-10-04 21:29:24",
+          "mono": 5080.0,
+          "temperatures": [
+            151.2,
+            60.2,
+            36.3,
+            35.2,
+            149.6
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.222
+          ],
+          "t1_off_observed_seconds": 120.1
+        },
+        {
+          "epoch": 1791124224.8,
+          "file": "klippy.log.2026-10-04",
+          "line": 405894,
+          "time": "2026-10-04 21:30:24",
+          "mono": 5140.1,
+          "temperatures": [
+            150.3,
+            60.4,
+            36.4,
+            35.3,
+            150.3
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.108,
+            0.0,
+            0.0,
+            0.0,
+            0.121
+          ],
+          "t1_off_observed_seconds": 180.2
+        },
+        {
+          "epoch": 1791124284.8,
+          "file": "klippy.log.2026-10-04",
+          "line": 405954,
+          "time": "2026-10-04 21:31:24",
+          "mono": 5200.1,
+          "temperatures": [
+            150.1,
+            40.9,
+            36.5,
+            35.6,
+            149.7
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.149,
+            0.0,
+            0.0,
+            0.0,
+            0.17
+          ],
+          "t1_off_observed_seconds": 240.2
+        },
+        {
+          "epoch": 1791124344.8,
+          "file": "klippy.log.2026-10-04",
+          "line": 406095,
+          "time": "2026-10-04 21:32:24",
+          "mono": 5260.1,
+          "temperatures": [
+            150.1,
+            41.0,
+            36.6,
+            35.8,
+            151.1
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.061,
+            0.0,
+            0.0,
+            0.0,
+            0.028
+          ],
+          "t1_off_observed_seconds": 300.2
+        },
+        {
+          "epoch": 1791124404.9,
+          "file": "klippy.log.2026-10-04",
+          "line": 406305,
+          "time": "2026-10-04 21:33:24",
+          "mono": 5320.2,
+          "temperatures": [
+            144.0,
+            41.2,
+            36.7,
+            36.1,
+            196.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            260.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "t1_off_observed_seconds": 360.3
+        },
+        {
+          "epoch": 1791124464.9,
+          "file": "klippy.log.2026-10-04",
+          "line": 406445,
+          "time": "2026-10-04 21:34:24",
+          "mono": 5380.2,
+          "temperatures": [
+            100.4,
+            47.5,
+            36.8,
+            36.3,
+            260.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            260.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.279
+          ],
+          "t1_off_observed_seconds": 420.3
+        },
+        {
+          "epoch": 1791124525.0,
+          "file": "klippy.log.2026-10-04",
+          "line": 406709,
+          "time": "2026-10-04 21:35:25",
+          "mono": 5440.3,
+          "temperatures": [
+            77.7,
+            46.3,
+            37.0,
+            36.5,
+            260.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            260.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.17
+          ],
+          "t1_off_observed_seconds": 480.4
+        },
+        {
+          "epoch": 1791124585.0,
+          "file": "klippy.log.2026-10-04",
+          "line": 407197,
+          "time": "2026-10-04 21:36:25",
+          "mono": 5500.3,
+          "temperatures": [
+            64.5,
+            47.3,
+            37.1,
+            36.8,
+            248.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            250.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.484
+          ],
+          "t1_off_observed_seconds": 540.4
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-04",
+        "line": 460160,
+        "time": "2026-10-04 23:51:10",
+        "mono": 13585.9,
+        "temperatures": [
+          38.8,
+          50.1,
+          39.4,
+          40.0,
+          39.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 8626.0
+      },
+      "first_high_after_30min_off": {
+        "file": "klippy.log.2026-10-04",
+        "line": 460160,
+        "time": "2026-10-04 23:51:10",
+        "mono": 13585.9,
+        "temperatures": [
+          38.8,
+          50.1,
+          39.4,
+          40.0,
+          39.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 8626.0
+      }
+    },
+    {
+      "file": "klippy.log.2026-10-05",
+      "line": 11228,
+      "start": "2026-10-05 02:25:11",
+      "epoch": 1791141911.0,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 3727,
+        "time": "2026-10-05 02:25:24",
+        "mono": 31.4,
+        "temperatures": [
+          25.2,
+          27.2,
+          25.2,
+          25.2,
+          25.2
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791141924.7,
+          "file": "klippy.log.2026-10-06",
+          "line": 3727,
+          "time": "2026-10-05 02:25:24",
+          "mono": 31.4,
+          "temperatures": [
+            25.2,
+            27.2,
+            25.2,
+            25.2,
+            25.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791141984.7,
+          "file": "klippy.log.2026-10-06",
+          "line": 3815,
+          "time": "2026-10-05 02:26:24",
+          "mono": 91.4,
+          "temperatures": [
+            25.2,
+            27.2,
+            25.3,
+            25.1,
+            25.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 3842,
+      "start": "2026-10-06 06:13:42",
+      "epoch": 1791242022.1,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 7559,
+        "time": "2026-10-06 06:13:54",
+        "mono": 30.3,
+        "temperatures": [
+          25.2,
+          27.2,
+          25.1,
+          25.1,
+          25.4
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791242034.3,
+          "file": "klippy.log.2026-10-06",
+          "line": 7559,
+          "time": "2026-10-06 06:13:54",
+          "mono": 30.3,
+          "temperatures": [
+            25.2,
+            27.2,
+            25.1,
+            25.1,
+            25.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791242094.4,
+          "file": "klippy.log.2026-10-06",
+          "line": 7623,
+          "time": "2026-10-06 06:14:54",
+          "mono": 90.4,
+          "temperatures": [
+            25.2,
+            27.2,
+            25.2,
+            25.2,
+            25.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        },
+        {
+          "epoch": 1791242185.4,
+          "file": "klippy.log.2026-10-06",
+          "line": 7629,
+          "time": "2026-10-06 06:16:25",
+          "mono": 181.4,
+          "temperatures": [
+            25.2,
+            27.2,
+            25.2,
+            25.2,
+            25.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 151.1
+        },
+        {
+          "epoch": 1791242245.5,
+          "file": "klippy.log.2026-10-06",
+          "line": 7721,
+          "time": "2026-10-06 06:17:25",
+          "mono": 241.5,
+          "temperatures": [
+            25.3,
+            27.3,
+            25.1,
+            25.2,
+            25.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 211.2
+        },
+        {
+          "epoch": 1791242319.5,
+          "file": "klippy.log.2026-10-06",
+          "line": 7756,
+          "time": "2026-10-06 06:18:39",
+          "mono": 315.5,
+          "temperatures": [
+            25.3,
+            27.3,
+            25.3,
+            25.2,
+            25.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 285.2
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 7823,
+      "start": "2026-10-06 06:22:21",
+      "epoch": 1791242541.1,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 11541,
+        "time": "2026-10-06 06:22:33",
+        "mono": 29.9,
+        "temperatures": [
+          26.5,
+          28.4,
+          26.5,
+          26.4,
+          26.6
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791242553.6,
+          "file": "klippy.log.2026-10-06",
+          "line": 11541,
+          "time": "2026-10-06 06:22:33",
+          "mono": 29.9,
+          "temperatures": [
+            26.5,
+            28.4,
+            26.5,
+            26.4,
+            26.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791242613.6,
+          "file": "klippy.log.2026-10-06",
+          "line": 11625,
+          "time": "2026-10-06 06:23:33",
+          "mono": 89.9,
+          "temperatures": [
+            26.5,
+            28.5,
+            26.5,
+            26.5,
+            26.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        },
+        {
+          "epoch": 1791242673.6999998,
+          "file": "klippy.log.2026-10-06",
+          "line": 11690,
+          "time": "2026-10-06 06:24:33",
+          "mono": 150.0,
+          "temperatures": [
+            26.5,
+            28.5,
+            26.5,
+            26.5,
+            26.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.1
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 11805,
+      "start": "2026-10-06 16:09:33",
+      "epoch": 1791277773.0,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 15527,
+        "time": "2026-10-06 16:09:41",
+        "mono": 215.0,
+        "temperatures": [
+          26.5,
+          28.7,
+          26.4,
+          26.4,
+          26.7
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791277781.6,
+          "file": "klippy.log.2026-10-06",
+          "line": 15527,
+          "time": "2026-10-06 16:09:41",
+          "mono": 215.0,
+          "temperatures": [
+            26.5,
+            28.7,
+            26.4,
+            26.4,
+            26.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791277841.6,
+          "file": "klippy.log.2026-10-06",
+          "line": 15617,
+          "time": "2026-10-06 16:10:41",
+          "mono": 275.0,
+          "temperatures": [
+            26.5,
+            28.7,
+            26.5,
+            26.5,
+            26.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        },
+        {
+          "epoch": 1791277901.6999998,
+          "file": "klippy.log.2026-10-06",
+          "line": 15743,
+          "time": "2026-10-06 16:11:41",
+          "mono": 335.1,
+          "temperatures": [
+            26.6,
+            28.6,
+            26.5,
+            26.5,
+            26.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.1
+        },
+        {
+          "epoch": 1791277961.6999998,
+          "file": "klippy.log.2026-10-06",
+          "line": 15922,
+          "time": "2026-10-06 16:12:41",
+          "mono": 395.1,
+          "temperatures": [
+            26.6,
+            28.7,
+            26.5,
+            26.6,
+            26.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 180.1
+        },
+        {
+          "epoch": 1791278021.8,
+          "file": "klippy.log.2026-10-06",
+          "line": 16060,
+          "time": "2026-10-06 16:13:41",
+          "mono": 455.2,
+          "temperatures": [
+            26.6,
+            28.7,
+            26.5,
+            26.6,
+            26.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 240.2
+        },
+        {
+          "epoch": 1791278081.8999999,
+          "file": "klippy.log.2026-10-06",
+          "line": 16294,
+          "time": "2026-10-06 16:14:41",
+          "mono": 515.3,
+          "temperatures": [
+            26.6,
+            28.7,
+            26.6,
+            26.6,
+            26.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 300.3
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 16376,
+      "start": "2026-10-06 16:14:38",
+      "epoch": 1791278078.9,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 20093,
+        "time": "2026-10-06 16:14:52",
+        "mono": 30.7,
+        "temperatures": [
+          26.5,
+          28.5,
+          26.5,
+          26.5,
+          26.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791278092.2,
+          "file": "klippy.log.2026-10-06",
+          "line": 20093,
+          "time": "2026-10-06 16:14:52",
+          "mono": 30.7,
+          "temperatures": [
+            26.5,
+            28.5,
+            26.5,
+            26.5,
+            26.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791278152.3,
+          "file": "klippy.log.2026-10-06",
+          "line": 20175,
+          "time": "2026-10-06 16:15:52",
+          "mono": 90.8,
+          "temperatures": [
+            26.4,
+            28.6,
+            26.4,
+            26.5,
+            26.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        },
+        {
+          "epoch": 1791278212.3,
+          "file": "klippy.log.2026-10-06",
+          "line": 20286,
+          "time": "2026-10-06 16:16:52",
+          "mono": 150.8,
+          "temperatures": [
+            26.4,
+            28.6,
+            26.5,
+            26.6,
+            26.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.1
+        },
+        {
+          "epoch": 1791278272.3,
+          "file": "klippy.log.2026-10-06",
+          "line": 20472,
+          "time": "2026-10-06 16:17:52",
+          "mono": 210.8,
+          "temperatures": [
+            26.3,
+            28.9,
+            26.4,
+            26.5,
+            26.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 180.1
+        },
+        {
+          "epoch": 1791278332.4,
+          "file": "klippy.log.2026-10-06",
+          "line": 20720,
+          "time": "2026-10-06 16:18:52",
+          "mono": 270.9,
+          "temperatures": [
+            26.2,
+            29.1,
+            26.4,
+            26.5,
+            26.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 240.2
+        },
+        {
+          "epoch": 1791278392.5,
+          "file": "klippy.log.2026-10-06",
+          "line": 20990,
+          "time": "2026-10-06 16:19:52",
+          "mono": 331.0,
+          "temperatures": [
+            26.2,
+            35.8,
+            26.4,
+            26.5,
+            26.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 300.3
+        },
+        {
+          "epoch": 1791278452.7,
+          "file": "klippy.log.2026-10-06",
+          "line": 21082,
+          "time": "2026-10-06 16:20:52",
+          "mono": 391.2,
+          "temperatures": [
+            26.2,
+            35.6,
+            26.4,
+            26.5,
+            26.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 360.5
+        },
+        {
+          "epoch": 1791278573.7,
+          "file": "klippy.log.2026-10-06",
+          "line": 21091,
+          "time": "2026-10-06 16:22:53",
+          "mono": 512.2,
+          "temperatures": [
+            26.1,
+            29.3,
+            26.3,
+            26.5,
+            26.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 481.5
+        },
+        {
+          "epoch": 1791278633.9,
+          "file": "klippy.log.2026-10-06",
+          "line": 21153,
+          "time": "2026-10-06 16:23:53",
+          "mono": 572.4,
+          "temperatures": [
+            26.1,
+            30.9,
+            26.5,
+            26.5,
+            26.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 541.7
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 24338,
+      "start": "2026-10-06 18:19:45",
+      "epoch": 1791285585.8,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 28060,
+        "time": "2026-10-06 18:19:53",
+        "mono": 2360.1,
+        "temperatures": [
+          55.0,
+          49.6,
+          36.7,
+          35.7,
+          39.0
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791285593.6999998,
+          "file": "klippy.log.2026-10-06",
+          "line": 28060,
+          "time": "2026-10-06 18:19:53",
+          "mono": 2360.1,
+          "temperatures": [
+            55.0,
+            49.6,
+            36.7,
+            35.7,
+            39.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791285653.6999998,
+          "file": "klippy.log.2026-10-06",
+          "line": 28146,
+          "time": "2026-10-06 18:20:53",
+          "mono": 2420.1,
+          "temperatures": [
+            149.7,
+            48.8,
+            36.7,
+            35.7,
+            150.7
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.164,
+            0.0,
+            0.0,
+            0.0,
+            0.011
+          ],
+          "t1_off_observed_seconds": 60.0
+        },
+        {
+          "epoch": 1791285713.8,
+          "file": "klippy.log.2026-10-06",
+          "line": 28207,
+          "time": "2026-10-06 18:21:53",
+          "mono": 2480.2,
+          "temperatures": [
+            149.5,
+            49.4,
+            36.6,
+            35.8,
+            149.5
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.199,
+            0.0,
+            0.0,
+            0.0,
+            0.247
+          ],
+          "t1_off_observed_seconds": 120.1
+        },
+        {
+          "epoch": 1791285773.8,
+          "file": "klippy.log.2026-10-06",
+          "line": 28267,
+          "time": "2026-10-06 18:22:53",
+          "mono": 2540.2,
+          "temperatures": [
+            150.7,
+            49.5,
+            36.7,
+            35.9,
+            149.5
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.024,
+            0.0,
+            0.0,
+            0.0,
+            0.192
+          ],
+          "t1_off_observed_seconds": 180.1
+        },
+        {
+          "epoch": 1791285833.8,
+          "file": "klippy.log.2026-10-06",
+          "line": 28459,
+          "time": "2026-10-06 18:23:53",
+          "mono": 2600.2,
+          "temperatures": [
+            150.5,
+            48.7,
+            36.7,
+            36.0,
+            151.0
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.019,
+            0.0,
+            0.0,
+            0.0,
+            0.027
+          ],
+          "t1_off_observed_seconds": 240.1
+        },
+        {
+          "epoch": 1791285893.8999999,
+          "file": "klippy.log.2026-10-06",
+          "line": 28668,
+          "time": "2026-10-06 18:24:53",
+          "mono": 2660.3,
+          "temperatures": [
+            150.8,
+            48.3,
+            36.7,
+            36.1,
+            149.8
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.047,
+            0.0,
+            0.0,
+            0.0,
+            0.188
+          ],
+          "t1_off_observed_seconds": 300.2
+        },
+        {
+          "epoch": 1791285954.0,
+          "file": "klippy.log.2026-10-06",
+          "line": 28913,
+          "time": "2026-10-06 18:25:54",
+          "mono": 2720.4,
+          "temperatures": [
+            150.6,
+            48.0,
+            36.8,
+            36.3,
+            150.6
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.021,
+            0.0,
+            0.0,
+            0.0,
+            0.035
+          ],
+          "t1_off_observed_seconds": 360.3
+        },
+        {
+          "epoch": 1791286014.0,
+          "file": "klippy.log.2026-10-06",
+          "line": 29053,
+          "time": "2026-10-06 18:26:54",
+          "mono": 2780.4,
+          "temperatures": [
+            128.1,
+            47.1,
+            36.9,
+            36.5,
+            261.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            260.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.094
+          ],
+          "t1_off_observed_seconds": 420.3
+        },
+        {
+          "epoch": 1791286074.1,
+          "file": "klippy.log.2026-10-06",
+          "line": 29259,
+          "time": "2026-10-06 18:27:54",
+          "mono": 2840.5,
+          "temperatures": [
+            150.2,
+            47.9,
+            36.9,
+            36.7,
+            150.9
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.138,
+            0.0,
+            0.0,
+            0.0,
+            0.074
+          ],
+          "t1_off_observed_seconds": 480.4
+        },
+        {
+          "epoch": 1791286134.1,
+          "file": "klippy.log.2026-10-06",
+          "line": 29325,
+          "time": "2026-10-06 18:28:54",
+          "mono": 2900.5,
+          "temperatures": [
+            151.0,
+            47.5,
+            37.0,
+            36.9,
+            150.8
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.015,
+            0.0,
+            0.0,
+            0.0,
+            0.029
+          ],
+          "t1_off_observed_seconds": 540.4
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 53006,
+      "start": "2026-10-06 19:13:35",
+      "epoch": 1791288815.8,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 56724,
+        "time": "2026-10-06 19:13:48",
+        "mono": 30.1,
+        "temperatures": [
+          30.3,
+          32.5,
+          30.4,
+          30.2,
+          29.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791288828.1,
+          "file": "klippy.log.2026-10-06",
+          "line": 56724,
+          "time": "2026-10-06 19:13:48",
+          "mono": 30.1,
+          "temperatures": [
+            30.3,
+            32.5,
+            30.4,
+            30.2,
+            29.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791288888.2,
+          "file": "klippy.log.2026-10-06",
+          "line": 56808,
+          "time": "2026-10-06 19:14:48",
+          "mono": 90.2,
+          "temperatures": [
+            30.2,
+            32.4,
+            30.3,
+            30.1,
+            29.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 56821,
+        "time": "2026-10-06 19:15:01",
+        "mono": 103.2,
+        "temperatures": [
+          30.2,
+          41.1,
+          30.3,
+          30.1,
+          29.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 73.1
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 56850,
+      "start": "2026-10-06 20:20:06",
+      "epoch": 1791292806.0,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 60568,
+        "time": "2026-10-06 20:20:14",
+        "mono": 132.5,
+        "temperatures": [
+          30.2,
+          42.3,
+          30.2,
+          30.1,
+          29.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791292814.6,
+          "file": "klippy.log.2026-10-06",
+          "line": 60568,
+          "time": "2026-10-06 20:20:14",
+          "mono": 132.5,
+          "temperatures": [
+            30.2,
+            42.3,
+            30.2,
+            30.1,
+            29.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 60568,
+        "time": "2026-10-06 20:20:14",
+        "mono": 132.5,
+        "temperatures": [
+          30.2,
+          42.3,
+          30.2,
+          30.1,
+          29.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 60606,
+      "start": "2026-10-06 20:20:15",
+      "epoch": 1791292815.5,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 64324,
+        "time": "2026-10-06 20:20:28",
+        "mono": 31.6,
+        "temperatures": [
+          30.1,
+          44.0,
+          30.0,
+          30.1,
+          29.6
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791292828.6,
+          "file": "klippy.log.2026-10-06",
+          "line": 64324,
+          "time": "2026-10-06 20:20:28",
+          "mono": 31.6,
+          "temperatures": [
+            30.1,
+            44.0,
+            30.0,
+            30.1,
+            29.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791292888.6,
+          "file": "klippy.log.2026-10-06",
+          "line": 64393,
+          "time": "2026-10-06 20:21:28",
+          "mono": 91.6,
+          "temperatures": [
+            29.9,
+            45.1,
+            30.0,
+            30.1,
+            29.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 64324,
+        "time": "2026-10-06 20:20:28",
+        "mono": 31.6,
+        "temperatures": [
+          30.1,
+          44.0,
+          30.0,
+          30.1,
+          29.6
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 64416,
+      "start": "2026-10-06 20:22:47",
+      "epoch": 1791292967.3,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 68133,
+        "time": "2026-10-06 20:22:55",
+        "mono": 114.0,
+        "temperatures": [
+          29.9,
+          43.8,
+          30.0,
+          30.0,
+          29.6
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791292975.2,
+          "file": "klippy.log.2026-10-06",
+          "line": 68133,
+          "time": "2026-10-06 20:22:55",
+          "mono": 114.0,
+          "temperatures": [
+            29.9,
+            43.8,
+            30.0,
+            30.0,
+            29.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791293035.2,
+          "file": "klippy.log.2026-10-06",
+          "line": 68267,
+          "time": "2026-10-06 20:23:55",
+          "mono": 174.0,
+          "temperatures": [
+            29.7,
+            44.5,
+            30.0,
+            29.8,
+            29.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        },
+        {
+          "epoch": 1791293133.3,
+          "file": "klippy.log.2026-10-06",
+          "line": 68332,
+          "time": "2026-10-06 20:25:33",
+          "mono": 272.1,
+          "temperatures": [
+            29.5,
+            45.0,
+            29.7,
+            29.6,
+            29.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 158.1
+        },
+        {
+          "epoch": 1791293193.3,
+          "file": "klippy.log.2026-10-06",
+          "line": 68402,
+          "time": "2026-10-06 20:26:33",
+          "mono": 332.1,
+          "temperatures": [
+            29.5,
+            46.9,
+            29.6,
+            29.5,
+            29.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 218.1
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 68133,
+        "time": "2026-10-06 20:22:55",
+        "mono": 114.0,
+        "temperatures": [
+          29.9,
+          43.8,
+          30.0,
+          30.0,
+          29.6
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 68462,
+      "start": "2026-10-06 20:27:32",
+      "epoch": 1791293252.6,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 72180,
+        "time": "2026-10-06 20:27:40",
+        "mono": 399.1,
+        "temperatures": [
+          29.3,
+          47.9,
+          29.4,
+          29.4,
+          29.2
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791293260.3999999,
+          "file": "klippy.log.2026-10-06",
+          "line": 72180,
+          "time": "2026-10-06 20:27:40",
+          "mono": 399.1,
+          "temperatures": [
+            29.3,
+            47.9,
+            29.4,
+            29.4,
+            29.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791293320.5,
+          "file": "klippy.log.2026-10-06",
+          "line": 72249,
+          "time": "2026-10-06 20:28:40",
+          "mono": 459.2,
+          "temperatures": [
+            29.2,
+            48.1,
+            29.4,
+            29.4,
+            29.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        },
+        {
+          "epoch": 1791293380.5,
+          "file": "klippy.log.2026-10-06",
+          "line": 72277,
+          "time": "2026-10-06 20:29:40",
+          "mono": 519.2,
+          "temperatures": [
+            29.1,
+            47.9,
+            29.3,
+            29.3,
+            29.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.1
+        },
+        {
+          "epoch": 1791293440.6,
+          "file": "klippy.log.2026-10-06",
+          "line": 72362,
+          "time": "2026-10-06 20:30:40",
+          "mono": 579.3,
+          "temperatures": [
+            29.2,
+            48.2,
+            29.3,
+            29.2,
+            29.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 180.2
+        },
+        {
+          "epoch": 1791293543.6,
+          "file": "klippy.log.2026-10-06",
+          "line": 72412,
+          "time": "2026-10-06 20:32:23",
+          "mono": 682.3,
+          "temperatures": [
+            29.1,
+            48.3,
+            29.2,
+            29.2,
+            29.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 283.2
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 72180,
+        "time": "2026-10-06 20:27:40",
+        "mono": 399.1,
+        "temperatures": [
+          29.3,
+          47.9,
+          29.4,
+          29.4,
+          29.2
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 72498,
+      "start": "2026-10-06 20:33:13",
+      "epoch": 1791293593.9,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 76216,
+        "time": "2026-10-06 20:33:21",
+        "mono": 740.5,
+        "temperatures": [
+          29.1,
+          48.5,
+          29.3,
+          29.2,
+          28.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791293601.8000002,
+          "file": "klippy.log.2026-10-06",
+          "line": 76216,
+          "time": "2026-10-06 20:33:21",
+          "mono": 740.5,
+          "temperatures": [
+            29.1,
+            48.5,
+            29.3,
+            29.2,
+            28.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 76216,
+        "time": "2026-10-06 20:33:21",
+        "mono": 740.5,
+        "temperatures": [
+          29.1,
+          48.5,
+          29.3,
+          29.2,
+          28.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 77714,
+      "start": "2026-10-06 20:33:36",
+      "epoch": 1791293616.7,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 81432,
+        "time": "2026-10-06 20:33:44",
+        "mono": 763.4,
+        "temperatures": [
+          29.1,
+          48.5,
+          29.2,
+          29.2,
+          28.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791293624.6000001,
+          "file": "klippy.log.2026-10-06",
+          "line": 81432,
+          "time": "2026-10-06 20:33:44",
+          "mono": 763.4,
+          "temperatures": [
+            29.1,
+            48.5,
+            29.2,
+            29.2,
+            28.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791293684.7,
+          "file": "klippy.log.2026-10-06",
+          "line": 81496,
+          "time": "2026-10-06 20:34:44",
+          "mono": 823.5,
+          "temperatures": [
+            29.1,
+            48.6,
+            29.2,
+            29.3,
+            28.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 81432,
+        "time": "2026-10-06 20:33:44",
+        "mono": 763.4,
+        "temperatures": [
+          29.1,
+          48.5,
+          29.2,
+          29.2,
+          28.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 81509,
+      "start": "2026-10-06 20:35:29",
+      "epoch": 1791293729.8,
+      "first": null,
+      "samples_first_10min": [],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 85190,
+      "start": "2026-10-06 20:35:41",
+      "epoch": 1791293741.0,
+      "first": null,
+      "samples_first_10min": [],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 88908,
+      "start": "2026-10-06 20:36:07",
+      "epoch": 1791293767.9,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 92625,
+        "time": "2026-10-06 20:36:15",
+        "mono": 914.5,
+        "temperatures": [
+          28.9,
+          48.9,
+          29.3,
+          29.1,
+          29.0
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791293775.7,
+          "file": "klippy.log.2026-10-06",
+          "line": 92625,
+          "time": "2026-10-06 20:36:15",
+          "mono": 914.5,
+          "temperatures": [
+            28.9,
+            48.9,
+            29.3,
+            29.1,
+            29.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 92625,
+        "time": "2026-10-06 20:36:15",
+        "mono": 914.5,
+        "temperatures": [
+          28.9,
+          48.9,
+          29.3,
+          29.1,
+          29.0
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 94139,
+      "start": "2026-10-06 20:36:42",
+      "epoch": 1791293802.0,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 97856,
+        "time": "2026-10-06 20:36:49",
+        "mono": 948.6,
+        "temperatures": [
+          29.0,
+          49.2,
+          29.2,
+          29.0,
+          28.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791293809.8,
+          "file": "klippy.log.2026-10-06",
+          "line": 97856,
+          "time": "2026-10-06 20:36:49",
+          "mono": 948.6,
+          "temperatures": [
+            29.0,
+            49.2,
+            29.2,
+            29.0,
+            28.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 97856,
+        "time": "2026-10-06 20:36:49",
+        "mono": 948.6,
+        "temperatures": [
+          29.0,
+          49.2,
+          29.2,
+          29.0,
+          28.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 97906,
+      "start": "2026-10-06 20:37:28",
+      "epoch": 1791293848.1,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 101623,
+        "time": "2026-10-06 20:37:36",
+        "mono": 994.8,
+        "temperatures": [
+          28.9,
+          49.0,
+          29.1,
+          29.0,
+          28.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791293855.9999998,
+          "file": "klippy.log.2026-10-06",
+          "line": 101623,
+          "time": "2026-10-06 20:37:36",
+          "mono": 994.8,
+          "temperatures": [
+            28.9,
+            49.0,
+            29.1,
+            29.0,
+            28.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 101623,
+        "time": "2026-10-06 20:37:36",
+        "mono": 994.8,
+        "temperatures": [
+          28.9,
+          49.0,
+          29.1,
+          29.0,
+          28.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 103135,
+      "start": "2026-10-06 20:37:56",
+      "epoch": 1791293876.6,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 106852,
+        "time": "2026-10-06 20:38:04",
+        "mono": 1023.4,
+        "temperatures": [
+          28.8,
+          49.7,
+          28.9,
+          28.9,
+          28.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791293884.6,
+          "file": "klippy.log.2026-10-06",
+          "line": 106852,
+          "time": "2026-10-06 20:38:04",
+          "mono": 1023.4,
+          "temperatures": [
+            28.8,
+            49.7,
+            28.9,
+            28.9,
+            28.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 106852,
+        "time": "2026-10-06 20:38:04",
+        "mono": 1023.4,
+        "temperatures": [
+          28.8,
+          49.7,
+          28.9,
+          28.9,
+          28.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 108356,
+      "start": "2026-10-06 20:38:25",
+      "epoch": 1791293905.8,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 112073,
+        "time": "2026-10-06 20:38:33",
+        "mono": 1052.6,
+        "temperatures": [
+          28.7,
+          49.2,
+          28.9,
+          28.7,
+          28.6
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791293913.8999999,
+          "file": "klippy.log.2026-10-06",
+          "line": 112073,
+          "time": "2026-10-06 20:38:33",
+          "mono": 1052.6,
+          "temperatures": [
+            28.7,
+            49.2,
+            28.9,
+            28.7,
+            28.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791293974.0,
+          "file": "klippy.log.2026-10-06",
+          "line": 112143,
+          "time": "2026-10-06 20:39:34",
+          "mono": 1112.7,
+          "temperatures": [
+            28.7,
+            49.3,
+            28.8,
+            28.6,
+            28.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        },
+        {
+          "epoch": 1791294034.0,
+          "file": "klippy.log.2026-10-06",
+          "line": 112206,
+          "time": "2026-10-06 20:40:34",
+          "mono": 1172.7,
+          "temperatures": [
+            28.6,
+            49.9,
+            28.7,
+            28.6,
+            28.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.1
+        },
+        {
+          "epoch": 1791294094.1,
+          "file": "klippy.log.2026-10-06",
+          "line": 112268,
+          "time": "2026-10-06 20:41:34",
+          "mono": 1232.8,
+          "temperatures": [
+            28.5,
+            49.3,
+            28.7,
+            28.5,
+            28.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 180.2
+        },
+        {
+          "epoch": 1791294154.2,
+          "file": "klippy.log.2026-10-06",
+          "line": 112329,
+          "time": "2026-10-06 20:42:34",
+          "mono": 1292.9,
+          "temperatures": [
+            28.4,
+            47.7,
+            28.6,
+            28.4,
+            28.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 240.3
+        },
+        {
+          "epoch": 1791294214.3,
+          "file": "klippy.log.2026-10-06",
+          "line": 112351,
+          "time": "2026-10-06 20:43:34",
+          "mono": 1353.0,
+          "temperatures": [
+            28.4,
+            47.3,
+            28.6,
+            28.4,
+            28.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 300.4
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 112073,
+        "time": "2026-10-06 20:38:33",
+        "mono": 1052.6,
+        "temperatures": [
+          28.7,
+          49.2,
+          28.9,
+          28.7,
+          28.6
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 112407,
+      "start": "2026-10-06 20:44:26",
+      "epoch": 1791294266.0,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 116197,
+        "time": "2026-10-06 20:44:39",
+        "mono": 27.5,
+        "temperatures": [
+          28.3,
+          47.7,
+          28.6,
+          28.5,
+          28.5
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791294279.8,
+          "file": "klippy.log.2026-10-06",
+          "line": 116197,
+          "time": "2026-10-06 20:44:39",
+          "mono": 27.5,
+          "temperatures": [
+            28.3,
+            47.7,
+            28.6,
+            28.5,
+            28.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 116197,
+        "time": "2026-10-06 20:44:39",
+        "mono": 27.5,
+        "temperatures": [
+          28.3,
+          47.7,
+          28.6,
+          28.5,
+          28.5
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 117689,
+      "start": "2026-10-06 20:45:04",
+      "epoch": 1791294304.3,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 121406,
+        "time": "2026-10-06 20:45:12",
+        "mono": 44.4,
+        "temperatures": [
+          28.3,
+          47.9,
+          28.6,
+          28.5,
+          28.4
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791294312.2,
+          "file": "klippy.log.2026-10-06",
+          "line": 121406,
+          "time": "2026-10-06 20:45:12",
+          "mono": 44.4,
+          "temperatures": [
+            28.3,
+            47.9,
+            28.6,
+            28.5,
+            28.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791294372.2,
+          "file": "klippy.log.2026-10-06",
+          "line": 121470,
+          "time": "2026-10-06 20:46:12",
+          "mono": 104.4,
+          "temperatures": [
+            28.3,
+            48.0,
+            28.6,
+            28.4,
+            28.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 121406,
+        "time": "2026-10-06 20:45:12",
+        "mono": 44.4,
+        "temperatures": [
+          28.3,
+          47.9,
+          28.6,
+          28.5,
+          28.4
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 121485,
+      "start": "2026-10-06 20:47:57",
+      "epoch": 1791294477.5,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 125202,
+        "time": "2026-10-06 20:48:09",
+        "mono": 29.9,
+        "temperatures": [
+          28.3,
+          30.4,
+          28.5,
+          28.3,
+          28.2
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791294489.9,
+          "file": "klippy.log.2026-10-06",
+          "line": 125202,
+          "time": "2026-10-06 20:48:09",
+          "mono": 29.9,
+          "temperatures": [
+            28.3,
+            30.4,
+            28.5,
+            28.3,
+            28.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791294550.0,
+          "file": "klippy.log.2026-10-06",
+          "line": 125289,
+          "time": "2026-10-06 20:49:10",
+          "mono": 90.0,
+          "temperatures": [
+            28.3,
+            30.8,
+            28.4,
+            28.2,
+            28.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        },
+        {
+          "epoch": 1791294610.0,
+          "file": "klippy.log.2026-10-06",
+          "line": 125363,
+          "time": "2026-10-06 20:50:10",
+          "mono": 150.0,
+          "temperatures": [
+            28.2,
+            31.6,
+            28.5,
+            28.3,
+            28.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.1
+        },
+        {
+          "epoch": 1791294912.2,
+          "file": "klippy.log.2026-10-06",
+          "line": 125382,
+          "time": "2026-10-06 20:55:12",
+          "mono": 452.2,
+          "temperatures": [
+            28.0,
+            50.3,
+            28.1,
+            28.1,
+            28.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 422.3
+        },
+        {
+          "epoch": 1791294972.2,
+          "file": "klippy.log.2026-10-06",
+          "line": 125438,
+          "time": "2026-10-06 20:56:12",
+          "mono": 512.2,
+          "temperatures": [
+            27.9,
+            52.8,
+            28.1,
+            28.0,
+            28.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 482.3
+        },
+        {
+          "epoch": 1791295032.2,
+          "file": "klippy.log.2026-10-06",
+          "line": 125512,
+          "time": "2026-10-06 20:57:12",
+          "mono": 572.2,
+          "temperatures": [
+            27.8,
+            52.4,
+            28.1,
+            28.0,
+            28.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 542.3
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-06",
+        "line": 125382,
+        "time": "2026-10-06 20:55:12",
+        "mono": 452.2,
+        "temperatures": [
+          28.0,
+          50.3,
+          28.1,
+          28.1,
+          28.1
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 422.3
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-06",
+      "line": 126342,
+      "start": "2026-10-06 21:14:07",
+      "epoch": 1791296047.5,
+      "first": {
+        "file": "klippy.log.2026-10-06",
+        "line": 130064,
+        "time": "2026-10-06 21:14:21",
+        "mono": 31.5,
+        "temperatures": [
+          26.2,
+          28.1,
+          26.2,
+          26.2,
+          26.5
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791296061.5,
+          "file": "klippy.log.2026-10-06",
+          "line": 130064,
+          "time": "2026-10-06 21:14:21",
+          "mono": 31.5,
+          "temperatures": [
+            26.2,
+            28.1,
+            26.2,
+            26.2,
+            26.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791296121.5,
+          "file": "klippy.log.2026-10-07",
+          "line": 3675,
+          "time": "2026-10-06 21:15:21",
+          "mono": 91.5,
+          "temperatures": [
+            26.3,
+            28.2,
+            26.3,
+            26.2,
+            26.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-07",
+        "line": 3687,
+        "time": "2026-10-06 21:35:29",
+        "mono": 1299.5,
+        "temperatures": [
+          26.5,
+          41.6,
+          26.6,
+          26.5,
+          26.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 1268.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-07",
+      "line": 5221,
+      "start": "2026-10-07 18:35:55",
+      "epoch": 1791372955.7,
+      "first": {
+        "file": "klippy.log.2026-10-07",
+        "line": 8937,
+        "time": "2026-10-07 18:36:03",
+        "mono": 1334.2,
+        "temperatures": [
+          26.4,
+          42.3,
+          26.7,
+          26.5,
+          26.7
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791372963.8000002,
+          "file": "klippy.log.2026-10-07",
+          "line": 8937,
+          "time": "2026-10-07 18:36:03",
+          "mono": 1334.2,
+          "temperatures": [
+            26.4,
+            42.3,
+            26.7,
+            26.5,
+            26.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791373023.9,
+          "file": "klippy.log.2026-10-07",
+          "line": 9051,
+          "time": "2026-10-07 18:37:03",
+          "mono": 1394.3,
+          "temperatures": [
+            26.5,
+            42.0,
+            26.6,
+            26.6,
+            26.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        },
+        {
+          "epoch": 1791373083.9,
+          "file": "klippy.log.2026-10-07",
+          "line": 9121,
+          "time": "2026-10-07 18:38:03",
+          "mono": 1454.3,
+          "temperatures": [
+            26.5,
+            44.0,
+            26.7,
+            26.5,
+            26.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.1
+        },
+        {
+          "epoch": 1791373144.0000002,
+          "file": "klippy.log.2026-10-07",
+          "line": 9212,
+          "time": "2026-10-07 18:39:04",
+          "mono": 1514.4,
+          "temperatures": [
+            127.1,
+            46.0,
+            26.7,
+            26.6,
+            123.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 180.2
+        },
+        {
+          "epoch": 1791373204.0000002,
+          "file": "klippy.log.2026-10-07",
+          "line": 9287,
+          "time": "2026-10-07 18:40:04",
+          "mono": 1574.4,
+          "temperatures": [
+            149.4,
+            46.4,
+            26.8,
+            26.7,
+            149.3
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.258,
+            0.0,
+            0.0,
+            0.0,
+            0.274
+          ],
+          "t1_off_observed_seconds": 240.2
+        },
+        {
+          "epoch": 1791373264.1000001,
+          "file": "klippy.log.2026-10-07",
+          "line": 9354,
+          "time": "2026-10-07 18:41:04",
+          "mono": 1634.5,
+          "temperatures": [
+            151.0,
+            51.1,
+            26.7,
+            26.8,
+            150.2
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.164
+          ],
+          "t1_off_observed_seconds": 300.3
+        },
+        {
+          "epoch": 1791373324.1000001,
+          "file": "klippy.log.2026-10-07",
+          "line": 9414,
+          "time": "2026-10-07 18:42:04",
+          "mono": 1694.5,
+          "temperatures": [
+            150.2,
+            29.7,
+            26.9,
+            26.9,
+            150.8
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.109,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 360.3
+        },
+        {
+          "epoch": 1791373384.1000001,
+          "file": "klippy.log.2026-10-07",
+          "line": 9474,
+          "time": "2026-10-07 18:43:04",
+          "mono": 1754.5,
+          "temperatures": [
+            150.4,
+            40.9,
+            26.9,
+            27.0,
+            149.8
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.085,
+            0.0,
+            0.0,
+            0.0,
+            0.193
+          ],
+          "t1_off_observed_seconds": 420.3
+        },
+        {
+          "epoch": 1791373444.2,
+          "file": "klippy.log.2026-10-07",
+          "line": 9539,
+          "time": "2026-10-07 18:44:04",
+          "mono": 1814.6,
+          "temperatures": [
+            150.1,
+            47.3,
+            27.0,
+            27.2,
+            150.0
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.099,
+            0.0,
+            0.0,
+            0.0,
+            0.151
+          ],
+          "t1_off_observed_seconds": 480.4
+        },
+        {
+          "epoch": 1791373504.2,
+          "file": "klippy.log.2026-10-07",
+          "line": 9600,
+          "time": "2026-10-07 18:45:04",
+          "mono": 1874.6,
+          "temperatures": [
+            149.6,
+            49.2,
+            27.1,
+            27.6,
+            151.2
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            0.005
+          ],
+          "t1_off_observed_seconds": 540.4
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-07",
+        "line": 8937,
+        "time": "2026-10-07 18:36:03",
+        "mono": 1334.2,
+        "temperatures": [
+          26.4,
+          42.3,
+          26.7,
+          26.5,
+          26.7
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": {
+        "file": "klippy.log.2026-10-07",
+        "line": 47455,
+        "time": "2026-10-07 20:37:39",
+        "mono": 8629.8,
+        "temperatures": [
+          38.4,
+          53.3,
+          38.9,
+          39.4,
+          40.0
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 7295.6
+      }
+    },
+    {
+      "file": "klippy.log.2026-10-07",
+      "line": 48038,
+      "start": "2026-10-07 20:47:02",
+      "epoch": 1791380822.4,
+      "first": {
+        "file": "klippy.log.2026-10-07",
+        "line": 51755,
+        "time": "2026-10-07 20:47:14",
+        "mono": 29.9,
+        "temperatures": [
+          24.3,
+          26.2,
+          24.2,
+          24.3,
+          24.4
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791380834.8000002,
+          "file": "klippy.log.2026-10-07",
+          "line": 51755,
+          "time": "2026-10-07 20:47:14",
+          "mono": 29.9,
+          "temperatures": [
+            24.3,
+            26.2,
+            24.2,
+            24.3,
+            24.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791380894.8000002,
+          "file": "klippy.log.2026-10-08",
+          "line": 3674,
+          "time": "2026-10-07 20:48:14",
+          "mono": 89.9,
+          "temperatures": [
+            24.4,
+            38.6,
+            24.1,
+            24.3,
+            24.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        },
+        {
+          "epoch": 1791381009.9,
+          "file": "klippy.log.2026-10-08",
+          "line": 3695,
+          "time": "2026-10-07 20:50:09",
+          "mono": 205.0,
+          "temperatures": [
+            24.4,
+            35.8,
+            24.2,
+            24.3,
+            24.6
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "t1_off_observed_seconds": 175.1
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-08",
+        "line": 3643,
+        "time": "2026-10-07 20:47:43",
+        "mono": 58.9,
+        "temperatures": [
+          24.3,
+          40.0,
+          24.1,
+          24.2,
+          24.5
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 29.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-08",
+      "line": 5209,
+      "start": "2026-10-08 09:37:49",
+      "epoch": 1791427069.8,
+      "first": {
+        "file": "klippy.log.2026-10-08",
+        "line": 8927,
+        "time": "2026-10-08 09:38:03",
+        "mono": 31.5,
+        "temperatures": [
+          82.8,
+          40.7,
+          24.8,
+          24.9,
+          81.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791427083.3999999,
+          "file": "klippy.log.2026-10-08",
+          "line": 8927,
+          "time": "2026-10-08 09:38:03",
+          "mono": 31.5,
+          "temperatures": [
+            82.8,
+            40.7,
+            24.8,
+            24.9,
+            81.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log.2026-10-08",
+      "line": 10484,
+      "start": "2026-10-08 09:39:44",
+      "epoch": 1791427184.5,
+      "first": {
+        "file": "klippy.log.2026-10-08",
+        "line": 14206,
+        "time": "2026-10-08 09:39:53",
+        "mono": 85.9,
+        "temperatures": [
+          61.7,
+          41.3,
+          24.9,
+          24.9,
+          57.4
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791427193.1000001,
+          "file": "klippy.log.2026-10-08",
+          "line": 14206,
+          "time": "2026-10-08 09:39:53",
+          "mono": 85.9,
+          "temperatures": [
+            61.7,
+            41.3,
+            24.9,
+            24.9,
+            57.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791427253.1000001,
+          "file": "klippy.log.2026-10-08",
+          "line": 14298,
+          "time": "2026-10-08 09:40:53",
+          "mono": 145.9,
+          "temperatures": [
+            151.4,
+            41.6,
+            25.0,
+            25.1,
+            149.1
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.313
+          ],
+          "t1_off_observed_seconds": 60.0
+        },
+        {
+          "epoch": 1791427313.1000001,
+          "file": "klippy.log.2026-10-08",
+          "line": 14358,
+          "time": "2026-10-08 09:41:53",
+          "mono": 205.9,
+          "temperatures": [
+            150.8,
+            41.8,
+            24.9,
+            25.2,
+            149.5
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.083,
+            0.0,
+            0.0,
+            0.0,
+            0.257
+          ],
+          "t1_off_observed_seconds": 120.0
+        },
+        {
+          "epoch": 1791427373.2,
+          "file": "klippy.log.2026-10-08",
+          "line": 14418,
+          "time": "2026-10-08 09:42:53",
+          "mono": 266.0,
+          "temperatures": [
+            149.7,
+            43.9,
+            25.1,
+            25.5,
+            150.5
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.224,
+            0.0,
+            0.0,
+            0.0,
+            0.1
+          ],
+          "t1_off_observed_seconds": 180.1
+        },
+        {
+          "epoch": 1791427433.2,
+          "file": "klippy.log.2026-10-08",
+          "line": 14478,
+          "time": "2026-10-08 09:43:53",
+          "mono": 326.0,
+          "temperatures": [
+            149.4,
+            42.1,
+            25.2,
+            25.6,
+            151.0
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.223,
+            0.0,
+            0.0,
+            0.0,
+            0.041
+          ],
+          "t1_off_observed_seconds": 240.1
+        },
+        {
+          "epoch": 1791427493.3,
+          "file": "klippy.log.2026-10-08",
+          "line": 14543,
+          "time": "2026-10-08 09:44:53",
+          "mono": 386.1,
+          "temperatures": [
+            151.2,
+            42.1,
+            25.3,
+            25.8,
+            151.1
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.017,
+            0.0,
+            0.0,
+            0.0,
+            0.009
+          ],
+          "t1_off_observed_seconds": 300.2
+        },
+        {
+          "epoch": 1791427553.3,
+          "file": "klippy.log.2026-10-08",
+          "line": 14604,
+          "time": "2026-10-08 09:45:53",
+          "mono": 446.1,
+          "temperatures": [
+            149.9,
+            42.2,
+            25.4,
+            26.1,
+            150.1
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.184,
+            0.0,
+            0.0,
+            0.0,
+            0.097
+          ],
+          "t1_off_observed_seconds": 360.2
+        },
+        {
+          "epoch": 1791427613.3,
+          "file": "klippy.log.2026-10-08",
+          "line": 14664,
+          "time": "2026-10-08 09:46:53",
+          "mono": 506.1,
+          "temperatures": [
+            149.4,
+            41.6,
+            25.5,
+            26.4,
+            149.6
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.231,
+            0.0,
+            0.0,
+            0.0,
+            0.209
+          ],
+          "t1_off_observed_seconds": 420.2
+        },
+        {
+          "epoch": 1791427673.4,
+          "file": "klippy.log.2026-10-08",
+          "line": 14724,
+          "time": "2026-10-08 09:47:53",
+          "mono": 566.2,
+          "temperatures": [
+            150.0,
+            41.5,
+            25.7,
+            26.8,
+            149.7
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.097,
+            0.0,
+            0.0,
+            0.0,
+            0.229
+          ],
+          "t1_off_observed_seconds": 480.3
+        },
+        {
+          "epoch": 1791427733.4,
+          "file": "klippy.log.2026-10-08",
+          "line": 14882,
+          "time": "2026-10-08 09:48:53",
+          "mono": 626.2,
+          "temperatures": [
+            150.5,
+            42.5,
+            26.1,
+            27.2,
+            151.2
+          ],
+          "targets": [
+            150.0,
+            0.0,
+            0.0,
+            0.0,
+            150.0
+          ],
+          "pwm": [
+            0.007,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 540.3
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log.2026-10-08",
+        "line": 153841,
+        "time": "2026-10-08 14:05:50",
+        "mono": 16043.3,
+        "temperatures": [
+          38.1,
+          55.0,
+          38.5,
+          40.0,
+          40.0
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 15957.4
+      },
+      "first_high_after_30min_off": {
+        "file": "klippy.log.2026-10-08",
+        "line": 153841,
+        "time": "2026-10-08 14:05:50",
+        "mono": 16043.3,
+        "temperatures": [
+          38.1,
+          55.0,
+          38.5,
+          40.0,
+          40.0
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 15957.4
+      }
+    },
+    {
+      "file": "klippy.log",
+      "line": 26188,
+      "start": "2026-10-09 06:24:23",
+      "epoch": 1791501863.7,
+      "first": {
+        "file": "klippy.log",
+        "line": 29904,
+        "time": "2026-10-09 06:24:36",
+        "mono": 30.9,
+        "temperatures": [
+          27.8,
+          51.0,
+          27.9,
+          27.9,
+          28.2
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791501876.3000002,
+          "file": "klippy.log",
+          "line": 29904,
+          "time": "2026-10-09 06:24:36",
+          "mono": 30.9,
+          "temperatures": [
+            27.8,
+            51.0,
+            27.9,
+            27.9,
+            28.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791501936.4,
+          "file": "klippy.log",
+          "line": 29968,
+          "time": "2026-10-09 06:25:36",
+          "mono": 91.0,
+          "temperatures": [
+            27.9,
+            51.2,
+            28.0,
+            27.9,
+            28.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        },
+        {
+          "epoch": 1791501996.4,
+          "file": "klippy.log",
+          "line": 30046,
+          "time": "2026-10-09 06:26:36",
+          "mono": 151.0,
+          "temperatures": [
+            28.0,
+            50.9,
+            28.0,
+            28.0,
+            28.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.1
+        },
+        {
+          "epoch": 1791502056.4,
+          "file": "klippy.log",
+          "line": 30259,
+          "time": "2026-10-09 06:27:36",
+          "mono": 211.0,
+          "temperatures": [
+            28.0,
+            50.5,
+            28.0,
+            27.9,
+            28.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 180.1
+        },
+        {
+          "epoch": 1791502116.5,
+          "file": "klippy.log",
+          "line": 30502,
+          "time": "2026-10-09 06:28:36",
+          "mono": 271.1,
+          "temperatures": [
+            28.0,
+            50.6,
+            28.0,
+            28.0,
+            28.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 240.2
+        },
+        {
+          "epoch": 1791502176.5,
+          "file": "klippy.log",
+          "line": 30566,
+          "time": "2026-10-09 06:29:36",
+          "mono": 331.1,
+          "temperatures": [
+            28.0,
+            50.9,
+            28.1,
+            28.0,
+            28.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 300.2
+        },
+        {
+          "epoch": 1791502236.6000001,
+          "file": "klippy.log",
+          "line": 30626,
+          "time": "2026-10-09 06:30:36",
+          "mono": 391.2,
+          "temperatures": [
+            28.1,
+            50.4,
+            28.1,
+            28.0,
+            28.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 360.3
+        },
+        {
+          "epoch": 1791502296.7,
+          "file": "klippy.log",
+          "line": 30662,
+          "time": "2026-10-09 06:31:36",
+          "mono": 451.3,
+          "temperatures": [
+            28.2,
+            49.6,
+            28.2,
+            28.1,
+            28.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 420.4
+        },
+        {
+          "epoch": 1791502418.8000002,
+          "file": "klippy.log",
+          "line": 30718,
+          "time": "2026-10-09 06:33:38",
+          "mono": 573.4,
+          "temperatures": [
+            28.2,
+            50.1,
+            28.2,
+            28.1,
+            28.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 542.5
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log",
+        "line": 29904,
+        "time": "2026-10-09 06:24:36",
+        "mono": 30.9,
+        "temperatures": [
+          27.8,
+          51.0,
+          27.9,
+          27.9,
+          28.2
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": {
+        "file": "klippy.log",
+        "line": 31975,
+        "time": "2026-10-09 06:54:37",
+        "mono": 1831.8,
+        "temperatures": [
+          28.9,
+          54.9,
+          29.1,
+          28.6,
+          28.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 1800.9
+      }
+    },
+    {
+      "file": "klippy.log",
+      "line": 111933,
+      "start": "2026-10-09 21:09:09",
+      "epoch": 1791554949.7,
+      "first": {
+        "file": "klippy.log",
+        "line": 116104,
+        "time": "2026-10-09 21:09:18",
+        "mono": 15912.5,
+        "temperatures": [
+          33.2,
+          57.2,
+          33.4,
+          34.4,
+          34.5
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791554958.1000001,
+          "file": "klippy.log",
+          "line": 116104,
+          "time": "2026-10-09 21:09:18",
+          "mono": 15912.5,
+          "temperatures": [
+            33.2,
+            57.2,
+            33.4,
+            34.4,
+            34.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791555018.1000001,
+          "file": "klippy.log",
+          "line": 116170,
+          "time": "2026-10-09 21:10:18",
+          "mono": 15972.5,
+          "temperatures": [
+            33.2,
+            57.3,
+            33.4,
+            34.3,
+            34.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        },
+        {
+          "epoch": 1791555078.1000001,
+          "file": "klippy.log",
+          "line": 116230,
+          "time": "2026-10-09 21:11:18",
+          "mono": 16032.5,
+          "temperatures": [
+            33.1,
+            56.5,
+            33.4,
+            34.2,
+            34.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.0
+        },
+        {
+          "epoch": 1791555138.2,
+          "file": "klippy.log",
+          "line": 116290,
+          "time": "2026-10-09 21:12:18",
+          "mono": 16092.6,
+          "temperatures": [
+            33.0,
+            57.0,
+            33.3,
+            34.2,
+            34.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 180.1
+        },
+        {
+          "epoch": 1791555198.2,
+          "file": "klippy.log",
+          "line": 116350,
+          "time": "2026-10-09 21:13:18",
+          "mono": 16152.6,
+          "temperatures": [
+            33.0,
+            56.1,
+            33.3,
+            34.1,
+            34.2
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 240.1
+        },
+        {
+          "epoch": 1791555258.2,
+          "file": "klippy.log",
+          "line": 116410,
+          "time": "2026-10-09 21:14:18",
+          "mono": 16212.6,
+          "temperatures": [
+            32.9,
+            56.0,
+            33.2,
+            34.0,
+            34.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 300.1
+        },
+        {
+          "epoch": 1791555318.4,
+          "file": "klippy.log",
+          "line": 116470,
+          "time": "2026-10-09 21:15:18",
+          "mono": 16272.8,
+          "temperatures": [
+            32.9,
+            56.0,
+            33.1,
+            34.0,
+            34.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 360.3
+        },
+        {
+          "epoch": 1791555378.4,
+          "file": "klippy.log",
+          "line": 116530,
+          "time": "2026-10-09 21:16:18",
+          "mono": 16332.8,
+          "temperatures": [
+            32.8,
+            56.3,
+            33.0,
+            33.9,
+            33.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 420.3
+        },
+        {
+          "epoch": 1791555438.5000002,
+          "file": "klippy.log",
+          "line": 116696,
+          "time": "2026-10-09 21:17:18",
+          "mono": 16392.9,
+          "temperatures": [
+            32.7,
+            56.3,
+            33.0,
+            33.8,
+            33.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 480.4
+        },
+        {
+          "epoch": 1791555498.5000002,
+          "file": "klippy.log",
+          "line": 116859,
+          "time": "2026-10-09 21:18:18",
+          "mono": 16452.9,
+          "temperatures": [
+            32.6,
+            56.3,
+            32.9,
+            33.7,
+            33.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 540.4
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log",
+        "line": 116104,
+        "time": "2026-10-09 21:09:18",
+        "mono": 15912.5,
+        "temperatures": [
+          33.2,
+          57.2,
+          33.4,
+          34.4,
+          34.5
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log",
+      "line": 117947,
+      "start": "2026-10-09 21:33:51",
+      "epoch": 1791556431.5,
+      "first": {
+        "file": "klippy.log",
+        "line": 122115,
+        "time": "2026-10-09 21:34:02",
+        "mono": 17396.8,
+        "temperatures": [
+          32.4,
+          55.8,
+          32.1,
+          32.7,
+          32.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791556442.3999999,
+          "file": "klippy.log",
+          "line": 122115,
+          "time": "2026-10-09 21:34:02",
+          "mono": 17396.8,
+          "temperatures": [
+            32.4,
+            55.8,
+            32.1,
+            32.7,
+            32.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log",
+        "line": 122115,
+        "time": "2026-10-09 21:34:02",
+        "mono": 17396.8,
+        "temperatures": [
+          32.4,
+          55.8,
+          32.1,
+          32.7,
+          32.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy.log",
+      "line": 122162,
+      "start": "2026-10-09 21:34:42",
+      "epoch": 1791556482.8,
+      "first": {
+        "file": "klippy.log",
+        "line": 126330,
+        "time": "2026-10-09 21:34:51",
+        "mono": 17445.7,
+        "temperatures": [
+          32.5,
+          55.8,
+          32.1,
+          32.7,
+          32.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1791556491.3,
+          "file": "klippy.log",
+          "line": 126330,
+          "time": "2026-10-09 21:34:51",
+          "mono": 17445.7,
+          "temperatures": [
+            32.5,
+            55.8,
+            32.1,
+            32.7,
+            32.8
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1791556551.3,
+          "file": "klippy.log",
+          "line": 126394,
+          "time": "2026-10-09 21:35:51",
+          "mono": 17505.7,
+          "temperatures": [
+            32.4,
+            55.6,
+            32.1,
+            32.6,
+            32.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        },
+        {
+          "epoch": 1791556611.3,
+          "file": "klippy.log",
+          "line": 126455,
+          "time": "2026-10-09 21:36:51",
+          "mono": 17565.7,
+          "temperatures": [
+            32.4,
+            84.5,
+            32.0,
+            32.6,
+            32.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 11.0
+        },
+        {
+          "epoch": 1791556671.3999999,
+          "file": "klippy.log",
+          "line": 126517,
+          "time": "2026-10-09 21:37:51",
+          "mono": 17625.8,
+          "temperatures": [
+            32.3,
+            85.3,
+            32.0,
+            32.5,
+            32.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 21.0
+        },
+        {
+          "epoch": 1791556731.3999999,
+          "file": "klippy.log",
+          "line": 126577,
+          "time": "2026-10-09 21:38:51",
+          "mono": 17685.8,
+          "temperatures": [
+            32.3,
+            67.6,
+            32.0,
+            32.4,
+            32.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 81.0
+        },
+        {
+          "epoch": 1791556791.5,
+          "file": "klippy.log",
+          "line": 126655,
+          "time": "2026-10-09 21:39:51",
+          "mono": 17745.9,
+          "temperatures": [
+            32.2,
+            61.1,
+            32.1,
+            32.4,
+            32.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 141.1
+        },
+        {
+          "epoch": 1791556851.5,
+          "file": "klippy.log",
+          "line": 126715,
+          "time": "2026-10-09 21:40:51",
+          "mono": 17805.9,
+          "temperatures": [
+            32.2,
+            59.0,
+            32.0,
+            32.4,
+            32.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 201.1
+        },
+        {
+          "epoch": 1791556911.6,
+          "file": "klippy.log",
+          "line": 126775,
+          "time": "2026-10-09 21:41:51",
+          "mono": 17866.0,
+          "temperatures": [
+            32.1,
+            56.7,
+            32.0,
+            32.3,
+            32.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 261.2
+        },
+        {
+          "epoch": 1791556971.6,
+          "file": "klippy.log",
+          "line": 126835,
+          "time": "2026-10-09 21:42:51",
+          "mono": 17926.0,
+          "temperatures": [
+            32.0,
+            55.6,
+            32.0,
+            32.3,
+            32.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 321.2
+        },
+        {
+          "epoch": 1791557031.6,
+          "file": "klippy.log",
+          "line": 126895,
+          "time": "2026-10-09 21:43:51",
+          "mono": 17986.0,
+          "temperatures": [
+            31.9,
+            55.7,
+            31.9,
+            32.2,
+            32.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 381.2
+        }
+      ],
+      "first_high": {
+        "file": "klippy.log",
+        "line": 126330,
+        "time": "2026-10-09 21:34:51",
+        "mono": 17445.7,
+        "temperatures": [
+          32.5,
+          55.8,
+          32.1,
+          32.7,
+          32.8
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    }
+  ],
+  "latest": {
+    "file": "klippy.log",
+    "line": 127244,
+    "time": "2026-10-09 21:49:35",
+    "mono": 18330.3,
+    "temperatures": [
+      31.7,
+      179.4,
+      31.8,
+      32.0,
+      32.0
+    ],
+    "targets": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "pwm": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "t1_off_observed_seconds": 18.0
+  },
+  "method": "Observed target/PWM zero does not prove physical heater power is zero. Off age is elapsed time since the first observed off sample after the last observed heating or restart; unlogged gaps cannot exclude intervening heating."
+}

@@ -236,3 +236,28 @@ Thực hiện yêu cầu triển khai bộ cấu hình đã kiểm tra, source c
 - Đính chính diễn đạt cũ: early park Mainsail khi CANCEL là có điều kiện park_at_cancel, máy hiện không bật. Nguy cơ hiện hữu vẫn nằm ở _CUSTOM_CANCEL_CLEANUP tự lift/UNSELECT/park khi XYZ homed dù tool có thể lệch/rơi sau crash.
 - T1 ban đầu ~56°C so với tool khác ~32–33°C, target/power 0. Người dùng xác nhận lượt in trước chỉ T0/T4 và yêu cầu để kiểm tra sau. Không kết luận sensor hỏng hoặc tự chỉnh PID; cần nguội hoàn toàn/đo độc lập, vì console sau đó có thử T1 target100 rồi off làm history hiện tại không phù hợp làm baseline nguội.
 - Cập nhật hai docs index và workspace KNOWN_ISSUES, giữ audit/backup/journal cũ làm lịch sử. Runtime patch phải được kiểm tra lại sau update Klipper; không bắt buộc người nhận CFG dùng nó.
+
+## 7. Đối chiếu log nhiệt độ T1 và thời gian xuất hiện chênh lệch
+
+### Yêu cầu
+Kiểm tra log gần nhất: T1 báo bao nhiêu, tình trạng này đã xuất hiện lâu chưa. Đây là điều tra chỉ đọc, không sửa sensor/PID/config/runtime và không gửi G-code hoặc restart.
+
+### Dữ liệu và cách kiểm tra
+- Đọc toàn bộ sáu Klipper log đang giữ trên máy: current và rotated Oct4–8; thêm captures local Sept27/29. Khoảng 536 MB (512 MiB) live logs được phân tích tại host, không tải/commit toàn bộ log lớn. File Sept29 gần trùng không đếm đôi.
+- T1 là extruder1. Đối chiếu temp/target/PWM của cả năm hotend; chuyển Stats monotonic bằng epoch anchor Start printer at sang UTC+7. Loại temp0 startup, không gán ngày cho mẫu thiếu anchor; không dùng tên file làm timestamp vì rollover có header/cache của ngày trước.
+- Lấy riêng source lines và anchor để đối chiếu thủ công. Nhóm “30 phút off” chỉ là thời gian từ mẫu off đầu sau lần gia nhiệt/restart đã quan sát; khoảng trống log không chứng minh tuyệt đối không có thao tác xen giữa.
+
+### Kết quả
+- API lúc 21:45: T1=55.95°C, tool khác31.78–32.18°C, target/power0. Lúc 21:53:15 T1=47.19°C, các tool khác31.52–31.92°C, target/power0. Console có T1 target220 lúc21:48:23 rồi heaters off21:49:17, nên số đọc mới nhất còn ảnh hưởng nhiệt dư của thao tác riêng ngoài audit.
+- Sept29 09:25:10 T1=32.7°C, tool khác31.5–31.7°C; 09:52:32 T1=49.0°C, tool khác32.3–32.6°C. Các mẫu có target/PWM0; reported T1 tăng khoảng16°C trong khi peers gần ổn định. Log không xác nhận vật lý heater có công suất0.
+- Oct4 15:41:58 T1=62.9°C, peers38.2–40°C; Oct8 23:59:59 T1=69°C, peers30.5–31.3°C; Oct9 06:24:36 T1=51°C, peers27.8–28.2°C. Đều có target/PWM0 tại mẫu.
+- Chênh nhiệt đã có ít nhất từ Sept29, khoảng10 ngày trước lần sửa hôm nay; Sept27 có T1=42.1°C/peers31.7–33.8°C nhưng chưa đủ loại trừ nhiệt dư. Không kết luận ngày onset vật lý chính xác hay mức offset cố định.
+- Sau một số restart T1 chỉ cao hơn peers khoảng2°C; Oct7 20:47:14 T1=26.2°C, tới20:48:14 báo38.6°C khi target/PWM0, T0 vẫn24.3–24.4°C. Tình trạng có tính biến thiên/lặp lại, không phù hợp tự đặt correction cố định.
+
+### Bằng chứng và sao lưu
+- [Báo cáo/phương pháp và source lines](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/experiments/t1-temperature-history-20261009/README.md>).
+- Source Sept29: [Klipper log local](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/logs/klippy-20260929-latest-print-failure.log:537743>); source live: `/home/voron/printer_data/logs/klippy.log*`, compact line evidence nằm trong report folder.
+- [Nhật ký/KNOWN_ISSUES trước bổ sung](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-t1-log-history-20261009-215315/README.md>); không đụng backup/capture cũ. Cập nhật workspace KNOWN_ISSUES theo bằng chứng mới.
+
+### Giới hạn và việc còn lại
+Log xác nhận chênh lệch nhiệt độ được báo, chưa phân biệt sensor/input sai với hotend nóng thật. Cần nguội hoàn toàn và đo nhiệt độc lập trước kiểm tra phần cứng; giữ yêu cầu người dùng để việc này kiểm tra sau. Không đổi bất kỳ thông số sản xuất nào trong tác vụ.

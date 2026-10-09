@@ -1,0 +1,66 @@
+[
+  {
+    "time": "2026-10-09 21:48:14",
+    "command": "_CLIENT_LINEAR_MOVE X=-10 F=6000"
+  },
+  {
+    "time": "2026-10-09 21:48:16",
+    "command": "_CLIENT_LINEAR_MOVE Y=-10 F=6000"
+  },
+  {
+    "time": "2026-10-09 21:48:17",
+    "command": "_CLIENT_LINEAR_MOVE Y=-10 F=6000"
+  },
+  {
+    "time": "2026-10-09 21:48:23",
+    "command": "SET_HEATER_TEMPERATURE HEATER=extruder1 TARGET=220"
+  },
+  {
+    "time": "2026-10-09 21:48:58",
+    "command": "M83"
+  },
+  {
+    "time": "2026-10-09 21:48:58",
+    "command": "G1 E+25 F300"
+  },
+  {
+    "time": "2026-10-09 21:49:02",
+    "command": "M83"
+  },
+  {
+    "time": "2026-10-09 21:49:02",
+    "command": "G1 E+25 F300"
+  },
+  {
+    "time": "2026-10-09 21:49:10",
+    "command": "M83"
+  },
+  {
+    "time": "2026-10-09 21:49:10",
+    "command": "G1 E-5 F300"
+  },
+  {
+    "time": "2026-10-09 21:49:17",
+    "command": "M104 T0 S0"
+  },
+  {
+    "time": "2026-10-09 21:49:17",
+    "command": "M104 T1 S0"
+  },
+  {
+    "time": "2026-10-09 21:49:17",
+    "command": "M104 T2 S0"
+  },
+  {
+    "time": "2026-10-09 21:49:17",
+    "command": "M104 T3 S0"
+  },
+  {
+    "time": "2026-10-09 21:49:17",
+    "command": "M104 T4 S0"
+  },
+  {
+    "time": "2026-10-09 21:49:17",
+    "command": "M140 S0"
+  }
+]

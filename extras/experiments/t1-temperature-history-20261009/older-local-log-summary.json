@@ -1,0 +1,1000 @@
+{
+  "inventory": [
+    {
+      "file": "extras\\logs\\klippy-20260927-122410-latest-print.log",
+      "bytes": 46645023,
+      "valid_stats": 13506,
+      "undated_stats": 0
+    },
+    {
+      "file": "extras\\logs\\klippy-20260929-latest-print-failure.log",
+      "bytes": 117313758,
+      "valid_stats": 34312,
+      "undated_stats": 0
+    }
+  ],
+  "daily": [
+    {
+      "day": "2026-09-27",
+      "samples": 13506,
+      "all_heaters_off_others_below_40": {
+        "samples": 142,
+        "t1_min": 37.4,
+        "t1_max": 42.9,
+        "t1_median": 41.2,
+        "high_samples": 65,
+        "first": {
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 7226,
+          "time": "2026-09-27 03:13:07",
+          "mono": 25.6,
+          "temperatures": [
+            31.9,
+            42.1,
+            33.8,
+            31.7,
+            31.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        "last": {
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 11005,
+          "time": "2026-09-27 03:16:07",
+          "mono": 87.9,
+          "temperatures": [
+            29.0,
+            41.2,
+            29.3,
+            29.1,
+            29.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 62.1
+        },
+        "first_high": {
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 7226,
+          "time": "2026-09-27 03:13:07",
+          "mono": 25.6,
+          "temperatures": [
+            31.9,
+            42.1,
+            33.8,
+            31.7,
+            31.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        "coolest": {
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 10950,
+          "time": "2026-09-27 03:15:12",
+          "mono": 32.8,
+          "temperatures": [
+            29.0,
+            37.4,
+            29.3,
+            29.1,
+            29.0
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 7.0
+        }
+      },
+      "same_after_30min_t1_off": null
+    },
+    {
+      "day": "2026-09-28",
+      "samples": 33878,
+      "all_heaters_off_others_below_40": null,
+      "same_after_30min_t1_off": null
+    },
+    {
+      "day": "2026-09-29",
+      "samples": 434,
+      "all_heaters_off_others_below_40": {
+        "samples": 142,
+        "t1_min": 32.7,
+        "t1_max": 49.3,
+        "t1_median": 48.6,
+        "high_samples": 80,
+        "first": {
+          "file": "klippy-20260929-latest-print-failure.log",
+          "line": 537372,
+          "time": "2026-09-29 09:25:09",
+          "mono": 31.5,
+          "temperatures": [
+            31.5,
+            32.8,
+            31.7,
+            31.5,
+            31.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        "last": {
+          "file": "klippy-20260929-latest-print-failure.log",
+          "line": 537743,
+          "time": "2026-09-29 09:52:32",
+          "mono": 1674.9,
+          "temperatures": [
+            32.3,
+            49.0,
+            32.6,
+            32.3,
+            32.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 1643.4
+        },
+        "first_high": {
+          "file": "klippy-20260929-latest-print-failure.log",
+          "line": 537446,
+          "time": "2026-09-29 09:51:13",
+          "mono": 1595.8,
+          "temperatures": [
+            32.3,
+            48.7,
+            32.6,
+            32.3,
+            32.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 1564.3
+        },
+        "coolest": {
+          "file": "klippy-20260929-latest-print-failure.log",
+          "line": 537377,
+          "time": "2026-09-29 09:25:10",
+          "mono": 32.5,
+          "temperatures": [
+            31.5,
+            32.7,
+            31.6,
+            31.5,
+            31.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 1.0
+        }
+      },
+      "same_after_30min_t1_off": null
+    }
+  ],
+  "sessions": [
+    {
+      "file": "klippy-20260927-122410-latest-print.log",
+      "line": 3550,
+      "start": "2026-09-27 03:12:54",
+      "epoch": 1790453574.9,
+      "first": {
+        "file": "klippy-20260927-122410-latest-print.log",
+        "line": 7226,
+        "time": "2026-09-27 03:13:07",
+        "mono": 25.6,
+        "temperatures": [
+          31.9,
+          42.1,
+          33.8,
+          31.7,
+          31.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1790453587.0,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 7226,
+          "time": "2026-09-27 03:13:07",
+          "mono": 25.6,
+          "temperatures": [
+            31.9,
+            42.1,
+            33.8,
+            31.7,
+            31.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1790453647.0,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 7296,
+          "time": "2026-09-27 03:14:07",
+          "mono": 85.6,
+          "temperatures": [
+            31.9,
+            40.3,
+            33.7,
+            31.7,
+            31.9
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        }
+      ],
+      "first_high": {
+        "file": "klippy-20260927-122410-latest-print.log",
+        "line": 7226,
+        "time": "2026-09-27 03:13:07",
+        "mono": 25.6,
+        "temperatures": [
+          31.9,
+          42.1,
+          33.8,
+          31.7,
+          31.9
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy-20260927-122410-latest-print.log",
+      "line": 7327,
+      "start": "2026-09-27 03:14:52",
+      "epoch": 1790453692.9,
+      "first": {
+        "file": "klippy-20260927-122410-latest-print.log",
+        "line": 10939,
+        "time": "2026-09-27 03:15:05",
+        "mono": 25.8,
+        "temperatures": [
+          29.1,
+          37.7,
+          29.3,
+          29.1,
+          29.1
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1790453705.2,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 10939,
+          "time": "2026-09-27 03:15:05",
+          "mono": 25.8,
+          "temperatures": [
+            29.1,
+            37.7,
+            29.3,
+            29.1,
+            29.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1790453765.3000002,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 11003,
+          "time": "2026-09-27 03:16:05",
+          "mono": 85.9,
+          "temperatures": [
+            29.0,
+            41.0,
+            29.3,
+            29.0,
+            29.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        },
+        {
+          "epoch": 1790453825.3000002,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 11106,
+          "time": "2026-09-27 03:17:05",
+          "mono": 145.9,
+          "temperatures": [
+            149.7,
+            150.8,
+            149.8,
+            152.5,
+            29.2
+          ],
+          "targets": [
+            150.0,
+            150.0,
+            150.0,
+            150.0,
+            0.0
+          ],
+          "pwm": [
+            0.256,
+            0.005,
+            0.225,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0
+        },
+        {
+          "epoch": 1790453885.3000002,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 11167,
+          "time": "2026-09-27 03:18:05",
+          "mono": 205.9,
+          "temperatures": [
+            149.4,
+            151.1,
+            151.2,
+            150.5,
+            29.4
+          ],
+          "targets": [
+            150.0,
+            150.0,
+            150.0,
+            150.0,
+            0.0
+          ],
+          "pwm": [
+            0.226,
+            0.016,
+            0.067,
+            0.16,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0
+        },
+        {
+          "epoch": 1790453945.4,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 11236,
+          "time": "2026-09-27 03:19:05",
+          "mono": 266.0,
+          "temperatures": [
+            150.4,
+            149.4,
+            149.8,
+            149.0,
+            29.8
+          ],
+          "targets": [
+            150.0,
+            150.0,
+            150.0,
+            150.0,
+            0.0
+          ],
+          "pwm": [
+            0.055,
+            0.232,
+            0.232,
+            0.365,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0
+        },
+        {
+          "epoch": 1790454005.4,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 11403,
+          "time": "2026-09-27 03:20:05",
+          "mono": 326.0,
+          "temperatures": [
+            150.9,
+            150.9,
+            152.8,
+            150.3,
+            30.2
+          ],
+          "targets": [
+            150.0,
+            150.0,
+            150.0,
+            150.0,
+            0.0
+          ],
+          "pwm": [
+            0.007,
+            0.017,
+            0.0,
+            0.123,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0
+        },
+        {
+          "epoch": 1790454065.4,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 11701,
+          "time": "2026-09-27 03:21:05",
+          "mono": 386.0,
+          "temperatures": [
+            151.3,
+            150.8,
+            149.4,
+            152.1,
+            30.6
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1790454125.5,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 11894,
+          "time": "2026-09-27 03:22:05",
+          "mono": 446.1,
+          "temperatures": [
+            100.4,
+            90.9,
+            85.8,
+            88.4,
+            31.1
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        },
+        {
+          "epoch": 1790454185.5,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 12162,
+          "time": "2026-09-27 03:23:05",
+          "mono": 506.1,
+          "temperatures": [
+            75.9,
+            67.8,
+            60.0,
+            62.1,
+            31.4
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 120.1
+        },
+        {
+          "epoch": 1790454245.6000001,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 12320,
+          "time": "2026-09-27 03:24:05",
+          "mono": 566.2,
+          "temperatures": [
+            61.4,
+            54.5,
+            48.3,
+            48.9,
+            31.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 180.2
+        }
+      ],
+      "first_high": {
+        "file": "klippy-20260927-122410-latest-print.log",
+        "line": 10951,
+        "time": "2026-09-27 03:15:13",
+        "mono": 33.8,
+        "temperatures": [
+          29.1,
+          41.2,
+          29.3,
+          29.1,
+          29.2
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 8.0
+      },
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy-20260927-122410-latest-print.log",
+      "line": 241530,
+      "start": "2026-09-27 11:57:26",
+      "epoch": 1790485046.7,
+      "first": {
+        "file": "klippy-20260927-122410-latest-print.log",
+        "line": 245142,
+        "time": "2026-09-27 11:57:39",
+        "mono": 30.5,
+        "temperatures": [
+          50.5,
+          49.5,
+          48.6,
+          47.9,
+          44.5
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1790485059.8,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 245142,
+          "time": "2026-09-27 11:57:39",
+          "mono": 30.5,
+          "temperatures": [
+            50.5,
+            49.5,
+            48.6,
+            47.9,
+            44.5
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1790485119.8,
+          "file": "klippy-20260927-122410-latest-print.log",
+          "line": 245206,
+          "time": "2026-09-27 11:58:39",
+          "mono": 90.5,
+          "temperatures": [
+            49.4,
+            49.2,
+            48.3,
+            47.6,
+            44.3
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.0
+        }
+      ],
+      "first_high": null,
+      "first_high_after_30min_off": null
+    },
+    {
+      "file": "klippy-20260929-latest-print-failure.log",
+      "line": 533759,
+      "start": "2026-09-29 09:24:54",
+      "epoch": 1790648694.9,
+      "first": {
+        "file": "klippy-20260929-latest-print-failure.log",
+        "line": 537372,
+        "time": "2026-09-29 09:25:09",
+        "mono": 31.5,
+        "temperatures": [
+          31.5,
+          32.8,
+          31.7,
+          31.5,
+          31.7
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 0.0
+      },
+      "samples_first_10min": [
+        {
+          "epoch": 1790648709.2,
+          "file": "klippy-20260929-latest-print-failure.log",
+          "line": 537372,
+          "time": "2026-09-29 09:25:09",
+          "mono": 31.5,
+          "temperatures": [
+            31.5,
+            32.8,
+            31.7,
+            31.5,
+            31.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 0.0
+        },
+        {
+          "epoch": 1790648769.3,
+          "file": "klippy-20260929-latest-print-failure.log",
+          "line": 537436,
+          "time": "2026-09-29 09:26:09",
+          "mono": 91.6,
+          "temperatures": [
+            31.6,
+            32.9,
+            31.7,
+            31.5,
+            31.7
+          ],
+          "targets": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pwm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "t1_off_observed_seconds": 60.1
+        }
+      ],
+      "first_high": {
+        "file": "klippy-20260929-latest-print-failure.log",
+        "line": 537446,
+        "time": "2026-09-29 09:51:13",
+        "mono": 1595.8,
+        "temperatures": [
+          32.3,
+          48.7,
+          32.6,
+          32.3,
+          32.5
+        ],
+        "targets": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pwm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "t1_off_observed_seconds": 1564.3
+      },
+      "first_high_after_30min_off": null
+    }
+  ],
+  "latest": {
+    "file": "klippy-20260929-latest-print-failure.log",
+    "line": 538542,
+    "time": "2026-09-29 09:57:24",
+    "mono": 1967.1,
+    "temperatures": [
+      160.9,
+      45.6,
+      32.8,
+      32.5,
+      32.7
+    ],
+    "targets": [
+      160.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "pwm": [
+      0.035,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "t1_off_observed_seconds": 1935.6
+  },
+  "method": "Observed target/PWM zero does not prove physical heater power is zero. Off age is elapsed time since the first observed off sample after the last observed heating or restart; unlogged gaps cannot exclude intervening heating."
+}
