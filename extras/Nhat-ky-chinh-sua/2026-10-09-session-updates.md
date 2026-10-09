@@ -62,3 +62,41 @@ Loại bỏ một số giả định tên/số tool và tọa độ bị lặp; 
 - Input shaper: damping cấu hình chung `0.124/0.080` nhưng mặc định tool KTC chọn `0.1/0.1`; cache runtime hiện tại xác nhận `0.1/0.1`. Đề xuất sửa lựa chọn profile sau khi kiểm chứng tuning.
 - TEST_Z_SPEED dùng tham số Z không được runtime hỗ trợ; TEST_SPEED thiếu guard/restore crash detection. Comment đã chỉ rõ, logic chuyển động chưa thay.
 - Worksheet chưa biến toàn bộ dự án thành một file profile; T0, cơ cấu dock, brush, probe, park, fan/LED và dữ liệu calibration vẫn cần đo/adapt. Phạm vi tổng duyệt tập trung code/config đang dùng, không khẳng định rà từng dòng toàn bộ archive/G-code lịch sử.
+
+## 2. Đề xuất chia sẻ độc lập từng file CFG cho StealthChanger khác
+
+### Mục tiêu
+Lập đề xuất thay đổi toàn diện để người khác dùng riêng từng tính năng trên StealthChanger có số tool/vị trí khác, chỉnh ít nhất có thể và đọc hướng dẫn ngay trong file tải về. Phiên này chỉ lập thiết kế, không triển khai cấu trúc CFG mới.
+
+### Phân tích
+- Kiểm tra include graph, section/macro và các lời gọi giữa các file active. Benchmark đang đọc cleaner/dryer/private print state kể cả khi bỏ park; dryer gọi LED; fans-leds chứa cả hardware, trạng thái, RESUME/cancel; print-macros chứa QGL/Cartographer/T0 và các policy khác.
+- KTC readonly include glob nạp `tools/T*.cfg`: số tool phải lấy từ định nghĩa thực tế; một biến tool_count riêng có thể lệch với registry. Số tool không đủ mô tả vị trí/đường dock/clearance.
+- Tham khảo tài liệu Klipper chính thức về macro variables, G-code state, template evaluation và configuration sections. Đây là cơ sở ngăn thiết kế biến macro thay thế trái phép pin/UUID hoặc đọc trạng thái mới ngay trong cùng template.
+- Không kết nối hoặc thay đổi máy in trong tác vụ đề xuất này. Sử dụng source/config đã đọc và bằng chứng đối chiếu của mục 1.
+
+### File đã sửa đổi
+- Thêm `extras/docs/stealthchanger-sharing-proposal.md`: mục tiêu, kiến trúc, hợp đồng đầu vào, phụ thuộc, kế hoạch theo từng file, mẫu comment, test matrix và sáu giai đoạn triển khai.
+- Cập nhật hai chỉ mục docs Anh/Việt, ghi rõ đây là đề xuất chưa thực hiện.
+- Bổ sung mục 2 vào nhật ký hôm nay; không sửa CFG/CONF/SH production, thông số máy hay các thay đổi Printables/G-code tồn tại trước.
+
+### Sao lưu
+- [Bản gốc chỉ mục và nhật ký trước đề xuất](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-sharing-proposal-20261009-190456/README.md>).
+
+### Nội dung đề xuất
+- Mỗi tính năng độc lập có file CFG gồm khối EDIT HERE, macro public, helper/callback riêng, CHECK/HELP chỉ đọc; không bắt buộc một file profile chung khi chỉ tải một tính năng.
+- Người lấy cả bộ có thể dùng variable overrides riêng; phần cứng/UUID/PID/offset/SAVE_CONFIG vẫn ở chủ sở hữu thật, không sao chép calibration máy hiện tại.
+- Tách LED/fan khỏi Mainsail recovery; PRINT_START/M109/RESUME và các override chỉ ở integration được chọn rõ ràng. Prefix SC cho API thư viện tương lai; giữ tên production qua wrapper.
+- Phân loại DISCOVERED / USER_REQUIRED / USER_OPTIONAL; geometry chưa nhập bị chặn, park mặc định tắt ở benchmark/dryer chia sẻ. Tool mapping qua registry, không giả định T0–T4/extruderN.
+- Reference tool chỉ đổi khi backend hỗ trợ: Axiscope/luồng T0-only phải giữ giới hạn hoặc được adapter riêng, không hứa chỉ thay chuỗi T0 là đủ.
+- Xuất một file từ source thống nhất, khai báo version/schema/dependency/conflict; update chỉ file được chọn và giữ thông số local. Mẫu board `.cfg.example` nằm ngoài include globs.
+- Lộ trình sáu bước: hợp đồng/scaffold → benchmark/prime độc lập → hardware/UI → station/dryer → lifecycle/calibration/shaper/recovery → đóng gói và migration có kiểm chứng.
+
+### Kiểm tra và kết quả
+- Rà liên kết tài liệu, cú pháp snippet settings và whitespace Git; đối chiếu mọi file production trong bảng chuyển đổi với inventory hiện có.
+- Không chạy test phần cứng hoặc tuyên bố kiến trúc mới đã đạt 14 ca hồi quy cũ. Các tên SC, include, CHECK/HELP là thiết kế dự kiến, chưa có release thực thi.
+- Tiêu chí nghiệm thu được đề xuất cho 2/5/6 tool, registry không liên tục, tính năng tùy chọn thiếu, offset/mesh/Z max, xung đột operation, recovery, update và người dùng độc lập.
+- [Đề xuất chi tiết](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/docs/stealthchanger-sharing-proposal.md>).
+
+### Vấn đề còn lại
+- Cần thực hiện từng module theo các completion gate trong đề xuất; code production hiện hành vẫn giữ cấu trúc cũ.
+- Những workflow có motion/recovery chỉ được công bố sau khi xử lý finding A04–A07 và diagnostic defects cùng thử nghiệm có giám sát; EXCLUDE_OBJECT nhiều tool vẫn mở. CAN T1 đã sửa theo xác nhận người vận hành.

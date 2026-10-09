@@ -10,6 +10,7 @@ Tài liệu hiện hành mô tả code production đang được nạp được 
 | --- | --- | --- |
 | Tổng duyệt code và đối chiếu máy 2026-10-09 | [Báo cáo](project-audit-2026-10-09.md) | Bản kỹ thuật tiếng Anh |
 | Điều chỉnh cấu hình cho máy khác | [Hướng dẫn](machine-adaptation.md) | Bản kỹ thuật tiếng Anh |
+| Chia sẻ từng module CFG StealthChanger | [Đề xuất](stealthchanger-sharing-proposal.md) | Thiết kế tiếng Anh; chưa triển khai |
 | Tổng quan dự án | [README](../../README.md) | [README](../../README.vi.md) |
 | Payload config active | [README](../../config/README.md) | [README](../../config/README.vi.md) |
 | Profile OrcaSlicer | [README](../../Orca%20Config/README.md) | [README](../../Orca%20Config/README.vi.md) |
