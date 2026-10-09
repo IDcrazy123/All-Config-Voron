@@ -100,3 +100,28 @@ Lập đề xuất thay đổi toàn diện để người khác dùng riêng t�
 ### Vấn đề còn lại
 - Cần thực hiện từng module theo các completion gate trong đề xuất; code production hiện hành vẫn giữ cấu trúc cũ.
 - Những workflow có motion/recovery chỉ được công bố sau khi xử lý finding A04–A07 và diagnostic defects cùng thử nghiệm có giám sát; EXCLUDE_OBJECT nhiều tool vẫn mở. CAN T1 đã sửa theo xác nhận người vận hành.
+
+## 3. Điều chỉnh đề xuất đúng mục tiêu chia sẻ file CFG hiện có
+
+### Mục tiêu và yêu cầu đã làm rõ
+Người dùng không chấp nhận gom thông số vào EDIT HERE; mục tiêu là gửi riêng từng CFG cho người có dự án StealthChanger tương tự, dùng ngay khi thông số phù hợp hoặc chỉnh vài thông số tại đúng chỗ đang sở hữu chúng. Không yêu cầu người nhận lấy cả dự án hoặc dùng kiến trúc/profile/framework mới.
+
+### Thay đổi
+- Viết lại đề xuất hiện hành theo yêu cầu vừa làm rõ; mục 2 giữ nguyên như lịch sử thiết kế đã được thay thế.
+- Giữ tên file/macro hiện có, giữ tham số trong section/macro đang sử dụng; comment cạnh dòng cần sửa nêu đơn vị, hệ tọa độ, cách đo/chọn và những chỗ phải đồng bộ.
+- Đề xuất sửa nhỏ các giả định số/tên tool và phụ thuộc chéo không cần thiết. Helper/callback thiết yếu thuộc cùng file; LED/status tùy chọn được kiểm tra trước truy cập. Giữ đầy đủ các kiểm tra an toàn cần thiết.
+- Bỏ chiến lược global profile/override hierarchy/EDIT HERE, namespace SC, generator/manifest/package và yêu cầu installer cả dự án.
+- Lập bảng từng file: phần cần làm độc lập, chỗ người nhận phải chỉnh và phụ thuộc thật. File gộp hardware/recovery hoặc cần backend/calibration cụ thể được mô tả đúng là integration/reference, không hứa một include là đủ.
+- Ưu tiên prime-lines và benchmark, tiếp đến dryer/cleaner; không công bố các luồng diagnostic/lifecycle/calibration đang có lỗi là sẵn dùng.
+- Cập nhật cả hai chỉ mục tài liệu; không sửa CFG/CONF/SH production hay kết nối máy in trong tác vụ này.
+
+### Sao lưu
+- [Bản đề xuất/chỉ mục/nhật ký trước điều chỉnh](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-sharing-proposal-correction-20261009-191616/README.md>).
+
+### Kiểm tra và kết quả
+- Kiểm tra liên kết tài liệu, phạm vi diff, comment ví dụ khớp tham số hiện có và whitespace Git.
+- Không chạy lại kiểm thử motion/heater vì đây chỉ là sửa tài liệu; không tuyên bố các CFG hiện tại đã đạt tính độc lập.
+- [Đề xuất hiện hành](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/docs/stealthchanger-sharing-proposal.md>).
+
+### Việc còn lại
+Áp dụng các thay đổi nhỏ theo từng CFG và kiểm tra file đó trong fixture chỉ có phụ thuộc được công bố, thay vì nạp cả repository. Các issue production của mục 1 vẫn giữ nguyên; CAN T1 đã sửa, EXCLUDE_OBJECT nhiều tool chưa sửa.

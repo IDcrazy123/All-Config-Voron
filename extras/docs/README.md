@@ -10,7 +10,7 @@ Current documents describe the loaded production code reviewed on 2026-10-09. Hi
 | --- | --- | --- |
 | Code/machine audit 2026-10-09 | [Report](project-audit-2026-10-09.md) | English technical report |
 | Adaptation to another machine | [Guide](machine-adaptation.md) | English technical guide |
-| Sharing individual StealthChanger CFG modules | [Proposal](stealthchanger-sharing-proposal.md) | English design proposal; not implemented |
+| Sharing existing CFG files individually | [Revised proposal](stealthchanger-sharing-proposal.md) | In-place comments and focused dependency fixes; not implemented |
 | Project overview | [README](../../README.md) | [README](../../README.vi.md) |
 | Active config payload | [README](../../config/README.md) | [README](../../config/README.vi.md) |
 | OrcaSlicer profiles | [README](../../Orca%20Config/README.md) | [README](../../Orca%20Config/README.vi.md) |
