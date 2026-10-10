@@ -35,3 +35,27 @@ Người dùng xác định cảm biến trên T1 hỏng và đang mua linh ki�
 
 ### Việc còn lại
 Chờ thay cảm biến, đối chiếu loại linh kiện với cấu hình và kiểm tra số đọc nguội/hoạt động sau thay trước khi đóng lỗi.
+
+## 3. Đồng bộ chân Y endstop thành PF4 theo máy thực tế
+
+### Mục tiêu
+Cập nhật chân Y endstop trong dự án theo yêu cầu người vận hành, khớp với cấu hình máy đang sử dụng.
+
+### File đã sửa đổi
+- `config/Printer-Setup/hardware.cfg` — `[stepper_y] endstop_pin: PF1` → `PF4`; giữ nguyên các tham số khác và định dạng file.
+
+### Sao lưu
+- [hardware.cfg gốc](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-y-endstop-pf4-20261010-201012/hardware.cfg>).
+- Thư mục sao lưu chứa bản gốc nhật ký và README; tạo lúc 20:10:12 UTC+7 ngày 2026-10-10.
+
+### Lý do
+Người dùng xác nhận Y endstop nối PF4 trên máy thực tế. Kiểm tra chỉ đọc qua SSH cho thấy file máy in đã dùng PF4; Moonraker `configfile.settings.stepper_y.endstop_pin` cũng trả về PF4. Bản trong dự án vẫn dùng PF1 nên cần đồng bộ.
+
+### Kiểm tra
+- Parse cú pháp file cấu hình: đạt; xác nhận giá trị `[stepper_y] endstop_pin` bằng PF4.
+- So sánh byte với bản sao lưu: chỉ thay giá trị PF1 thành PF4 tại Y endstop.
+- Tìm trong toàn bộ CFG production: không có PF4 được dùng trước thay đổi; sau thay đổi chỉ có Y endstop dùng PF4.
+- Không triển khai hoặc restart: file máy in và cấu hình Klipper đang nạp đã dùng PF4. Không chạy homing, chuyển động hoặc thử in.
+
+### Kết quả và vấn đề còn lại
+Cấu hình dự án khớp chân Y endstop thực tế theo thông tin người dùng và cấu hình đang nạp. Chưa thử nhấn/nhả công tắc để kiểm chứng tín hiệu vật lý trong lượt này.
