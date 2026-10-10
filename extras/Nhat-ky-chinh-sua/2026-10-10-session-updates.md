@@ -21,3 +21,17 @@ Người dùng yêu cầu liệt kê nguyên nhân. Đối chiếu cấu hình/l
 - [Danh sách và cách phân biệt](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/docs/t1-temperature-error-causes-2026-10-10.md>) có nguồn Klipper/BTT và giới hạn suy luận.
 - Cần đo nhiệt độc lập khi nguội để chọn nhánh sensor/board hay nhiệt thật. Đo điện trở phải cắt nguồn/rút sensor khỏi PCB; không thực hiện các bước phần cứng trong lượt này.
 - Chỉ thêm tài liệu/nhật ký mới, không có file cấu hình bị sửa để cần backup; giữ nguyên log/backup/journal cũ. Không chạy test motion/heating cho thay đổi tài liệu.
+
+## 2. Người vận hành xác định cảm biến nhiệt T1 hỏng
+
+### Xác nhận mới
+Người dùng xác định cảm biến trên T1 hỏng và đang mua linh kiện mới về thay. Ghi nhận nguyên nhân theo kết luận người vận hành; không suy diễn cơ chế hỏng cụ thể hoặc thông số cảm biến thay thế.
+
+### Cập nhật
+- Workspace KNOWN_ISSUES đổi trạng thái thành cảm biến hỏng, chờ thay; chưa đánh dấu đã khắc phục khi chưa lắp và kiểm tra sau sửa.
+- Bổ sung kết luận mới vào tài liệu nguyên nhân; giữ các giả thuyết/log trước đó làm lịch sử điều tra.
+- Không kết nối máy in, sửa CFG/runtime, sensor_type, pullup, PID, gia nhiệt hoặc chạy phép thử. Cấu hình thay thế chỉ được xem xét khi biết đúng loại linh kiện.
+- Sao lưu nhật ký/tài liệu/KNOWN_ISSUES trước cập nhật tại [backup](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-t1-sensor-diagnosis-20261010-165242/README.md>).
+
+### Việc còn lại
+Chờ thay cảm biến, đối chiếu loại linh kiện với cấu hình và kiểm tra số đọc nguội/hoạt động sau thay trước khi đóng lỗi.

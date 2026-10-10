@@ -1,5 +1,14 @@
 # Possible causes of T1 temperature reading error — 2026-10-10
 
+## Operator diagnosis update
+
+On 2026-10-10, the operator confirmed that the T1 temperature sensor is faulty
+and is purchasing a replacement. Replacement and post-repair verification are
+pending. No specific electrical failure mode or replacement specification was
+provided. The candidate list below records the earlier investigation; it does
+not imply that all other components remain suspected after this diagnosis.
+No configuration or PID change was made on the basis of this update.
+
 ## Verified facts and limits
 
 The loaded T1 configuration was checked read-only through Moonraker:
