@@ -9,7 +9,7 @@
 		"20"
 	],
 	"fan_max_speed": [
-		"50"
+		"100"
 	],
 	"filament_extruder_variant": [
 		"Direct Drive Standard"

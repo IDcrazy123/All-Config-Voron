@@ -34,3 +34,30 @@ Cảm biến T1 chờ thay; EXCLUDE_OBJECT multi-tool, TEST_Z_SPEED, Axiscope fi
 ### Kiểm tra hoàn tất
 - Đối chiếu tracking bằng cây Git tại commit gốc; ba file `.local-backups` chỉ tồn tại ở workspace, cần kho phục hồi cục bộ. Sửa metadata tracking trong manifest; SHA-256/nội dung file lưu trữ giữ nguyên.
 - Chuẩn hóa newline CSV và rà soát liên kết tài liệu hiện hành; bản manifest chuẩn cuối cũng nằm trong backup dưới tên `removed-files-corrected.csv`.
+
+## 2. Äá»“ng bá»™ tá»± Ä‘á»™ng profile OrcaSlicer
+
+### Má»¥c tiÃªu
+ChÃ©p preset OrcaSlicer active trá»±c tiáº¿p tá»« AppData vÃ o repository vÃ  Ä‘á»“ng bá»™ diagnostic G-code/log Ä‘Æ°á»£c yÃªu cáº§u mÃ  khÃ´ng cáº§n export thá»§ cÃ´ng.
+
+### Nguá»“n
+- `C:\Users\batca\AppData\Roaming\OrcaSlicer\user\838ce884-12ee-416b-9e1b-1c7503cf6b5f`
+- Profile ID Ä‘Ã£ chá»n: `838ce884-12ee-416b-9e1b-1c7503cf6b5f`
+
+### File Ä‘Ã£ cáº­p nháº­t
+- `extras/Orcasilcer setting/MulticolorPETG.json`
+- `extras/Orcasilcer setting/Printersetting.json`
+- `Orca Config/0.20mm ABS no hole.json`
+- `Orca Config/ABS-Pro Tinmory Black.json`
+
+### Sao lÆ°u
+- `extras/backups/pre-orcaslicer-profile-sync-20261012-161629`
+
+### Kiá»ƒm tra
+- ToÃ n bá»™ JSON nguá»“n vÃ  Ä‘Ã­ch Ä‘áº¡t kiá»ƒm tra `ConvertFrom-Json`.
+- ChÃ©p nguyÃªn byte nguá»“n, khÃ´ng format láº¡i.
+
+### Káº¿t quáº£
+- ÄÃ£ Ä‘á»“ng bá»™ 4 file JSON trong repository.
+- ÄÃ£ thÃªm hoáº·c cáº­p nháº­t 0 file diagnostic G-code/log.
+- DÃ¹ng `Orca Config\Sync-OrcaProfiles.cmd` Ä‘á»ƒ Ä‘á»“ng bá»™, commit vÃ  push báº±ng má»™t láº§n nháº¥p.
