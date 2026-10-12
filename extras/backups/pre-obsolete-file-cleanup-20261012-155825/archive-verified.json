@@ -1,0 +1,9 @@
+{
+  "verified_at": "2026-10-12T16:03:23+07:00",
+  "files": 961,
+  "original_bytes": 970622337,
+  "archive_bytes": 240684987,
+  "archive_sha256": "7a32fea419370b977d62eb9608374dbe6e46a4c2eab9da90c94e7da1c8e0f936",
+  "manifest_sha256": "f82b631a1bc900b0b873594b553a61ed21ccffeb8d85bb7117af5e9d16ded915",
+  "all_members_sha256_verified": true
+}

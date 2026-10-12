@@ -44,13 +44,16 @@ config/                     Payload triển khai Klipper/Moonraker
   scripts/                  Script cài đặt, cập nhật, dọn dẹp và patch runtime
 Orca Config/                Profile OrcaSlicer active và script đồng bộ
 extras/docs/                Tài liệu hiện hành và chỉ mục tài liệu lịch sử
-extras/retired-configs/     Cấu hình không còn được printer.cfg nạp
+extras/retired-configs/     Chỉ dẫn phục hồi cấu hình retired đã lưu trữ
+extras/Printables-Package/ Generator Oxplow và file release hiện tại
 extras/experiments/         Bằng chứng thử nghiệm bất biến
 extras/backups/             Bản phục hồi trước thay đổi có timestamp
 extras/Nhat-ky-chinh-sua/   Nhật ký kỹ thuật hàng ngày
 ```
 
 `config/toolchanger/readonly-configs/` thuộc quyền sở hữu KTC-Easy; không sửa thủ công.
+
+[Tổng hợp dọn dẹp 12/10/2026](extras/docs/cleanup-2026-10-12.vi.md) ghi lỗi lịch sử, vấn đề còn mở và danh sách phục hồi từng file. Backup, snapshot, G-code và log offline cũ đã được chuyển khỏi checkout; bản gốc và ZIP đã kiểm tra còn trong thư mục phục hồi cục bộ. Lịch sử Git được giữ nguyên.
 
 ## Điều chỉnh cho máy khác
 

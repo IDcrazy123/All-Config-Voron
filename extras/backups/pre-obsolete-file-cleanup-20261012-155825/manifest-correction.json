@@ -1,0 +1,7 @@
+{
+  "current_manifest_sha256": "d4b3c95cd5150718a9abdb59a440375baec33d389fcd7f564c095dad39fe3364",
+  "corrected_workspace_only_rows": 3,
+  "correction": "Workspace .local-backups files were never tracked in the child Git repository; original archive file hashes and paths are unchanged. CSV line endings normalized to LF.",
+  "git_tracked_removed_files": 895,
+  "untracked_or_ignored_removed_files": 66
+}

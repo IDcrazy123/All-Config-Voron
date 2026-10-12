@@ -8,6 +8,7 @@ Tài liệu hiện hành mô tả code production đang được nạp được 
 
 | Chủ đề | English | Tiếng Việt |
 | --- | --- | --- |
+| Dọn dẹp, tổng hợp lỗi và phục hồi 12/10/2026 | [Summary](cleanup-2026-10-12.md) | [Tổng hợp](cleanup-2026-10-12.vi.md) |
 | Tổng duyệt code và đối chiếu máy 2026-10-09 | [Báo cáo](project-audit-2026-10-09.md) | Bản kỹ thuật tiếng Anh |
 | Phản hồi G-code khởi động và lỗi còn tiềm tàng | [Rà soát bổ sung](startup-response-and-risk-review-2026-10-09.md) | Đã xác minh bản vá runtime; lỗi motion/exclusion vẫn mở |
 | Điều chỉnh cấu hình cho máy khác | [Hướng dẫn](machine-adaptation.md) | Bản kỹ thuật tiếng Anh |
@@ -35,11 +36,12 @@ Không dùng chúng để cài đặt hoặc hiệu chuẩn máy hiện tại.
 
 - `extras/Nhat-ky-chinh-sua/`: lịch sử kỹ thuật theo ngày.
 - `extras/experiments/`: báo cáo và reproduction thô.
-- `extras/retired-configs/`: cấu hình cuối của backend đã gỡ.
-- `extras/backups/`: snapshot phục hồi trước thay đổi.
-- `extras/Config download/`: snapshot tải từ máy, không phải config active.
+- `extras/retired-configs/`: chỉ mục phục hồi; bản cấu hình cũ đã được lưu ngoài checkout ngày 12/10/2026.
+- `extras/backups/`: snapshot phục hồi được giữ và bản ghi dọn dẹp theo ngày.
+- `extras/Config download/`: chỉ mục phục hồi snapshot máy cũ đã lưu trữ, không phải config active.
+- `extras/Printables-Package/`: generator Oxplow và file release hiện tại; bản cũ tại `extras/gcode/` đã được lưu trữ.
 
-Mười ZIP trùng byte hoàn toàn với thư mục snapshot đã giải nén được loại trong đợt rà soát 2026-09-20. `config-20260903-080600.zip` được giữ vì có sáu file ShakeTune không tồn tại trong thư mục giải nén. Các ZIP độc lập và toàn bộ backup recovery cũng được giữ.
+Đợt 20/09 đã loại mười ZIP trùng và giữ các snapshot/backup khác tại thời điểm đó. Ngày 12/10, theo yêu cầu dọn file lỗi thời, 107 thư mục backup cũ, snapshot tải về (gồm ZIP 03/09 có dữ liệu ShakeTune riêng), bản cấu hình retired, G-code cũ và log offline đã được chuyển ra kho phục hồi cục bộ sau khi nén và kiểm tra. Dữ liệu vẫn nằm trong gói lưu trữ và, với file đã tracked, lịch sử Git. Xem [manifest từng file](cleanup-2026-10-12-manifest.csv) để tra link lịch sử vào các vị trí này. Report, reproduction, nhật ký và raw evidence thử nghiệm vẫn được giữ trong checkout.
 
 ## Quy tắc bảo trì
 

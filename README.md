@@ -44,13 +44,16 @@ config/                     Deployable Klipper/Moonraker payload
   scripts/                  Install, update, cleanup, and runtime patch tooling
 Orca Config/                Active OrcaSlicer user profiles and sync script
 extras/docs/                Current documentation and historical-document index
-extras/retired-configs/     Configurations no longer loaded by printer.cfg
+extras/retired-configs/     Recovery pointer for archived retired configurations
+extras/Printables-Package/ Current Oxplow generator and release files
 extras/experiments/         Immutable test evidence
 extras/backups/             Timestamped pre-change recovery copies
 extras/Nhat-ky-chinh-sua/   Daily engineering journal
 ```
 
 `config/toolchanger/readonly-configs/` is owned by KTC-Easy. Never edit it manually.
+
+The [2026-10-12 cleanup summary](extras/docs/cleanup-2026-10-12.md) records historical incidents, retained open issues and the exact recovery inventory. Superseded backups, snapshots, G-code and offline logs were moved out of this checkout; original files and a verified ZIP remain in the local recovery directory. Git history is preserved.
 
 ## Adapt this configuration to another machine
 

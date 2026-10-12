@@ -8,3 +8,5 @@ Files in this directory describe retired calibration systems. They are retained 
 | `tkc-commissioning-20260908.md` | Experimental TKC/KCC commissioning and defects | Axiscope for tool offsets; Cartographer for home/mesh |
 
 Before using any command from these documents, confirm the corresponding backend is intentionally installed in an isolated test environment. None of these procedures belongs in the production include chain.
+
+Old references into backup, log, downloaded-snapshot and retired-configuration directories now resolve through the [2026-10-12 cleanup inventory](../cleanup-2026-10-12.md). The historical documents themselves are retained unchanged; recover referenced files from the manifest/archive or the recorded base Git commit.

@@ -8,6 +8,7 @@ Current documents describe the loaded production code reviewed on 2026-10-09. Hi
 
 | Topic | English | Vietnamese |
 | --- | --- | --- |
+| Cleanup, incident lessons and recovery 2026-10-12 | [Summary](cleanup-2026-10-12.md) | [Tổng hợp](cleanup-2026-10-12.vi.md) |
 | Code/machine audit 2026-10-09 | [Report](project-audit-2026-10-09.md) | English technical report |
 | Startup G-code response and remaining risks | [Follow-up](startup-response-and-risk-review-2026-10-09.md) | Runtime fix verified; motion/exclusion risks remain open |
 | Adaptation to another machine | [Guide](machine-adaptation.md) | English technical guide |
@@ -35,11 +36,12 @@ They must not be used as installation or calibration instructions for the curren
 
 - `extras/Nhat-ky-chinh-sua/`: dated engineering history.
 - `extras/experiments/`: raw test reports and reproductions.
-- `extras/retired-configs/`: last known configurations for removed backends.
-- `extras/backups/`: pre-change recovery snapshots.
-- `extras/Config download/`: downloaded machine snapshots; not active configuration.
+- `extras/retired-configs/`: recovery index; old configuration copies were archived outside the checkout on 2026-10-12.
+- `extras/backups/`: retained pre-change recovery snapshots and the dated cleanup recovery record.
+- `extras/Config download/`: recovery index for archived downloaded machine snapshots; not active configuration.
+- `extras/Printables-Package/`: current Oxplow generator and release files; the older `extras/gcode/` copy was archived.
 
-Ten ZIP archives that were byte-for-byte duplicates of retained extracted snapshot directories were removed during the 2026-09-20 audit. `config-20260903-080600.zip` was retained because it contains six ShakeTune files not present in its extracted directory. Standalone ZIP snapshots and all recovery backups were also retained.
+The September 20 audit removed ten duplicate ZIPs and retained the other snapshots/backups at that time. On October 12, the operator requested cleanup of obsolete files. 107 superseded backup directories, all old downloaded snapshots (including the September 3 ZIP with unique ShakeTune data), retired configuration copies, old G-code and offline logs were moved to local recovery storage after verified compression. Their data remains in the archive and, where tracked, Git history. See the [per-file manifest](cleanup-2026-10-12-manifest.csv); existing historical links into these locations should be resolved through that manifest. Reports, reproductions, journals and raw experiment evidence remain in this checkout.
 
 ## Maintenance rules
 
