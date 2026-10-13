@@ -9,6 +9,7 @@ Thư mục này chứa payload do repository sở hữu và triển khai sang `~
 `printer.cfg` nạp module active theo thứ tự:
 
 ```ini
+[include Printer-Setup/oxplow_runtime.cfg]
 [include mainsail.cfg]
 [include toolchanger/readonly-configs/toolchanger-include.cfg]
 [include Printer-Setup/calibration-probe.cfg]
@@ -79,3 +80,7 @@ Xem [hướng dẫn điều chỉnh](../extras/docs/machine-adaptation.md). Ch�
 Dịch vụ và Klipper extra Axiscope được Moonraker quản lý bên ngoài; repository chỉ triển khai phần tích hợp `.cfg`.
 
 Chỉ deploy khi máy in đang rảnh. Sau restart Moonraker/Klipper, kiểm tra `CALIBRATION_STATUS`, `CHECK_OFFSETS`, heater, quạt, homing và tool detection trước khi in.
+
+## Runtime Oxplow first-layer
+
+`Printer-Setup/oxplow_runtime.cfg` cung cấp `_OXPLOW_CHECK` 2.3.2 và được include một lần. [Bộ tích hợp](../extras/Printables-Package/README.md) chứa profile máy, G-code, SVG và report tương ứng; không tự chạy hiệu chuẩn hoặc lưu offset.

@@ -43,3 +43,43 @@ Retract về dock sau đường mồi thấp hơn mức toolchange đang dùng t
 ### Vấn đề còn lại
 - Sau triển khai, thử job multi-tool có người giám sát: quan sát nhựa rỉ khi tool chờ dock và đoạn in đầu tiên của từng tool; xác nhận G-code slicer nạp lại 5 mm cho tool đã primed trước khi in.
 - Nếu còn nhựa thừa, cần dữ liệu vật liệu, nhiệt độ và thời gian chờ dock để tách ooze nhiệt khỏi lượng nhựa nạp lại; không tự tăng retract thêm.
+
+## 2. Tích hợp Oxplow 2.3.2 và đồng bộ máy in/GitHub
+
+### Mục tiêu
+Người dùng yêu cầu tích hợp dự án riêng đã đăng Printables vào repo Voron, đồng bộ máy in và GitHub; sau đó yêu cầu đặt runtime trong Printer-Setup và chỉ rõ nguyên nhân từng sửa đổi để bảo trì nguồn Printables.
+
+### Nguồn và nguyên nhân
+- Đọc trang [Universal Oxplow của Công Dương](https://www.printables.com/model/1846885-universal-oxplow-first-layer-z-offset-calibration) qua trình duyệt: phiên bản ZIP 2.3.2, patch-only, profile máy riêng, SVG/report, runtime bắt buộc. Công cụ web không fetch được trang; browser đọc được và tải ZIP.
+- ZIP SHA-256: `65d3eb72920723a4897ae9612641962c117fa14992b111b98c8097ab8d8b484d`; kiểm manifest 22 file đạt.
+- Source tại `D:/Desktop/Klipper Code/First Layer Test/generate_oxplow_gcode.py` khớp byte với ZIP. Không sửa logic generator hoặc runtime và không chỉnh dự án nguồn riêng.
+- Report `Voron_Oxplow_T0-T4_2026-10-13_07.report.json` được đối chiếu SHA-256 G-code đang trên máy `36ca288c906181496c1c83bf006d3824b2b0f60e92107bc19fddca7f90cfe29f`. Dùng lại contract và hình học; loại discovery/evidence/ghi chú ủy quyền cũ khỏi profile xuất bản.
+- Profile của tool đã park đổi `initial_retract: 1.8 -> 5.0` vì PRIME_LINES vừa đổi retract dock; KTC không unretract. Tool ban đầu/single-tool giữ 0.6 mm. Profile ví dụ upstream 1.8 mm không phải lỗi chung.
+- Ví dụ `profiles/ktc-prime-lines.example.json` trong nguồn còn note dùng runtime 2.1.0 dù release/runtime là 2.3.2. Đã chỉ ra nguyên nhân và đề xuất sửa note dùng runtime cùng release trong INTEGRATION.md; giữ upstream nguyên bản.
+
+### File đã sửa đổi
+- `config/printer.cfg`: include một lần `Printer-Setup/oxplow_runtime.cfg`, theo vị trí người dùng yêu cầu. Tất cả nội dung cấu hình cũ và SAVE_CONFIG giữ nguyên.
+- `config/Printer-Setup/oxplow_runtime.cfg`: copy byte-identical runtime 2.3.2 đã có trên máy vào payload Git.
+- `extras/Printables-Package/upstream-2.3.2/`: nguyên bản release, tài liệu, tests và manifest. Launcher root trỏ tới source này.
+- `extras/Printables-Package/profiles/`: bảy profile máy theo nhiệt PETG 230/70 và ABS 250/100 đã có; không chứa host/API key/raw discovery.
+- `extras/Printables-Package/output/`: bảy bộ G-code/SVG/report, PETG T0–T4 riêng và PETG/ABS đủ năm tool.
+- `extras/Printables-Package/legacy-v2.0.0/`: chuyển nguyên trạng file working tree cũ, gồm chỉnh sửa trước phiên chưa commit; không mất dữ liệu.
+- README Anh/Việt, config/docs index và hướng dẫn Oxplow: cập nhật nguồn, vị trí runtime, file hiện hành và công thức theo report; INTEGRATION.md ghi từng thay đổi/nguyên nhân.
+- `.gitattributes`: giữ byte upstream, legacy và output/report có hash. `.gitignore`: bỏ local discovery/evidence khỏi Git.
+
+### Sao lưu
+- [Snapshot trước tích hợp](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-oxplow-232-integration-20261013-192849/README.md>) chứa working tree trước sửa và ba file config live.
+- [Snapshot trước chuyển runtime](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-relocate-oxplow-runtime-20261013-193611/README.md>) chứa printer.cfg và runtime root trước di chuyển theo chỉ thị mới.
+- Sao lưu đầy đủ trên máy do installer tạo sẽ được ghi ở phần xác minh triển khai bên dưới.
+
+### Kiểm tra
+- 96/96 tests upstream đạt, không skip; gồm bốn integration test dispatcher với source Klipper commit `7bc4d0946`.
+- Cả bảy profile đạt static/live GET validation; audit G-code theo limits/E/nominal area/bounds đạt, report hash khớp code.
+- Bù retract đúng một lần/tool: multi-tool 0.6/5/5/5/5 mm, single nonzero tool vẫn 0.6 mm; end macro sở hữu retract và lift cuối bài.
+- Giữ hình học từ report hiện hành: 51 row, X20 mm, tâm X174/Y168, nominal Z0.240, range +/-0.040, high-to-low Z0.280 -> Z0.200. Row 25 tính Delta=0; row 35 tính Delta=-0.016 mm.
+- Kiểm SVG trong trình duyệt: năm patch tách biệt, trái sang phải T0 -> T4.
+- Runtime copy khớp live cũ; include duy nhất; không thay offset, PID, pins, dòng motor, limits, dock, readonly KTC hay nguồn độc lập.
+- Trước triển khai: printer standby, unpaused, idle, heater targets 0, dryer/benchmark dừng. Triển khai/restart sẽ recheck trước ghi.
+
+### Kết quả và công việc còn lại
+Đã hoàn tất tích hợp và kiểm tra offline. Tiếp theo: push source, cập nhật checkout máy in, chạy installer backup-first, chuyển runtime root cũ ra config_backups, nạp lại Klipper và kiểm macro/version/files. Không tự bắt đầu in hay lưu offset; phần xác minh triển khai sẽ ghi kết quả thực tế.

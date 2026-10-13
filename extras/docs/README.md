@@ -20,7 +20,7 @@ Current documents describe the loaded production code reviewed on 2026-10-09. Hi
 | StealthChanger operation | [Guide](huong-dan-he-thong-stealthchanger.en.md) | [Guide](huong-dan-he-thong-stealthchanger.md) |
 | Mainsail deployment cross-check | — | [Guide](danh-sach-doi-chieu-va-huong-dan-update-mainsail.md) |
 | Legacy calibration failure signatures | [Guide](legacy-calibration-troubleshooting.md) | Same technical guide |
-| Oxplow multi-tool Z calibration | [Comprehensive method](Oxplow-Z-Offset-Comprehensive-Method.md) | [Quick guide](Oxplow-Z-Offset-Guide.md) |
+| Oxplow 2.3.2 multi-tool Z calibration | [Comprehensive method](Oxplow-Z-Offset-Comprehensive-Method.md) | [Quick guide](Oxplow-Z-Offset-Guide.md) |
 | Input shaper / speed evaluation | — | [Report](danh-gia-input-shaper-va-test-speed-2026-09-04.md) |
 
 ## Historical documentation
@@ -50,3 +50,5 @@ The September 20 audit removed ten duplicate ZIPs and retained the other snapsho
 3. Never modernize old journals, experiment reports, backup records, or downloaded snapshots in place.
 4. Move retired procedures to `history/` and add a short current warning.
 5. When code behavior changes, update documentation and the daily journal in the same commit.
+
+Oxplow 2.3.2: [machine profiles, G-code, SVG and reports](../Printables-Package/README.md). The upstream published toolkit is preserved unchanged; retired 2.0.0 files are retained separately.

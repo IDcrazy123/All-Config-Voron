@@ -12,3 +12,7 @@ wpa_supplicant.conf
 # Python build/test artifacts
 __pycache__/
 *.py[cod]
+
+# Private Oxplow discovery/evidence and local calibration measurements.
+/extras/Printables-Package/local/
+*.local.json

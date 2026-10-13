@@ -20,7 +20,7 @@ Tài liệu hiện hành mô tả code production đang được nạp được 
 | Vận hành StealthChanger | [Guide](huong-dan-he-thong-stealthchanger.en.md) | [Hướng dẫn](huong-dan-he-thong-stealthchanger.md) |
 | Đối chiếu triển khai Mainsail | — | [Hướng dẫn](danh-sach-doi-chieu-va-huong-dan-update-mainsail.md) |
 | Dấu hiệu nhận biết lỗi hiệu chuẩn cũ | [Guide](legacy-calibration-troubleshooting.md) | Cùng tài liệu kỹ thuật |
-| Hiệu chuẩn Z đa tool Oxplow | [Phương pháp đầy đủ](Oxplow-Z-Offset-Comprehensive-Method.md) | [Hướng dẫn nhanh](Oxplow-Z-Offset-Guide.md) |
+| Hiệu chuẩn Z đa tool Oxplow 2.3.2 | [Phương pháp đầy đủ](Oxplow-Z-Offset-Comprehensive-Method.md) | [Hướng dẫn nhanh](Oxplow-Z-Offset-Guide.md) |
 | Đánh giá input shaper / tốc độ | — | [Báo cáo](danh-gia-input-shaper-va-test-speed-2026-09-04.md) |
 
 ## Tài liệu lịch sử
@@ -50,3 +50,5 @@ Không dùng chúng để cài đặt hoặc hiệu chuẩn máy hiện tại.
 3. Không hiện đại hóa journal, report thí nghiệm, record backup hoặc snapshot tải về tại chỗ.
 4. Chuyển quy trình retired vào `history/` và thêm cảnh báo ngắn ở tài liệu hiện hành.
 5. Khi hành vi code đổi, cập nhật tài liệu và nhật ký ngày trong cùng commit.
+
+Oxplow 2.3.2: [machine profiles, G-code, SVG and reports](../Printables-Package/README.md). The upstream published toolkit is preserved unchanged; retired 2.0.0 files are retained separately.

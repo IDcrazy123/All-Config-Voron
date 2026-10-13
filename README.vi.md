@@ -1,6 +1,6 @@
 # Cấu hình Production Voron 2.4 StealthChanger 5 Tool
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [Cấu hình active](config/README.vi.md) | [Tài liệu](extras/docs/README.vi.md) | [Profile OrcaSlicer](Orca%20Config/README.vi.md)
+[English](README.md) | [Tiếng Việt](README.vi.md) | [Cấu hình active](config/README.vi.md) | [Tài liệu](extras/docs/README.vi.md) | [Profile OrcaSlicer](Orca%20Config/README.vi.md) | [Oxplow 2.3.2](extras/Printables-Package/README.md)
 
 Kho cấu hình Klipper production cho Voron 2.4 CoreXY 350 mm dùng năm đầu in StealthChanger. KTC-Easy quản lý đổi tool, Cartographer V3 quản lý home Z/quét mesh, Axiscope đo XY, công tắc PF2 đo Z tương đối sơ bộ và test first-layer quyết định Z production cuối cùng.
 
@@ -101,6 +101,12 @@ Axiscope là backend `probe_multi_axis` duy nhất đang hoạt động. Workflo
 Trước mỗi lần đổi tool, chu trình hiệu chuẩn nâng thẳng lên ít nhất Z15 để đường đi tới dock rời công tắc ở độ cao an toàn.
 
 Tháo đế trước `G28`, QGL, bed mesh, Cartographer Touch hoặc in. Home khi mặt bàn thông thoáng, nâng tới Z15, lắp đế, xác nhận X80/Y-8 và trạng thái công tắc rồi mới chạy phép đo Z sơ bộ có giám sát. Xem [quy trình hiệu chuẩn tool](extras/docs/huong-dan-he-thong-stealthchanger.md#hiệu-chuẩn-tool).
+
+## Hiệu chuẩn first-layer Oxplow
+
+[Dự án Oxplow 2.3.2 trên Printables](https://www.printables.com/model/1846885-universal-oxplow-first-layer-z-offset-calibration) được tích hợp tại [extras/Printables-Package](extras/Printables-Package/README.md), cùng runtime `_OXPLOW_CHECK` trong printer.cfg. Profile giữ hình học patch-only/offset hiện có, bù đúng retract 0.6/5 mm sau PRIME_LINES và bàn giao retract/nâng Z cuối bài cho PRINT_END. Có file PETG từng tool, PETG/ABS đủ năm tool, SVG và report đi kèm.
+
+Đọc report đúng file đã in: ramp Z0.280 -> Z0.200 khác bản 2.0.0 có chữ/vạch cũ. Bắt đầu bằng một tool có giám sát; lần đồng bộ này không áp offset mới hay kết quả hiệu chuẩn vật lý.
 
 ## An toàn và hoàn tác
 

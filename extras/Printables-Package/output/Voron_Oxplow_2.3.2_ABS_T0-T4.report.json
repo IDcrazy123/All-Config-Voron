@@ -1,0 +1,2044 @@
+{
+  "version": "2.3.2",
+  "profile_sha256": "7f5f115992ae8d96091ba22fe2ab4661ccaf869958d1edd123bb3a2bfd897c92",
+  "profile": {
+    "schema_version": 1,
+    "name": "Voron 350 / Oxplow 2.3.2 / ABS / T0-T4 / prime retract 5mm",
+    "reviewed": true,
+    "machine": {
+      "safe_min": [
+        30.0,
+        130.0
+      ],
+      "safe_max": [
+        318.0,
+        310.0
+      ],
+      "z_min": -5.0,
+      "z_max": 347.0,
+      "travel_z": 5.0,
+      "toolchange_z": 20.0,
+      "bed_temp": 100.0,
+      "bed_max_temp": 120.0,
+      "max_velocity": 350.0,
+      "max_z_velocity": 80.0
+    },
+    "start_gcode": [
+      "PRINT_START TOOL=0 TOOL_TEMP=250 BED_TEMP=100 MATERIAL=ABS AUTO_SOAK=1 FULL_BED=1 T0_TEMP=250 T1_TEMP=250 T2_TEMP=250 T3_TEMP=250 T4_TEMP=250"
+    ],
+    "end_gcode": [
+      "PRINT_END"
+    ],
+    "test": {
+      "center": [
+        174.0,
+        168.0
+      ],
+      "define_objects": true,
+      "end_retract_owner": "end_macro",
+      "retract_length": 0.6,
+      "annotations": false,
+      "end_lift_owner": "end_macro",
+      "label_scale": 1.5,
+      "lines": 51,
+      "patch_length": 20.0,
+      "gap": 8.0,
+      "direction": "high-to-low",
+      "print_speed": 20.0,
+      "travel_speed": 100.0,
+      "z_speed": 5.0,
+      "retract_speed": 20.0,
+      "soak_seconds": 0.0,
+      "temperature_tolerance": 2.0,
+      "annotation_speed": 10.0
+    },
+    "tools": [
+      {
+        "id": 0,
+        "extruder": "extruder",
+        "select_gcode": "T0",
+        "nozzle_diameter": 0.4,
+        "filament_diameter": 1.75,
+        "temperature": 250.0,
+        "min_extrude_temp": 170.0,
+        "max_temp": 290.0,
+        "material": "ABS",
+        "max_extrude_cross_section": 0.6400000000000001,
+        "max_extrude_only_distance": 101.0,
+        "max_extrude_only_velocity": 93.1283781292005,
+        "max_volumetric_flow": 8.0,
+        "initial_retract": 0.6,
+        "temperature_command": "toolchanger",
+        "ramp_range": 0.04,
+        "annotation_height": 0.2,
+        "annotation_z_adjust": 0.0,
+        "test_z_adjust": 0.0,
+        "saved_tool_z_offset": 0.0,
+        "annotation_line_width": 0.6,
+        "nominal_height": 0.24,
+        "line_width": 0.44000000000000006,
+        "line_step": 0.38849555921538764
+      },
+      {
+        "id": 1,
+        "extruder": "extruder1",
+        "select_gcode": "T1",
+        "nozzle_diameter": 0.4,
+        "filament_diameter": 1.75,
+        "temperature": 250.0,
+        "min_extrude_temp": 170.0,
+        "max_temp": 290.0,
+        "material": "ABS",
+        "max_extrude_cross_section": 0.6400000000000001,
+        "max_extrude_only_distance": 101.0,
+        "max_extrude_only_velocity": 93.1283781292005,
+        "max_volumetric_flow": 8.0,
+        "initial_retract": 5.0,
+        "temperature_command": "toolchanger",
+        "ramp_range": 0.04,
+        "annotation_height": 0.2,
+        "annotation_z_adjust": 0.0,
+        "test_z_adjust": 0.0,
+        "saved_tool_z_offset": 0.1665,
+        "nominal_height": 0.24,
+        "line_width": 0.44000000000000006,
+        "annotation_line_width": 0.6000000000000001,
+        "line_step": 0.38849555921538764
+      },
+      {
+        "id": 2,
+        "extruder": "extruder2",
+        "select_gcode": "T2",
+        "nozzle_diameter": 0.4,
+        "filament_diameter": 1.75,
+        "temperature": 250.0,
+        "min_extrude_temp": 170.0,
+        "max_temp": 290.0,
+        "material": "ABS",
+        "max_extrude_cross_section": 0.6400000000000001,
+        "max_extrude_only_distance": 101.0,
+        "max_extrude_only_velocity": 93.1283781292005,
+        "max_volumetric_flow": 8.0,
+        "initial_retract": 5.0,
+        "temperature_command": "toolchanger",
+        "ramp_range": 0.04,
+        "annotation_height": 0.2,
+        "annotation_z_adjust": 0.0,
+        "test_z_adjust": 0.0,
+        "saved_tool_z_offset": -0.3515,
+        "nominal_height": 0.24,
+        "line_width": 0.44000000000000006,
+        "annotation_line_width": 0.6000000000000001,
+        "line_step": 0.38849555921538764
+      },
+      {
+        "id": 3,
+        "extruder": "extruder3",
+        "select_gcode": "T3",
+        "nozzle_diameter": 0.4,
+        "filament_diameter": 1.75,
+        "temperature": 250.0,
+        "min_extrude_temp": 170.0,
+        "max_temp": 290.0,
+        "material": "ABS",
+        "max_extrude_cross_section": 0.6400000000000001,
+        "max_extrude_only_distance": 101.0,
+        "max_extrude_only_velocity": 93.1283781292005,
+        "max_volumetric_flow": 8.0,
+        "initial_retract": 5.0,
+        "temperature_command": "toolchanger",
+        "ramp_range": 0.04,
+        "annotation_height": 0.2,
+        "annotation_z_adjust": 0.0,
+        "test_z_adjust": 0.0,
+        "saved_tool_z_offset": -0.3265,
+        "nominal_height": 0.24,
+        "line_width": 0.44000000000000006,
+        "annotation_line_width": 0.6000000000000001,
+        "line_step": 0.38849555921538764
+      },
+      {
+        "id": 4,
+        "extruder": "extruder4",
+        "select_gcode": "T4",
+        "nozzle_diameter": 0.4,
+        "filament_diameter": 1.75,
+        "temperature": 250.0,
+        "min_extrude_temp": 170.0,
+        "max_temp": 290.0,
+        "material": "ABS",
+        "max_extrude_cross_section": 0.6400000000000001,
+        "max_extrude_only_distance": 101.0,
+        "max_extrude_only_velocity": 93.1283781292005,
+        "max_volumetric_flow": 8.0,
+        "initial_retract": 5.0,
+        "temperature_command": "toolchanger",
+        "ramp_range": 0.04,
+        "annotation_height": 0.2,
+        "annotation_z_adjust": 0.0,
+        "test_z_adjust": 0.0,
+        "saved_tool_z_offset": 0.0279,
+        "nominal_height": 0.24,
+        "line_width": 0.44000000000000006,
+        "annotation_line_width": 0.6000000000000001,
+        "line_step": 0.38849555921538764
+      }
+    ],
+    "notes": [
+      "Specific to the production Voron 2.4 350 mm five-tool configuration in this repository; not a universal printer profile.",
+      "Uses the reviewed 2026-10-13 patch-only geometry: center X174/Y168, nominal Z0.24, range +/-0.04 mm, 51 rows, high-to-low.",
+      "PRINT_START owns homing, leveling, mesh and prime; initial printing tool retains 0.6 mm retract, other primed tools retain 5 mm.",
+      "KTC pickup does not unretract. The generator recovers initial_retract once at the first printed point.",
+      "PRINT_END owns final retract and lift; stored tool Z values are guarded references, never added to generated Z.",
+      "Software validation only for this integration. Confirm material and printer readiness before an attended print; offsets are never saved automatically."
+    ]
+  },
+  "rows": [
+    {
+      "tool": 0,
+      "index": 0,
+      "y": 158.2876,
+      "z": 0.28,
+      "runtime_z_adjust": 0.04
+    },
+    {
+      "tool": 0,
+      "index": 1,
+      "y": 158.6761,
+      "z": 0.2784,
+      "runtime_z_adjust": 0.0384
+    },
+    {
+      "tool": 0,
+      "index": 2,
+      "y": 159.0646,
+      "z": 0.2768,
+      "runtime_z_adjust": 0.0368
+    },
+    {
+      "tool": 0,
+      "index": 3,
+      "y": 159.4531,
+      "z": 0.2752,
+      "runtime_z_adjust": 0.0352
+    },
+    {
+      "tool": 0,
+      "index": 4,
+      "y": 159.8416,
+      "z": 0.2736,
+      "runtime_z_adjust": 0.0336
+    },
+    {
+      "tool": 0,
+      "index": 5,
+      "y": 160.2301,
+      "z": 0.272,
+      "runtime_z_adjust": 0.032
+    },
+    {
+      "tool": 0,
+      "index": 6,
+      "y": 160.6186,
+      "z": 0.2704,
+      "runtime_z_adjust": 0.0304
+    },
+    {
+      "tool": 0,
+      "index": 7,
+      "y": 161.0071,
+      "z": 0.2688,
+      "runtime_z_adjust": 0.0288
+    },
+    {
+      "tool": 0,
+      "index": 8,
+      "y": 161.3956,
+      "z": 0.2672,
+      "runtime_z_adjust": 0.0272
+    },
+    {
+      "tool": 0,
+      "index": 9,
+      "y": 161.7841,
+      "z": 0.2656,
+      "runtime_z_adjust": 0.0256
+    },
+    {
+      "tool": 0,
+      "index": 10,
+      "y": 162.1726,
+      "z": 0.264,
+      "runtime_z_adjust": 0.024
+    },
+    {
+      "tool": 0,
+      "index": 11,
+      "y": 162.5611,
+      "z": 0.2624,
+      "runtime_z_adjust": 0.0224
+    },
+    {
+      "tool": 0,
+      "index": 12,
+      "y": 162.9496,
+      "z": 0.2608,
+      "runtime_z_adjust": 0.0208
+    },
+    {
+      "tool": 0,
+      "index": 13,
+      "y": 163.3381,
+      "z": 0.2592,
+      "runtime_z_adjust": 0.0192
+    },
+    {
+      "tool": 0,
+      "index": 14,
+      "y": 163.7265,
+      "z": 0.2576,
+      "runtime_z_adjust": 0.0176
+    },
+    {
+      "tool": 0,
+      "index": 15,
+      "y": 164.115,
+      "z": 0.256,
+      "runtime_z_adjust": 0.016
+    },
+    {
+      "tool": 0,
+      "index": 16,
+      "y": 164.5035,
+      "z": 0.2544,
+      "runtime_z_adjust": 0.0144
+    },
+    {
+      "tool": 0,
+      "index": 17,
+      "y": 164.892,
+      "z": 0.2528,
+      "runtime_z_adjust": 0.0128
+    },
+    {
+      "tool": 0,
+      "index": 18,
+      "y": 165.2805,
+      "z": 0.2512,
+      "runtime_z_adjust": 0.0112
+    },
+    {
+      "tool": 0,
+      "index": 19,
+      "y": 165.669,
+      "z": 0.2496,
+      "runtime_z_adjust": 0.0096
+    },
+    {
+      "tool": 0,
+      "index": 20,
+      "y": 166.0575,
+      "z": 0.248,
+      "runtime_z_adjust": 0.008
+    },
+    {
+      "tool": 0,
+      "index": 21,
+      "y": 166.446,
+      "z": 0.2464,
+      "runtime_z_adjust": 0.0064
+    },
+    {
+      "tool": 0,
+      "index": 22,
+      "y": 166.8345,
+      "z": 0.2448,
+      "runtime_z_adjust": 0.0048
+    },
+    {
+      "tool": 0,
+      "index": 23,
+      "y": 167.223,
+      "z": 0.2432,
+      "runtime_z_adjust": 0.0032
+    },
+    {
+      "tool": 0,
+      "index": 24,
+      "y": 167.6115,
+      "z": 0.2416,
+      "runtime_z_adjust": 0.0016
+    },
+    {
+      "tool": 0,
+      "index": 25,
+      "y": 168.0,
+      "z": 0.24,
+      "runtime_z_adjust": 0.0
+    },
+    {
+      "tool": 0,
+      "index": 26,
+      "y": 168.3885,
+      "z": 0.2384,
+      "runtime_z_adjust": -0.0016
+    },
+    {
+      "tool": 0,
+      "index": 27,
+      "y": 168.777,
+      "z": 0.2368,
+      "runtime_z_adjust": -0.0032
+    },
+    {
+      "tool": 0,
+      "index": 28,
+      "y": 169.1655,
+      "z": 0.2352,
+      "runtime_z_adjust": -0.0048
+    },
+    {
+      "tool": 0,
+      "index": 29,
+      "y": 169.554,
+      "z": 0.2336,
+      "runtime_z_adjust": -0.0064
+    },
+    {
+      "tool": 0,
+      "index": 30,
+      "y": 169.9425,
+      "z": 0.232,
+      "runtime_z_adjust": -0.008
+    },
+    {
+      "tool": 0,
+      "index": 31,
+      "y": 170.331,
+      "z": 0.2304,
+      "runtime_z_adjust": -0.0096
+    },
+    {
+      "tool": 0,
+      "index": 32,
+      "y": 170.7195,
+      "z": 0.2288,
+      "runtime_z_adjust": -0.0112
+    },
+    {
+      "tool": 0,
+      "index": 33,
+      "y": 171.108,
+      "z": 0.2272,
+      "runtime_z_adjust": -0.0128
+    },
+    {
+      "tool": 0,
+      "index": 34,
+      "y": 171.4965,
+      "z": 0.2256,
+      "runtime_z_adjust": -0.0144
+    },
+    {
+      "tool": 0,
+      "index": 35,
+      "y": 171.885,
+      "z": 0.224,
+      "runtime_z_adjust": -0.016
+    },
+    {
+      "tool": 0,
+      "index": 36,
+      "y": 172.2735,
+      "z": 0.2224,
+      "runtime_z_adjust": -0.0176
+    },
+    {
+      "tool": 0,
+      "index": 37,
+      "y": 172.6619,
+      "z": 0.2208,
+      "runtime_z_adjust": -0.0192
+    },
+    {
+      "tool": 0,
+      "index": 38,
+      "y": 173.0504,
+      "z": 0.2192,
+      "runtime_z_adjust": -0.0208
+    },
+    {
+      "tool": 0,
+      "index": 39,
+      "y": 173.4389,
+      "z": 0.2176,
+      "runtime_z_adjust": -0.0224
+    },
+    {
+      "tool": 0,
+      "index": 40,
+      "y": 173.8274,
+      "z": 0.216,
+      "runtime_z_adjust": -0.024
+    },
+    {
+      "tool": 0,
+      "index": 41,
+      "y": 174.2159,
+      "z": 0.2144,
+      "runtime_z_adjust": -0.0256
+    },
+    {
+      "tool": 0,
+      "index": 42,
+      "y": 174.6044,
+      "z": 0.2128,
+      "runtime_z_adjust": -0.0272
+    },
+    {
+      "tool": 0,
+      "index": 43,
+      "y": 174.9929,
+      "z": 0.2112,
+      "runtime_z_adjust": -0.0288
+    },
+    {
+      "tool": 0,
+      "index": 44,
+      "y": 175.3814,
+      "z": 0.2096,
+      "runtime_z_adjust": -0.0304
+    },
+    {
+      "tool": 0,
+      "index": 45,
+      "y": 175.7699,
+      "z": 0.208,
+      "runtime_z_adjust": -0.032
+    },
+    {
+      "tool": 0,
+      "index": 46,
+      "y": 176.1584,
+      "z": 0.2064,
+      "runtime_z_adjust": -0.0336
+    },
+    {
+      "tool": 0,
+      "index": 47,
+      "y": 176.5469,
+      "z": 0.2048,
+      "runtime_z_adjust": -0.0352
+    },
+    {
+      "tool": 0,
+      "index": 48,
+      "y": 176.9354,
+      "z": 0.2032,
+      "runtime_z_adjust": -0.0368
+    },
+    {
+      "tool": 0,
+      "index": 49,
+      "y": 177.3239,
+      "z": 0.2016,
+      "runtime_z_adjust": -0.0384
+    },
+    {
+      "tool": 0,
+      "index": 50,
+      "y": 177.7124,
+      "z": 0.2,
+      "runtime_z_adjust": -0.04
+    },
+    {
+      "tool": 1,
+      "index": 0,
+      "y": 158.2876,
+      "z": 0.28,
+      "runtime_z_adjust": 0.04
+    },
+    {
+      "tool": 1,
+      "index": 1,
+      "y": 158.6761,
+      "z": 0.2784,
+      "runtime_z_adjust": 0.0384
+    },
+    {
+      "tool": 1,
+      "index": 2,
+      "y": 159.0646,
+      "z": 0.2768,
+      "runtime_z_adjust": 0.0368
+    },
+    {
+      "tool": 1,
+      "index": 3,
+      "y": 159.4531,
+      "z": 0.2752,
+      "runtime_z_adjust": 0.0352
+    },
+    {
+      "tool": 1,
+      "index": 4,
+      "y": 159.8416,
+      "z": 0.2736,
+      "runtime_z_adjust": 0.0336
+    },
+    {
+      "tool": 1,
+      "index": 5,
+      "y": 160.2301,
+      "z": 0.272,
+      "runtime_z_adjust": 0.032
+    },
+    {
+      "tool": 1,
+      "index": 6,
+      "y": 160.6186,
+      "z": 0.2704,
+      "runtime_z_adjust": 0.0304
+    },
+    {
+      "tool": 1,
+      "index": 7,
+      "y": 161.0071,
+      "z": 0.2688,
+      "runtime_z_adjust": 0.0288
+    },
+    {
+      "tool": 1,
+      "index": 8,
+      "y": 161.3956,
+      "z": 0.2672,
+      "runtime_z_adjust": 0.0272
+    },
+    {
+      "tool": 1,
+      "index": 9,
+      "y": 161.7841,
+      "z": 0.2656,
+      "runtime_z_adjust": 0.0256
+    },
+    {
+      "tool": 1,
+      "index": 10,
+      "y": 162.1726,
+      "z": 0.264,
+      "runtime_z_adjust": 0.024
+    },
+    {
+      "tool": 1,
+      "index": 11,
+      "y": 162.5611,
+      "z": 0.2624,
+      "runtime_z_adjust": 0.0224
+    },
+    {
+      "tool": 1,
+      "index": 12,
+      "y": 162.9496,
+      "z": 0.2608,
+      "runtime_z_adjust": 0.0208
+    },
+    {
+      "tool": 1,
+      "index": 13,
+      "y": 163.3381,
+      "z": 0.2592,
+      "runtime_z_adjust": 0.0192
+    },
+    {
+      "tool": 1,
+      "index": 14,
+      "y": 163.7265,
+      "z": 0.2576,
+      "runtime_z_adjust": 0.0176
+    },
+    {
+      "tool": 1,
+      "index": 15,
+      "y": 164.115,
+      "z": 0.256,
+      "runtime_z_adjust": 0.016
+    },
+    {
+      "tool": 1,
+      "index": 16,
+      "y": 164.5035,
+      "z": 0.2544,
+      "runtime_z_adjust": 0.0144
+    },
+    {
+      "tool": 1,
+      "index": 17,
+      "y": 164.892,
+      "z": 0.2528,
+      "runtime_z_adjust": 0.0128
+    },
+    {
+      "tool": 1,
+      "index": 18,
+      "y": 165.2805,
+      "z": 0.2512,
+      "runtime_z_adjust": 0.0112
+    },
+    {
+      "tool": 1,
+      "index": 19,
+      "y": 165.669,
+      "z": 0.2496,
+      "runtime_z_adjust": 0.0096
+    },
+    {
+      "tool": 1,
+      "index": 20,
+      "y": 166.0575,
+      "z": 0.248,
+      "runtime_z_adjust": 0.008
+    },
+    {
+      "tool": 1,
+      "index": 21,
+      "y": 166.446,
+      "z": 0.2464,
+      "runtime_z_adjust": 0.0064
+    },
+    {
+      "tool": 1,
+      "index": 22,
+      "y": 166.8345,
+      "z": 0.2448,
+      "runtime_z_adjust": 0.0048
+    },
+    {
+      "tool": 1,
+      "index": 23,
+      "y": 167.223,
+      "z": 0.2432,
+      "runtime_z_adjust": 0.0032
+    },
+    {
+      "tool": 1,
+      "index": 24,
+      "y": 167.6115,
+      "z": 0.2416,
+      "runtime_z_adjust": 0.0016
+    },
+    {
+      "tool": 1,
+      "index": 25,
+      "y": 168.0,
+      "z": 0.24,
+      "runtime_z_adjust": 0.0
+    },
+    {
+      "tool": 1,
+      "index": 26,
+      "y": 168.3885,
+      "z": 0.2384,
+      "runtime_z_adjust": -0.0016
+    },
+    {
+      "tool": 1,
+      "index": 27,
+      "y": 168.777,
+      "z": 0.2368,
+      "runtime_z_adjust": -0.0032
+    },
+    {
+      "tool": 1,
+      "index": 28,
+      "y": 169.1655,
+      "z": 0.2352,
+      "runtime_z_adjust": -0.0048
+    },
+    {
+      "tool": 1,
+      "index": 29,
+      "y": 169.554,
+      "z": 0.2336,
+      "runtime_z_adjust": -0.0064
+    },
+    {
+      "tool": 1,
+      "index": 30,
+      "y": 169.9425,
+      "z": 0.232,
+      "runtime_z_adjust": -0.008
+    },
+    {
+      "tool": 1,
+      "index": 31,
+      "y": 170.331,
+      "z": 0.2304,
+      "runtime_z_adjust": -0.0096
+    },
+    {
+      "tool": 1,
+      "index": 32,
+      "y": 170.7195,
+      "z": 0.2288,
+      "runtime_z_adjust": -0.0112
+    },
+    {
+      "tool": 1,
+      "index": 33,
+      "y": 171.108,
+      "z": 0.2272,
+      "runtime_z_adjust": -0.0128
+    },
+    {
+      "tool": 1,
+      "index": 34,
+      "y": 171.4965,
+      "z": 0.2256,
+      "runtime_z_adjust": -0.0144
+    },
+    {
+      "tool": 1,
+      "index": 35,
+      "y": 171.885,
+      "z": 0.224,
+      "runtime_z_adjust": -0.016
+    },
+    {
+      "tool": 1,
+      "index": 36,
+      "y": 172.2735,
+      "z": 0.2224,
+      "runtime_z_adjust": -0.0176
+    },
+    {
+      "tool": 1,
+      "index": 37,
+      "y": 172.6619,
+      "z": 0.2208,
+      "runtime_z_adjust": -0.0192
+    },
+    {
+      "tool": 1,
+      "index": 38,
+      "y": 173.0504,
+      "z": 0.2192,
+      "runtime_z_adjust": -0.0208
+    },
+    {
+      "tool": 1,
+      "index": 39,
+      "y": 173.4389,
+      "z": 0.2176,
+      "runtime_z_adjust": -0.0224
+    },
+    {
+      "tool": 1,
+      "index": 40,
+      "y": 173.8274,
+      "z": 0.216,
+      "runtime_z_adjust": -0.024
+    },
+    {
+      "tool": 1,
+      "index": 41,
+      "y": 174.2159,
+      "z": 0.2144,
+      "runtime_z_adjust": -0.0256
+    },
+    {
+      "tool": 1,
+      "index": 42,
+      "y": 174.6044,
+      "z": 0.2128,
+      "runtime_z_adjust": -0.0272
+    },
+    {
+      "tool": 1,
+      "index": 43,
+      "y": 174.9929,
+      "z": 0.2112,
+      "runtime_z_adjust": -0.0288
+    },
+    {
+      "tool": 1,
+      "index": 44,
+      "y": 175.3814,
+      "z": 0.2096,
+      "runtime_z_adjust": -0.0304
+    },
+    {
+      "tool": 1,
+      "index": 45,
+      "y": 175.7699,
+      "z": 0.208,
+      "runtime_z_adjust": -0.032
+    },
+    {
+      "tool": 1,
+      "index": 46,
+      "y": 176.1584,
+      "z": 0.2064,
+      "runtime_z_adjust": -0.0336
+    },
+    {
+      "tool": 1,
+      "index": 47,
+      "y": 176.5469,
+      "z": 0.2048,
+      "runtime_z_adjust": -0.0352
+    },
+    {
+      "tool": 1,
+      "index": 48,
+      "y": 176.9354,
+      "z": 0.2032,
+      "runtime_z_adjust": -0.0368
+    },
+    {
+      "tool": 1,
+      "index": 49,
+      "y": 177.3239,
+      "z": 0.2016,
+      "runtime_z_adjust": -0.0384
+    },
+    {
+      "tool": 1,
+      "index": 50,
+      "y": 177.7124,
+      "z": 0.2,
+      "runtime_z_adjust": -0.04
+    },
+    {
+      "tool": 2,
+      "index": 0,
+      "y": 158.2876,
+      "z": 0.28,
+      "runtime_z_adjust": 0.04
+    },
+    {
+      "tool": 2,
+      "index": 1,
+      "y": 158.6761,
+      "z": 0.2784,
+      "runtime_z_adjust": 0.0384
+    },
+    {
+      "tool": 2,
+      "index": 2,
+      "y": 159.0646,
+      "z": 0.2768,
+      "runtime_z_adjust": 0.0368
+    },
+    {
+      "tool": 2,
+      "index": 3,
+      "y": 159.4531,
+      "z": 0.2752,
+      "runtime_z_adjust": 0.0352
+    },
+    {
+      "tool": 2,
+      "index": 4,
+      "y": 159.8416,
+      "z": 0.2736,
+      "runtime_z_adjust": 0.0336
+    },
+    {
+      "tool": 2,
+      "index": 5,
+      "y": 160.2301,
+      "z": 0.272,
+      "runtime_z_adjust": 0.032
+    },
+    {
+      "tool": 2,
+      "index": 6,
+      "y": 160.6186,
+      "z": 0.2704,
+      "runtime_z_adjust": 0.0304
+    },
+    {
+      "tool": 2,
+      "index": 7,
+      "y": 161.0071,
+      "z": 0.2688,
+      "runtime_z_adjust": 0.0288
+    },
+    {
+      "tool": 2,
+      "index": 8,
+      "y": 161.3956,
+      "z": 0.2672,
+      "runtime_z_adjust": 0.0272
+    },
+    {
+      "tool": 2,
+      "index": 9,
+      "y": 161.7841,
+      "z": 0.2656,
+      "runtime_z_adjust": 0.0256
+    },
+    {
+      "tool": 2,
+      "index": 10,
+      "y": 162.1726,
+      "z": 0.264,
+      "runtime_z_adjust": 0.024
+    },
+    {
+      "tool": 2,
+      "index": 11,
+      "y": 162.5611,
+      "z": 0.2624,
+      "runtime_z_adjust": 0.0224
+    },
+    {
+      "tool": 2,
+      "index": 12,
+      "y": 162.9496,
+      "z": 0.2608,
+      "runtime_z_adjust": 0.0208
+    },
+    {
+      "tool": 2,
+      "index": 13,
+      "y": 163.3381,
+      "z": 0.2592,
+      "runtime_z_adjust": 0.0192
+    },
+    {
+      "tool": 2,
+      "index": 14,
+      "y": 163.7265,
+      "z": 0.2576,
+      "runtime_z_adjust": 0.0176
+    },
+    {
+      "tool": 2,
+      "index": 15,
+      "y": 164.115,
+      "z": 0.256,
+      "runtime_z_adjust": 0.016
+    },
+    {
+      "tool": 2,
+      "index": 16,
+      "y": 164.5035,
+      "z": 0.2544,
+      "runtime_z_adjust": 0.0144
+    },
+    {
+      "tool": 2,
+      "index": 17,
+      "y": 164.892,
+      "z": 0.2528,
+      "runtime_z_adjust": 0.0128
+    },
+    {
+      "tool": 2,
+      "index": 18,
+      "y": 165.2805,
+      "z": 0.2512,
+      "runtime_z_adjust": 0.0112
+    },
+    {
+      "tool": 2,
+      "index": 19,
+      "y": 165.669,
+      "z": 0.2496,
+      "runtime_z_adjust": 0.0096
+    },
+    {
+      "tool": 2,
+      "index": 20,
+      "y": 166.0575,
+      "z": 0.248,
+      "runtime_z_adjust": 0.008
+    },
+    {
+      "tool": 2,
+      "index": 21,
+      "y": 166.446,
+      "z": 0.2464,
+      "runtime_z_adjust": 0.0064
+    },
+    {
+      "tool": 2,
+      "index": 22,
+      "y": 166.8345,
+      "z": 0.2448,
+      "runtime_z_adjust": 0.0048
+    },
+    {
+      "tool": 2,
+      "index": 23,
+      "y": 167.223,
+      "z": 0.2432,
+      "runtime_z_adjust": 0.0032
+    },
+    {
+      "tool": 2,
+      "index": 24,
+      "y": 167.6115,
+      "z": 0.2416,
+      "runtime_z_adjust": 0.0016
+    },
+    {
+      "tool": 2,
+      "index": 25,
+      "y": 168.0,
+      "z": 0.24,
+      "runtime_z_adjust": 0.0
+    },
+    {
+      "tool": 2,
+      "index": 26,
+      "y": 168.3885,
+      "z": 0.2384,
+      "runtime_z_adjust": -0.0016
+    },
+    {
+      "tool": 2,
+      "index": 27,
+      "y": 168.777,
+      "z": 0.2368,
+      "runtime_z_adjust": -0.0032
+    },
+    {
+      "tool": 2,
+      "index": 28,
+      "y": 169.1655,
+      "z": 0.2352,
+      "runtime_z_adjust": -0.0048
+    },
+    {
+      "tool": 2,
+      "index": 29,
+      "y": 169.554,
+      "z": 0.2336,
+      "runtime_z_adjust": -0.0064
+    },
+    {
+      "tool": 2,
+      "index": 30,
+      "y": 169.9425,
+      "z": 0.232,
+      "runtime_z_adjust": -0.008
+    },
+    {
+      "tool": 2,
+      "index": 31,
+      "y": 170.331,
+      "z": 0.2304,
+      "runtime_z_adjust": -0.0096
+    },
+    {
+      "tool": 2,
+      "index": 32,
+      "y": 170.7195,
+      "z": 0.2288,
+      "runtime_z_adjust": -0.0112
+    },
+    {
+      "tool": 2,
+      "index": 33,
+      "y": 171.108,
+      "z": 0.2272,
+      "runtime_z_adjust": -0.0128
+    },
+    {
+      "tool": 2,
+      "index": 34,
+      "y": 171.4965,
+      "z": 0.2256,
+      "runtime_z_adjust": -0.0144
+    },
+    {
+      "tool": 2,
+      "index": 35,
+      "y": 171.885,
+      "z": 0.224,
+      "runtime_z_adjust": -0.016
+    },
+    {
+      "tool": 2,
+      "index": 36,
+      "y": 172.2735,
+      "z": 0.2224,
+      "runtime_z_adjust": -0.0176
+    },
+    {
+      "tool": 2,
+      "index": 37,
+      "y": 172.6619,
+      "z": 0.2208,
+      "runtime_z_adjust": -0.0192
+    },
+    {
+      "tool": 2,
+      "index": 38,
+      "y": 173.0504,
+      "z": 0.2192,
+      "runtime_z_adjust": -0.0208
+    },
+    {
+      "tool": 2,
+      "index": 39,
+      "y": 173.4389,
+      "z": 0.2176,
+      "runtime_z_adjust": -0.0224
+    },
+    {
+      "tool": 2,
+      "index": 40,
+      "y": 173.8274,
+      "z": 0.216,
+      "runtime_z_adjust": -0.024
+    },
+    {
+      "tool": 2,
+      "index": 41,
+      "y": 174.2159,
+      "z": 0.2144,
+      "runtime_z_adjust": -0.0256
+    },
+    {
+      "tool": 2,
+      "index": 42,
+      "y": 174.6044,
+      "z": 0.2128,
+      "runtime_z_adjust": -0.0272
+    },
+    {
+      "tool": 2,
+      "index": 43,
+      "y": 174.9929,
+      "z": 0.2112,
+      "runtime_z_adjust": -0.0288
+    },
+    {
+      "tool": 2,
+      "index": 44,
+      "y": 175.3814,
+      "z": 0.2096,
+      "runtime_z_adjust": -0.0304
+    },
+    {
+      "tool": 2,
+      "index": 45,
+      "y": 175.7699,
+      "z": 0.208,
+      "runtime_z_adjust": -0.032
+    },
+    {
+      "tool": 2,
+      "index": 46,
+      "y": 176.1584,
+      "z": 0.2064,
+      "runtime_z_adjust": -0.0336
+    },
+    {
+      "tool": 2,
+      "index": 47,
+      "y": 176.5469,
+      "z": 0.2048,
+      "runtime_z_adjust": -0.0352
+    },
+    {
+      "tool": 2,
+      "index": 48,
+      "y": 176.9354,
+      "z": 0.2032,
+      "runtime_z_adjust": -0.0368
+    },
+    {
+      "tool": 2,
+      "index": 49,
+      "y": 177.3239,
+      "z": 0.2016,
+      "runtime_z_adjust": -0.0384
+    },
+    {
+      "tool": 2,
+      "index": 50,
+      "y": 177.7124,
+      "z": 0.2,
+      "runtime_z_adjust": -0.04
+    },
+    {
+      "tool": 3,
+      "index": 0,
+      "y": 158.2876,
+      "z": 0.28,
+      "runtime_z_adjust": 0.04
+    },
+    {
+      "tool": 3,
+      "index": 1,
+      "y": 158.6761,
+      "z": 0.2784,
+      "runtime_z_adjust": 0.0384
+    },
+    {
+      "tool": 3,
+      "index": 2,
+      "y": 159.0646,
+      "z": 0.2768,
+      "runtime_z_adjust": 0.0368
+    },
+    {
+      "tool": 3,
+      "index": 3,
+      "y": 159.4531,
+      "z": 0.2752,
+      "runtime_z_adjust": 0.0352
+    },
+    {
+      "tool": 3,
+      "index": 4,
+      "y": 159.8416,
+      "z": 0.2736,
+      "runtime_z_adjust": 0.0336
+    },
+    {
+      "tool": 3,
+      "index": 5,
+      "y": 160.2301,
+      "z": 0.272,
+      "runtime_z_adjust": 0.032
+    },
+    {
+      "tool": 3,
+      "index": 6,
+      "y": 160.6186,
+      "z": 0.2704,
+      "runtime_z_adjust": 0.0304
+    },
+    {
+      "tool": 3,
+      "index": 7,
+      "y": 161.0071,
+      "z": 0.2688,
+      "runtime_z_adjust": 0.0288
+    },
+    {
+      "tool": 3,
+      "index": 8,
+      "y": 161.3956,
+      "z": 0.2672,
+      "runtime_z_adjust": 0.0272
+    },
+    {
+      "tool": 3,
+      "index": 9,
+      "y": 161.7841,
+      "z": 0.2656,
+      "runtime_z_adjust": 0.0256
+    },
+    {
+      "tool": 3,
+      "index": 10,
+      "y": 162.1726,
+      "z": 0.264,
+      "runtime_z_adjust": 0.024
+    },
+    {
+      "tool": 3,
+      "index": 11,
+      "y": 162.5611,
+      "z": 0.2624,
+      "runtime_z_adjust": 0.0224
+    },
+    {
+      "tool": 3,
+      "index": 12,
+      "y": 162.9496,
+      "z": 0.2608,
+      "runtime_z_adjust": 0.0208
+    },
+    {
+      "tool": 3,
+      "index": 13,
+      "y": 163.3381,
+      "z": 0.2592,
+      "runtime_z_adjust": 0.0192
+    },
+    {
+      "tool": 3,
+      "index": 14,
+      "y": 163.7265,
+      "z": 0.2576,
+      "runtime_z_adjust": 0.0176
+    },
+    {
+      "tool": 3,
+      "index": 15,
+      "y": 164.115,
+      "z": 0.256,
+      "runtime_z_adjust": 0.016
+    },
+    {
+      "tool": 3,
+      "index": 16,
+      "y": 164.5035,
+      "z": 0.2544,
+      "runtime_z_adjust": 0.0144
+    },
+    {
+      "tool": 3,
+      "index": 17,
+      "y": 164.892,
+      "z": 0.2528,
+      "runtime_z_adjust": 0.0128
+    },
+    {
+      "tool": 3,
+      "index": 18,
+      "y": 165.2805,
+      "z": 0.2512,
+      "runtime_z_adjust": 0.0112
+    },
+    {
+      "tool": 3,
+      "index": 19,
+      "y": 165.669,
+      "z": 0.2496,
+      "runtime_z_adjust": 0.0096
+    },
+    {
+      "tool": 3,
+      "index": 20,
+      "y": 166.0575,
+      "z": 0.248,
+      "runtime_z_adjust": 0.008
+    },
+    {
+      "tool": 3,
+      "index": 21,
+      "y": 166.446,
+      "z": 0.2464,
+      "runtime_z_adjust": 0.0064
+    },
+    {
+      "tool": 3,
+      "index": 22,
+      "y": 166.8345,
+      "z": 0.2448,
+      "runtime_z_adjust": 0.0048
+    },
+    {
+      "tool": 3,
+      "index": 23,
+      "y": 167.223,
+      "z": 0.2432,
+      "runtime_z_adjust": 0.0032
+    },
+    {
+      "tool": 3,
+      "index": 24,
+      "y": 167.6115,
+      "z": 0.2416,
+      "runtime_z_adjust": 0.0016
+    },
+    {
+      "tool": 3,
+      "index": 25,
+      "y": 168.0,
+      "z": 0.24,
+      "runtime_z_adjust": 0.0
+    },
+    {
+      "tool": 3,
+      "index": 26,
+      "y": 168.3885,
+      "z": 0.2384,
+      "runtime_z_adjust": -0.0016
+    },
+    {
+      "tool": 3,
+      "index": 27,
+      "y": 168.777,
+      "z": 0.2368,
+      "runtime_z_adjust": -0.0032
+    },
+    {
+      "tool": 3,
+      "index": 28,
+      "y": 169.1655,
+      "z": 0.2352,
+      "runtime_z_adjust": -0.0048
+    },
+    {
+      "tool": 3,
+      "index": 29,
+      "y": 169.554,
+      "z": 0.2336,
+      "runtime_z_adjust": -0.0064
+    },
+    {
+      "tool": 3,
+      "index": 30,
+      "y": 169.9425,
+      "z": 0.232,
+      "runtime_z_adjust": -0.008
+    },
+    {
+      "tool": 3,
+      "index": 31,
+      "y": 170.331,
+      "z": 0.2304,
+      "runtime_z_adjust": -0.0096
+    },
+    {
+      "tool": 3,
+      "index": 32,
+      "y": 170.7195,
+      "z": 0.2288,
+      "runtime_z_adjust": -0.0112
+    },
+    {
+      "tool": 3,
+      "index": 33,
+      "y": 171.108,
+      "z": 0.2272,
+      "runtime_z_adjust": -0.0128
+    },
+    {
+      "tool": 3,
+      "index": 34,
+      "y": 171.4965,
+      "z": 0.2256,
+      "runtime_z_adjust": -0.0144
+    },
+    {
+      "tool": 3,
+      "index": 35,
+      "y": 171.885,
+      "z": 0.224,
+      "runtime_z_adjust": -0.016
+    },
+    {
+      "tool": 3,
+      "index": 36,
+      "y": 172.2735,
+      "z": 0.2224,
+      "runtime_z_adjust": -0.0176
+    },
+    {
+      "tool": 3,
+      "index": 37,
+      "y": 172.6619,
+      "z": 0.2208,
+      "runtime_z_adjust": -0.0192
+    },
+    {
+      "tool": 3,
+      "index": 38,
+      "y": 173.0504,
+      "z": 0.2192,
+      "runtime_z_adjust": -0.0208
+    },
+    {
+      "tool": 3,
+      "index": 39,
+      "y": 173.4389,
+      "z": 0.2176,
+      "runtime_z_adjust": -0.0224
+    },
+    {
+      "tool": 3,
+      "index": 40,
+      "y": 173.8274,
+      "z": 0.216,
+      "runtime_z_adjust": -0.024
+    },
+    {
+      "tool": 3,
+      "index": 41,
+      "y": 174.2159,
+      "z": 0.2144,
+      "runtime_z_adjust": -0.0256
+    },
+    {
+      "tool": 3,
+      "index": 42,
+      "y": 174.6044,
+      "z": 0.2128,
+      "runtime_z_adjust": -0.0272
+    },
+    {
+      "tool": 3,
+      "index": 43,
+      "y": 174.9929,
+      "z": 0.2112,
+      "runtime_z_adjust": -0.0288
+    },
+    {
+      "tool": 3,
+      "index": 44,
+      "y": 175.3814,
+      "z": 0.2096,
+      "runtime_z_adjust": -0.0304
+    },
+    {
+      "tool": 3,
+      "index": 45,
+      "y": 175.7699,
+      "z": 0.208,
+      "runtime_z_adjust": -0.032
+    },
+    {
+      "tool": 3,
+      "index": 46,
+      "y": 176.1584,
+      "z": 0.2064,
+      "runtime_z_adjust": -0.0336
+    },
+    {
+      "tool": 3,
+      "index": 47,
+      "y": 176.5469,
+      "z": 0.2048,
+      "runtime_z_adjust": -0.0352
+    },
+    {
+      "tool": 3,
+      "index": 48,
+      "y": 176.9354,
+      "z": 0.2032,
+      "runtime_z_adjust": -0.0368
+    },
+    {
+      "tool": 3,
+      "index": 49,
+      "y": 177.3239,
+      "z": 0.2016,
+      "runtime_z_adjust": -0.0384
+    },
+    {
+      "tool": 3,
+      "index": 50,
+      "y": 177.7124,
+      "z": 0.2,
+      "runtime_z_adjust": -0.04
+    },
+    {
+      "tool": 4,
+      "index": 0,
+      "y": 158.2876,
+      "z": 0.28,
+      "runtime_z_adjust": 0.04
+    },
+    {
+      "tool": 4,
+      "index": 1,
+      "y": 158.6761,
+      "z": 0.2784,
+      "runtime_z_adjust": 0.0384
+    },
+    {
+      "tool": 4,
+      "index": 2,
+      "y": 159.0646,
+      "z": 0.2768,
+      "runtime_z_adjust": 0.0368
+    },
+    {
+      "tool": 4,
+      "index": 3,
+      "y": 159.4531,
+      "z": 0.2752,
+      "runtime_z_adjust": 0.0352
+    },
+    {
+      "tool": 4,
+      "index": 4,
+      "y": 159.8416,
+      "z": 0.2736,
+      "runtime_z_adjust": 0.0336
+    },
+    {
+      "tool": 4,
+      "index": 5,
+      "y": 160.2301,
+      "z": 0.272,
+      "runtime_z_adjust": 0.032
+    },
+    {
+      "tool": 4,
+      "index": 6,
+      "y": 160.6186,
+      "z": 0.2704,
+      "runtime_z_adjust": 0.0304
+    },
+    {
+      "tool": 4,
+      "index": 7,
+      "y": 161.0071,
+      "z": 0.2688,
+      "runtime_z_adjust": 0.0288
+    },
+    {
+      "tool": 4,
+      "index": 8,
+      "y": 161.3956,
+      "z": 0.2672,
+      "runtime_z_adjust": 0.0272
+    },
+    {
+      "tool": 4,
+      "index": 9,
+      "y": 161.7841,
+      "z": 0.2656,
+      "runtime_z_adjust": 0.0256
+    },
+    {
+      "tool": 4,
+      "index": 10,
+      "y": 162.1726,
+      "z": 0.264,
+      "runtime_z_adjust": 0.024
+    },
+    {
+      "tool": 4,
+      "index": 11,
+      "y": 162.5611,
+      "z": 0.2624,
+      "runtime_z_adjust": 0.0224
+    },
+    {
+      "tool": 4,
+      "index": 12,
+      "y": 162.9496,
+      "z": 0.2608,
+      "runtime_z_adjust": 0.0208
+    },
+    {
+      "tool": 4,
+      "index": 13,
+      "y": 163.3381,
+      "z": 0.2592,
+      "runtime_z_adjust": 0.0192
+    },
+    {
+      "tool": 4,
+      "index": 14,
+      "y": 163.7265,
+      "z": 0.2576,
+      "runtime_z_adjust": 0.0176
+    },
+    {
+      "tool": 4,
+      "index": 15,
+      "y": 164.115,
+      "z": 0.256,
+      "runtime_z_adjust": 0.016
+    },
+    {
+      "tool": 4,
+      "index": 16,
+      "y": 164.5035,
+      "z": 0.2544,
+      "runtime_z_adjust": 0.0144
+    },
+    {
+      "tool": 4,
+      "index": 17,
+      "y": 164.892,
+      "z": 0.2528,
+      "runtime_z_adjust": 0.0128
+    },
+    {
+      "tool": 4,
+      "index": 18,
+      "y": 165.2805,
+      "z": 0.2512,
+      "runtime_z_adjust": 0.0112
+    },
+    {
+      "tool": 4,
+      "index": 19,
+      "y": 165.669,
+      "z": 0.2496,
+      "runtime_z_adjust": 0.0096
+    },
+    {
+      "tool": 4,
+      "index": 20,
+      "y": 166.0575,
+      "z": 0.248,
+      "runtime_z_adjust": 0.008
+    },
+    {
+      "tool": 4,
+      "index": 21,
+      "y": 166.446,
+      "z": 0.2464,
+      "runtime_z_adjust": 0.0064
+    },
+    {
+      "tool": 4,
+      "index": 22,
+      "y": 166.8345,
+      "z": 0.2448,
+      "runtime_z_adjust": 0.0048
+    },
+    {
+      "tool": 4,
+      "index": 23,
+      "y": 167.223,
+      "z": 0.2432,
+      "runtime_z_adjust": 0.0032
+    },
+    {
+      "tool": 4,
+      "index": 24,
+      "y": 167.6115,
+      "z": 0.2416,
+      "runtime_z_adjust": 0.0016
+    },
+    {
+      "tool": 4,
+      "index": 25,
+      "y": 168.0,
+      "z": 0.24,
+      "runtime_z_adjust": 0.0
+    },
+    {
+      "tool": 4,
+      "index": 26,
+      "y": 168.3885,
+      "z": 0.2384,
+      "runtime_z_adjust": -0.0016
+    },
+    {
+      "tool": 4,
+      "index": 27,
+      "y": 168.777,
+      "z": 0.2368,
+      "runtime_z_adjust": -0.0032
+    },
+    {
+      "tool": 4,
+      "index": 28,
+      "y": 169.1655,
+      "z": 0.2352,
+      "runtime_z_adjust": -0.0048
+    },
+    {
+      "tool": 4,
+      "index": 29,
+      "y": 169.554,
+      "z": 0.2336,
+      "runtime_z_adjust": -0.0064
+    },
+    {
+      "tool": 4,
+      "index": 30,
+      "y": 169.9425,
+      "z": 0.232,
+      "runtime_z_adjust": -0.008
+    },
+    {
+      "tool": 4,
+      "index": 31,
+      "y": 170.331,
+      "z": 0.2304,
+      "runtime_z_adjust": -0.0096
+    },
+    {
+      "tool": 4,
+      "index": 32,
+      "y": 170.7195,
+      "z": 0.2288,
+      "runtime_z_adjust": -0.0112
+    },
+    {
+      "tool": 4,
+      "index": 33,
+      "y": 171.108,
+      "z": 0.2272,
+      "runtime_z_adjust": -0.0128
+    },
+    {
+      "tool": 4,
+      "index": 34,
+      "y": 171.4965,
+      "z": 0.2256,
+      "runtime_z_adjust": -0.0144
+    },
+    {
+      "tool": 4,
+      "index": 35,
+      "y": 171.885,
+      "z": 0.224,
+      "runtime_z_adjust": -0.016
+    },
+    {
+      "tool": 4,
+      "index": 36,
+      "y": 172.2735,
+      "z": 0.2224,
+      "runtime_z_adjust": -0.0176
+    },
+    {
+      "tool": 4,
+      "index": 37,
+      "y": 172.6619,
+      "z": 0.2208,
+      "runtime_z_adjust": -0.0192
+    },
+    {
+      "tool": 4,
+      "index": 38,
+      "y": 173.0504,
+      "z": 0.2192,
+      "runtime_z_adjust": -0.0208
+    },
+    {
+      "tool": 4,
+      "index": 39,
+      "y": 173.4389,
+      "z": 0.2176,
+      "runtime_z_adjust": -0.0224
+    },
+    {
+      "tool": 4,
+      "index": 40,
+      "y": 173.8274,
+      "z": 0.216,
+      "runtime_z_adjust": -0.024
+    },
+    {
+      "tool": 4,
+      "index": 41,
+      "y": 174.2159,
+      "z": 0.2144,
+      "runtime_z_adjust": -0.0256
+    },
+    {
+      "tool": 4,
+      "index": 42,
+      "y": 174.6044,
+      "z": 0.2128,
+      "runtime_z_adjust": -0.0272
+    },
+    {
+      "tool": 4,
+      "index": 43,
+      "y": 174.9929,
+      "z": 0.2112,
+      "runtime_z_adjust": -0.0288
+    },
+    {
+      "tool": 4,
+      "index": 44,
+      "y": 175.3814,
+      "z": 0.2096,
+      "runtime_z_adjust": -0.0304
+    },
+    {
+      "tool": 4,
+      "index": 45,
+      "y": 175.7699,
+      "z": 0.208,
+      "runtime_z_adjust": -0.032
+    },
+    {
+      "tool": 4,
+      "index": 46,
+      "y": 176.1584,
+      "z": 0.2064,
+      "runtime_z_adjust": -0.0336
+    },
+    {
+      "tool": 4,
+      "index": 47,
+      "y": 176.5469,
+      "z": 0.2048,
+      "runtime_z_adjust": -0.0352
+    },
+    {
+      "tool": 4,
+      "index": 48,
+      "y": 176.9354,
+      "z": 0.2032,
+      "runtime_z_adjust": -0.0368
+    },
+    {
+      "tool": 4,
+      "index": 49,
+      "y": 177.3239,
+      "z": 0.2016,
+      "runtime_z_adjust": -0.0384
+    },
+    {
+      "tool": 4,
+      "index": 50,
+      "y": 177.7124,
+      "z": 0.2,
+      "runtime_z_adjust": -0.04
+    }
+  ],
+  "annotations": [],
+  "patches_left_to_right": [
+    {
+      "tool": 0,
+      "x_min": 108.0,
+      "x_max": 128.0,
+      "y_first": 158.2876110196153,
+      "y_last": 177.71238898038467,
+      "z_first": 0.27999999999999997,
+      "z_last": 0.19999999999999998
+    },
+    {
+      "tool": 1,
+      "x_min": 136.0,
+      "x_max": 156.0,
+      "y_first": 158.2876110196153,
+      "y_last": 177.71238898038467,
+      "z_first": 0.27999999999999997,
+      "z_last": 0.19999999999999998
+    },
+    {
+      "tool": 2,
+      "x_min": 164.0,
+      "x_max": 184.0,
+      "y_first": 158.2876110196153,
+      "y_last": 177.71238898038467,
+      "z_first": 0.27999999999999997,
+      "z_last": 0.19999999999999998
+    },
+    {
+      "tool": 3,
+      "x_min": 192.0,
+      "x_max": 212.0,
+      "y_first": 158.2876110196153,
+      "y_last": 177.71238898038467,
+      "z_first": 0.27999999999999997,
+      "z_last": 0.19999999999999998
+    },
+    {
+      "tool": 4,
+      "x_min": 220.0,
+      "x_max": 240.0,
+      "y_first": 158.2876110196153,
+      "y_last": 177.71238898038467,
+      "z_first": 0.27999999999999997,
+      "z_last": 0.19999999999999998
+    }
+  ],
+  "estimated_filament_mm": 201.463,
+  "limitations": [
+    "Printer macros/tool transforms are opaque",
+    "Configured Z does not prove physical nozzle clearance",
+    "No hardware print verified"
+  ],
+  "gcode_sha256": "f1e800af600146030665302d4a101fbd93e5de42b181473348134c1cc36ef3b3",
+  "audit": {
+    "moves_checked": 538,
+    "tools_checked": 5,
+    "rows_checked": 255,
+    "scope": "Toolkit motion only; printer macros/transforms need hardware review"
+  }
+}

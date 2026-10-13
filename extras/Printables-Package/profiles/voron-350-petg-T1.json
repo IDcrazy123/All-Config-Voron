@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "name": "Voron 350 / Oxplow 2.3.2 / PETG / T1 / prime retract 5mm",
+  "reviewed": true,
+  "machine": {
+    "safe_min": [
+      30.0,
+      130.0
+    ],
+    "safe_max": [
+      318.0,
+      310.0
+    ],
+    "z_min": -5.0,
+    "z_max": 347.0,
+    "travel_z": 5.0,
+    "toolchange_z": 20.0,
+    "bed_temp": 70,
+    "bed_max_temp": 120.0,
+    "max_velocity": 350.0,
+    "max_z_velocity": 80.0
+  },
+  "start_gcode": [
+    "PRINT_START TOOL=1 TOOL_TEMP=230 BED_TEMP=70 MATERIAL=PETG AUTO_SOAK=1 FULL_BED=1 T1_TEMP=230"
+  ],
+  "end_gcode": [
+    "PRINT_END"
+  ],
+  "test": {
+    "center": [
+      174.0,
+      168.0
+    ],
+    "define_objects": true,
+    "end_retract_owner": "end_macro",
+    "retract_length": 0.6,
+    "annotations": false,
+    "end_lift_owner": "end_macro",
+    "label_scale": 1.5,
+    "lines": 51,
+    "patch_length": 20.0,
+    "gap": 8.0,
+    "direction": "high-to-low",
+    "print_speed": 20.0,
+    "travel_speed": 100.0,
+    "z_speed": 5.0,
+    "retract_speed": 20.0,
+    "soak_seconds": 0.0,
+    "temperature_tolerance": 2.0,
+    "annotation_speed": 10.0
+  },
+  "tools": [
+    {
+      "id": 1,
+      "extruder": "extruder1",
+      "select_gcode": "T1",
+      "nozzle_diameter": 0.4,
+      "filament_diameter": 1.75,
+      "temperature": 230,
+      "min_extrude_temp": 170.0,
+      "max_temp": 290.0,
+      "material": "PETG",
+      "max_extrude_cross_section": 0.6400000000000001,
+      "max_extrude_only_distance": 101.0,
+      "max_extrude_only_velocity": 93.1283781292005,
+      "max_volumetric_flow": 8.0,
+      "initial_retract": 0.6,
+      "temperature_command": "toolchanger",
+      "ramp_range": 0.04,
+      "annotation_height": 0.2,
+      "annotation_z_adjust": 0.0,
+      "test_z_adjust": 0.0,
+      "saved_tool_z_offset": 0.1665,
+      "nominal_height": 0.24,
+      "line_width": 0.44000000000000006,
+      "annotation_line_width": 0.6000000000000001,
+      "line_step": 0.38849555921538764
+    }
+  ],
+  "notes": [
+    "Specific to the production Voron 2.4 350 mm five-tool configuration in this repository; not a universal printer profile.",
+    "Uses the reviewed 2026-10-13 patch-only geometry: center X174/Y168, nominal Z0.24, range +/-0.04 mm, 51 rows, high-to-low.",
+    "PRINT_START owns homing, leveling, mesh and prime; initial printing tool retains 0.6 mm retract, other primed tools retain 5 mm.",
+    "KTC pickup does not unretract. The generator recovers initial_retract once at the first printed point.",
+    "PRINT_END owns final retract and lift; stored tool Z values are guarded references, never added to generated Z.",
+    "Software validation only for this integration. Confirm material and printer readiness before an attended print; offsets are never saved automatically."
+  ]
+}

@@ -2,3 +2,12 @@
 /extras/backups/** -text -diff -whitespace
 # Preserve exact Linux line endings for this optional runtime patch.
 /config/scripts/patches/klipper-pty-client-gate.patch text eol=lf
+
+# Keep the published upstream toolkit and its SHA256 manifest byte-identical.
+/extras/Printables-Package/upstream-2.3.2/** -text -whitespace
+
+# Retired working files are exact recovery artifacts.
+/extras/Printables-Package/legacy-v2.0.0/** -text -whitespace
+
+# Keep generated G-code/SVG/report bytes consistent with recorded hashes.
+/extras/Printables-Package/output/** -text

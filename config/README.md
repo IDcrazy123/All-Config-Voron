@@ -9,6 +9,7 @@ This directory is the repository-owned payload deployed to `~/printer_data/confi
 `printer.cfg` loads the active modules in this order:
 
 ```ini
+[include Printer-Setup/oxplow_runtime.cfg]
 [include mainsail.cfg]
 [include toolchanger/readonly-configs/toolchanger-include.cfg]
 [include Printer-Setup/calibration-probe.cfg]
@@ -79,3 +80,7 @@ The holder must be removed before `G28`, QGL, bed mesh, Cartographer Touch, or p
 The Axiscope service and Klipper extra are externally managed through Moonraker; repository deployment changes only their `.cfg` integration.
 
 Run configuration deployment only while the printer is idle, then restart Moonraker/Klipper and verify `CALIBRATION_STATUS`, `CHECK_OFFSETS`, heaters, fans, homing, and tool detection before printing.
+
+## Oxplow first-layer runtime
+
+`Printer-Setup/oxplow_runtime.cfg` supplies `_OXPLOW_CHECK` version 2.3.2 and is included once. It performs checks without automatic homing, heating or offset writes. The [integrated toolkit](../extras/Printables-Package/README.md) contains matching machine profiles, G-code, SVG and reports.

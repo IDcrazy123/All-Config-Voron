@@ -1,6 +1,6 @@
 # Voron 2.4 StealthChanger — 5-Tool Production Configuration
 
-[English](README.md) | [Tiếng Việt](README.vi.md) | [Active config](config/README.md) | [Documentation](extras/docs/README.md) | [OrcaSlicer profiles](Orca%20Config/README.md)
+[English](README.md) | [Tiếng Việt](README.vi.md) | [Active config](config/README.md) | [Documentation](extras/docs/README.md) | [OrcaSlicer profiles](Orca%20Config/README.md) | [Oxplow 2.3.2](extras/Printables-Package/README.md)
 
 Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five StealthChanger toolheads. KTC-Easy handles tool changes, Cartographer V3 handles Z homing and bed mesh, Axiscope measures XY, the PF2 switch provides coarse relative Z, and first-layer tests determine final production Z.
 
@@ -101,6 +101,12 @@ Axiscope is the sole active `probe_multi_axis` backend. Its camera workflow meas
 Before each tool change, the calibration sequence lifts vertically to at least Z15 so the docking route leaves the switch at transit clearance.
 
 Remove the holder before `G28`, QGL, bed mesh, Cartographer Touch, or printing. Home with the plate unobstructed, move to safe Z15, install the holder, verify X80/Y-8 and the switch state, then run any attended coarse-Z measurement. See the [tool calibration procedure](extras/docs/huong-dan-he-thong-stealthchanger.en.md#tool-calibration).
+
+## Oxplow first-layer calibration
+
+The [published Oxplow 2.3.2 project](https://www.printables.com/model/1846885-universal-oxplow-first-layer-z-offset-calibration) is integrated under [extras/Printables-Package](extras/Printables-Package/README.md). `printer.cfg` loads its matching `_OXPLOW_CHECK` runtime. Machine profiles preserve the existing patch-only geometry and saved offsets, recover the 0.6/5 mm PRIME_LINES retract once, and hand final retract/lift to PRINT_END. PETG single-tool and PETG/ABS five-tool files include matching SVG previews and reports.
+
+Use the report from the file actually printed: this version's Z0.280 -> Z0.200 ramp differs from the retired annotated 2.0.0 test. Start with an attended single-tool print; no new offsets or physical calibration results are applied by synchronization.
 
 ## Safety and rollback
 
