@@ -83,3 +83,17 @@ Người dùng yêu cầu tích hợp dự án riêng đã đăng Printables và
 
 ### Kết quả và công việc còn lại
 Đã hoàn tất tích hợp và kiểm tra offline. Tiếp theo: push source, cập nhật checkout máy in, chạy installer backup-first, chuyển runtime root cũ ra config_backups, nạp lại Klipper và kiểm macro/version/files. Không tự bắt đầu in hay lưu offset; phần xác minh triển khai sẽ ghi kết quả thực tế.
+
+### Xác minh triển khai máy in — 19:41, Asia/Saigon
+- Source commit `daff16c`; push GitHub thành công. Checkout máy in cập nhật fast-forward từ `838d630` sang `daff16c`, trước cập nhật không có sửa local.
+- Dry-run xác nhận chỉ ba thay đổi nội dung payload: printer.cfg chuyển include sang Printer-Setup, thêm runtime ở vị trí mới và prime-lines retract 5 mm; các file còn lại chỉ thay timestamp. Runtime tool_crash patch đã có, không sửa mã plugin.
+- Recheck toàn bộ payload live với source: ngoài ba file dự kiến, nội dung các CFG/CONF/SH/patch khớp; đủ trạng thái idle/ready, unpaused, heater targets 0, dryer/benchmark dừng trước installer và trước restart.
+- Installer backup đầy đủ: `/home/voron/printer_data/config_backups/config-install-20261013-194129-fKGZbT`.
+- Runtime root cũ được di chuyển sau khi include mới đã có sang `/home/voron/printer_data/config_backups/pre-oxplow-root-relocation-20261013-6vvb0fuv/oxplow_runtime.cfg`. Không xóa cfg, không ghi đè backup và không còn oxplow_runtime.cfg trong root live.
+- Runtime active: `/home/voron/printer_data/config/Printer-Setup/oxplow_runtime.cfg`; include một lần. Bản source/runtime giữ nguyên SHA-256 `84f4c66dc878ad81cdfb77ad818aa2b3a1b8d518e040f7149945e4d4a6cbe7ad`.
+- FIRMWARE_RESTART thành công, Klipper trở lại `ready`; `_OXPLOW_CHECK VERSION=2.3.2 STAGE=install` trả `// Oxplow 2.3.2 runtime installed; no motion or heating was performed`. Không home/chọn tool/gia nhiệt/in.
+- Đọc runtime sau restart: version 2.3.2, PRIME_LINES retract 5.0 mm và final 0.6 mm, tool offsets T0-T4 khớp reference cũ. Máy standby/unpaused, toolchanger uninitialized, heater targets 0.
+- Bảy bộ G-code/SVG/report (21 file) đã copy vào `/home/voron/printer_data/gcodes/Oxplow-2.3.2`; bảy G-code xuất hiện trong file list Moonraker. Tải GET lại cả 21 file và đối chiếu SHA-256 local: đạt.
+- GET lại printer.cfg/runtime/prime-lines: khớp source repo; symlink readonly KTC vẫn được installer xác minh và giữ nguyên.
+- Giữ các G-code lịch sử trên máy; chúng có thể dùng retract cũ nên chọn bộ trong `Oxplow-2.3.2/` sau cập nhật này. Không dùng report/formula 2.0.0 cho file 2.3.2.
+- Sau sync cần in có giám sát để đánh giá first layer/ooze và chọn row; chưa lưu hiệu chỉnh Z mới. Báo cáo nguyên nhân để sửa source Printables: `extras/Printables-Package/INTEGRATION.md`.
