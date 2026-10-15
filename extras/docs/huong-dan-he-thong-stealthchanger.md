@@ -44,11 +44,11 @@ Phân quyền production là: Axiscope camera đo XY; công tắc PF2 tại `(80
 
 ## Vệ sinh nozzle
 
-`CLEAN_NOZZLE` chỉ chạy với T0 đã được cảm biến xác nhận, KTC ở trạng thái `ready`, XYZ đã home, offset bằng 0 và mesh đã clear. Điểm xả là `X315 Y1 Z6`; đường vệ sinh nằm trong vùng đệm an toàn `X278–311`, `Y-9…-1` của miếng silicone đo được `X277–312`, `Y-10…0`. Z tiếp xúc mặc định là `1.0 mm` và macro chỉ chấp nhận `0.5–1.0 mm`.
+`CLEAN_NOZZLE` chỉ chạy với T0 đã được cảm biến xác nhận, KTC ở trạng thái `ready`, XYZ đã home, offset bằng 0 và mesh đã clear. Xả có mặt bàn đỡ tại `X315 Y10 Z6`; điểm đỗ trên khay vẫn là `X315 Y1 Z6`. Khi đã nguội tới cửa sổ lau ấm, nozzle đi thẳng tới `X315 Y-5` ở Z6, hạ qua Z3 tới Z0,2 rồi gạt sang trái tới X278. Người vận hành xác nhận nozzle bắt đầu chạm silicone tại X313. Đoạn xả–gạt này không nâng Z15; các lần tiếp cận khác và rời chổi vẫn dùng Z15.
 
-`MODE=DEEP` có thể purge nóng rồi lau nhiều track/hai hướng, sau đó hoàn tất lượt cuối ở tối đa 150 °C. `PRINT_START` tự purge T0 `40 mm` tại nhiệt độ vật liệu khi slicer cung cấp `T0_TEMP`; lượng này bù `10 mm` retract của `PRINT_END` và còn khoảng `30 mm` nhựa thực tạo cục. Nếu job không dùng T0 thì không tự đoán nhiệt purge. `MODE=TOUCH` cấm purge, yêu cầu QGL đã áp dụng và thực hiện một lượt lau ngắn ở tối đa 150 °C ngay trước `CARTOGRAPHER_TOUCH_HOME`.
+Mỗi lượt lau quét đủ chiều rộng X278–311 trên cả ba hàng silicone Y-8/-5/-2, đảo thứ tự hàng giữa các lượt. `MODE=DEEP` mặc định ba lượt: hai lượt ấm ở tối đa 170 °C và một lượt cuối ở tối đa 150 °C. Nếu có purge, macro thêm đúng một nhát gạt từ mép phải trước các lượt lau. `PRINT_START` tự purge T0 `40 mm` tại nhiệt độ vật liệu khi slicer cung cấp `T0_TEMP`; lượng này bù `10 mm` retract của `PRINT_END` và còn khoảng `30 mm` nhựa thực. Nếu job không dùng T0 thì không tự đoán nhiệt purge. `MODE=TOUCH` cấm purge, yêu cầu QGL đã áp dụng và thực hiện một lượt lau ở tối đa 150 °C ngay trước `CARTOGRAPHER_TOUCH_HOME`.
 
-Lệnh thủ công cần truyền nhiệt vật liệu rõ ràng, ví dụ `PURGE_AND_CLEAN PURGE_TEMP=250`. Lần chạy đầu ở tọa độ mới phải có người giám sát; bắt đầu với `CLEAN_Z=1.0` và chỉ hạ dần sau khi xác nhận tiếp xúc thực tế.
+Lệnh thủ công cần truyền nhiệt vật liệu rõ ràng, ví dụ `PURGE_AND_CLEAN PURGE_TEMP=230` với PETG của lượt thử này. Người vận hành chọn mặc định mới `CLEAN_Z=0.2` sau khi quan sát Z1,0 tiếp xúc chưa đủ; khoảng cho phép là 0,2–1,0 mm. Cần quan sát đường mới trước khi chạy không giám sát. Máy khác phải đo lại mặt bàn đỡ sợi, vị trí chổi và khoảng hở của chính máy đó.
 
 ## Quy tắc phục hồi
 

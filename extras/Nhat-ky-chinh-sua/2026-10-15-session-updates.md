@@ -59,3 +59,71 @@ Hướng dẫn đã có trên 19 CFG local và máy in, có backup trước ghi.
 
 ### Vấn đề còn lại
 Không có thay đổi chức năng cần thử nghiệm. Có thể mang phần hướng dẫn Oxplow sang dự án gốc như cải thiện tài liệu; điều chỉnh ví dụ include/link theo bố cục gói nguồn và giữ nguyên logic/version.
+
+## 2. Thử PURGE_AND_CLEAN T0 trên máy thật và phản hồi của người dùng
+
+### Mục tiêu
+Người dùng yêu cầu điều khiển máy thử clean nozzle T0 có xả nhựa để quan sát. Người dùng xác nhận bàn trống, gá PF2 đã tháo, chổi/thùng sẵn sàng và T0 dùng PETG 230°C.
+
+### Thực hiện
+- Trạng thái đầu: máy standby, toolchanger uninitialized/tool=-1, XYZ chưa home, T0 khoảng28°C/target0; không pause/dryer/benchmark.
+- `STOP_CRASH_DETECTION`, `BED_MESH_CLEAR`, `G28`, nâng Z15; API trả ok, XYZ homed.
+- `T0`, `M400`, `VERIFY_TOOL_DETECTED T=0`; cảm biến/tool/extruder đúng T0, offsets0, meshclear.
+- 19:54:39+07 gọi đúng một lần `PURGE_AND_CLEAN PURGE_TEMP=230 PURGE=40 TEMP=150 CLEAN_Z=1.0 WIPES=2 RETRACT=0.8` rồi M400.
+- Snapshot 19:55:14: T0 228.97°C target230, E39.2 =40−0.8, message Purge T0 40.0mm, tại X315/Y1/Z6.
+- Request qua nginx port80 trả504 Gateway Time-out sau timeout proxy; không gửi lại macro. Snapshot sau thấy message `T0 clean; ready for Touch`, fan khôi phục0 và X315/Y1/Z6: macro đã tới nhánh kết thúc.
+- Qua Moonraker7125, tắt riêng heaterT0, M400 và đặt message hoàn tất; APIok, Klipperready, T0target0, bedtarget0, fanpart0, T0detected/ready. Không gọi PRINT_END/dock/rút thêm.
+
+### Kết quả và quan sát thực tế
+- Chu trình đã được máy thực hiện; agent xác minh trạng thái/lệnh, người vận hành đánh giá tiếp xúc và chất lượng lau.
+- Người dùng báo Z lau hơi cao, quỹ đạo tiếp xúc silicone ít, sợi purge rơi vào khay từ giữa quá trình và thiếu nét gạt blob rõ ràng.
+- Yêu cầu tiếp theo: sửa đường lau và điểm xả rồi thử lại; sau làm rõ, người dùng chọn CLEAN_Z=0.2mm (tránhZ0 chạmPEI), xác nhận điểm tiếp xúc bên phảiX313 và các gân silicone cần lau tạiY-8/-5/-2, phạmvi tổngY-10..0.
+- Trạng thái đọc sau phản hồi có X313/Y-4/Z0 và nhiệt tắt; không coi đây là vị trí kết thúc do macro/agent, vì agent đã dừng tạiX315/Y1/Z6 và không gửi các bước jog đó.
+
+### Phân tích
+- Source/live trùng nhau. Path hiện làG1 trên vài track; đảo chiều vẫn đi cùng track, không phải raster phủ nhiều hàng. Không dùng mô tả 'vòng tròn3lần' làm bằng chứng code cóG2/G3.
+- Phân biệt điểm purge với điểm park: purge_x/y/safe_z còn được benchmark và các helper park dùng chung; không đổi âm thầm các tọa độ park thành vị trí trênPEI.
+- Nghiên cứu nguồn primary: BambuStudio A1 machine_start_gcode và Klipper Command Templates đều có nguyên lý wipe qua lại theo hàng. Bambu purge wiper có plate cơ khí đỡ/eject; áp dụng lênPEI là thử nghiệm riêng cần xác nhận geometry, không coi như cùng cơ cấu.
+- Lượt sau dùng trực tiếp Moonraker7125 để không bị timeout nginx port80 và không chạy lặp macro khi requesttimeout.
+
+### Vấn đề còn lại
+Đang chuẩn bị cải tiến có backup và kiểm tra trước; chưa chạy chuyển động mới. Cần người dùng xác nhận điểm purge trênPEI dự kiếnX294.5/Y10/Z6; ghi kết quả ở mục kế tiếp.
+
+## 3. Cải tiến xả trên bàn, gạt blob từ phải và lau đủ ba hàng silicone T0
+
+### Mục tiêu và nguyên nhân
+- Theo quan sát thực tế của người dùng: Z1,0 quá cao; quỹ đạo cũ chỉ phủ một số track; xả X315/Y1 làm sợi rơi sớm xuống khay và không có nhát gạt blob rõ ràng.
+- Người dùng chốt Z0,2; ba hàng silicone Y-8/-5/-2; không nâng Z15 giữa điểm xả và vị trí gạt; dùng chung X để đi thẳng. Sau đó xác nhận xả khoảng X315 vì X313 là điểm đầu tiên nozzle chạm chổi.
+- Chốt đường thử: X315/Y10/Z6 → X315/Y-5/Z6 → hạ Z3 rồi Z0,2 → gạt trái tới X278. Hiệu quả mặt bàn đỡ sợi và tách blob cần đánh giá thực tế ở lượt thử.
+
+### File đã sửa đổi
+- `config/Printer-Setup/nozzle-clean.cfg`: tách điểm xả trên bàn khỏi điểm đỗ khay; thêm BREAKOFF với kiểm tra vị trí runtime; đường lau full-width ba hàng; mặc định DEEP3/TOUCH1, CLEAN_Z0,2 và guard0,2–1,0.
+- `config/Printer-Setup/print-macros.cfg`: DEEP dùng ba lượt; bỏ CLEAN_Z1,0 hardcode để dùng giá trị chung, TOUCH giữ một lượt.
+- Bốn tài liệu hướng dẫn/adaptation/sharing và `.agents/PROJECT.md` của workspace: cập nhật geometry và ngoại lệ hành lang Z6. Không sửa Oxplow upstream/runtime, PID, offset, current hoặc giới hạn phần cứng.
+
+### Sao lưu
+- [Snapshot local trước ghi](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-t0-plate-purge-raster-wipe-20261015-201011/README.md>) gồm hai CFG, bốn tài liệu và PROJECT workspace; backup có từ trước khi chỉnh sửa.
+- Snapshot máy in sẽ được tạo và xác minh trước khi thay hai CFG; ghi đường dẫn và kết quả nạp/thử ở phần tiếp theo.
+
+### Chi tiết thay đổi
+- `purge_x/y/z` giữ X315/Y1/Z6 cho đỗ khay và benchmark. Điểm xả riêng `purge_plate_x/y/z` =X315/Y10/Z6; `breakoff_x`=315.
+- Chỉ BREAKOFF=1 mới dùng hành lang thẳng Z6, và helper yêu cầu vị trí đầu khớp điểm xả ±0,2mm. Các lần tiếp cận khác và rời chổi vẫn nâng Z15. Offset phải0, meshclear, T0detected/ready, XYZhomed và printeridle/starting như trước.
+- Mỗi lượt có ba nét đầy đủ X278↔311 tại Y-2/-5/-8; đảo thứ tự hàng giữa lượt. Nhát gạt riêng X315→278 tạiY-5 được thêm đúng một lần nếu có purge.
+- Giữ feedrate cũ, purge40mm, retract0,8mm, cửa sổ nhiệt lau ấm≤170°C và lượt cuối≤150°C; không đoán thêm thông số vật liệu.
+
+### Kiểm tra trước triển khai
+- Jinja Klipper parse đạt năm macro cleaner và tám macro print-macros; review độc lập không thấy blocker.
+- Harness hành vi offline: chín nhóm đạt, gồm40 biến thể raster (WIPES1–5, hai hướng, BREAKOFF0/1, CLEAN_Z0,2/1,0); kiểm từng hàng đủ chiều rộng, ngoại lệ Z6, không nâng giữa xả–gạt, guard vị trí/nhiệt/mesh/offset/tool và một breakoff.
+- Trạng thái đọc trước nạp: Klipperready, standby, không pause/dryer/benchmark; T0detected0 nhưng KTCuninitialized, XYZhomed; mọi target kiểm tra bằng0. Cần home/initialize lại sau reload trước thử.
+
+### Kết quả triển khai và thử máy
+- Backup máy in trước thay hai file: `/home/voron/printer_data/config_backups/pre-t0-plate-purge-raster-20261015-201838-1b7yyj4j`; cả hai livefile khớp baseline trước ghi, không có drift.
+- RESTART thành công; query thấy toàn bộ biến mới đúng315/10/6, entry315, Y-2/-5/-8, defaultZ0,2. Sau G28 và nângZ15, KTCready, active/detectedT0, XYZhomed, offsets0, meshclear.
+- 20:20:01+07 gửi đúng một lần qua7125: `VERIFY_TOOL_DETECTED T=0`, `PURGE_AND_CLEAN PURGE_TEMP=230 PURGE=40 TEMP=150 RETRACT=0.8`, M400. Dùng defaultCLEAN_Z0,2 và WIPES3 để kiểm integration thực tế.
+- 20:20:23: T0 tạiX315/Y10/Z6, 227,85°C target230; 20:20:32:231,34°C, E40; 20:20:41:E39,2, target150, fan70%; 20:21:09:helperlauấm đã vềZ15, fan100% để chờ lượt cuối.
+- 20:21:20: toàn bộ request trả `ok`, không timeout hoặc chạy lặp. Sau đó tắt riêng heaterT0, M400, messagehoàntất; query xác nhận Klipperready, standby, T0active/detected0, cuốiX315/Y1/Z6/E39,2, nozzle150,02°C target0/power0, bedtarget0, fanpart0, offsets0.
+- Báo cáo English, nguồn primary và harness tái sử dụng tại `extras/experiments/t0-cleaner-20261015/`; lưu samples, command, APIok và snapshotcuối. Chất lượng tiếp xúc và blobrụng cần người dùng quan sát; không suy ra từ APIok.
+- Đã báo người dùng lượt thử hoàn tất. Không chạy PRINT_END, đổi tool, purge hoặc retract thêm.
+
+### Vấn đề còn lại
+Chờ phản hồi thực tế về Z0,2, ba hàng silicone và khả năng đỡ/gạt blob. Đây là thay đổi cleaner riêng của máy; không có lý do từ lượt thử này để sửa thuật toán Oxplow nguồn tại Printables.

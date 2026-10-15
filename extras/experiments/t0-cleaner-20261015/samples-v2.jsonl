@@ -1,0 +1,6 @@
+{"time":"2026-10-15T20:20:23.2146359+07:00","ready":"ready","temp":227.85,"target":230.0,"position":[315.0,10.0,6.0,0.0],"fan":0.0,"display":"Purge T0 40.0mm"}
+{"time":"2026-10-15T20:20:32.4696057+07:00","ready":"ready","temp":231.34,"target":230.0,"position":[315.0,10.0,6.0,40.0],"fan":0.0,"display":"Purge T0 40.0mm"}
+{"time":"2026-10-15T20:20:41.7482233+07:00","ready":"ready","temp":224.12,"target":150.0,"position":[315.0,10.0,6.0,39.2],"fan":0.7,"display":"Purge T0 40.0mm"}
+{"time":"2026-10-15T20:20:51.0245752+07:00","ready":"ready","temp":196.1,"target":150.0,"position":[315.0,10.0,6.0,39.2],"fan":0.7,"display":"Purge T0 40.0mm"}
+{"time":"2026-10-15T20:21:00.3026522+07:00","ready":"ready","temp":174.44,"target":150.0,"position":[315.0,10.0,6.0,39.2],"fan":0.7,"display":"Purge T0 40.0mm"}
+{"time":"2026-10-15T20:21:09.5697840+07:00","ready":"ready","temp":155.72,"target":150.0,"position":[278.0,-2.0,15.0,39.2],"fan":1.0,"display":"Purge T0 40.0mm"}
