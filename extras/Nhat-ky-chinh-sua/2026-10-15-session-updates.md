@@ -162,3 +162,24 @@ Chờ phản hồi thực tế về Z0,2, ba hàng silicone và khả năng đ�
 
 ### Vấn đề còn lại
 Người vận hành phải chọn preset T0 khớp cuộn nạp, kể cả bản in không dùngT0. Máy không thể tự nhận dạng polymer bằng phần cứng hiện có. Chất lượng gạt/lau vẫn cần quan sát thực tế.
+
+## 5. Rà soát khả năng gộp 12 file Printer-Setup
+
+### Yêu cầu
+Người dùng gửi ảnh danh sách12CFG và hỏi có thể gộp các cấu hình chung đặc điểm cho gọn hơn hay bố cục hiện tại đã hợp lý. Phạm vi là đánh giá và khuyến nghị, chưa yêu cầu chọn phương án tái cấu trúc cụ thể.
+
+### Kiểm tra
+- Đọc12CFG và includechain trongprinter.cfg, review độc lập vai trò module và các khối trùng. Không thao tác máy in.
+- Tổng3.837dòng:1.119comment,351dòngtrống,2.367dòngcòn lại. Khoảng38% là comment/dòngtrống; dung lượngfile không đại diện trực tiếp cho độ phức tạp lệnh thực thi.
+- Hai test tốc độ có35dòngpreflight giống nhau; cleaner có các nhómstatecheck lặp nhưng cần đánh giá lại ở từng entrypoint sauwait. Guarddryer/benchmark/cleaner khác policy nên không hợp nhất tùy tiện.
+- [Klipper include](https://www.klipper3d.org/Config_Reference.html#include) hỗ trợ tách CFG; [macro evaluation](https://www.klipper3d.org/Command_Templates.html#the-printer-variable) giải thích caller được render trước khi thực thi, helper được render lúc gọi. Gộp file không có nghĩa được bỏ ranh giới helper kiểm nhiệt/trạng thái runtime.
+
+### Kết luận và khuyến nghị
+- Giữ bố cục12file theo chức năng là lựa chọn hợp lý cho production và chia sẻ module. Gộp tất cả chỉ tạo filegần4.000dòng, không giảm nội dung logic.
+- Có thể gomtest-speed.cfg vàtool-temp-bench.cfg thànhdiagnostics.cfg nếu ưu tiên ítfile:12→11, đổi lạifilekhoảng644dòng. Đây là lựa chọn tổ chức, không phải sửa lỗi.
+- Điểm đáng cải thiện hơn: fans-leds.cfg746dòng đang chứa_PRINT_STATE/RESUME/_CLIENT_VARIABLE/cancelcleanup. Nên xem xét chuyển quyền sở hữu điều phối in vềprint-macros.cfg, giữsetterLED ởfans-leds và giữ đúngoverrideMainsail/KTC.
+- Không khuyến nghị gộpnozzle-clean/prime-lines/print-macros thành một khối lớn; chúng có geometry, toolscope và điều kiện khác nhau. Giữoxplow_runtime riêng để theo dõi hợp đồng phiên bản với dự án gốc.
+- Nếu cần rút ngắn nội dung, có thể hợp nhất các banner/hướng dẫn chia sẻ trùng trong cùngfile, nhưng giữ purpose/cáchgọi/thôngsốvàlưuýan toàn tại chỗ theo yêu cầu trước của người dùng.
+
+### Kết quả
+Chỉ ghi nhật ký đánh giá; không sửa, gộp, di chuyển hay đổi tên CFG, không thayinclude/macro/giátrị, không restart, gia nhiệt hoặc chạy chuyển động. Không cần backup cấu hình vì không ghi CFG. Chưa triển khai phương án tái cấu trúc nào.
