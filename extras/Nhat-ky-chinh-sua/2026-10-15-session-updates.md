@@ -183,3 +183,37 @@ Người dùng gửi ảnh danh sách12CFG và hỏi có thể gộp các cấu 
 
 ### Kết quả
 Chỉ ghi nhật ký đánh giá; không sửa, gộp, di chuyển hay đổi tên CFG, không thayinclude/macro/giátrị, không restart, gia nhiệt hoặc chạy chuyển động. Không cần backup cấu hình vì không ghi CFG. Chưa triển khai phương án tái cấu trúc nào.
+
+## 6. Chuyển quyền sở hữu trạng thái in, RESUME và cancel sang print-macros.cfg
+
+### Mục tiêu
+Người dùng chấp thuận phương án rà soát: đưa phần điều phối phiên in vềprint-macros.cfg, giữ phần quạt/đèn ởfans-leds.cfg; yêu cầu cập nhật cả máy in và GitHub.
+
+### File đã sửa đổi
+- `config/Printer-Setup/fans-leds.cfg`: chuyển năm section điều phối sangprint-macros; cập nhật header để chỉ đúng nơi định nghĩa state/hooks. Còn488dòng.
+- `config/Printer-Setup/print-macros.cfg`: nhận `_PRINT_STATE`, `_LED_RESUME_WRAPPER`, `RESUME`, `_CLIENT_VARIABLE`, `_CUSTOM_CANCEL_CLEANUP` cùng comment liên quan; cập nhật header. Có803dòng.
+- `extras/docs/machine-adaptation.md`, `sharing-cfg-files.md`: sửa đường dẫn/quyền sở hữu state và client hooks. Báo cáo lịch sử và nhật ký cũ giữ nguyên nội dung tại thời điểm ghi.
+
+### Sao lưu
+- [Snapshot trước ghi](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-print-lifecycle-ownership-20261015-204433/README.md>): sao chép nguyên byte haiCFG và ba tài liệu tham chiếu trước khi sửa, đối chiếu hash đạt. Proposal ngày09/10 được sao lưu nhưng không sửa vì giữ làm lịch sử.
+- Backup máy in sẽ được tạo trước thay haiCFG sau kiểm tra standby, khôngpause/job/dryer/benchmark và tất cảheater target0.
+
+### Chi tiết và lý do
+- `_PRINT_STATE` chỉ có một định nghĩa trongprint-macros; các LEDstatuswrapper vẫn giữ lệnh cập nhật state hiện có để không đổi hành vi.
+- Giữ `_RESUME_LED_SYNC` và `_CANCEL_LED_FINALIZE` trongfans-leds vì chỉ đọc state/tool và đồng bộ LED. Đặc biệt giữ macrofinalize riêng để đọc tool thực tế sauUNSELECT, không inlinevàocleanup.
+- Di chuyển cả khối hướng dẫn Mainsailhooks theoRESUME/client/cancel. Giữ nguyên tênmacro, options, variabledefaults, rename_existingRESUME_BASE, thânGcode/Jinja và mọi tham số.
+- Không đổi thứ tựinclude: Mainsail và KTC vẫn nạp trước implementationRESUMEcuối trongprint-macros. PAUSE/CANCEL_PRINT vẫn làMainsail, chỉ dùngcáchook như cũ.
+- Không đổi PID/offset/current/limits/toạđộ/xả/lau/prime hoặc nội dungMainsail/KTCreadonly.
+
+### Kiểm tra trước triển khai
+- Verifier đối chiếu46section trong haiCFG: option/value vàbodyGcode/comment giữ nguyên, đúngnămsectionđổiowner, khôngmất/trùngsection.83dònggọiLED giữ nguyên.
+- Reviewđộc lậpflatten toànincludechain:195sectioneffective giốngnhau, RESUME cuối vàaliasđúng;38templateJinja parseđạt.
+- `git diff --check`:đạt. Trạngtháimáyđọctrước:ready/standby,unpaused,virtualSDinactive,T0active/detected0,targetT0/bed0,printphaseidle,dryer/benchmark0.
+
+### Kết quả triển khai
+- Hai filelive khớp hashbaseline trướcghi; sao lưu máyin tại `/home/voron/printer_data/config_backups/pre-print-lifecycle-ownership-20261015-204808-l_evq1k0`, đối chiếu nguyênbyte trước thay. Source mới vàlivekhớp saughi.
+- RESTART thànhcông quaMoonraker7125; Klipperready, warningsrỗng, printstandby/unpaused/virtualSDinactive, phaseidle và toàn bộ sáuheater target0.
+- So APIconfigfile trước/sau: toàn bộ199sectionconfig và209sectionsettings bằngnhau. Hashcanonicalconfigcảhai là `056b862feb52f54a363bdf670aa59a76234b4c72fcab30f7f53e0f4771d51e00`. Xácnhận RESUME/RESUME_BASE/PAUSE/CANCEL_PRINT vẫn đăngký.
+- SaureloadXYZ chưa home và KTCuninitialized/tool=-1, nhưng cảmbiến vẫn phát hiệnT0; đây là trạngtháikhởitạosauRESTART, không tự gửi home/đổitool để kiểmtramộtthayđổiđịnhnghĩa. PRINT_START hiệncófullhome nhưtrước.
+- Không chạy PAUSE/RESUME/CANCEL, gia nhiệt hoặc chuyển động. Kiểm tra dựa trên nguyênvẹnbody/options và cấu hình hiệu lực trênmáythật; không tuyênbốđãthửpauseresumejobin.
+- Tài liệu và nhật ký được cập nhật cùng hai CFG và snapshotlocal; stage/commit/push theoquy tắc dựán, giữ cácfileuntrackedkhôngliênquan.
