@@ -1,0 +1,30 @@
+# Backup record
+
+- Date: 2026-10-15T19:42:38.495971+07:00 (Asia/Saigon)
+- Task: Add English purpose/loading/usage/setup guides to the 19 user-owned production CFG headers.
+- All CFGs and the two affected Oxplow integration documents were copied before any edits.
+- Runtime options, G-code/Jinja, include order and SAVE_CONFIG data must remain unchanged.
+- Managed Mainsail/KTC files, historical evidence, backups and published upstream are outside this edit.
+- Journal: extras/Nhat-ky-chinh-sua/2026-10-15-session-updates.md
+- Files:
+- `config/printer.cfg`
+- `config/Printer-Setup/calibration-probe.cfg`
+- `config/Printer-Setup/fans-leds.cfg`
+- `config/Printer-Setup/filament-dryer.cfg`
+- `config/Printer-Setup/hardware.cfg`
+- `config/Printer-Setup/input-shaper.cfg`
+- `config/Printer-Setup/nozzle-clean.cfg`
+- `config/Printer-Setup/prime-lines.cfg`
+- `config/Printer-Setup/print-macros.cfg`
+- `config/Printer-Setup/test-speed.cfg`
+- `config/Printer-Setup/tool-crash.cfg`
+- `config/Printer-Setup/tool-temp-bench.cfg`
+- `config/toolchanger/toolchanger-config.cfg`
+- `config/toolchanger/tools/T0.cfg`
+- `config/toolchanger/tools/T1.cfg`
+- `config/toolchanger/tools/T2.cfg`
+- `config/toolchanger/tools/T3.cfg`
+- `config/toolchanger/tools/T4.cfg`
+- `config/Printer-Setup/oxplow_runtime.cfg`
+- `extras/Printables-Package/README.md`
+- `extras/Printables-Package/INTEGRATION.md`

@@ -7,8 +7,9 @@ Vietnamese documentation. The root Python file launches that toolkit unchanged.
 
 ## Installed runtime and machine contract
 
-`../../config/Printer-Setup/oxplow_runtime.cfg` is included once by `printer.cfg` and is the same
-runtime as the published ZIP. Check installation without motion or heating:
+`../../config/Printer-Setup/oxplow_runtime.cfg` is included once by `printer.cfg`.
+It retains the published runtime logic and adds a local purpose/loading/usage guide
+in its leading comments. Check installation without motion or heating:
 
 ```gcode
 _OXPLOW_CHECK VERSION=2.3.2 STAGE=install

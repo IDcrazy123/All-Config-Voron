@@ -4,11 +4,13 @@ Source: the published Oxplow 2.3.2 ZIP from [Printables](https://www.printables.
 
 No generator or runtime algorithm was modified. All 22 files covered by the
 upstream manifest remain byte-identical under `upstream-2.3.2/`.
-`config/Printer-Setup/oxplow_runtime.cfg` is a byte-identical copy of the
-published runtime. The standalone source project has not been edited.
+`config/Printer-Setup/oxplow_runtime.cfg` retains the published executable
+content and adds a local usage guide in its leading comments (2026-10-15).
+The standalone source project has not been edited.
 
 | Change in this repository | Cause | Action in the original project |
 | --- | --- | --- |
+| Add production CFG file guides | User requested purpose/loading/usage/setup help when opening each file; Oxplow also documents each runtime stage | Optional documentation improvement in the source CFG; runtime/generator logic and version are unchanged |
 | Install runtime under `config/Printer-Setup/`; include that path once | User preference and this repository's macro directory layout | None to runtime code; its install documentation may show that any included config directory works |
 | Recover 5 mm for primed/parked tools, 0.6 mm for the initial printing tool | PRIME_LINES dock retract changed from 1.8 to 5 mm; KTC pickup does not unretract | Update the machine's own profile after its macro changes. Do not change the toolkit's universal/default assumptions or every example to 5 mm |
 | Keep seven machine profiles separate from the upstream examples | Bed region, temperatures, macro arguments and saved offsets are specific to this Voron | None; examples must remain `reviewed=false` |
