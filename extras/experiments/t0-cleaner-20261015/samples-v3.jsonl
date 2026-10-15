@@ -1,0 +1,6 @@
+{"time":"2026-10-15T20:31:54.9343418+07:00","ready":"ready","temp":209.78,"target":230.0,"position":[315.0,5.0,5.0,0.0],"fan":0.0,"display":"Purge T0 40.0mm"}
+{"time":"2026-10-15T20:32:04.2104870+07:00","ready":"ready","temp":232.24,"target":230.0,"position":[315.0,5.0,5.0,40.0],"fan":0.0,"display":"Purge T0 40.0mm"}
+{"time":"2026-10-15T20:32:13.4845998+07:00","ready":"ready","temp":229.6,"target":230.0,"position":[315.0,5.0,5.0,39.2],"fan":0.0,"display":"Purge T0 40.0mm"}
+{"time":"2026-10-15T20:32:22.7570683+07:00","ready":"ready","temp":208.04,"target":150.0,"position":[315.0,5.0,5.0,39.2],"fan":0.7,"display":"Purge T0 40.0mm"}
+{"time":"2026-10-15T20:32:32.0301595+07:00","ready":"ready","temp":184.19,"target":150.0,"position":[315.0,5.0,5.0,39.2],"fan":0.7,"display":"Purge T0 40.0mm"}
+{"time":"2026-10-15T20:32:41.2958706+07:00","ready":"ready","temp":164.08,"target":150.0,"position":[278.0,-2.0,3.0,39.2],"fan":0.7,"display":"Purge T0 40.0mm"}

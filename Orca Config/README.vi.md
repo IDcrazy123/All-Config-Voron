@@ -1,5 +1,11 @@
 # Profile Production OrcaSlicer
 
+Start G-code của máy luôn gửi riêng `T0_PURGE_TEMP` và `T0_MATERIAL` từ preset
+filament số0 để vệ sinh trước mỗi bản in, kể cả khi T0 không in. Preset này phải
+khớp cuộn đang nạp ở T0. Các `Tn_TEMP` vẫn chỉ truyền khi tool dùng để in, nên
+metadata vệ sinh không làm T0 bị prime thêm. Nạp lại preset máy và slice lại
+G-code cũ để nhận các tham số mới.
+
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Tổng quan dự án](../README.vi.md)
 
 Thư mục này phản chiếu profile OrcaSlicer active được chọn từ `%APPDATA%\OrcaSlicer\user`. Ngày 2026-09-30, profile được chọn có ID `838ce884-12ee-416b-9e1b-1c7503cf6b5f`; 19 file JSON đã được parse và đồng bộ.

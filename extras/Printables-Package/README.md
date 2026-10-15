@@ -28,6 +28,21 @@ PRINT_END owns the last tool's retract and lift. Intermediate patch retract
 remains 0.6 mm. Saved tool offsets are reference guards and are never applied
 twice. No offset, PID, motor current or motion limit is changed by this package.
 
+PRINT_START purges T0 at X315/Y5/Z5 at the temperature of its loaded filament,
+then cools to 150 C for cleaning and probing. Single-tool T1-T4 profiles pass
+`T0_PURGE_TEMP=230 T0_MATERIAL=PETG` separately from the printing-tool mask.
+Those values describe the operator-confirmed PETG currently loaded in T0;
+update both when reloading T0, including for a print whose model uses ABS or
+another material. Global `MATERIAL` describes the model and cannot identify
+filament in an unused T0. Never add `T0_TEMP` just to clean an unused T0, because
+that would include T0 in the printing/prime mask.
+
+Profiles that print with T0 already supply its printing temperature. The ABS
+T0-T4 profile requires ABS physically loaded in all five tools, including T0,
+and retains its 250 C contract; it must not be run with PETG still in T0.
+These are machine start-macro arguments supported by the unchanged generator,
+not a change to the published Oxplow algorithm.
+
 ## Use
 
 From this directory, validate the exact profile against your printer:

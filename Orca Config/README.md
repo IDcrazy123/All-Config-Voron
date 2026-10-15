@@ -38,6 +38,12 @@ Six repository-only legacy presets were removed during the 2026-09-20 audit afte
 
 ## Latest synchronized changes
 
+- The machine start G-code always sends `T0_PURGE_TEMP` and `T0_MATERIAL` from
+  filament preset index0 for pre-print nozzle cleaning, including jobs using only
+  another tool. Keep that preset matched to the physical T0 spool. Used-tool
+  `Tn_TEMP` arguments remain conditional, so cleaning metadata does not add T0 to
+  prime lines. Reload the updated machine preset and reslice older jobs.
+
 - `Voron Stealthchanger.json`: changed all five tools to `0.20 mm`, `Auto Lift`, `All Surfaces` Z-hop while preserving zero restart-extra and the 0.5 s fan lead time.
 - `0.20mm Multicolor PetG.json`: disabled `exclude_object` and `gcode_label_objects` to avoid Klipper's shared-E-state multi-extruder exclusion defect.
 - Synchronized active cooling overrides for Bambu Basic Black/White, Kabber Blue, and TPoimns Red PETG.

@@ -1,6 +1,6 @@
 {
   "version": "2.3.2",
-  "profile_sha256": "03fc4bc3b356501a119ef27d2253149da70087045bae35fb0804dded0f9b7407",
+  "profile_sha256": "272746049c8099efc6a0ee23a008958fe4bcdfe4641fcca20bec4a41aa4eaed2",
   "profile": {
     "schema_version": 1,
     "name": "Voron 350 / Oxplow 2.3.2 / PETG / T4 / prime retract 5mm",
@@ -24,7 +24,7 @@
       "max_z_velocity": 80.0
     },
     "start_gcode": [
-      "PRINT_START TOOL=4 TOOL_TEMP=230 BED_TEMP=70 MATERIAL=PETG AUTO_SOAK=1 FULL_BED=1 T4_TEMP=230"
+      "PRINT_START TOOL=4 TOOL_TEMP=230 BED_TEMP=70 MATERIAL=PETG AUTO_SOAK=1 FULL_BED=1 T4_TEMP=230 T0_PURGE_TEMP=230 T0_MATERIAL=PETG"
     ],
     "end_gcode": [
       "PRINT_END"
@@ -86,7 +86,8 @@
       "PRINT_START owns homing, leveling, mesh and prime; initial printing tool retains 0.6 mm retract, other primed tools retain 5 mm.",
       "KTC pickup does not unretract. The generator recovers initial_retract once at the first printed point.",
       "PRINT_END owns final retract and lift; stored tool Z values are guarded references, never added to generated Z.",
-      "Software validation only for this integration. Confirm material and printer readiness before an attended print; offsets are never saved automatically."
+      "Software validation only for this integration. Confirm material and printer readiness before an attended print; offsets are never saved automatically.",
+      "T0 is not a printing tool in this profile. Its separate cleaning metadata assumes the operator-confirmed PETG loaded in T0 at 230 C; update T0_PURGE_TEMP and T0_MATERIAL when that loaded filament changes. Model MATERIAL does not identify unused T0 filament."
     ]
   },
   "rows": [
@@ -466,7 +467,7 @@
     "Configured Z does not prove physical nozzle clearance",
     "No hardware print verified"
   ],
-  "gcode_sha256": "81dd746a771117c1e39f9b5905e962c6ea8bca8d98eb1d00fe717ef73251c407",
+  "gcode_sha256": "1f92e28349f52e849dfb7304957b94dd89b532fff1e3999023735356ad7d4cf9",
   "audit": {
     "moves_checked": 106,
     "tools_checked": 1,

@@ -22,8 +22,8 @@ active bed mesh.
 
 | Feature | Coordinates or behavior |
 | --- | --- |
-| Supported purge point | X315, Y10, Z6 on the PEI surface |
-| Direct purge-to-entry corridor | X315/Y10/Z6 to X315/Y-5/Z6 |
+| Supported purge point | X315, Y5, Z5 on the PEI surface |
+| Direct purge-to-entry corridor | X315/Y5/Z5 to X315/Y-5/Z5 |
 | Descent at the entry | X315/Y-5, through Z3 to contact Z0.2 |
 | First breakoff stroke | X315/Y-5/Z0.2 to X278/Y-5/Z0.2 |
 | First silicone contact from the right | Approximately X313; X315 starts outside it |
@@ -35,7 +35,7 @@ active bed mesh.
 | Existing bucket/benchmark point | X315/Y1/Z6; preserved separately |
 
 The X315 purge/entry alignment avoids an intermediate X move. After a purge, the
-direct Y corridor remains at Z6, followed by the descent and first leftward strike;
+direct Y corridor remains at Z5, followed by the descent and first leftward strike;
 there is no Z15 lift between the purge and that strike. This exception requires
 `BREAKOFF=1` and a runtime check that the starting position matches the configured
 purge plate. Ordinary wipes and other station transfers retain Z15 clearance.
@@ -83,20 +83,23 @@ The harness reads the production CFG and renders its templates using Klipper's
 Jinja delimiters. Its small interpreter records moves and executes helper renders
 after simulated temperature waits. It never connects to a printer.
 
-There are nine test groups, including 40 raster combinations: one through five
+There are fourteen test groups, including 40 raster combinations: one through five
 passes, both starting directions, breakoff enabled/disabled, and contact Z0.2/Z1.0.
-Result on the revised production CFG: all nine groups passed, including all 40
+Result on the revised production CFG: all fourteen groups passed, including all 40
 raster combinations.
 The other checks cover the measured geometry, DEEP/TOUCH/wrapper defaults, actual
 purge position, cold/overtemperature refusal, mesh/offset/tool/state guards,
 breakoff starting-pose checks, the single low corridor, safe transfers, one
 breakoff per purging call, fan restoration and the final 150 C upper bound.
+PRINT_START checks cover dedicated T0 temperature while T0 is unused, preservation
+of the used-tool/prime list, legacy T0-temperature fallbacks, and refusal of missing
+or invalid T0 purge temperatures before any commands are emitted.
 
 These checks establish rendered behavior and software guards. They do not model
 silicone deflection, nozzle/plate alignment, blob shape, adhesion or real heater
 response. Cleaning effectiveness still requires the operator's observations.
 
-## Attended physical trial
+## First attended physical trial (superseded purge Y/Z)
 
 - Live backup: `/home/voron/printer_data/config_backups/pre-t0-plate-purge-raster-20261015-201838-1b7yyj4j`.
 - Both live CFGs matched the previous source before replacement. Klipper reload
@@ -119,3 +122,52 @@ response. Cleaning effectiveness still requires the operator's observations.
 
 Compact API evidence is retained in `samples-v2.jsonl`, `after-v2.json`,
 `clean-v2.gcode` and `clean-v2-result.json` beside this report.
+
+## Per-print material integration and revised purge point
+
+After the first trial, the operator requested X315/Y5/Z5 and hot purge before
+every print, followed by cooldown to150 C. PRINT_START now always requests
+PURGE40 and receives dedicated `T0_PURGE_TEMP` and `T0_MATERIAL` metadata from
+Orca's T0 filament preset. `Tn_TEMP` still names only the tools used by the model;
+the cleaning-only T0 metadata does not add T0 to prime lines.
+
+The printer has neither a material sensor, a saved material registry nor Spoolman.
+The physical spool must match the T0 preset selected in Orca, even for T1-only
+prints. Temperature is read from that preset, rather than inferred from the
+initial printing tool or from a fixed polymer temperature table. Missing T0
+temperature in an older non-T0 job is rejected before heating or motion; reslice
+with the updated machine start code. T0_TEMP and TOOL_TEMP for TOOL=0 remain
+compatible fallbacks. The accepted purge temperature range remains170–280 C.
+
+This use of the indexed T0 temperature follows the
+[official OrcaSlicer placeholder documentation](https://www.orcaslicer.com/wiki/developer_reference/built_in_placeholders_variables).
+The active AppData machine profile, repository profile and analysis alias are
+synchronized. Existing G-code is not changed by editing a slicer preset.
+
+The indexed values were also checked against the
+[OrcaSlicer v2.4.2 source](https://github.com/OrcaSlicer/OrcaSlicer/blob/v2.4.2/src/libslic3r/GCode.cpp#L2813-L2815):
+temperature vectors remain separate from the used-tool mask. A fresh T1-only
+reslice was not completed because the available portable installation lacks its
+runtime DLL. Source inspection and offline macro tests confirm the contract;
+a new sliced job has not been physically printed during this change.
+
+## Second attended trial: X315/Y5/Z5
+
+- Live CFG backup: `/home/voron/printer_data/config_backups/pre-t0-per-print-material-purge-20261015-203044-q14dwjt1`.
+- Both CFGs matched their expected previous hashes before replacement and their
+  new hashes afterward. Reload and G28 succeeded; queried runtime geometry was
+  X315/Y5/Z5, with active/detected T0, zero offsets and a clear mesh.
+- At 20:31:37 +07:00, sent one `PURGE_AND_CLEAN` request with PETG230,
+  PURGE40, TEMP150 and RETRACT0.8, using default Z0.2 and three passes.
+- Samples show X315/Y5/Z5 during purge; at 20:32:13, E39.2 confirmed the
+  purge/retract amount. At 20:32:22, target150/fan70% confirmed cooldown;
+  at 20:32:41, the warm helper was completing its wipe/vertical departure.
+- The request including M400 returned `ok` at 20:32:59 +07:00. Turned off
+  T0 heating afterward. Final state: ready/standby, detected/active T0, bucket
+  X315/Y1/Z6, heater target0 and fan0. No full PRINT_START/print job was run.
+- `samples-v3.jsonl`, `after-v3.json`, `clean-v3.gcode` and
+  `clean-v3-result.json` retain the API evidence. Actual silicone contact and
+  blob detachment remain for the operator to assess.
+- The four updated Oxplow PETG single-tool G-code/report pairs were also copied
+  into the printer's `gcodes/Oxplow-2.3.2` directory after backup and drift checks;
+  no calibration print or offset change was started.

@@ -10,6 +10,7 @@ The standalone source project has not been edited.
 
 | Change in this repository | Cause | Action in the original project |
 | --- | --- | --- |
+| Add separate `T0_PURGE_TEMP=230 T0_MATERIAL=PETG` to the single T1-T4 machine profiles and regenerate their matching artifacts | PRINT_START now purges/cleans T0 for every print; an unused T0 needs its own loaded-filament metadata without joining the printing/prime mask. The operator confirmed PETG in T0 at 230 C | None to generator/runtime logic; update the local machine profile's start-macro arguments when that printer contract or loaded T0 filament changes |
 | Add production CFG file guides | User requested purpose/loading/usage/setup help when opening each file; Oxplow also documents each runtime stage | Optional documentation improvement in the source CFG; runtime/generator logic and version are unchanged |
 | Install runtime under `config/Printer-Setup/`; include that path once | User preference and this repository's macro directory layout | None to runtime code; its install documentation may show that any included config directory works |
 | Recover 5 mm for primed/parked tools, 0.6 mm for the initial printing tool | PRIME_LINES dock retract changed from 1.8 to 5 mm; KTC pickup does not unretract | Update the machine's own profile after its macro changes. Do not change the toolkit's universal/default assumptions or every example to 5 mm |
@@ -45,3 +46,33 @@ machine's new 5 mm setting is solved in the Voron profile, not by hardcoding
 - SVG inspection confirms five separate patches ordered T0 to T4.
 - No physical calibration print or persistent offset change is performed by
   this integration.
+
+## 2026-10-15 start-macro contract update
+
+The four PETG single-tool T1-T4 profiles now include separate cleaning metadata
+for the operator-confirmed T0 PETG at 230 C. Their model/printing-tool material
+does not determine unused T0 filament. Changing the loaded T0 requires updating
+`T0_PURGE_TEMP` and `T0_MATERIAL` in these machine profiles and regenerating the
+matching G-code, SVG and report. No T0 printing tool or `T0_TEMP` was added.
+The all-tool ABS profile still expects ABS loaded in T0-T4 at 250 C; a machine
+with PETG in T0 does not match that profile's printing-material contract.
+
+The upstream generator already supports arbitrary reviewed `start_gcode` macro
+arguments. A missing machine-specific argument is a local integration mismatch,
+not a defect requiring a source-project or toolkit-version change. Static and
+live prerequisite checks do not execute PRINT_START or infer filament identity.
+
+Regenerate with the unchanged launcher, choosing a new output directory because
+the CLI refuses to overwrite an existing artifact set. For example, from this
+directory:
+
+```bash
+python generate_oxplow_gcode.py validate --profile profiles/voron-350-petg-T1.json
+python generate_oxplow_gcode.py generate --profile profiles/voron-350-petg-T1.json -o local/contract-20261015/Voron_Oxplow_2.3.2_PETG_T1.gcode
+```
+
+Repeat for T2, T3 and T4, review the generated audit and paired report hashes,
+then replace the owned `output/` files only after backing up the previous set.
+The regenerated four patches retain the same geometry, Z rows, extrusion,
+tool selection, 0.6 mm initial recovery and PRINT_END ownership. Only their
+start-macro contract, profile digest and embedded report metadata change.

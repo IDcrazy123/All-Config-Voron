@@ -38,6 +38,11 @@ CLEAN_NOZZLE MODE=TOUCH TEMP=150 CLEAN_Z=0.2 WIPES=1
 START_DRYER MATERIAL=PETG BED=70 CHAMBER=0 TIME=240 FAN=0.5 PARK=0
 ```
 
+This machine's PRINT_START always hot-purges T0 before leveling and expects
+`T0_PURGE_TEMP`/`T0_MATERIAL` from the loaded T0 filament preset, including jobs
+which print with other tools. Keep slicer-used `Tn_TEMP` arguments separate; do
+not add an unused T0 to prime lines just to provide cleaning temperature.
+
 Benchmark parking requires the selected tool mounted, XYZ homed and zero live offsets. Without a cleaner, an optional station can be passed as `PARK_BUCKET=1 PARK_X=... PARK_Y=... PARK_Z=...`. Bounds checks reject impossible travel but the owner must verify the whole route. With the cleaner installed, the current station remains the default source.
 
 Dryer `PARK=1` retains the production Z200 then KTC docking and X175/Y310 parking. Change the preflight bounds check **and** matching moves if adapting it. Presets describe this enclosure/bed; different machines should use suitable overrides. Explicit `FAN=0` is now honored during startup and timer regulation. The dryer checks the receiver's bed maximum; its overheat branch cannot raise a custom low bed target.

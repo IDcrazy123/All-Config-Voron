@@ -127,3 +127,38 @@ Người dùng yêu cầu điều khiển máy thử clean nozzle T0 có xả nh
 
 ### Vấn đề còn lại
 Chờ phản hồi thực tế về Z0,2, ba hàng silicone và khả năng đỡ/gạt blob. Đây là thay đổi cleaner riêng của máy; không có lý do từ lượt thử này để sửa thuật toán Oxplow nguồn tại Printables.
+
+## 4. Chốt purge Y5/Z5 và xả theo profile T0 ở mỗi PRINT_START
+
+### Mục tiêu và nguyên nhân
+- Người dùng yêu cầu đổi điểm xả thành X315/Y5/Z5, tự chọn nhiệt theo nhựa của tool rồi hạ150°C; tích hợp vào mỗi bản in.
+- Điều tra GET chỉ đọc: máy không có registry vật liệu, save_variables hay Spoolman; Moonraker spoolman/status404. KTCtool chỉ chứa heater/fan/offset, không nhận dạng polymer. Targetheater0 không thể dùng làm nhiệt xả.
+- Orca cũ chỉ truyền T0_TEMP khi T0 dùng và MATERIAL của initial_tool; do đó job chỉ dùngT1..T4 không đủ dữ liệu nhiệt T0 và trước đây bỏpurge. Không suy ra nhựa T0 từ nhựa của tool khác.
+
+### File đã sửa đổi
+- `nozzle-clean.cfg`: purge_plate_y10→5, purge_plate_z6→5; corridor315/5/5→315/-5/5, tiếp theoZ3→0,2→gạttrái; điểmđỗkhay315/1/6 giữnguyên.
+- `print-macros.cfg`: thêm nhiệt T0_PURGE_TEMP ưu tiên, T0_MATERIAL để ghi nhận nguồn; fallback T0_TEMP hoặc TOOL_TEMP khiTOOL0. Bắt buộc nhiệt170–280 trước mọi lệnh và luôn gọi DEEP PURGE40 rồi150°C.
+- Orca machineprofile local, AppData active và alias Printersetting.json: luôn gửi riêng `T0_PURGE_TEMP={first_layer_temperature[0]}` và `T0_MATERIAL="{filament_type[0]}"`; không thay is_extruder_used/Tn_TEMP nên tool không dùng vẫn không bị prime.
+- Bốn profile Oxplow PETG đơnT1..T4 và output/report sinh lại: thêm metadataT0PETG230 đã được người dùng xác nhận, không thêmT0vàotoolmask; cập nhậtREADME/INTEGRATION. ProfileABS đủtool vẫn yêu cầu thực tếT0ABS250. Không sửa generator, upstream22file, launcher hoặc legacy; đây là thích nghi contractmáy, không phải lỗi dự ánPrintables.
+- Tài liệu hệ thống, OrcaREADME, báo cáo cleaner, harness và workspacePROJECT cập nhật đồng bộ. G-code đã slice trước đây cần slice lại; chỉ sửa preset không sửa nội dung job cũ.
+
+### Sao lưu
+- [Snapshot trước ghi](</D:/Desktop/All-Config-Voron-main/Voron 5 Tool/extras/backups/pre-t0-per-print-material-purge-20261015-202418/README.md>) gồm CFG/tài liệu/profile/harness và các profile/outputOxplow liên quan, có bản gốcAppData. Không ghi đè snapshot cũ.
+
+### Kiểm tra
+- Harness14 nhóm đạt, gồm40 biến thể raster và5 nhóm PRINT_START: T0unused vẫn xảđúngnhiệtriêng/rồi150; giữusedmask; thiếu/sainhiệt chặntrướcmọilệnh; fallbacklegacyT0 đạt.
+- Nguồn [official Orca v2.4.2 GCode.cpp](https://github.com/OrcaSlicer/OrcaSlicer/blob/v2.4.2/src/libslic3r/GCode.cpp#L2813-L2815): first_layer_temperature giữ vector toàn bộ profile; is_extruder_used được tạo riêng từ toolordering. Không có kết quả reslice mới: portable2.4.2 cònexe nhưng thiếuDLL,2.3.2 không tạoCLIoutput; không nâng/cài lại slicer. Không coi sourceinspection là đã in thử toàn PRINT_START.
+- Bốn Oxplowfile: reporthashkhớp,106moves/51rows/mask1tool; SVGkhôngđổi;22upstreamhashkhớp. Không dùng profileABS để đoánnhựaT0ởjobkhác.
+
+### Kết quả triển khai và thử máy
+- Backup máy in trước thay haiCFG: `/home/voron/printer_data/config_backups/pre-t0-per-print-material-purge-20261015-203044-q14dwjt1`; baselinelive khớp trước ghi, sau ghiSHA256 khớp cảhai CFGmới.
+- RESTART và G28 thành công; query macrođãnhậnX315/Y5/Z5, T0ready/active/detected, xyzhome, offsets0 vàmeshclear.
+- 20:31:37+07 gửi đúngmộtlần `PURGE_AND_CLEAN PURGE_TEMP=230 PURGE=40 TEMP=150 RETRACT=0.8` sauverifyT0; defaultZ0,2 và3lượt. APIqua7125, khôngnginx/khônggửilặp.
+- Samples20:31:54 tạiX315/Y5/Z5,209,78°Ctarget230;20:32:13 E39,2;20:32:22target150/fan70%;20:32:41 helperlauấm đangnângZsauraster.
+- 20:32:59 toànrequest+M400 trảok. SauđótắtheaterT0:ready/standby,active/detected0,X315/Y1/Z6/E39,2,target0/fan0. KhônggửiPRINT_END/dock/retractthêm. Chưa chạyjobin hoặc fullPRINT_START.
+- Evidencev3 lưu trong `extras/experiments/t0-cleaner-20261015/`. Thửthật xácnhận macrohoàntất, khôngtựkếtluậnblobrụnghoặcchạmchổiđúng.
+- Đã thay támasset (bốnGcode+report) OxplowT1..T4 đanglưumáy sauđốichiếubaselinevàsao lưu `/home/voron/printer_data/config_backups/pre-oxplow-t0-start-contract-20261015-203354-_iguh853`. SVGgiữnguyên; khônginpatch/khôngđổioffset.
+- Sửa thêm một commentflowcũ trongprint-macros để mô tả đúng T0chỉ lênnhiệtpurge ởstation; khôngthaybody. Bảnliveđượcsaolưu riêng `/home/voron/printer_data/config_backups/pre-print-start-flow-comment-20261015-kgfgiiq5` trướcđồngbộcomment; khôngcầnreloadlại.
+
+### Vấn đề còn lại
+Người vận hành phải chọn preset T0 khớp cuộn nạp, kể cả bản in không dùngT0. Máy không thể tự nhận dạng polymer bằng phần cứng hiện có. Chất lượng gạt/lau vẫn cần quan sát thực tế.

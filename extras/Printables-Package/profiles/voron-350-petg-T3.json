@@ -21,7 +21,7 @@
     "max_z_velocity": 80.0
   },
   "start_gcode": [
-    "PRINT_START TOOL=3 TOOL_TEMP=230 BED_TEMP=70 MATERIAL=PETG AUTO_SOAK=1 FULL_BED=1 T3_TEMP=230"
+    "PRINT_START TOOL=3 TOOL_TEMP=230 BED_TEMP=70 MATERIAL=PETG AUTO_SOAK=1 FULL_BED=1 T3_TEMP=230 T0_PURGE_TEMP=230 T0_MATERIAL=PETG"
   ],
   "end_gcode": [
     "PRINT_END"
@@ -83,6 +83,7 @@
     "PRINT_START owns homing, leveling, mesh and prime; initial printing tool retains 0.6 mm retract, other primed tools retain 5 mm.",
     "KTC pickup does not unretract. The generator recovers initial_retract once at the first printed point.",
     "PRINT_END owns final retract and lift; stored tool Z values are guarded references, never added to generated Z.",
-    "Software validation only for this integration. Confirm material and printer readiness before an attended print; offsets are never saved automatically."
+    "Software validation only for this integration. Confirm material and printer readiness before an attended print; offsets are never saved automatically.",
+    "T0 is not a printing tool in this profile. Its separate cleaning metadata assumes the operator-confirmed PETG loaded in T0 at 230 C; update T0_PURGE_TEMP and T0_MATERIAL when that loaded filament changes. Model MATERIAL does not identify unused T0 filament."
   ]
 }
