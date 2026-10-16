@@ -1,0 +1,14 @@
+--- a/klippy/gcode.py
++++ b/klippy/gcode.py
+@@ -397,7 +397,10 @@
+         self.is_printer_ready = False
+         self.is_processing_data = False
+         self.is_fileinput = not not printer.get_start_args().get("debuginput")
+-        self.pipe_is_active = True
++        # Enable legacy PTY responses only after receiving client input.
++        # Unread startup messages can fill the nonblocking PTY across restarts.
++        # API output subscriptions are independent of this legacy output gate.
++        self.pipe_is_active = False
+         self.fd_handle = None
+         if not self.is_fileinput:
+             self.gcode.register_output_handler(self._respond_raw)

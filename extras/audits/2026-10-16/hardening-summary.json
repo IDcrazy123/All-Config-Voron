@@ -1,0 +1,30 @@
+{
+  "status": "offline verified; not deployed",
+  "tests": {
+    "total": 68,
+    "passed": 62,
+    "skipped": 6,
+    "failure_or_error": 0
+  },
+  "includes": 26,
+  "effective_sections": 207,
+  "templates": 139,
+  "existing_python_files_unchanged": 33,
+  "protected_hardware_saved_data_readonly_files_unchanged": 14,
+  "orca_json_profiles_unchanged": 20,
+  "backup": "extras/backups/pre-cfg-software-hardening-20261016-200256",
+  "native_runtime_algorithms_patched": false,
+  "base_commit": "3910f78792264146a0982789cb16eb2937d2c677",
+  "sha256_changed_software_files": {
+    "config/Printer-Setup/print-macros.cfg": "a5996d9b7a0574f456c4e771c687fde961e445a93e01dc54464630974913ddf2",
+    "config/Printer-Setup/tool-crash.cfg": "929ebecb5774af016b4a274157a9db71f115ef0e86dedcf7439208f60451927c",
+    "config/Printer-Setup/fans-leds.cfg": "20a53c0cd77243029970320792354d0e298782d240ff125ccbccd8e1cfe34b09",
+    "config/Printer-Setup/filament-dryer.cfg": "20c71dccbac100225bb7ea11a78e1e4f53665f303c4bdd7dd44d6f656ea5a80a",
+    "config/Printer-Setup/calibration-probe.cfg": "32a9c374f9089c5b3b0a563cb3b49fcf496c779dcccf9144186b4da5c978d702",
+    "config/Printer-Setup/input-shaper.cfg": "e1a949469da73837cf25def4baca6a39ea45c31538e6c695cb70b55415e16a5f",
+    "config/toolchanger/toolchanger-config.cfg": "ee1f0f0bcb1bc8806d42847c5355598ecd6acf78175c87ed8a1da719d682d31d",
+    "config/scripts/install.sh": "9c3f696ffa94b03420b900a04404749014ce58980c24c65615bbc42eac4c1ba4",
+    "Orca Config/Sync-OrcaProfiles.ps1": "ce969f43fec7f1bc285f8ef50b8917feafa50499230f0860984a022094165dbe",
+    "extras/tests/Test-ProductionCfg.ps1": "5289d0e1365bbd4705abcb3991e822dc68db828c8b7079ef711a16109d70cf4e"
+  }
+}

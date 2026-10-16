@@ -7,6 +7,7 @@ CONFIG_DIR="${VORON_CONFIG_DIR:-${HOME}/printer_data/config}"
 BACKUP_ROOT="${VORON_BACKUP_ROOT:-${HOME}/printer_data/config_backups}"
 MOONRAKER_URL="${VORON_MOONRAKER_URL:-http://127.0.0.1:7125}"
 DRY_RUN="${VORON_DEPLOY_DRY_RUN:-0}"
+ALLOW_CALIBRATION_REPLACE="${VORON_ALLOW_CALIBRATION_REPLACE:-0}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_CONFIG_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 TOOL_CRASH_SOURCE="${HOME}/klipper/klippy/extras/tool_crash.py"
@@ -30,6 +31,10 @@ fi
 
 if [[ "${DRY_RUN}" != 0 && "${DRY_RUN}" != 1 ]]; then
   echo "ERROR: VORON_DEPLOY_DRY_RUN must be 0 or 1." >&2
+  exit 1
+fi
+if [[ "${ALLOW_CALIBRATION_REPLACE}" != 0 && "${ALLOW_CALIBRATION_REPLACE}" != 1 ]]; then
+  echo "ERROR: VORON_ALLOW_CALIBRATION_REPLACE must be 0 or 1." >&2
   exit 1
 fi
 CONFIG_DIR="$(realpath -m "${CONFIG_DIR}")"
@@ -77,6 +82,26 @@ except Exception as error:
 PY
 }
 check_printer_idle
+
+# SAVE_CONFIG is machine-owned. Refuse to replace a newer/different live block
+# during an ordinary software update, before any backup/config/runtime write.
+# An operator-reviewed calibration deployment can explicitly opt in to replace.
+check_calibration_drift() {
+  python3 - "${CONFIG_DIR}/printer.cfg" "${SOURCE_CONFIG_DIR}/printer.cfg" "${ALLOW_CALIBRATION_REPLACE}" <<'PY'
+from pathlib import Path
+import sys
+live, source = (Path(p) for p in sys.argv[1:3])
+if live.exists():
+    def saved(path):
+        text = path.read_text(encoding='utf-8-sig').replace('\r\n', '\n')
+        return text.partition('#*# <')[2].strip()
+    if saved(live) != saved(source):
+        if sys.argv[3] != '1':
+            sys.exit('ERROR: live SAVE_CONFIG differs from the payload. Review/preserve live calibration before deployment; explicitly set VORON_ALLOW_CALIBRATION_REPLACE=1 only for a reviewed replacement.')
+        print('Reviewed calibration replacement explicitly enabled; live configuration will be backed up first.')
+PY
+}
+check_calibration_drift
 
 # KTC-Easy is the sole owner of readonly-configs. All-Config deploys only the
 # user-owned toolchanger-config.cfg and tools/T*.cfg files. Refuse deployment
@@ -126,6 +151,7 @@ if [[ "${DRY_RUN}" == 1 ]]; then
   echo "Dry run: no config, backup, or runtime files will be written."
 else
   check_printer_idle
+  check_calibration_drift
   mkdir -p "${BACKUP_ROOT}"
   BACKUP_DIR="$(mktemp -d "${BACKUP_ROOT}/config-install-$(date +%Y%m%d-%H%M%S)-XXXXXX")"
   mkdir -p "${CONFIG_DIR}"

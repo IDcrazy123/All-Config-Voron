@@ -20,7 +20,7 @@ if ($Push) {
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $destinationRoot = $PSScriptRoot
 $analysisRoot = Join-Path $repoRoot "extras\Orcasilcer setting"
-$timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
+$timestamp = (Get-Date -Format "yyyyMMdd-HHmmss") + "-" + [guid]::NewGuid().ToString("N").Substring(0, 8)
 $today = Get-Date -Format "yyyy-MM-dd"
 
 function Get-RepositoryRelativePath {
@@ -168,6 +168,10 @@ if (-not $SkipAnalysisAliases) {
     }
 }
 
+foreach ($item in $syncItems) {
+    $null = Get-RepositoryRelativePath -Path $item.Destination
+}
+
 $changedItems = @(
     $syncItems | Where-Object {
         -not (Test-SameFileContent -Source $_.Source -Destination $_.Destination)
@@ -185,6 +189,10 @@ if ($changedItems.Count -gt 0) {
 
     if ($existingDestinations.Count -gt 0) {
         $backupRoot = Join-Path $repoRoot "extras\backups\pre-orcaslicer-profile-sync-$timestamp"
+        if (Test-Path -LiteralPath $backupRoot) {
+            throw "Refusing to overwrite an existing backup: $backupRoot"
+        }
+        $null = New-Item -ItemType Directory -Path $backupRoot
         foreach ($item in $existingDestinations) {
             $relativeDestination = Get-RepositoryRelativePath -Path $item.Destination
             $backupPath = Join-Path $backupRoot $relativeDestination
@@ -320,6 +328,9 @@ $commitPaths = @(
 if ($journalWasUpdated) {
     $commitPaths += Get-RepositoryRelativePath -Path $journalPath
 }
+if ($backupRoot) {
+    $commitPaths += Get-RepositoryRelativePath -Path $backupRoot
+}
 
 if ($IncludeDiagnostics) {
     $commitPaths += $diagnosticPaths |
@@ -329,6 +340,11 @@ if ($IncludeDiagnostics) {
 $commitPaths = @($commitPaths | Sort-Object -Unique)
 
 if ($Commit -and $commitPaths.Count -gt 0) {
+    if ($backupRoot) {
+        $backupRelativePath = Get-RepositoryRelativePath -Path $backupRoot
+        & git -C $repoRoot add -- $backupRelativePath
+        if ($LASTEXITCODE -ne 0) { throw "git add failed for this synchronization backup." }
+    }
     $profilePaths = @(
         $syncItems |
             ForEach-Object { Get-RepositoryRelativePath -Path $_.Destination } |

@@ -2,6 +2,9 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Project overview](../README.md)
 
+October 16 software hardening is implemented locally and checked offline; it
+has not been deployed. See the [change and commissioning guide](../extras/docs/cfg-hardening-2026-10-16.md).
+
 This directory is the repository-owned payload deployed to `~/printer_data/config`. Markdown is excluded during deployment. Runtime output, local backups, generated calibration data, and KTC-Easy readonly links are preserved by `scripts/install.sh`.
 
 ## Include chain
@@ -41,7 +44,7 @@ This directory is the repository-owned payload deployed to `~/printer_data/confi
 
 ## Individual CFG sharing
 
-Use the [individual-file sharing guide](../extras/docs/sharing-cfg-files.md) to send an existing feature CFG without this full payload. All 18 user-owned CFGs now declare prerequisites and local adaptation points. Settings stay at their native owners; no global EDIT HERE/profile file is required. Benchmark/prime/cleaner/dryer can omit optional project helpers under their declared contracts. Hardware/lifecycle/calibration references retain their documented integration requirements and open issues. The sharing changes were deployed to the current printer on 2026-10-09 with a successful Klipper reload and read-only verification; feature motion/heating remains untested.
+Use the [individual-file sharing guide](../extras/docs/sharing-cfg-files.md) to send an existing feature CFG without this full payload. All 19 user-owned CFGs now declare prerequisites and local adaptation points. Settings stay at their native owners; no global EDIT HERE/profile file is required. Benchmark/prime/cleaner/dryer can omit optional project helpers under their declared contracts. Hardware/lifecycle/calibration references retain their documented integration requirements and open issues. The sharing changes were deployed to the current printer on 2026-10-09 with a successful Klipper reload and read-only verification; feature motion/heating remains untested.
 
 ## Adaptation inputs
 
@@ -54,7 +57,7 @@ Use the [machine adaptation guide](../extras/docs/machine-adaptation.md) before 
 | Main MCU | CAN UUID `19b203d75137` |
 | Cartographer | CAN UUID `da13d909ce34`; Touch home at `(174, 168)` |
 | Coarse-Z calibration switch | `^PF2`; holder at `(80, -8)`; observed contact range Z0–2; Axiscope starts at Z3 and uses Z15 transit |
-| XY | X `PE6`/`PF0`, Y `PE2`/`PF1`; 350 mm/s, 7000 mm/s² |
+| XY | X `PE6`/`PF0`, Y `PE2`/`PF4`; 350 mm/s, 7000 mm/s² |
 | Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |
 | Bed | Heater `PA1`, sensor `PB0`, maximum 120 °C |
 | Chamber | Sensor `PB1`, circulation fan `PF8` |
@@ -78,6 +81,10 @@ The holder must be removed before `G28`, QGL, bed mesh, Cartographer Touch, or p
 `scripts/install.sh` refuses deployment if the six KTC-Easy readonly links are missing or broken. It backs up the live config, preserves machine-local runtime paths, applies the reviewed `tool_crash` patch when necessary, and preserves all existing install backups and destination-only files. It checks the same printer through Moonraker before writing and fails if the required crash runtime/patch is missing.
 
 The Axiscope service and Klipper extra are externally managed through Moonraker; repository deployment changes only their `.cfg` integration.
+
+An ordinary deployment now refuses a differing live `SAVE_CONFIG` block.
+Preserve/reconcile live calibration first. `VORON_ALLOW_CALIBRATION_REPLACE=1`
+is only for an explicitly reviewed replacement; backup-first behavior remains.
 
 Run configuration deployment only while the printer is idle, then restart Moonraker/Klipper and verify `CALIBRATION_STATUS`, `CHECK_OFFSETS`, heaters, fans, homing, and tool detection before printing.
 

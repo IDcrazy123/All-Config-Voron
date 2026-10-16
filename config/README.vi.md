@@ -41,7 +41,7 @@ Thư mục này chứa payload do repository sở hữu và triển khai sang `~
 
 ## Chia sẻ riêng từng CFG
 
-Xem [hướng dẫn chia sẻ từng file](../extras/docs/sharing-cfg-files.md) để gửi một CFG tính năng hiện có mà không yêu cầu toàn bộ payload. Cả 18 CFG do người dùng sở hữu đã có comment về phụ thuộc và chỗ cần đổi. Thông số giữ tại section/macro đang sử dụng, không cần khối EDIT HERE/profile chung. Benchmark/prime/cleaner/dryer có thể thiếu các helper tùy chọn theo điều kiện công bố. File phần cứng/lifecycle/calibration vẫn giữ các phụ thuộc tích hợp và lỗi còn mở đã ghi rõ. Đã triển khai máy hiện tại ngày 2026-10-09, Klipper nạp thành công và đã kiểm tra chỉ đọc; chưa thử chuyển động/nhiệt của tính năng.
+Xem [hướng dẫn chia sẻ từng file](../extras/docs/sharing-cfg-files.md) để gửi một CFG tính năng hiện có mà không yêu cầu toàn bộ payload. Cả 19 CFG do người dùng sở hữu đã có comment về phụ thuộc và chỗ cần đổi. Thông số giữ tại section/macro đang sử dụng, không cần khối EDIT HERE/profile chung. Benchmark/prime/cleaner/dryer có thể thiếu các helper tùy chọn theo điều kiện công bố. File phần cứng/lifecycle/calibration vẫn giữ các phụ thuộc tích hợp và lỗi còn mở đã ghi rõ. Đã triển khai máy hiện tại ngày 2026-10-09, Klipper nạp thành công và đã kiểm tra chỉ đọc; chưa thử chuyển động/nhiệt của tính năng.
 
 ## Giá trị phần cứng chuẩn
 
@@ -50,7 +50,7 @@ Xem [hướng dẫn chia sẻ từng file](../extras/docs/sharing-cfg-files.md) 
 | MCU chính | CAN UUID `19b203d75137` |
 | Cartographer | CAN UUID `da13d909ce34`; Touch home tại `(174, 168)` |
 | Công tắc hiệu chuẩn Z sơ bộ | `^PF2`; đế tại `(80, -8)`; vùng chạm quan sát Z0–2; Axiscope bắt đầu tại Z3 và di chuyển an toàn ở Z15 |
-| XY | X `PE6`/`PF0`, Y `PE2`/`PF1`; 350 mm/s, 7000 mm/s² |
+| XY | X `PE6`/`PF0`, Y `PE2`/`PF4`; 350 mm/s, 7000 mm/s² |
 | Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |
 | Bàn nhiệt | Heater `PA1`, sensor `PB0`, tối đa 120 °C |
 | Buồng in | Sensor `PB1`, quạt tuần hoàn `PF8` |
@@ -82,5 +82,7 @@ Dịch vụ và Klipper extra Axiscope được Moonraker quản lý bên ngoài
 Chỉ deploy khi máy in đang rảnh. Sau restart Moonraker/Klipper, kiểm tra `CALIBRATION_STATUS`, `CHECK_OFFSETS`, heater, quạt, homing và tool detection trước khi in.
 
 ## Runtime Oxplow first-layer
+
+October 16 update: see the [software change and commissioning guide](../extras/docs/cfg-hardening-2026-10-16.md). Changes are local/offline-verified, not deployed. The installer refuses differing live `SAVE_CONFIG` unless a reviewed replacement explicitly enables `VORON_ALLOW_CALIBRATION_REPLACE=1`.
 
 `Printer-Setup/oxplow_runtime.cfg` cung cấp `_OXPLOW_CHECK` 2.3.2 và được include một lần. [Bộ tích hợp](../extras/Printables-Package/README.md) chứa profile máy, G-code, SVG và report tương ứng; không tự chạy hiệu chuẩn hoặc lưu offset.

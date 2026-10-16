@@ -39,7 +39,7 @@ These improvements cover the helpers described here. Other upstream routines, pa
 | Pause/retract/resume defaults | `_CLIENT_VARIABLE` in `print-macros.cfg` | Uncomment and fill the documented variables for your park/retract/speeds; retain the project hooks. Print state, RESUME and cancel cleanup are owned by this file; LED helpers remain in `fans-leds.cfg`. Do not edit `mainsail.cfg`. |
 | LEDs | `[neopixel ...]` sections and `_SET_TOOL_LED` | The helper expects `Tn_LED`, status index 1 and work-light indices 2/3. Adapt its name/index mapping for a different layout. States use the last executed setter, with no priority arbiter. |
 | Bed/chamber fan names | `fans-leds.cfg`, dryer/start/end calls | Current logic expects `bed_fan`. Retain this logical name or update every caller as a group. |
-| Input shaper | `input-shaper.cfg`, tool overrides, KTC `after_change_gcode` | Use your own resonance measurements. Audit the effective damping as well as frequency; see open finding A07. |
+| Input shaper | `input-shaper.cfg`, tool overrides, KTC `after_change_gcode` | Use your own resonance measurements. A positive per-axis tool frequency opts into a custom profile; otherwise the full global profile including damping is selected. |
 | Calibration switch | `[axiscope]` and `_CALIBRATION_SWITCH` | Enter actual pin, XY/contact Z and transit clearance. Keep report `probe_z = zswitch_z_pos + lift_z`; there are two owners to update. |
 | Camera | `crowsnest.conf` | Replace the device-by-ID path, modes/resolution, port and mains-frequency setting; check compatibility with your host/camera. |
 | Host integrations | `moonraker.conf`, KlipperScreen and runtime installs | Keep only installed services/update-manager paths; adapt access ranges and UI language. Local IPs and camera IDs are machine inputs. |
@@ -93,6 +93,12 @@ The URL must describe the same printer as the destination. Unavailable/unauthori
 The deployer preserves destination-only files, all existing backups and KTC readonly links. It still replaces matching repository-owned filenames, including `printer.cfg` and host `.conf` files: first-time adaptation must be complete before deployment. A customized machine should update from its own fork; `update.sh` supports an `ARCHIVE_URL` override. Re-running the original archive updater can overwrite your custom settings.
 
 `cleanup-voron.sh --apply` is a separate destructive maintenance command. It still removes listed old backup directories; use its default dry run and review the list before deciding to run it. The installer no longer runs that cleanup automatically.
+
+The October 16 installer refuses a different live `SAVE_CONFIG` block before
+any write. Preserve/reconcile that block for an ordinary software update.
+`VORON_ALLOW_CALIBRATION_REPLACE=1` is reserved for an explicitly reviewed
+replacement and retains backup-first behavior. See the [hardening guide](cfg-hardening-2026-10-16.md)
+for recovery, Axiscope and exclusion contracts; those changes are not deployed.
 
 ## Next architecture step
 

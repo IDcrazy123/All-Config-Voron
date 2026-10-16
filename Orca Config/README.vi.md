@@ -19,8 +19,13 @@ Machine:
 Process:
 
 - `0.20mm ABS.json`
+- `0.20mm ABS no hole.json`
 - `0.20mm Multicolor PetG.json`
 - `0.20mm PETG.json`
+
+October 16 inventory: 20 JSON presets (one machine, four processes, fifteen
+filaments). The synchronizer now includes its own unique backup in scoped
+commits. See the [software change guide](../extras/docs/cfg-hardening-2026-10-16.md).
 
 Filament:
 

@@ -8,6 +8,7 @@ Tài liệu hiện hành mô tả code production đang được nạp được 
 
 | Chủ đề | English | Tiếng Việt |
 | --- | --- | --- |
+| CFG software hardening 2026-10-16 | [Changes and commissioning](cfg-hardening-2026-10-16.md) | Local/offline-verified; not deployed; Python files unchanged |
 | Dọn dẹp, tổng hợp lỗi và phục hồi 12/10/2026 | [Summary](cleanup-2026-10-12.md) | [Tổng hợp](cleanup-2026-10-12.vi.md) |
 | Tổng duyệt code và đối chiếu máy 2026-10-09 | [Báo cáo](project-audit-2026-10-09.md) | Bản kỹ thuật tiếng Anh |
 | Phản hồi G-code khởi động và lỗi còn tiềm tàng | [Rà soát bổ sung](startup-response-and-risk-review-2026-10-09.md) | Đã xác minh bản vá runtime; lỗi motion/exclusion vẫn mở |

@@ -8,6 +8,7 @@ Current documents describe the loaded production code reviewed on 2026-10-09. Hi
 
 | Topic | English | Vietnamese |
 | --- | --- | --- |
+| CFG software hardening 2026-10-16 | [Changes and commissioning](cfg-hardening-2026-10-16.md) | Local/offline-verified; not deployed; Python files unchanged |
 | Cleanup, incident lessons and recovery 2026-10-12 | [Summary](cleanup-2026-10-12.md) | [Tổng hợp](cleanup-2026-10-12.vi.md) |
 | Code/machine audit 2026-10-09 | [Report](project-audit-2026-10-09.md) | English technical report |
 | Startup G-code response and remaining risks | [Follow-up](startup-response-and-risk-review-2026-10-09.md) | Runtime fix verified; motion/exclusion risks remain open |

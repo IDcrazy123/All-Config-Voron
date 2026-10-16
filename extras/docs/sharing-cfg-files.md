@@ -1,10 +1,15 @@
 # Sharing individual CFG files
 
+October 16 update: the [CFG hardening guide](cfg-hardening-2026-10-16.md) describes
+the current local recovery/calibration/exclusion contracts and offline tests.
+These later changes have not been deployed. The paragraph below records the
+original October 9 deployment, not acceptance of the later changes.
+
 Implemented and deployed to the current printer (192.168.1.43) on 2026-10-09. Klipper reloaded successfully; feature motion/heating and printing were not physically tested. This guide records the current implementation of the [revised proposal](stealthchanger-sharing-proposal.md).
 
 Send the **existing complete CFG** for a feature. The receiver keeps their existing Klipper/KTC setup, includes that one file once, and edits values at their current native section or macro. No global parameter file, EDIT HERE block, generated package, or renamed macro framework is required.
 
-Each of the 18 user-owned CFGs now describes its scope and prerequisites at the top. Local comments explain coordinates, units, calibration ownership and values that must change together. KTC readonly files and upstream `mainsail.cfg` remain untouched.
+Each of the 19 user-owned CFGs now describes its scope and prerequisites at the top. Local comments explain coordinates, units, calibration ownership and values that must change together. KTC readonly files and upstream `mainsail.cfg` remain untouched.
 
 ## Receiving a file
 
@@ -60,16 +65,24 @@ These files can be sent individually for reuse/review, but their headers explici
 | [hardware.cfg](../../config/Printer-Setup/hardware.cfg) | Manta/Cartographer UUIDs and every native pin/stepper/driver/sensor/bed section; reconcile against actual wiring/specifications. Retain the receiver's own travel and bed PID. |
 | [fans-leds.cfg](../../config/Printer-Setup/fans-leds.cfg) | Fan wiring/controllers, LED chains and status helpers. Shared `_PRINT_STATE` and Mainsail client/RESUME/cancel integration are defined in `print-macros.cfg`; LED wrappers retain their existing state updates. Dynamic tool enumeration does not make different LED names/index layouts compatible. Includes startup LED/controller behavior. |
 | [input-shaper.cfg](../../config/Printer-Setup/input-shaper.cfg) | Own measured frequencies/type/damping, actual accelerometer and accessible probe point. Omit `[shaketune]` and its commands when that plugin is absent. Check KTC inherited damping too. |
-| [calibration-probe.cfg](../../config/Printer-Setup/calibration-probe.cfg) | Actual Cartographer/Axiscope installation, coil offsets, mesh/probe pins and switch geometry. Synchronize Axiscope switch geometry with `_CALIBRATION_SWITCH` in toolchanger-config. Backend sequencing remains under review. |
-| [print-macros.cfg](../../config/Printer-Setup/print-macros.cfg) | Owns `_PRINT_STATE`, combined KTC/Mainsail RESUME, `_CLIENT_VARIABLE` and cancel cleanup, plus the T0/Cartographer/QGL/cleaner/prime/bed-fan lifecycle. LED helpers and post-resume/post-cancel LED sync remain in `fans-leds.cfg`. Supply equivalent existing commands before copying; retain the receiver's probe/first-layer procedure. Benchmark is optional. END/CANCEL and EXCLUDE_OBJECT issues remain open. |
+| [calibration-probe.cfg](../../config/Printer-Setup/calibration-probe.cfg) | Actual Cartographer/Axiscope installation, coil offsets, mesh/probe pins and switch geometry. Synchronize Axiscope switch geometry with `_CALIBRATION_SWITCH` in toolchanger-config. CFG orchestration adds final-return clearance; physical PF2 commissioning remains required. |
+| [print-macros.cfg](../../config/Printer-Setup/print-macros.cfg) | Owns `_PRINT_STATE`, combined KTC/Mainsail RESUME, `_CLIENT_VARIABLE` and cancel cleanup, plus the T0/Cartographer/QGL/cleaner/prime/bed-fan lifecycle. LED helpers and post-resume/post-cancel LED sync remain in `fans-leds.cfg`. Supply equivalent existing commands before copying; retain the receiver's probe/first-layer procedure. Benchmark is optional. Finish/recovery guards are implemented locally; multi-tool exclusion is blocked while the native defect remains. |
 | [printer.cfg](../../config/printer.cfg) | Complete entrypoint/include graph and machine calibration reference. Send the feature CFG instead for a single-feature request. Never import its SAVE_CONFIG PID/offsets as another machine's calibration. |
 
 ## Verification and remaining limits
 
-Offline tests cover isolated feature prerequisites, 2/5/6 and sparse tool registries, custom extruder/fan mappings, missing optional helpers, park bounds, contact guards, native print/pause refusal, timer ownership, runout routing and supported diagnostic limits. They also compare all existing non-G-code options across the 18 CFGs, saved calibration and representative motion/heat commands against the pre-change backup.
+Offline tests cover isolated feature prerequisites, 2/5/6 and sparse tool registries, custom extruder/fan mappings, missing optional helpers, park bounds, contact guards, native print/pause refusal, timer ownership, runout routing and supported diagnostic limits. The October 9 tests originally compared 18 CFGs with their pre-change backup. Current preservation checks and cleaner contracts supersede the two old invariants after the approved layout/path changes.
 
-Run `python -m unittest discover -s extras/tests -v`. On Windows, set `VORON_TEST_BASH` to the existing Git Bash executable for installer tests. Fixtures model template expansion and variable writes, not real firmware loading, motion, concurrency or thermal dynamics. The active include graph's templates are compiled separately by the same suite.
+Run `extras/tests/Test-ProductionCfg.ps1 -Bash <existing-bash-path>` on Windows
+with Python/Jinja2 installed. It includes the cleaner harness and current
+semantic preservation checks. Two historical same-file/old-path checks are
+explicitly superseded; the original Python files remain unchanged. Fixtures
+do not prove firmware scheduling, motion clearance or thermal dynamics.
 
 TEST_Z_SPEED now uses supported global `VELOCITY/ACCEL` for pure Z cycles while the native CoreXY Z caps continue to apply; unsupported `Z_VELOCITY/Z_ACCEL` parameters were removed. See the official [SET_VELOCITY_LIMIT commands](https://www.klipper3d.org/G-Codes.html#set_velocity_limit) and [toolhead runtime status](https://www.klipper3d.org/Status_Reference.html#toolhead).
 
-Still open from the [machine/code audit](project-audit-2026-10-09.md): END/CANCEL max-Z and coordinate-frame handling, crash cancel parking, Axiscope's return-to-T0 sequence, inherited KTC shaper damping and multi-tool EXCLUDE_OBJECT. T1 CAN is already fixed per the operator. None of those open issues is claimed fixed by adding sharing comments.
+The [October 9 audit](project-audit-2026-10-09.md) records historical open issues.
+Current local fixes/mitigations and remaining commissioning are listed in the
+[October 16 hardening guide](cfg-hardening-2026-10-16.md). Native multi-tool
+exclusion remains unfixed; a CFG guard blocks that operation. T1 CAN is already
+fixed per the operator, while T1 temperature-sensor replacement remains open.

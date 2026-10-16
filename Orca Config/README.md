@@ -13,8 +13,12 @@ Machine profile:
 Process profiles:
 
 - `0.20mm ABS.json`
+- `0.20mm ABS no hole.json`
 - `0.20mm Multicolor PetG.json`
 - `0.20mm PETG.json`
+
+Current inventory verified on October 16: 20 JSON presets (one machine, four
+processes, fifteen filaments). The September 30 count above is historical.
 
 Filament profiles:
 
@@ -70,6 +74,11 @@ Orca Config\Sync-OrcaProfiles.cmd
 ```
 
 The script selects the most recently edited Orca user profile unless `-ProfileId` is supplied. It parses every machine/process/filament JSON, rejects duplicate flat destination names, copies only changed bytes, backs up replaced files, refreshes the two analysis aliases, and records the operation in the daily journal.
+
+Each run uses a unique backup suffix; its scoped commit includes that run's
+backup files and README. Unrelated backups and staged changes are excluded.
+See the [October 16 changes](../extras/docs/cfg-hardening-2026-10-16.md) for the
+CFG guard that blocks multi-tool exclusion while retaining labels for mesh.
 
 Useful switches:
 
