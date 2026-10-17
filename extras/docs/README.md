@@ -2,13 +2,14 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md)
 
-Current documents describe the loaded production code reviewed on 2026-10-09. Historical reports remain immutable and are clearly separated so retired commands are not mistaken for active procedures.
+Current documents include the production reviews and deployments through 2026-10-17. Historical reports remain immutable and are clearly separated so retired commands are not mistaken for active procedures.
 
 ## Current documentation
 
 | Topic | English | Vietnamese |
 | --- | --- | --- |
-| CFG software hardening 2026-10-16 | [Changes and commissioning](cfg-hardening-2026-10-16.md) | Local/offline-verified; not deployed; Python files unchanged |
+| CFG follow-up 2026-10-17 | [Fixes and remaining issues](cfg-followup-2026-10-17.md) | Deployed; physical acceptance pending; Python unchanged |
+| CFG software hardening 2026-10-16 | [Changes and commissioning](cfg-hardening-2026-10-16.md), [deployment](cfg-deployment-2026-10-17.md) | Deployed October 17; Python files unchanged |
 | Cleanup, incident lessons and recovery 2026-10-12 | [Summary](cleanup-2026-10-12.md) | [Tổng hợp](cleanup-2026-10-12.vi.md) |
 | Code/machine audit 2026-10-09 | [Report](project-audit-2026-10-09.md) | English technical report |
 | Startup G-code response and remaining risks | [Follow-up](startup-response-and-risk-review-2026-10-09.md) | Runtime fix verified; motion/exclusion risks remain open |

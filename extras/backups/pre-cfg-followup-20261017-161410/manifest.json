@@ -1,0 +1,18 @@
+{
+  "repository_original_sha256": {
+    "config/Printer-Setup/print-macros.cfg": "a5996d9b7a0574f456c4e771c687fde961e445a93e01dc54464630974913ddf2",
+    "config/Printer-Setup/fans-leds.cfg": "20a53c0cd77243029970320792354d0e298782d240ff125ccbccd8e1cfe34b09",
+    "config/Printer-Setup/filament-dryer.cfg": "20c71dccbac100225bb7ea11a78e1e4f53665f303c4bdd7dd44d6f656ea5a80a",
+    "config/Printer-Setup/nozzle-clean.cfg": "2fd01666017a12b614de41cabcb3f22dadf8a4cadab6610f7cd309bcde7fc214",
+    "config/Printer-Setup/prime-lines.cfg": "244d8f9d403fddc5c76f679b3db823a8ce831b635c3fd41d44d78875d75fb47e",
+    "config/Printer-Setup/tool-temp-bench.cfg": "c7758bc9ab0806380efd9f39f847c76e4bc9bba47f5f4191dfb75141173ce879",
+    "config/Printer-Setup/test-speed.cfg": "774380e86c48a07406e26366874c70cbddc96787d19fe87d89ec46866b7cec58",
+    "config/Printer-Setup/calibration-probe.cfg": "32a9c374f9089c5b3b0a563cb3b49fcf496c779dcccf9144186b4da5c978d702",
+    "config/Printer-Setup/tool-crash.cfg": "929ebecb5774af016b4a274157a9db71f115ef0e86dedcf7439208f60451927c",
+    "extras/tests/Test-ProductionCfg.ps1": "01f34fed827c67162a9f7ed78f707edf54fef778e50516dd4b7a207203f79f9f",
+    "config/README.md": "8a3c0050874cdc87a9792f6416cb38e5df1965ac6ab74a2a4ff163ecb2e22d86",
+    "config/README.vi.md": "c5543d312fc88775594c6b887beddbc1a82029a8e795998365eda73f62f3e71e",
+    "extras/docs/README.md": "eeb69f47536c8e00f6f799958666d03a2323f1a47e66dbaab1d4e2455b100fb6",
+    "extras/docs/README.vi.md": "7d36d87cb9e2b5977083a7f6add490516dbab3e66cb5312edd6a8924dd7942a7"
+  }
+}

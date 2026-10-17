@@ -1,0 +1,4 @@
+{"event": "backup_verified", "path": "/home/voron/printer_data/config_backups/pre-cfg-followup-20261017-162128-66m1xrah", "file_count": 10}
+{"event": "files_verified", "files": ["Printer-Setup/print-macros.cfg", "Printer-Setup/fans-leds.cfg", "Printer-Setup/filament-dryer.cfg", "Printer-Setup/nozzle-clean.cfg", "Printer-Setup/prime-lines.cfg", "Printer-Setup/tool-temp-bench.cfg", "Printer-Setup/test-speed.cfg", "Printer-Setup/calibration-probe.cfg", "Printer-Setup/tool-crash.cfg"], "runtime_python_unchanged": true, "protected_config_unchanged": true}
+{"event": "restart_response", "result": {"result": "ok"}}
+{"event": "ready_verified", "state": "ready", "remote_backup": "/home/voron/printer_data/config_backups/pre-cfg-followup-20261017-162128-66m1xrah", "new_helper_loaded": true, "final_integrity": true, "verified_backup_files": 10}

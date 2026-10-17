@@ -1,0 +1,15 @@
+{
+  "empty_reset_allows_multi_tool_exclusion": true,
+  "PRIME_LINES_admits_pending_tool_recovery": true,
+  "CLEAN_NOZZLE_admits_pending_tool_recovery": true,
+  "MEASURE_TOOL_HEATUP_admits_pending_tool_recovery": true,
+  "TEST_SPEED_admits_pending_tool_recovery": true,
+  "TEST_Z_SPEED_admits_pending_tool_recovery": true,
+  "START_DRYER_admits_pending_tool_recovery": true,
+  "manual_complete_led_changes_print_phase": true,
+  "dryer_uses_implicit_z_restore": true,
+  "pre_fix_cancel_allows_dryer_callback_to_reheat_bed": true,
+  "pre_fix_callback_heat_commands": [
+    "M140 S70"
+  ]
+}

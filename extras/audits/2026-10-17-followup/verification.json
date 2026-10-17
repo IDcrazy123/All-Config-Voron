@@ -1,0 +1,130 @@
+{
+  "ready": true,
+  "klipper_warnings": [],
+  "moonraker_warnings": [],
+  "unchanged_protected_sections": 104,
+  "changed_macro_sections": [
+    "gcode_macro CANCEL_PRINT",
+    "gcode_macro PAUSE",
+    "gcode_macro CALIBRATE_MOVE_OVER_PROBE",
+    "gcode_macro _CALIBRATE_SAFE_TRANSIT",
+    "gcode_macro _SET_LED_STATUS_PRINTING",
+    "gcode_macro _SET_LED_STATUS_PAUSE",
+    "gcode_macro _SET_LED_STATUS_COMPLETE",
+    "gcode_macro _SET_LED_STATUS_DRYING",
+    "gcode_macro _SET_LED_STATUS_DRYING_COMPLETE",
+    "gcode_macro CLEAN_NOZZLE",
+    "gcode_macro _CLEAN_NOZZLE_PURGE",
+    "gcode_macro _CLEAN_NOZZLE_WIPE_PATH",
+    "gcode_macro _CLEAN_NOZZLE_PARK",
+    "gcode_macro PRIME_LINES",
+    "gcode_macro _PRIME_LINES_TOOL",
+    "gcode_macro EXCLUDE_OBJECT",
+    "gcode_macro _REQUIRE_MOTION_PREPARATION",
+    "gcode_macro PRINT_END",
+    "gcode_macro _FILAMENT_RUNOUT_PAUSE",
+    "gcode_macro _CLIENT_VARIABLE",
+    "gcode_macro START_DRYER",
+    "gcode_macro STOP_DRYER",
+    "gcode_macro TEST_SPEED",
+    "gcode_macro TEST_Z_SPEED",
+    "gcode_macro MEASURE_TOOL_HEATUP",
+    "gcode_macro _TOOL_CRASH_SAFE_PAUSE"
+  ],
+  "added_macro_sections": [
+    "gcode_macro _PRINT_PAUSED",
+    "gcode_macro _STOP_AUXILIARY_HEAT_TASKS",
+    "gcode_macro _DRYER_PARK"
+  ],
+  "registered_commands": [
+    "PAUSE",
+    "PAUSE_BASE",
+    "RESUME",
+    "RESUME_BASE",
+    "CANCEL_PRINT",
+    "CANCEL_PRINT_BASE",
+    "_PRINT_PAUSED",
+    "_STOP_AUXILIARY_HEAT_TASKS",
+    "_DRYER_PARK",
+    "CONFIRM_TOOL_RECOVERY",
+    "_EXCLUDE_OBJECT_BASE"
+  ],
+  "print_state": "standby",
+  "paused": false,
+  "virtual_sd_active": false,
+  "homed_axes": "",
+  "toolchanger_status": "uninitialized",
+  "detected_tool": 0,
+  "macro_phase": {
+    "state": "idle",
+    "paused_tool": -1,
+    "used_tool_count": 0
+  },
+  "recovery": {
+    "required": 0,
+    "tool": -1
+  },
+  "heater_targets": {
+    "heater_bed": 0.0,
+    "extruder": 0.0,
+    "extruder1": 0.0,
+    "extruder2": 0.0,
+    "extruder3": 0.0,
+    "extruder4": 0.0
+  },
+  "deployed_sha256": {
+    "Printer-Setup/print-macros.cfg": "3f34628e58b9bf904ee0b64ddd4d0dcb88a4bdafc9646340fa89d320e4ea5a7e",
+    "Printer-Setup/fans-leds.cfg": "0ff6feba4adefef173dfc0c7a55d9cc271da76cbd370a178ed7c731707ab35a4",
+    "Printer-Setup/filament-dryer.cfg": "2f086c190a5ffbbb06b709b980c4cc7ab94a791ec94535f8a457aa816967d7d7",
+    "Printer-Setup/nozzle-clean.cfg": "034cfae860c5d384e06f8c2bc54c4e4cc148fc77aedddbcc5a08a0d194674477",
+    "Printer-Setup/prime-lines.cfg": "4c92f1541802e9afff6349d62b79aad17b53d0e745e4cc0ed00e1d579f3495d1",
+    "Printer-Setup/tool-temp-bench.cfg": "b715fbf036148a84c2683fe9a7f921776723b575b1e8542347210c22e41bfcc8",
+    "Printer-Setup/test-speed.cfg": "2a804437f0925292bdb9050d7d308d9f6383f2ce0c250f4565dd18e94de791a1",
+    "Printer-Setup/calibration-probe.cfg": "ff2418abc2da013056b0b267dd8d842617bd5c8aa04d399297f98fce2339006d",
+    "Printer-Setup/tool-crash.cfg": "92b98ccef826633f3a10a9126a20083aee894303d8a8d3a526293ce720f03f12"
+  },
+  "unchanged_runtime_python": {
+    "toolchanger": {
+      "path": "/home/voron/klipper-toolchanger-easy/klipper/extras/toolchanger.py",
+      "sha256": "f401fd013e6a33dc740a61c411326642f445f1316350e7bcd74fbfa2451b8bf2"
+    },
+    "axiscope": {
+      "path": "/home/voron/axiscope/klippy/extras/axiscope.py",
+      "sha256": "8b1ad0ba7d7ea703653ecb2e9f0b1e7a052e869d60fa50f629613008f9124a3d"
+    },
+    "tool_crash": {
+      "path": "/home/voron/klipper/klippy/extras/tool_crash.py",
+      "sha256": "a9aeec463aa3bc80dfc8fcd8c81f2b56809c37c28787093e5317d80c3cbf47ae"
+    },
+    "gcode_macro": {
+      "path": "/home/voron/klipper/klippy/extras/gcode_macro.py",
+      "sha256": "16ba212109cc5ea3c9e4f2edfbeaac8a0547ad841f52ac0fd3df5669569203bd"
+    },
+    "input_shaper": {
+      "path": "/home/voron/klipper/klippy/extras/input_shaper.py",
+      "sha256": "857fea3156d9c46e6458799d459624e09b0cde00fd29865141648805933c7ccd"
+    },
+    "gcode_move": {
+      "path": "/home/voron/klipper/klippy/extras/gcode_move.py",
+      "sha256": "f4200b863e64988aa192ad363af2563843c65feea14afa657b76b8d8656a4a37"
+    },
+    "pause_resume": {
+      "path": "/home/voron/klipper/klippy/extras/pause_resume.py",
+      "sha256": "366d623aadbf50575e8a4659683cf4fcecce833f414a75c54ad279facc8e1998"
+    },
+    "virtual_sdcard": {
+      "path": "/home/voron/klipper/klippy/extras/virtual_sdcard.py",
+      "sha256": "df21babd834915f06063d3bb6d27ee8d0cfe8dfc15b861409c151ebe7a7626d1"
+    },
+    "exclude_object": {
+      "path": "/home/voron/klipper/klippy/extras/exclude_object.py",
+      "sha256": "9b3756ec0baca6207f19cae4bdd0c82dfd2d22c34934e228723e7463c66d8bfb"
+    },
+    "gcode": {
+      "path": "/home/voron/klipper/klippy/gcode.py",
+      "sha256": "4ba80ab638b6fa49b92ea07906a198fd49ed08dff42fafebff64be55da600dc8"
+    }
+  },
+  "unchanged_other_observed_files": 25,
+  "preserved_config_symlinks": 6
+}

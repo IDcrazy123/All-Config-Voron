@@ -2,13 +2,14 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md)
 
-Tài liệu hiện hành mô tả code production đang được nạp được rà soát ngày 2026-10-09. Báo cáo lịch sử được giữ bất biến và tách rõ để không nhầm lệnh retired với quy trình active.
+Current documentation includes production reviews and deployments through 2026-10-17. Historical reports remain immutable; retired commands are separate from active procedures.
 
 ## Tài liệu hiện hành
 
 | Chủ đề | English | Tiếng Việt |
 | --- | --- | --- |
-| CFG software hardening 2026-10-16 | [Changes and commissioning](cfg-hardening-2026-10-16.md) | Local/offline-verified; not deployed; Python files unchanged |
+| CFG follow-up 2026-10-17 | [Fixes and remaining issues](cfg-followup-2026-10-17.md) | Deployed; physical acceptance pending; Python unchanged |
+| CFG software hardening 2026-10-16 | [Changes and commissioning](cfg-hardening-2026-10-16.md), [deployment](cfg-deployment-2026-10-17.md) | Deployed October 17; Python files unchanged |
 | Dọn dẹp, tổng hợp lỗi và phục hồi 12/10/2026 | [Summary](cleanup-2026-10-12.md) | [Tổng hợp](cleanup-2026-10-12.vi.md) |
 | Tổng duyệt code và đối chiếu máy 2026-10-09 | [Báo cáo](project-audit-2026-10-09.md) | Bản kỹ thuật tiếng Anh |
 | Phản hồi G-code khởi động và lỗi còn tiềm tàng | [Rà soát bổ sung](startup-response-and-risk-review-2026-10-09.md) | Đã xác minh bản vá runtime; lỗi motion/exclusion vẫn mở |

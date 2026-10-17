@@ -1,0 +1,262 @@
+{
+  "live_original_sha256": {
+    "Printer-Setup/print-macros.cfg": "a5996d9b7a0574f456c4e771c687fde961e445a93e01dc54464630974913ddf2",
+    "Printer-Setup/fans-leds.cfg": "20a53c0cd77243029970320792354d0e298782d240ff125ccbccd8e1cfe34b09",
+    "Printer-Setup/filament-dryer.cfg": "20c71dccbac100225bb7ea11a78e1e4f53665f303c4bdd7dd44d6f656ea5a80a",
+    "Printer-Setup/nozzle-clean.cfg": "2fd01666017a12b614de41cabcb3f22dadf8a4cadab6610f7cd309bcde7fc214",
+    "Printer-Setup/prime-lines.cfg": "244d8f9d403fddc5c76f679b3db823a8ce831b635c3fd41d44d78875d75fb47e",
+    "Printer-Setup/tool-temp-bench.cfg": "c7758bc9ab0806380efd9f39f847c76e4bc9bba47f5f4191dfb75141173ce879",
+    "Printer-Setup/test-speed.cfg": "774380e86c48a07406e26366874c70cbddc96787d19fe87d89ec46866b7cec58",
+    "Printer-Setup/calibration-probe.cfg": "32a9c374f9089c5b3b0a563cb3b49fcf496c779dcccf9144186b4da5c978d702",
+    "Printer-Setup/tool-crash.cfg": "929ebecb5774af016b4a274157a9db71f115ef0e86dedcf7439208f60451927c",
+    "printer.cfg": "672e57bc2f4243f38d150c0b902519e961ed5d7fe70e19ff0cf85f9de3fdda3b"
+  },
+  "observed_config": {
+    "moonraker.conf": {
+      "sha256": "9f3b3c919f3e483f6741abd9978e4c329170a99c818864ef1459296610159cb4",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/moonraker.conf",
+      "mode": 420
+    },
+    "KlipperScreen.conf": {
+      "sha256": "cc6e0876093e5ecf8dcd56580b83636f3c900abacee4b436934404b920a99f3a",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/KlipperScreen.conf",
+      "mode": 420
+    },
+    "mainsail.cfg": {
+      "sha256": "afaa498606c81fe36441c6d87b63b401bbfb37efeb79ee327c2861a7965a14c2",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/mainsail.cfg",
+      "mode": 420
+    },
+    "crowsnest.conf": {
+      "sha256": "1840b160412ed9cfcba662121ca35d1efa1944cd16cfef42f3408cee3a000d0e",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/crowsnest.conf",
+      "mode": 420
+    },
+    "printer.cfg": {
+      "sha256": "672e57bc2f4243f38d150c0b902519e961ed5d7fe70e19ff0cf85f9de3fdda3b",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/printer.cfg",
+      "mode": 420
+    },
+    "toolchanger/toolchanger-config.cfg": {
+      "sha256": "ee1f0f0bcb1bc8806d42847c5355598ecd6acf78175c87ed8a1da719d682d31d",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/toolchanger/toolchanger-config.cfg",
+      "mode": 420
+    },
+    "toolchanger/readonly-configs/toolchanger.cfg": {
+      "sha256": "50ce94f71bab0eb5e4afb7862ec2a3bdcb5f6aac2134610874d19f918e605aa0",
+      "symlink": true,
+      "target": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/toolchanger.cfg",
+      "mode": 420
+    },
+    "toolchanger/readonly-configs/crash-detection.cfg": {
+      "sha256": "c094f942857c047422fb565e2f4a9859cf05c0c9b7863065572475b21e687579",
+      "symlink": true,
+      "target": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/crash-detection.cfg",
+      "mode": 420
+    },
+    "toolchanger/readonly-configs/calibrate-offsets.cfg": {
+      "sha256": "2841850a73c7321d5beaa2b07ee9c02e6054c8d0b0e08bb105eecdece66d6c10",
+      "symlink": true,
+      "target": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/calibrate-offsets.cfg",
+      "mode": 420
+    },
+    "toolchanger/readonly-configs/toolchanger-macros.cfg": {
+      "sha256": "c6e10343171a03fedbecdd16fe4ab52eb0754dfa039e393bea65f693899e555f",
+      "symlink": true,
+      "target": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/toolchanger-macros.cfg",
+      "mode": 420
+    },
+    "toolchanger/readonly-configs/toolchanger-include.cfg": {
+      "sha256": "55983612decff70a67fa3366cef52af1794bb949116f75e572592972c8e7ebb8",
+      "symlink": true,
+      "target": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/user-configs/toolchanger-include_scanner.cfg",
+      "mode": 420
+    },
+    "toolchanger/readonly-configs/homing.cfg": {
+      "sha256": "8ad7d37d76c597d72dafd3605b50f2f2914183a813bca87fb17792db55436d48",
+      "symlink": true,
+      "target": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/homing.cfg",
+      "mode": 420
+    },
+    "toolchanger/tools/T3.cfg": {
+      "sha256": "aeb5584eb7a69e172648676a800e051869ede5e6ab13c38f7f88d40092c2f09e",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/toolchanger/tools/T3.cfg",
+      "mode": 420
+    },
+    "toolchanger/tools/T4.cfg": {
+      "sha256": "f998f6e609335c94172b65e56e751f9a6a2aa762092a3e63d657bac3b753782c",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/toolchanger/tools/T4.cfg",
+      "mode": 420
+    },
+    "toolchanger/tools/T0.cfg": {
+      "sha256": "4deeb2dbb0bb98a9882d04a8db7db796b3de223df3d1e7ea399d1e2c15954b0f",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/toolchanger/tools/T0.cfg",
+      "mode": 420
+    },
+    "toolchanger/tools/T2.cfg": {
+      "sha256": "17cbed83a4717ad8b512e962857342f68999c2191165089d8ddd46d3d45dcfb8",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/toolchanger/tools/T2.cfg",
+      "mode": 420
+    },
+    "toolchanger/tools/T1.cfg": {
+      "sha256": "dfa21b88db6b30873830d4593d2a9c4b99d0ce3f349676d96873c79a23c6a836",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/toolchanger/tools/T1.cfg",
+      "mode": 420
+    },
+    "Printer-Setup/tool-temp-bench.cfg": {
+      "sha256": "c7758bc9ab0806380efd9f39f847c76e4bc9bba47f5f4191dfb75141173ce879",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/tool-temp-bench.cfg",
+      "mode": 420
+    },
+    "Printer-Setup/oxplow_runtime.cfg": {
+      "sha256": "fdd7716fb64d21e2add77416a4832deb35d3edb1ed1e130a4c4a956088d1e177",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/oxplow_runtime.cfg",
+      "mode": 420
+    },
+    "Printer-Setup/input-shaper.cfg": {
+      "sha256": "e1a949469da73837cf25def4baca6a39ea45c31538e6c695cb70b55415e16a5f",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/input-shaper.cfg",
+      "mode": 420
+    },
+    "Printer-Setup/filament-dryer.cfg": {
+      "sha256": "20c71dccbac100225bb7ea11a78e1e4f53665f303c4bdd7dd44d6f656ea5a80a",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/filament-dryer.cfg",
+      "mode": 420
+    },
+    "Printer-Setup/fans-leds.cfg": {
+      "sha256": "20a53c0cd77243029970320792354d0e298782d240ff125ccbccd8e1cfe34b09",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/fans-leds.cfg",
+      "mode": 420
+    },
+    "Printer-Setup/hardware.cfg": {
+      "sha256": "b118b8ed36de879e03c6459427c3bdf255289640e4e3a0d88c1a0efa97f2b7e9",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/hardware.cfg",
+      "mode": 420
+    },
+    "Printer-Setup/print-macros.cfg": {
+      "sha256": "a5996d9b7a0574f456c4e771c687fde961e445a93e01dc54464630974913ddf2",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/print-macros.cfg",
+      "mode": 420
+    },
+    "Printer-Setup/tool-crash.cfg": {
+      "sha256": "929ebecb5774af016b4a274157a9db71f115ef0e86dedcf7439208f60451927c",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/tool-crash.cfg",
+      "mode": 420
+    },
+    "Printer-Setup/test-speed.cfg": {
+      "sha256": "774380e86c48a07406e26366874c70cbddc96787d19fe87d89ec46866b7cec58",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/test-speed.cfg",
+      "mode": 420
+    },
+    "Printer-Setup/calibration-probe.cfg": {
+      "sha256": "32a9c374f9089c5b3b0a563cb3b49fcf496c779dcccf9144186b4da5c978d702",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/calibration-probe.cfg",
+      "mode": 420
+    },
+    "Printer-Setup/nozzle-clean.cfg": {
+      "sha256": "2fd01666017a12b614de41cabcb3f22dadf8a4cadab6610f7cd309bcde7fc214",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/nozzle-clean.cfg",
+      "mode": 420
+    },
+    "Printer-Setup/prime-lines.cfg": {
+      "sha256": "244d8f9d403fddc5c76f679b3db823a8ce831b635c3fd41d44d78875d75fb47e",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/Printer-Setup/prime-lines.cfg",
+      "mode": 420
+    },
+    "scripts/cleanup-voron.sh": {
+      "sha256": "d1a9b09752cfcc5e53d21ebe875fa0a3adf734923fe2f1af40ba541ef0727e5c",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/scripts/cleanup-voron.sh",
+      "mode": 493
+    },
+    "scripts/update.sh": {
+      "sha256": "fd3629f7b7f4f19c6129d40744a6a00533d75c891354198efdef3a29ef914336",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/scripts/update.sh",
+      "mode": 493
+    },
+    "scripts/install.sh": {
+      "sha256": "3b8a7a30e5b8a773850d8164ca470bd59a299db718e2eddab596ab0863f1551f",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/scripts/install.sh",
+      "mode": 493
+    },
+    "scripts/patches/klipper-pty-client-gate.patch": {
+      "sha256": "dbeb6073b032a1c3bb73449df193eedb623aef006e83b75bece05cc5796fd584",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/scripts/patches/klipper-pty-client-gate.patch",
+      "mode": 420
+    },
+    "scripts/patches/tool_crash-active-tool-validation.patch": {
+      "sha256": "44f8dea72d2c0ea23fc4027ffca1dd78f046c4b64f7418ace510e072bb0dcaf1",
+      "symlink": false,
+      "target": "/home/voron/printer_data/config/scripts/patches/tool_crash-active-tool-validation.patch",
+      "mode": 420
+    }
+  },
+  "runtime_python": {
+    "toolchanger": {
+      "path": "/home/voron/klipper-toolchanger-easy/klipper/extras/toolchanger.py",
+      "sha256": "f401fd013e6a33dc740a61c411326642f445f1316350e7bcd74fbfa2451b8bf2"
+    },
+    "axiscope": {
+      "path": "/home/voron/axiscope/klippy/extras/axiscope.py",
+      "sha256": "8b1ad0ba7d7ea703653ecb2e9f0b1e7a052e869d60fa50f629613008f9124a3d"
+    },
+    "tool_crash": {
+      "path": "/home/voron/klipper/klippy/extras/tool_crash.py",
+      "sha256": "a9aeec463aa3bc80dfc8fcd8c81f2b56809c37c28787093e5317d80c3cbf47ae"
+    },
+    "gcode_macro": {
+      "path": "/home/voron/klipper/klippy/extras/gcode_macro.py",
+      "sha256": "16ba212109cc5ea3c9e4f2edfbeaac8a0547ad841f52ac0fd3df5669569203bd"
+    },
+    "input_shaper": {
+      "path": "/home/voron/klipper/klippy/extras/input_shaper.py",
+      "sha256": "857fea3156d9c46e6458799d459624e09b0cde00fd29865141648805933c7ccd"
+    },
+    "gcode_move": {
+      "path": "/home/voron/klipper/klippy/extras/gcode_move.py",
+      "sha256": "f4200b863e64988aa192ad363af2563843c65feea14afa657b76b8d8656a4a37"
+    },
+    "pause_resume": {
+      "path": "/home/voron/klipper/klippy/extras/pause_resume.py",
+      "sha256": "366d623aadbf50575e8a4659683cf4fcecce833f414a75c54ad279facc8e1998"
+    },
+    "virtual_sdcard": {
+      "path": "/home/voron/klipper/klippy/extras/virtual_sdcard.py",
+      "sha256": "df21babd834915f06063d3bb6d27ee8d0cfe8dfc15b861409c151ebe7a7626d1"
+    },
+    "exclude_object": {
+      "path": "/home/voron/klipper/klippy/extras/exclude_object.py",
+      "sha256": "9b3756ec0baca6207f19cae4bdd0c82dfd2d22c34934e228723e7463c66d8bfb"
+    },
+    "gcode": {
+      "path": "/home/voron/klipper/klippy/gcode.py",
+      "sha256": "4ba80ab638b6fa49b92ea07906a198fd49ed08dff42fafebff64be55da600dc8"
+    }
+  }
+}

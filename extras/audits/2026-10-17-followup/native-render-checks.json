@@ -1,0 +1,60 @@
+{
+  "native_render_cases": [
+    {
+      "macro": "EXCLUDE_OBJECT",
+      "outcome": "refused",
+      "message": "Multi-tool/unknown-job exclusion is blocked: this Klipper runtime shares extrusion state. Query and RESET remain available."
+    },
+    {
+      "macro": "PRIME_LINES",
+      "outcome": "refused",
+      "message": "PRIME_LINES: requested temperature is below this tool's extrusion limit"
+    },
+    {
+      "macro": "PAUSE",
+      "outcome": "rendered"
+    },
+    {
+      "macro": "PAUSE",
+      "outcome": "rendered"
+    },
+    {
+      "macro": "_DRYER_PARK",
+      "outcome": "rendered"
+    },
+    {
+      "macro": "_PRINT_PAUSED",
+      "outcome": "rendered"
+    },
+    {
+      "macro": "_STOP_AUXILIARY_HEAT_TASKS",
+      "outcome": "rendered"
+    },
+    {
+      "macro": "CLEAN_NOZZLE",
+      "outcome": "refused",
+      "message": "Cleaner requires confirmed tool recovery"
+    },
+    {
+      "macro": "_CLEAN_NOZZLE_WIPE_PATH",
+      "outcome": "refused",
+      "message": "Cleaner wipe refused: tool recovery is required"
+    },
+    {
+      "macro": "MEASURE_TOOL_HEATUP",
+      "outcome": "refused",
+      "message": "Heat benchmark requires confirmed tool recovery"
+    },
+    {
+      "macro": "TEST_SPEED",
+      "outcome": "refused",
+      "message": "Motion test requires confirmed tool recovery"
+    },
+    {
+      "macro": "START_DRYER",
+      "outcome": "refused",
+      "message": "[DRYER] Confirm inspected tool recovery before starting the dryer"
+    }
+  ],
+  "no_gcode_executed": true
+}

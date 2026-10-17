@@ -1,0 +1,11 @@
+--- a/.agents/KNOWN_ISSUES.md
++++ b/.agents/KNOWN_ISSUES.md
+@@ -3,0 +4,8 @@
++
++## Rà soát CFG và triển khai — 2026-10-17
++
++**Trạng thái:** Đã sửa và nạp các lỗi CFG xác định được; Klipper ready, chưa xác nhận vật lý.
++**Đã sửa:** RESET rỗng vượt chốt exclude; callback sấy có thể bật lại nhiệt sau cancel/end; Z restore khi dryer unselect; thiếu guard recovery ở macro thủ công; PAUSE lặp ghi đè nhiệt/tool và park lại; LED ghi đè phase vận hành; prime dưới ngưỡng extrusion và guard thao tác cạnh tranh.
++**Xác minh:** 78 bài (72 đạt, 6 skip); native Jinja2 142 template, 10 rename pairs, 12 render scenarios. Chín CFG đã triển khai, 10 runtime Python giữ nguyên hash, 104 section không phải macro giữ nguyên.
++**Còn mở:** Cảm biến T1 chờ thay/xác minh; lỗi native exclude multi-extruder chỉ được chặn bằng CFG, chưa backport; timer đếm callback; commissioning PF2, đường park/chi tiết cao, prime area và coupon nhiệt/chuyển tool vẫn cần giám sát.
++**Báo cáo:** `Voron 5 Tool/extras/docs/cfg-followup-2026-10-17.md`; nhật ký ngày 2026-10-17 mục 2. Các mục lịch sử bên dưới giữ bối cảnh tại thời điểm ghi.

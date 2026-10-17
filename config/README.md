@@ -2,8 +2,11 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Project overview](../README.md)
 
-October 16 software hardening is implemented locally and checked offline; it
-has not been deployed. See the [change and commissioning guide](../extras/docs/cfg-hardening-2026-10-16.md).
+October 16 software hardening was deployed on October 17. A further CFG review
+closed shutdown-callback, recovery, pause, exclusion and dryer-parking gaps.
+See the [deployment record](../extras/docs/cfg-deployment-2026-10-17.md) and
+[follow-up findings](../extras/docs/cfg-followup-2026-10-17.md). Physical acceptance
+remains pending; existing Python sources and machine calibration are unchanged.
 
 This directory is the repository-owned payload deployed to `~/printer_data/config`. Markdown is excluded during deployment. Runtime output, local backups, generated calibration data, and KTC-Easy readonly links are preserved by `scripts/install.sh`.
 

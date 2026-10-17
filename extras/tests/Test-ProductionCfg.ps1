@@ -58,9 +58,10 @@ class Replay:
         self.p=p; self.commands=[]; self.absolute=True; self.fail_dock=False
     def run(self,name,params=None):
         for raw in cfg.render(name,self.p,params or {}).splitlines():
-            line=raw.split('#',1)[0].split(';',1)[0].strip()
-            if not line: continue
-            words=shlex.split(line); cmd=words[0]; args=dict(w.split('=',1) for w in words[1:] if '=' in w)
+            lexer=shlex.shlex(raw,posix=True); lexer.whitespace_split=True; lexer.commenters='#;'
+            words=list(lexer)
+            if not words: continue
+            line=' '.join(words); cmd=words[0]; args=dict(w.split('=',1) for w in words[1:] if '=' in w)
             self.commands.append(line)
             if 'gcode_macro '+cmd in cfg.CFG:
                 self.run(cmd,args); continue
@@ -70,6 +71,7 @@ class Replay:
                 for key in ('heater_bed','extruder','extruder1','extruder2','extruder3','extruder4'):
                     self.p[key]['target']=0
             elif cmd=='CANCEL_PRINT_BASE': self.p['pause_resume']['is_paused']=False
+            elif cmd=='PAUSE_BASE': self.p['pause_resume']['is_paused']=True
             elif cmd=='CLEAR_PAUSE': self.p['pause_resume']['is_paused']=False
             elif cmd=='SET_GCODE_OFFSET':
                 self.p['gcode_move']['homing_origin']=cfg.Coord(*[float(args.get(a,0)) for a in 'XYZ'])
@@ -91,6 +93,107 @@ class Replay:
                 self.p['toolhead']['position']=cfg.Coord(*pos)
 
 class CurrentContracts(unittest.TestCase):
+    def test_shutdown_cancels_auxiliary_callbacks_before_they_can_reheat(self):
+        for macro in ('CANCEL_PRINT','PRINT_END'):
+            p=fixture(); p['toolhead']['homed_axes']=''
+            p['gcode_macro _PRINT_STATE']['state']='drying'
+            p['gcode_macro _DRYER_STATUS'].update(is_drying=1,time_remaining=100,total_time=100,bed_temp=70)
+            p['gcode_macro _TOOL_HEATUP_VARS']['is_running']=1
+            r=Replay(p); r.run(macro)
+            self.assertEqual(r.commands[0],'TURN_OFF_HEATERS')
+            self.assertEqual(p['gcode_macro _DRYER_STATUS']['is_drying'],0)
+            self.assertEqual(p['gcode_macro _TOOL_HEATUP_VARS']['is_running'],0)
+            self.assertIn('UPDATE_DELAYED_GCODE ID=DRYER_TIMER DURATION=0',r.commands)
+            self.assertIn('UPDATE_DELAYED_GCODE ID=_TOOL_HEATUP_TIMER DURATION=0',r.commands)
+            self.assertNotIn('M140',cfg.render('_DRYER_STATUS',p))
+            self.assertNotIn('SET_HEATER_TEMPERATURE',cfg.ENV.from_string(cfg.CFG['delayed_gcode _TOOL_HEATUP_TIMER']['gcode']).render(printer=p))
+
+    def test_exclusion_empty_reset_matches_native_truthiness(self):
+        p=fixture(); p['gcode_macro _PRINT_STATE'].update(state='printing',used_tool_count=2)
+        for args in ({'RESET':'','NAME':'part'},{'RESET':'','CURRENT':'1'}):
+            with self.assertRaisesRegex(ValueError,'exclusion is blocked'):
+                cfg.render('EXCLUDE_OBJECT',p,args)
+        for args in ({'RESET':'1','NAME':'part'},{'RESET':'0','NAME':'part'},{'RESET':''}):
+            self.assertIn('_EXCLUDE_OBJECT_BASE',cfg.render('EXCLUDE_OBJECT',p,args))
+
+    def test_pending_tool_recovery_blocks_manual_features_and_fresh_cleaner_helpers(self):
+        p=fixture(); p['gcode_macro _TOOL_RECOVERY']['required']=1
+        calls={'PRIME_LINES':{'INITIAL_TOOL':'0','T0_TEMP':'220'},
+               '_PRIME_LINES_TOOL':{},'CLEAN_NOZZLE':{},'_CLEAN_NOZZLE_PURGE':{},
+               '_CLEAN_NOZZLE_WIPE_PATH':{},'_CLEAN_NOZZLE_PARK':{},
+               'MEASURE_TOOL_HEATUP':{'PARK_BUCKET':'0'},'TEST_SPEED':{},'TEST_Z_SPEED':{},
+               'START_DRYER':{'PARK':'0','CHAMBER':'0'},'_DRYER_PARK':{},
+               '_CALIBRATE_SAFE_TRANSIT':{},'CALIBRATE_MOVE_OVER_PROBE':{}}
+        for name,args in calls.items():
+            with self.subTest(name=name), self.assertRaisesRegex(ValueError,'recovery'):
+                cfg.render(name,p,args)
+
+    def test_led_presentation_cannot_change_operation_or_paused_tool(self):
+        for phase in ('idle','starting','printing','paused','drying','calibrating'):
+            for macro in ('_SET_LED_STATUS_PRINTING','_SET_LED_STATUS_PAUSE',
+                          '_SET_LED_STATUS_COMPLETE','_SET_LED_STATUS_DRYING',
+                          '_SET_LED_STATUS_DRYING_COMPLETE'):
+                p=fixture(); p['gcode_macro _PRINT_STATE'].update(state=phase,paused_tool=2)
+                before=copy.deepcopy(p['gcode_macro _PRINT_STATE'])
+                Replay(p).run(macro)
+                self.assertEqual(p['gcode_macro _PRINT_STATE'],before,(phase,macro))
+
+    def test_pause_lifecycle_retains_original_tool_on_repeated_hook(self):
+        p=fixture(); p['gcode_macro _PRINT_STATE']['state']='printing'
+        r=Replay(p); r.run('_PRINT_PAUSED')
+        self.assertEqual(p['gcode_macro _PRINT_STATE']['state'],'paused')
+        self.assertEqual(p['gcode_macro _PRINT_STATE']['paused_tool'],0)
+        p['toolchanger']['tool_number']=2
+        r.run('_PRINT_PAUSED')
+        self.assertEqual(p['gcode_macro _PRINT_STATE']['paused_tool'],0)
+
+    def test_repeated_pause_preserves_resume_temperature_and_has_no_park(self):
+        p=fixture(); p['pause_resume']['is_paused']=True
+        p['gcode_macro RESUME']['last_extruder_temp']={'restore':True,'temp':240}
+        original=copy.deepcopy(p['gcode_macro RESUME'])
+        r=Replay(p); r.run('PAUSE')
+        self.assertEqual(p['gcode_macro RESUME'],original)
+        self.assertFalse(any(x.startswith(('G0 ','G1 ','_TOOLHEAD_PARK','_CLIENT_RETRACT','PAUSE_BASE','SET_GCODE_VARIABLE')) for x in r.commands))
+
+    def test_pause_with_recovery_uses_no_xyz_handler_and_normal_pause_keeps_hooks(self):
+        p=fixture(); p['print_stats']['state']='printing'; p['gcode_macro _TOOL_RECOVERY']['required']=1
+        r=Replay(p); r.run('PAUSE')
+        self.assertTrue(p['pause_resume']['is_paused'])
+        self.assertIn('PAUSE_BASE',r.commands)
+        self.assertFalse(any(re.match(r'UNSELECT_TOOL|G28|_TOOLHEAD_PARK',x) or
+                             (re.match(r'G[01]\s',x) and re.search(r'\s[XYZ]-?\d',x))
+                             for x in r.commands))
+        p=fixture(); out=cfg.render('PAUSE',p)
+        self.assertLess(out.index('PAUSE_BASE'),out.index('_PRINT_PAUSED'))
+        self.assertIn('_TOOLHEAD_PARK_PAUSE_CANCEL',out)
+
+    def test_dryer_docking_replay_preserves_clearance_for_all_tool_offsets(self):
+        for z in (30,200,345,347):
+            for offset in (-0.3515,0,0.1665):
+                p=fixture(z,offset); p['fan_generic bed_fan']={'speed':0}
+                r=Replay(p); r.run('START_DRYER',{'CHAMBER':'0','PARK':'1'})
+                self.assertIn('UNSELECT_TOOL RESTORE_AXIS=',r.commands)
+                self.assertEqual(p['toolchanger']['tool_number'],-1)
+                self.assertGreaterEqual(p['toolhead']['position'].z,200)
+                self.assertEqual(p['gcode_macro _PRINT_STATE']['state'],'drying')
+                r.run('STOP_DRYER')
+                self.assertEqual(p['gcode_macro _PRINT_STATE']['state'],'idle')
+        p=fixture(); p['toolchanger']['tool_number']=0
+        with self.assertRaisesRegex(ValueError,'empty'): cfg.render('_DRYER_PARK',p)
+
+    def test_prime_rejects_competing_operations_and_cold_extrusion_before_output(self):
+        args={'INITIAL_TOOL':'0','T0_TEMP':'220'}
+        for phase in ('printing','paused','drying','calibrating'):
+            p=fixture(); p['gcode_macro _PRINT_STATE']['state']=phase
+            with self.assertRaisesRegex(ValueError,'idle/starting'): cfg.render('PRIME_LINES',p,args)
+        with self.assertRaisesRegex(ValueError,'extrusion limit'):
+            cfg.render('PRIME_LINES',fixture(),args|{'T0_TEMP':'150'})
+        p=fixture(); p['print_stats']['state']='printing'
+        with self.assertRaises(ValueError): cfg.render('_REQUIRE_MOTION_PREPARATION',p)
+        p['gcode_macro _PRINT_STATE']['state']='starting'
+        cfg.render('_REQUIRE_MOTION_PREPARATION',p)
+        cfg.render('PRIME_LINES',p,args)
+
     def test_native_hardware_saved_data_readonly_and_python_unchanged(self):
         m=json.loads((BACKUP/'manifest.json').read_text())
         for name,sha in m['python_files_unchanged_contract'].items():
@@ -307,6 +410,23 @@ class OrcaSyncContracts(unittest.TestCase):
             self.assertEqual(len(list((root/'extras/backups').iterdir())),2)
             self.assertIn('M  unrelated.txt',git('status','--porcelain'))
             self.assertIn('?? untracked.txt',git('status','--porcelain'))
+
+# Replace one historical literal-motion test with semantic coverage of the
+# reviewed relative lift and post-dock helper. Keep its preset/fit assertions.
+# The original .py remains unchanged; this test still runs, rather than skips.
+def current_dryer_preset_and_park_contract(self):
+    f=self.dryer(); f.p['temperature_sensor chamber']={'temperature':25}
+    out=f.render('START_DRYER')
+    for command in ('G91','G0 Z170.0 F3000','UNSELECT_TOOL RESTORE_AXIS=',
+                    '_DRYER_PARK','M140 S70.0','FAN=bed_fan SPEED=0.75'):
+        self.assertIn(command,out)
+    f.p['toolchanger']['tool_number']=-1
+    f.p['toolhead']['position']=individual.Coord(30,120,331)
+    self.assertIn('G0 X175 Y310 F6000',f.render('_DRYER_PARK'))
+    f=self.dryer(); f.p['temperature_sensor chamber']={'temperature':25}
+    f.p['toolhead']['axis_maximum']=individual.Coord(200,200,180)
+    with self.assertRaisesRegex(ValueError,'does not fit'): f.render('START_DRYER')
+individual.IndividualFeatureTests.test_dryer_existing_preset_and_park_retained=current_dryer_preset_and_park_contract
 
 suite=unittest.TestSuite()
 for module in (individual,installer,pty,cfg,cleaner):

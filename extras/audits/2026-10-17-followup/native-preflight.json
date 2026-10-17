@@ -1,0 +1,47 @@
+{
+  "native_jinja_version": "2.11.3",
+  "templates_compiled": 142,
+  "native_rename_pairs_verified": [
+    [
+      "CANCEL_PRINT",
+      "CANCEL_PRINT_BASE"
+    ],
+    [
+      "PAUSE",
+      "PAUSE_BASE"
+    ],
+    [
+      "RESUME",
+      "RESUME_BASE"
+    ],
+    [
+      "SET_PRINT_STATS_INFO",
+      "SET_PRINT_STATS_INFO_BASE"
+    ],
+    [
+      "M104",
+      "M104.1"
+    ],
+    [
+      "M109",
+      "M109.9999"
+    ],
+    [
+      "SET_INPUT_SHAPER",
+      "_SET_INPUT_SHAPER_BASE"
+    ],
+    [
+      "CALIBRATE_ALL_Z_OFFSETS",
+      "_AXISCOPE_CALIBRATE_ALL_Z_OFFSETS"
+    ],
+    [
+      "EXCLUDE_OBJECT",
+      "_EXCLUDE_OBJECT_BASE"
+    ],
+    [
+      "QUAD_GANTRY_LEVEL",
+      "_QUAD_GANTRY_LEVEL"
+    ]
+  ],
+  "no_gcode_executed": true
+}

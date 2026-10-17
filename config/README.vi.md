@@ -83,6 +83,6 @@ Chỉ deploy khi máy in đang rảnh. Sau restart Moonraker/Klipper, kiểm tra
 
 ## Runtime Oxplow first-layer
 
-October 16 update: see the [software change and commissioning guide](../extras/docs/cfg-hardening-2026-10-16.md). Changes are local/offline-verified, not deployed. The installer refuses differing live `SAVE_CONFIG` unless a reviewed replacement explicitly enables `VORON_ALLOW_CALIBRATION_REPLACE=1`.
+October 17 update: the [software hardening](../extras/docs/cfg-hardening-2026-10-16.md) and [follow-up fixes](../extras/docs/cfg-followup-2026-10-17.md) are deployed and Klipper reports ready. Physical acceptance remains pending. The installer refuses differing live `SAVE_CONFIG` unless a reviewed replacement explicitly enables `VORON_ALLOW_CALIBRATION_REPLACE=1`.
 
 `Printer-Setup/oxplow_runtime.cfg` cung cấp `_OXPLOW_CHECK` 2.3.2 và được include một lần. [Bộ tích hợp](../extras/Printables-Package/README.md) chứa profile máy, G-code, SVG và report tương ứng; không tự chạy hiệu chuẩn hoặc lưu offset.
