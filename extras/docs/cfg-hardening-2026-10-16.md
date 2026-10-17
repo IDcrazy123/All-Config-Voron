@@ -2,9 +2,16 @@
 
 ## Status
 
-Implemented locally after the [review](project-audit-2026-10-16.md), checked
-offline, **not deployed to the printer**. No printer API/SSH, heating, motion,
+Implemented locally after the [review](project-audit-2026-10-16.md) and checked
+offline on October 16. At that point no printer API/SSH, heating, motion,
 restart, physical calibration or print was performed.
+
+**Deployment update, October 17:** the coordinated eight-file payload is now
+installed on the printer. Klipper restarted successfully and reports ready with
+no configuration warnings. Live backups, runtime compatibility and post-restart
+integrity were verified. See the [deployment record](cfg-deployment-2026-10-17.md)
+for evidence and remaining physical acceptance work. No motion, heating,
+physical calibration or print was performed during deployment.
 
 All existing Python files, KTC readonly files, Mainsail, printer.cfg/SAVE_CONFIG,
 hardware/tool wiring, docks, PID, currents, motion limits and Orca JSON presets
@@ -130,9 +137,9 @@ lift, exclusion, shaping/cache, calibration drift/opt-in, actual temporary Git
 commits, and the cleaner's full temperature/contact/tool-mask checks. These are
 template/replay contracts, not a full Klipper/CAN scheduler or hardware simulator.
 
-Before real use: compare live/runtime versions, take a verified live backup,
-deploy the coordinated CFG set only while idle, restart and verify alias/helper
-registration, saved calibration and effective shaping. Run attended short
+Deployment prerequisites and live alias/helper registration were verified on
+October 17; saved calibration remains unchanged. Before real use, verify effective
+shaping after tool selection and run attended short
 print/end/cancel/pause/load/resume checks on a clear route; inspect the high empty-
 shuttle park. Commission PF2 separately without inducing a real detached-tool
 motion. No physical acceptance is claimed here.

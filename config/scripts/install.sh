@@ -72,7 +72,7 @@ try:
             or state['pause_resume']['is_paused']
             or state['idle_timeout'].get('state') == 'Printing'
             or state['toolchanger'].get('status') in ('changing', 'initializing')
-            or state.get('gcode_macro _PRINT_STATE', {}).get('state') in ('starting', 'printing', 'paused', 'drying')
+            or state.get('gcode_macro _PRINT_STATE', {}).get('state', 'idle') != 'idle'
             or state.get('gcode_macro _DRYER_STATUS', {}).get('is_drying', 0)
             or state.get('gcode_macro _TOOL_HEATUP_VARS', {}).get('is_running', 0))
     if busy:

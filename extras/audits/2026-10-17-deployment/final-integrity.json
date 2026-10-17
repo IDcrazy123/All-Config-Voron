@@ -1,0 +1,90 @@
+{
+  "checked_at_utc": "2026-10-17T09:08:44.493891+00:00",
+  "deployed_files": {
+    "toolchanger/toolchanger-config.cfg": "ee1f0f0bcb1bc8806d42847c5355598ecd6acf78175c87ed8a1da719d682d31d",
+    "Printer-Setup/input-shaper.cfg": "e1a949469da73837cf25def4baca6a39ea45c31538e6c695cb70b55415e16a5f",
+    "Printer-Setup/filament-dryer.cfg": "20c71dccbac100225bb7ea11a78e1e4f53665f303c4bdd7dd44d6f656ea5a80a",
+    "Printer-Setup/fans-leds.cfg": "20a53c0cd77243029970320792354d0e298782d240ff125ccbccd8e1cfe34b09",
+    "Printer-Setup/print-macros.cfg": "a5996d9b7a0574f456c4e771c687fde961e445a93e01dc54464630974913ddf2",
+    "Printer-Setup/tool-crash.cfg": "929ebecb5774af016b4a274157a9db71f115ef0e86dedcf7439208f60451927c",
+    "Printer-Setup/calibration-probe.cfg": "32a9c374f9089c5b3b0a563cb3b49fcf496c779dcccf9144186b4da5c978d702",
+    "scripts/install.sh": "3b8a7a30e5b8a773850d8164ca470bd59a299db718e2eddab596ab0863f1551f"
+  },
+  "unchanged_protected_files": {
+    "moonraker.conf": "9f3b3c919f3e483f6741abd9978e4c329170a99c818864ef1459296610159cb4",
+    "KlipperScreen.conf": "cc6e0876093e5ecf8dcd56580b83636f3c900abacee4b436934404b920a99f3a",
+    "mainsail.cfg": "afaa498606c81fe36441c6d87b63b401bbfb37efeb79ee327c2861a7965a14c2",
+    "crowsnest.conf": "1840b160412ed9cfcba662121ca35d1efa1944cd16cfef42f3408cee3a000d0e",
+    "printer.cfg": "672e57bc2f4243f38d150c0b902519e961ed5d7fe70e19ff0cf85f9de3fdda3b",
+    "toolchanger/readonly-configs/toolchanger.cfg": "50ce94f71bab0eb5e4afb7862ec2a3bdcb5f6aac2134610874d19f918e605aa0",
+    "toolchanger/readonly-configs/crash-detection.cfg": "c094f942857c047422fb565e2f4a9859cf05c0c9b7863065572475b21e687579",
+    "toolchanger/readonly-configs/calibrate-offsets.cfg": "2841850a73c7321d5beaa2b07ee9c02e6054c8d0b0e08bb105eecdece66d6c10",
+    "toolchanger/readonly-configs/toolchanger-macros.cfg": "c6e10343171a03fedbecdd16fe4ab52eb0754dfa039e393bea65f693899e555f",
+    "toolchanger/readonly-configs/toolchanger-include.cfg": "55983612decff70a67fa3366cef52af1794bb949116f75e572592972c8e7ebb8",
+    "toolchanger/readonly-configs/homing.cfg": "8ad7d37d76c597d72dafd3605b50f2f2914183a813bca87fb17792db55436d48",
+    "toolchanger/tools/T3.cfg": "aeb5584eb7a69e172648676a800e051869ede5e6ab13c38f7f88d40092c2f09e",
+    "toolchanger/tools/T4.cfg": "f998f6e609335c94172b65e56e751f9a6a2aa762092a3e63d657bac3b753782c",
+    "toolchanger/tools/T0.cfg": "4deeb2dbb0bb98a9882d04a8db7db796b3de223df3d1e7ea399d1e2c15954b0f",
+    "toolchanger/tools/T2.cfg": "17cbed83a4717ad8b512e962857342f68999c2191165089d8ddd46d3d45dcfb8",
+    "toolchanger/tools/T1.cfg": "dfa21b88db6b30873830d4593d2a9c4b99d0ce3f349676d96873c79a23c6a836",
+    "Printer-Setup/tool-temp-bench.cfg": "c7758bc9ab0806380efd9f39f847c76e4bc9bba47f5f4191dfb75141173ce879",
+    "Printer-Setup/oxplow_runtime.cfg": "fdd7716fb64d21e2add77416a4832deb35d3edb1ed1e130a4c4a956088d1e177",
+    "Printer-Setup/hardware.cfg": "b118b8ed36de879e03c6459427c3bdf255289640e4e3a0d88c1a0efa97f2b7e9",
+    "Printer-Setup/test-speed.cfg": "774380e86c48a07406e26366874c70cbddc96787d19fe87d89ec46866b7cec58",
+    "Printer-Setup/nozzle-clean.cfg": "2fd01666017a12b614de41cabcb3f22dadf8a4cadab6610f7cd309bcde7fc214",
+    "Printer-Setup/prime-lines.cfg": "244d8f9d403fddc5c76f679b3db823a8ce831b635c3fd41d44d78875d75fb47e",
+    "scripts/cleanup-voron.sh": "d1a9b09752cfcc5e53d21ebe875fa0a3adf734923fe2f1af40ba541ef0727e5c",
+    "scripts/update.sh": "fd3629f7b7f4f19c6129d40744a6a00533d75c891354198efdef3a29ef914336",
+    "scripts/patches/klipper-pty-client-gate.patch": "dbeb6073b032a1c3bb73449df193eedb623aef006e83b75bece05cc5796fd584",
+    "scripts/patches/tool_crash-active-tool-validation.patch": "44f8dea72d2c0ea23fc4027ffca1dd78f046c4b64f7418ace510e072bb0dcaf1"
+  },
+  "unchanged_runtime_python": {
+    "toolchanger": {
+      "sha256": "f401fd013e6a33dc740a61c411326642f445f1316350e7bcd74fbfa2451b8bf2",
+      "path": "/home/voron/klipper-toolchanger-easy/klipper/extras/toolchanger.py"
+    },
+    "axiscope": {
+      "sha256": "8b1ad0ba7d7ea703653ecb2e9f0b1e7a052e869d60fa50f629613008f9124a3d",
+      "path": "/home/voron/axiscope/klippy/extras/axiscope.py"
+    },
+    "tool_crash": {
+      "sha256": "a9aeec463aa3bc80dfc8fcd8c81f2b56809c37c28787093e5317d80c3cbf47ae",
+      "path": "/home/voron/klipper/klippy/extras/tool_crash.py"
+    },
+    "gcode_macro": {
+      "sha256": "16ba212109cc5ea3c9e4f2edfbeaac8a0547ad841f52ac0fd3df5669569203bd",
+      "path": "/home/voron/klipper/klippy/extras/gcode_macro.py"
+    },
+    "input_shaper": {
+      "sha256": "857fea3156d9c46e6458799d459624e09b0cde00fd29865141648805933c7ccd",
+      "path": "/home/voron/klipper/klippy/extras/input_shaper.py"
+    },
+    "gcode_move": {
+      "sha256": "f4200b863e64988aa192ad363af2563843c65feea14afa657b76b8d8656a4a37",
+      "path": "/home/voron/klipper/klippy/extras/gcode_move.py"
+    },
+    "pause_resume": {
+      "sha256": "366d623aadbf50575e8a4659683cf4fcecce833f414a75c54ad279facc8e1998",
+      "path": "/home/voron/klipper/klippy/extras/pause_resume.py"
+    },
+    "virtual_sdcard": {
+      "sha256": "df21babd834915f06063d3bb6d27ee8d0cfe8dfc15b861409c151ebe7a7626d1",
+      "path": "/home/voron/klipper/klippy/extras/virtual_sdcard.py"
+    },
+    "exclude_object": {
+      "sha256": "9b3756ec0baca6207f19cae4bdd0c82dfd2d22c34934e228723e7463c66d8bfb",
+      "path": "/home/voron/klipper/klippy/extras/exclude_object.py"
+    }
+  },
+  "preserved_config_symlinks": {
+    "toolchanger/readonly-configs/toolchanger.cfg": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/toolchanger.cfg",
+    "toolchanger/readonly-configs/crash-detection.cfg": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/crash-detection.cfg",
+    "toolchanger/readonly-configs/calibrate-offsets.cfg": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/calibrate-offsets.cfg",
+    "toolchanger/readonly-configs/toolchanger-macros.cfg": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/toolchanger-macros.cfg",
+    "toolchanger/readonly-configs/toolchanger-include.cfg": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/user-configs/toolchanger-include_scanner.cfg",
+    "toolchanger/readonly-configs/homing.cfg": "/home/voron/klipper-toolchanger-easy/examples/easy-additions/homing.cfg"
+  },
+  "remote_backup": "/home/voron/printer_data/config_backups/pre-cfg-hardening-deploy-20261017-160614-7hw1x39d",
+  "verified_backup_file_count": 9,
+  "all_checks_passed": true
+}

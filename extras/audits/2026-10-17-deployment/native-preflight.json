@@ -1,0 +1,29 @@
+{
+  "native_jinja_version": "2.11.3",
+  "templates_compiled": 139,
+  "native_macro_rename_bindings_verified": [
+    [
+      "SET_INPUT_SHAPER",
+      "_SET_INPUT_SHAPER_BASE"
+    ],
+    [
+      "CALIBRATE_ALL_Z_OFFSETS",
+      "_AXISCOPE_CALIBRATE_ALL_Z_OFFSETS"
+    ],
+    [
+      "EXCLUDE_OBJECT",
+      "_EXCLUDE_OBJECT_BASE"
+    ],
+    [
+      "RESUME",
+      "RESUME_BASE"
+    ],
+    [
+      "CANCEL_PRINT",
+      "CANCEL_PRINT_BASE"
+    ]
+  ],
+  "axiscope_interfaces_present": true,
+  "empty_restore_axis_supported": true,
+  "existing_crash_patch_present": true
+}

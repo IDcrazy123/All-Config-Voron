@@ -1,0 +1,162 @@
+{
+  "klipper_ready": true,
+  "klipper_version": "v0.13.0-777-g7bc4d0946-dirty",
+  "klipper_warnings": [],
+  "moonraker_warnings": [],
+  "changed_sections": [
+    "gcode_macro CANCEL_PRINT",
+    "gcode_macro RESUME",
+    "toolchanger",
+    "gcode_macro CALIBRATE_COARSE_Z_OFFSETS",
+    "gcode_macro _SET_LED_STATUS_PAUSE",
+    "gcode_macro _CANCEL_LED_FINALIZE",
+    "gcode_macro _PRINT_STATE",
+    "gcode_macro G32",
+    "gcode_macro QUAD_GANTRY_LEVEL",
+    "gcode_macro PRINT_START",
+    "gcode_macro PRINT_END",
+    "gcode_macro _CUSTOM_CANCEL_CLEANUP",
+    "gcode_macro START_DRYER",
+    "gcode_macro _TOOL_CRASH_SAFE_PAUSE"
+  ],
+  "added_sections": [
+    "gcode_macro SET_INPUT_SHAPER",
+    "gcode_macro CALIBRATE_ALL_Z_OFFSETS",
+    "gcode_macro _CALIBRATE_COARSE_REPORT",
+    "gcode_macro EXCLUDE_OBJECT",
+    "gcode_macro _REQUIRE_MOTION_PREPARATION",
+    "gcode_macro _PRINT_FINISH_PARK",
+    "gcode_macro _RESUME_AFTER_TOOL_CHECK",
+    "gcode_macro _RESUME_CHECK_TOOL_AND_FILAMENT",
+    "gcode_macro _RESUME_FINALIZE",
+    "gcode_macro _TOOL_RECOVERY",
+    "gcode_macro CONFIRM_TOOL_RECOVERY",
+    "gcode_macro _TOOL_RECOVERY_CONFIRMED"
+  ],
+  "unchanged_protected_sections": 103,
+  "registered_new_and_base_commands": [
+    "CONFIRM_TOOL_RECOVERY",
+    "_TOOL_RECOVERY_CONFIRMED",
+    "_PRINT_FINISH_PARK",
+    "_RESUME_AFTER_TOOL_CHECK",
+    "_RESUME_CHECK_TOOL_AND_FILAMENT",
+    "_RESUME_FINALIZE",
+    "_REQUIRE_MOTION_PREPARATION",
+    "_CALIBRATE_COARSE_REPORT",
+    "_AXISCOPE_CALIBRATE_ALL_Z_OFFSETS",
+    "_EXCLUDE_OBJECT_BASE",
+    "_SET_INPUT_SHAPER_BASE",
+    "RESUME_BASE",
+    "CANCEL_PRINT_BASE",
+    "PAUSE_BASE"
+  ],
+  "print_state": "standby",
+  "paused": false,
+  "virtual_sd_active": false,
+  "homed_axes": "",
+  "toolchanger": {
+    "params_safe_y": 120,
+    "params_close_y": 30,
+    "params_fast_speed": 15000,
+    "params_path_speed": 900,
+    "params_dropoff_path": [
+      {
+        "y": 9.5,
+        "z": 3
+      },
+      {
+        "y": 9.5,
+        "z": 1.5
+      },
+      {
+        "y": 5.5,
+        "z": 0
+      },
+      {
+        "z": 0,
+        "y": 0,
+        "f": 0.5
+      },
+      {
+        "z": -12,
+        "y": 0
+      },
+      {
+        "z": -12,
+        "y": 16
+      }
+    ],
+    "params_pickup_path": [
+      {
+        "z": -12,
+        "y": 16
+      },
+      {
+        "z": -12,
+        "y": 0
+      },
+      {
+        "z": 0,
+        "y": 0,
+        "f": 0.5,
+        "verify": 1
+      },
+      {
+        "y": 5.5,
+        "z": 0
+      },
+      {
+        "y": 9.5,
+        "z": 1.5
+      },
+      {
+        "y": 9.5,
+        "z": 3
+      }
+    ],
+    "params_input_shaper_freq_x": 0,
+    "params_input_shaper_type_x": "mzv",
+    "params_input_shaper_damping_ratio_x": 0.1,
+    "params_input_shaper_freq_y": 0,
+    "params_input_shaper_type_y": "mzv",
+    "params_input_shaper_damping_ratio_y": 0.1,
+    "name": "toolchanger",
+    "status": "uninitialized",
+    "tool": null,
+    "tool_number": -1,
+    "detected_tool": "tool T0",
+    "detected_tool_number": 0,
+    "tool_numbers": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "tool_names": [
+      "tool T0",
+      "tool T1",
+      "tool T2",
+      "tool T3",
+      "tool T4"
+    ],
+    "has_detection": true
+  },
+  "heater_targets": {
+    "heater_bed": 0.0,
+    "extruder": 0.0,
+    "extruder1": 0.0,
+    "extruder2": 0.0,
+    "extruder3": 0.0,
+    "extruder4": 0.0
+  },
+  "macro_phase": {
+    "state": "idle",
+    "paused_tool": -1,
+    "used_tool_count": 0
+  },
+  "recovery_latch": {
+    "required": 0,
+    "tool": -1
+  }
+}

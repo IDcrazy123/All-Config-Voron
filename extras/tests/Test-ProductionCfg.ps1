@@ -243,6 +243,18 @@ class CurrentContracts(unittest.TestCase):
 
 @unittest.skipUnless(installer.BASH,'Bash is required')
 class DeploymentContracts(unittest.TestCase):
+    def test_calibration_phase_refuses_deployment_before_writes(self):
+        h=installer.InstallerTests('test_dry_run_preserves_files_and_backups'); h.setUp()
+        self.addCleanup(h.tearDown)
+        for phase in ('calibrating','unknown-operation'):
+            installer.Handler.state=copy.deepcopy(installer.BASE)
+            installer.Handler.state['gcode_macro _PRINT_STATE']['state']=phase
+            result=h.run_install()
+            self.assertNotEqual(result.returncode,0)
+            self.assertIn('verified idle printer',result.stderr)
+            self.assertFalse(h.calls.exists())
+            self.assertEqual(len(list(h.backups.iterdir())),7)
+
     def test_saved_calibration_drift_refuses_writes_and_explicit_mode_backs_up(self):
         h=installer.InstallerTests('test_dry_run_preserves_files_and_backups'); h.setUp()
         self.addCleanup(h.tearDown)
