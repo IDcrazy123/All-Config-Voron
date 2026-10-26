@@ -45,3 +45,41 @@
 
 ### Vấn đề còn lại
 - Không có.
+
+---
+
+## 2. Tinh gọn điều kiện kiểm tra bắt đầu in trong PRINT_START
+
+### Mục tiêu
+Rà soát, loại bỏ các điều kiện kiểm tra trùng lặp và nới lỏng ràng buộc bắt buộc nạp nhựa T0 khi in bằng các tool khác (T1–T4).
+
+### File đã sửa đổi
+- `config/Printer-Setup/print-macros.cfg` — Tinh giản các khối `elif` thừa và tối ưu kiểm tra cảm biến nhựa.
+
+### Sao lưu
+- [print-macros.cfg (Backup)](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-streamline-print-start-20261026-145300/print-macros.cfg)
+- [Thư mục sao lưu](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-streamline-print-start-20261026-145300/)
+
+### Chi tiết thay đổi
+1. **Chỉ kiểm tra nhựa trên tool thực tế sử dụng (`requested > 0`):**
+   - Trước: `(requested > 0 or tn == 0)` ép buộc cuộn T0 phải luôn có nhựa ngay cả khi bản in chỉ dùng T1, T2, T3 hoặc T4.
+   - Sau: Chỉ kiểm tra `requested > 0`.
+2. **Thích ứng làm sạch T0 thông minh:**
+   - Tại bước làm sạch T0 trước khi Cartographer Touch: Nếu T0 có nhựa thì xả 40mm (`MODE=DEEP PURGE=40`). Nếu T0 không có nhựa (và không dùng để in), tự động chuyển sang chế độ lau khô chổi silicone (`MODE=TOUCH PURGE=0`), không gây báo lỗi dừng in vô lý.
+3. **Loại bỏ trùng lặp:**
+   - Xóa bỏ kiểm tra `printer.print_stats.state` phòng vệ dư thừa (đã được kiểm tra qua `phase` và `pause_resume.is_paused`).
+   - Xóa bỏ kiểm tra `T0_PURGE_TEMP` lần 2 (đã được kiểm tra đầy đủ ở đầu macro).
+
+### Lý do
+Nâng cao trải nghiệm người dùng (UX), cho phép in linh hoạt các đầu in độc lập mà không bị ép buộc nạp nhựa cho T0, đồng thời tinh gọn cấu hình macro.
+
+### Kiểm tra & Xác minh
+- Bộ kiểm thử tự động `Test-ProductionCfg.ps1`: Đạt 78/78 tests (13 skip POSIX PTY/Bash), toàn bộ test suites đều pass.
+- Đã upload `print-macros.cfg` lên máy in thật `192.168.1.43` qua Moonraker File Upload API.
+- Thực hiện soft reload Klipper (`RESTART`): Trạng thái `ready` ("Printer is ready").
+
+### Kết quả
+Quy trình `PRINT_START` trở nên thông minh, tinh gọn và thân thiện hơn, loại bỏ hoàn toàn các lỗi phiền toái.
+
+### Vấn đề còn lại
+- Không có.
