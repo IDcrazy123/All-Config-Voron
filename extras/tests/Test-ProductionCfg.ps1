@@ -211,7 +211,7 @@ class CurrentContracts(unittest.TestCase):
                         p=fixture(z,offset); p['extruder']['can_extrude']=hot
                         r=Replay(p); r.run('PRINT_END')
                         self.assertEqual(r.commands[0],'TURN_OFF_HEATERS')
-                        self.assertGreaterEqual(p['toolhead']['position'].z,min(max(z+10,50),347))
+                        self.assertGreaterEqual(p['toolhead']['position'].z,min(max(z+10,20),347))
                         self.assertEqual(p['toolchanger']['tool_number'],-1)
 
     def test_crash_cancel_replay_has_no_motion_or_docking(self):

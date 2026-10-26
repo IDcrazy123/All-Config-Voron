@@ -83,3 +83,38 @@ Quy trình `PRINT_START` trở nên thông minh, tinh gọn và thân thiện h�
 
 ### Vấn đề còn lại
 - Không có.
+
+---
+
+## 3. Tinh gọn độ cao đỗ Z sau khi kết thúc in (PRINT_END & CANCEL_PRINT)
+
+### Mục tiêu
+Cập nhật hành vi đỗ shuttle rỗng sau khi cất tool vào dock lúc kết thúc in (`PRINT_END`) hoặc hủy in (`CANCEL_PRINT`):
+- Hạ shuttle xuống vị trí cách đỉnh bản in 10mm (`Z = max(print_z + 10, 20mm)`), với sàn tối thiểu an toàn 20mm (thay vì 50mm cũ).
+- Tránh việc gantry sau khi in xong bị để ở quá cao hoặc sát giới hạn trần Z ($Z \approx 331 - 346\text{ mm}$ do dock ở $Z=343$), tránh nguy cơ va chạm cơ khí khi khởi động homing Z lần sau và rút ngắn thời gian `G28 Z`.
+
+### File đã sửa đổi
+- `config/Printer-Setup/print-macros.cfg`:
+  - Trong `PRINT_END`: hạ sàn an toàn `z_safe` từ `50` xuống `20.0` (`[[th.position.z + 10.0, 20.0]|max, th.axis_maximum.z]|min`).
+  - Trong `_PRINT_FINISH_PARK`: cập nhật `target_z` với mặc định và sàn `20.0` thay vì `50.0`.
+  - Trong `CANCEL_PRINT`: cập nhật `z_safe` với sàn `20.0` thay vì `50.0`.
+- `extras/tests/Test-ProductionCfg.ps1`:
+  - Cập nhật assertion kiểm thử trong `test_end_lift_full_replay_boundaries_and_tool_offsets` tương ứng với sàn 20mm.
+
+### Sao lưu
+- [print-macros.cfg (Backup)](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-park-z-floor-streamline-20261026-152700/print-macros.cfg)
+- [Thư mục sao lưu](file:///d:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-park-z-floor-streamline-20261026-152700/)
+
+### Lý do
+- Sau khi cất tool vào dock ở đỉnh máy ($Z=343$), shuttle rỗng di chuyển về phía sau bàn in ($X=174, Y=316$) ở cao độ đỉnh máy an toàn, rồi hạ $Z$ xuống `Z = max(print_z + 10, 20mm)`.
+- Điều này vừa đảm bảo thoáng mặt bàn để lấy phôi, vừa giữ khoảng cách an toàn cách bản in đúng 10mm, không để gantry treo lơ lửng trên nóc máy hay chạm trần cơ khí $Z=347\text{ mm}$.
+
+### Kiểm tra & Xác minh
+- Bộ kiểm thử tự động `Test-ProductionCfg.ps1`: Đạt 78/78 tests (13 skip POSIX PTY/Bash), toàn bộ test suites đều pass.
+
+### Kết quả
+Đã tối ưu hóa hoàn toàn vị trí đỗ kết thúc in đúng theo nguyện vọng của người vận hành máy.
+
+### Vấn đề còn lại
+- Không có.
+
