@@ -106,7 +106,10 @@
 - Bản gốc trước khi sửa: [pre-print-flow-simplification-20261027-2023](file:///D:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-print-flow-simplification-20261027-2023/).
 - `Test-ProductionCfg.ps1`: 80 bài đạt, 13 bài bỏ qua do môi trường Windows hoặc kiểm tra lịch sử; Jinja CFG được biên dịch và phát lại các luồng cancel/end. `git diff --check` đạt. Không sửa file `.py`.
 - Khi đang rà máy live tại `192.168.1.43`, `ZAssembly_ABS_48m6s.gcode` vẫn in, T0 active/detected, Klipper ready. Các CFG của mục này chưa triển khai hoặc reload trên máy trong lúc in.
+- Commit `722e576` đã push lên `origin/main`. Sau khi job báo `complete` và máy idle `Ready`, upload chọn lọc bốn CFG đã sửa qua Moonraker. Hash SHA256 tải lại của cả bốn file khớp repository trước và sau `restart`; không upload `hardware.cfg`.
+- Klipper sau reload báo `ready`; `configfile` không còn `RECOVER_TOOL`/`CONFIRM_TOOL_RECOVERY`, có bed wait và luồng RESUME mới, `tool_crash.crash_gcode` vẫn gọi `_TOOL_CRASH_SAFE_PAUSE`, `heater_bed.max_temp` live vẫn 150°C. `INITIALIZE_TOOLCHANGER` khi standby đọc shuttle rỗng: active = detected = -1, trạng thái ready, tọa độ toolhead giữ nguyên. Đọc lại Python live xác nhận bản vá `_sync_expected()` vẫn có; không ghi Python.
+- Chạy hai helper không chuyển động `_REQUIRE_MOTION_PREPARATION` và `_REQUIRE_TOOL_STATE` khi standby/shuttle rỗng: Moonraker trả `ok`, Klipper vẫn ready, tọa độ không đổi. Chưa chạy G28/QGL/pickup vì đó là chuyển động vật lý cần quan sát tại máy.
 
 ### Việc còn lại
-- Chờ máy idle rồi triển khai chọn lọc các CFG đã sửa, so hash và trạng thái Klipper; thử pickup/QGL và một lượt in dưới giám sát để xác nhận chuyển động thật. Không dùng deploy toàn bộ vì heater_bed.max_temp trong Git 120°C khác live 150°C.
+- Các CFG đã triển khai; vẫn cần thử pickup/QGL và một lượt in dưới giám sát để xác nhận chuyển động thật. Không dùng deploy toàn bộ vì heater_bed.max_temp trong Git 120°C khác live 150°C.
 - Lỗi bàn nhiệt gián đoạn vẫn cần kiểm tra dây/cảm biến PB0 và linh kiện thực tế; phần refactor không thay verify_heater, PID hoặc sensor_type.
