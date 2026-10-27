@@ -73,12 +73,16 @@
 
 ### Sao lưu
 - extras/backups/pre-tool-recovery-and-rules-20261027-194340/ giữ nguyên bản trước sửa của các CFG liên quan và bộ quy tắc cũ.
+- extras/backups/live-before-recovery-deploy-20261027-1958/ là bản tải trực tiếp từ Moonraker của hai macro và hardware.cfg; hai macro live khớp SHA256 với bản trước sửa trong repository. Bản hardware live được giữ để không làm mất chênh lệch max_temp 150°C.
 
 ### Kiểm tra
 - Test-ProductionCfg.ps1: 78 bài, đạt; 13 skip gồm kiểm tra lịch sử và các bài phụ thuộc Bash/POSIX PTY. Jinja CFG được compile trong bộ kiểm tra. Không sửa file .py.
 - 19:49 máy vẫn đang in ZAssembly_ABS_43m39s.gcode, T0 active/detected, bed target/actual khoảng 100°C. Chưa triển khai CFG hoặc restart vì job còn chạy.
 - Chưa có kiểm tra phần cứng sau khi chỉnh repo; pickup T0 live đã hoạt động theo xác nhận người vận hành.
+- Commit a85df9f đã push lên origin/main; lúc in khoảng phút 37, chỉ có Git thay đổi, máy chưa reload cấu hình.
+- 20:14, job ZAssembly_ABS_43m39s.gcode báo complete; print_stats complete, _PRINT_STATE idle, pause false, idle_timeout Ready, toolchanger ready, dryer/benchmark tắt. Upload chọn lọc print-macros.cfg và tool-crash.cfg qua Moonraker; tải lại so SHA256 khớp Git. hardware.cfg giữ nguyên hash và max_temp live 150°C.
+- Restart Klipper khi idle: webhooks ready, hai helper macro mới có trong configfile. Chạy RECOVER_TOOL một lần với shuttle rỗng: toolchanger ready, active/detected đều -1, latch required=0, homed_axes vẫn rỗng; không có chuyển động XYZ. Chưa thử pickup tool hoặc QGL sau triển khai.
 
 ### Việc còn lại
 - Khi bàn nguội và ngắt nguồn AC: kiểm tra đầu NTC, đường dây tới PB0, crimp/connector, cách ly dây nhiệt/SSR; đo điện trở khoảng 100 kΩ ở 25°C và độ liên tục khi lay nhẹ dây. Thay cảm biến/dây nếu số đo gián đoạn; sau đó mới đánh giá cần đổi sensor_type/PID.
-- Chỉ triển khai sau khi máy idle và đối chiếu drift max_temp 120/150°C. Sau triển khai cần xác nhận T0/T2 pickup có giám sát và chu trình recovery/QGL, cùng xu hướng nhiệt bàn ổn định. Không đánh dấu lỗi bàn đã khắc phục khi chưa kiểm tra phần cứng.
+- Các macro đã triển khai riêng; không dùng trình cập nhật toàn bộ cấu hình cho đến khi đối chiếu drift max_temp 120/150°C. Cần xác nhận T0/T2 pickup có giám sát và chu trình QGL, cùng xu hướng nhiệt bàn ổn định. Không đánh dấu lỗi bàn đã khắc phục khi chưa kiểm tra phần cứng.
