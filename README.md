@@ -21,19 +21,22 @@ Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five Stealth
 
 ## Current tool map
 
-Offsets below are the values currently persisted in `config/printer.cfg`.
+Dock positions below come from `config/toolchanger/tools/T*.cfg`; offsets are
+the values currently persisted in `config/printer.cfg`.
 
 | Tool | CAN UUID | Dock `(X, Y, Z)` | Offset `(X, Y, Z)` |
 | --- | --- | --- | --- |
-| T0 | `441e1484ac41` | `(30.2, 1.8, 343)` | `(0, 0, 0)` reference |
+| T0 | `441e1484ac41` | `(30.2, 1.3, 343)` | `(0, 0, 0)` reference |
 | T1 | `6475b5b9e028` | `(104, 1.5, 343)` | `(-0.139, -0.341, 0.1665)` |
-| T2 | `4ad9d622a836` | `(176, 2.1, 343)` | `(1.095, -0.090, -0.3515)` |
+| T2 | `4ad9d622a836` | `(176, 1.6, 343)` | `(1.095, -0.090, -0.3515)` |
 | T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.3265)` |
 | T4 | `28650279df58` | `(321.5, 3.1, 343)` | `(0.213, -0.007, 0.0279)` |
 
 On 2026-09-25, the operator confirmed an additional `-0.0800 mm` BTT/KlipperScreen adjustment for each of T1-T4. These saved values include that adjustment once, applied to the baseline restored on 2026-09-23; T0, X/Y, and Cartographer remain unchanged. Do not repeat the same `-0.08 mm` babystep after reloading this configuration. A new first-layer print is still needed to verify the persisted result.
 
 Do not copy historical offsets from journals, downloaded snapshots, experiments, or retired configurations into production.
+
+On 2026-10-27, the live printer reported a 150 °C bed maximum while this repository still specifies 120 °C. The higher live limit has not been validated against the bed and wiring ratings. Reconcile that setting separately before a full configuration deployment. The intermittent bed failure in the same day's log coincided with implausible thermistor readings and should not be addressed by relaxing heater verification.
 
 ## Repository layout
 
@@ -80,7 +83,7 @@ For normal updates, push this repository and use **Mainsail → Settings → Mac
 ## OrcaSlicer start G-code
 
 ```gcode
-PRINT_START TOOL_TEMP={first_layer_temperature[initial_tool]} {if is_extruder_used[0]}T0_TEMP={first_layer_temperature[0]}{endif} {if is_extruder_used[1]}T1_TEMP={first_layer_temperature[1]}{endif} {if is_extruder_used[2]}T2_TEMP={first_layer_temperature[2]}{endif} {if is_extruder_used[3]}T3_TEMP={first_layer_temperature[3]}{endif} {if is_extruder_used[4]}T4_TEMP={first_layer_temperature[4]}{endif} BED_TEMP=[first_layer_bed_temperature] TOOL=[initial_tool] MATERIAL={filament_type[initial_tool]}
+PRINT_START T0_PURGE_TEMP={first_layer_temperature[0]} T0_MATERIAL="{filament_type[0]}" TOOL_TEMP={first_layer_temperature[initial_tool]} {if is_extruder_used[0]}T0_TEMP={first_layer_temperature[0]}{endif} {if is_extruder_used[1]}T1_TEMP={first_layer_temperature[1]}{endif} {if is_extruder_used[2]}T2_TEMP={first_layer_temperature[2]}{endif} {if is_extruder_used[3]}T3_TEMP={first_layer_temperature[3]}{endif} {if is_extruder_used[4]}T4_TEMP={first_layer_temperature[4]}{endif} BED_TEMP=[first_layer_bed_temperature] TOOL=[initial_tool] MATERIAL={filament_type[initial_tool]}
 ```
 
 The active Orca profile inventory and synchronization workflow are documented in [`Orca Config/README.md`](Orca%20Config/README.md).

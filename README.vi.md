@@ -21,19 +21,22 @@ Kho cấu hình Klipper production cho Voron 2.4 CoreXY 350 mm dùng năm đầu
 
 ## Bản đồ tool hiện tại
 
-Các offset dưới đây lấy trực tiếp từ `config/printer.cfg` đang quản lý production.
+Tọa độ dock dưới đây lấy từ `config/toolchanger/tools/T*.cfg`; các offset lấy từ
+`config/printer.cfg` đang quản lý production.
 
 | Tool | CAN UUID | Dock `(X, Y, Z)` | Offset `(X, Y, Z)` |
 | --- | --- | --- | --- |
-| T0 | `441e1484ac41` | `(30.2, 1.8, 343)` | `(0, 0, 0)` chuẩn |
+| T0 | `441e1484ac41` | `(30.2, 1.3, 343)` | `(0, 0, 0)` chuẩn |
 | T1 | `6475b5b9e028` | `(104, 1.5, 343)` | `(-0.139, -0.341, 0.1665)` |
-| T2 | `4ad9d622a836` | `(176, 2.1, 343)` | `(1.095, -0.090, -0.3515)` |
+| T2 | `4ad9d622a836` | `(176, 1.6, 343)` | `(1.095, -0.090, -0.3515)` |
 | T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.3265)` |
 | T4 | `28650279df58` | `(321.5, 3.1, 343)` | `(0.213, -0.007, 0.0279)` |
 
 Ngày 2026-09-25, người vận hành xác nhận mức chỉnh thêm `-0.0800 mm` trên BTT/KlipperScreen cho từng tool T1-T4. Các giá trị đã lưu này đã cộng mức chỉnh đúng một lần vào bộ gốc khôi phục ngày 2026-09-23; giữ nguyên T0, X/Y và Cartographer. Không chỉnh lặp lại cùng mức babystep `-0.08 mm` sau khi nạp cấu hình này. Cần in first layer mới để kiểm chứng kết quả đã lưu.
 
 Không chép offset lịch sử từ nhật ký, snapshot tải về, thí nghiệm hoặc cấu hình đã retired vào production.
+
+Ngày 2026-10-27, máy live báo giới hạn bàn 150 °C còn repository ghi 120 °C. Chưa có bằng chứng xác nhận mức 150 °C phù hợp với bàn và dây dẫn; cần đối chiếu riêng trước khi triển khai toàn bộ cấu hình. Lỗi bàn nhiệt chập chờn trong log cùng ngày đi kèm số đo NTC phi lý, nên không xử lý bằng cách nới kiểm tra heater.
 
 ## Cấu trúc repository
 
@@ -80,7 +83,7 @@ Cập nhật bình thường bằng cách push repository, sau đó chọn **Mai
 ## Start G-code OrcaSlicer
 
 ```gcode
-PRINT_START TOOL_TEMP={first_layer_temperature[initial_tool]} {if is_extruder_used[0]}T0_TEMP={first_layer_temperature[0]}{endif} {if is_extruder_used[1]}T1_TEMP={first_layer_temperature[1]}{endif} {if is_extruder_used[2]}T2_TEMP={first_layer_temperature[2]}{endif} {if is_extruder_used[3]}T3_TEMP={first_layer_temperature[3]}{endif} {if is_extruder_used[4]}T4_TEMP={first_layer_temperature[4]}{endif} BED_TEMP=[first_layer_bed_temperature] TOOL=[initial_tool] MATERIAL={filament_type[initial_tool]}
+PRINT_START T0_PURGE_TEMP={first_layer_temperature[0]} T0_MATERIAL="{filament_type[0]}" TOOL_TEMP={first_layer_temperature[initial_tool]} {if is_extruder_used[0]}T0_TEMP={first_layer_temperature[0]}{endif} {if is_extruder_used[1]}T1_TEMP={first_layer_temperature[1]}{endif} {if is_extruder_used[2]}T2_TEMP={first_layer_temperature[2]}{endif} {if is_extruder_used[3]}T3_TEMP={first_layer_temperature[3]}{endif} {if is_extruder_used[4]}T4_TEMP={first_layer_temperature[4]}{endif} BED_TEMP=[first_layer_bed_temperature] TOOL=[initial_tool] MATERIAL={filament_type[initial_tool]}
 ```
 
 Danh sách profile active và quy trình đồng bộ nằm trong [`Orca Config/README.vi.md`](Orca%20Config/README.vi.md).

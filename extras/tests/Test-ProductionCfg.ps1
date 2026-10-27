@@ -200,8 +200,12 @@ class CurrentContracts(unittest.TestCase):
             self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),sha,name)
         for name,sha in m['originals'].items():
             if ('readonly-configs/' in name or name=='config/printer.cfg' or
-                name=='config/Printer-Setup/hardware.cfg' or name.startswith('config/toolchanger/tools/')):
+                name=='config/Printer-Setup/hardware.cfg' or
+                (name.startswith('config/toolchanger/tools/') and name not in
+                 ('config/toolchanger/tools/T0.cfg','config/toolchanger/tools/T2.cfg'))):
                 self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),sha,name)
+        self.assertEqual(float(cfg.CFG['tool T0']['params_park_y'].split('#')[0]),1.3)
+        self.assertEqual(float(cfg.CFG['tool T2']['params_park_y'].split('#')[0]),1.6)
 
     def test_end_lift_full_replay_boundaries_and_tool_offsets(self):
         for z in (0.28,30,342,345,347):
@@ -250,6 +254,8 @@ class CurrentContracts(unittest.TestCase):
             with self.assertRaises(ValueError): cfg.render('PRINT_START',fixture(),params|change)
         p=fixture(); p['print_stats']['state']='printing'
         self.assertIn('G28',cfg.render('PRINT_START',p,params))
+        p=fixture(); p['filament_switch_sensor filament_sensor_T0']['filament_detected']=False
+        self.assertIn('CLEAN_NOZZLE MODE=DEEP TEMP=150 WIPES=3 PURGE=0',cfg.render('PRINT_START',p,{'TOOL':'1','TOOL_TEMP':'220','T1_TEMP':'220','BED_TEMP':'70'}))
 
     def test_resume_rechecks_original_tool_filament_and_runtime_heater(self):
         p=fixture(); p['pause_resume']['is_paused']=True
@@ -272,9 +278,23 @@ class CurrentContracts(unittest.TestCase):
     def test_recovery_confirmation_requires_fresh_expected_tool(self):
         p=fixture(); p['gcode_macro _TOOL_RECOVERY'].update(required=1,tool=0)
         with self.assertRaises(ValueError): cfg.render('CONFIRM_TOOL_RECOVERY',p)
-        self.assertIn('VERIFY_TOOL_DETECTED T=0',cfg.render('CONFIRM_TOOL_RECOVERY',p,{'CONFIRM':'1'}))
+        self.assertIn('_TOOL_RECOVERY_AFTER_INIT T=-2',cfg.render('CONFIRM_TOOL_RECOVERY',p,{'CONFIRM':'1'}))
+        p['toolchanger']['detected_tool_number']=0
+        self.assertIn('VERIFY_TOOL_DETECTED T=0',cfg.render('_TOOL_RECOVERY_AFTER_INIT',p,{'T':'-2'}))
         p['toolchanger']['tool_number']=2
-        with self.assertRaises(ValueError): cfg.render('_TOOL_RECOVERY_CONFIRMED',p,{'T':'0'})
+        with self.assertRaises(ValueError): cfg.render('_TOOL_RECOVERY_AFTER_INIT',p,{'T':'-2'})
+        p['toolchanger'].update(tool_number=-1,detected_tool_number=-1)
+        self.assertIn('_TOOL_RECOVERY_CONFIRMED T=-1',cfg.render('_TOOL_RECOVERY_AFTER_INIT',p,{'T':'-2'}))
+        with self.assertRaises(ValueError): cfg.render('_REQUIRE_MOTION_PREPARATION',p)
+        p['quad_gantry_level']={'applied':True}
+        self.assertNotIn('VARIABLE=required VALUE=0',cfg.render('QUAD_GANTRY_LEVEL',p))
+        p['gcode_macro _TOOL_RECOVERY']['required']=0
+        self.assertIn('INITIALIZE_TOOLCHANGER',cfg.render('QUAD_GANTRY_LEVEL',p))
+        self.assertEqual(cfg.render('_REQUIRE_LEVELING_TOOL_STATE',p).strip(),'')
+        p['toolchanger'].update(tool_number=0,detected_tool_number=0)
+        self.assertIn('VERIFY_TOOL_DETECTED T=0',cfg.render('_REQUIRE_LEVELING_TOOL_STATE',p))
+        p['toolchanger']['detected_tool_number']=-1
+        with self.assertRaises(ValueError): cfg.render('_REQUIRE_LEVELING_TOOL_STATE',p)
 
     def test_axiscope_final_return_follows_safe_transit(self):
         p=fixture(); p['axiscope']={'probe_results':{str(t):{'z_offset':0.01*t} for t in range(5)}}

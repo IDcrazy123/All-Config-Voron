@@ -42,3 +42,43 @@
 
 ### Vấn đề còn lại
 - Không có.
+
+---
+
+## 2. Đồng bộ dock live, sửa phục hồi một bước và điều tra lỗi cảm biến bàn
+
+### Triệu chứng và bằng chứng
+- Console 19:03–19:06: khi gắp T0, KTC báo No tool detected và Expected tool tool T0 but active is None. Các lỗi recovery/QGL là hệ quả sau khi pickup không xác nhận được.
+- Người vận hành xác nhận dock đã xê dịch; chỉnh tọa độ trên máy giúp T0 hoạt động, nhưng Git chưa được cập nhật.
+- Đọc toàn bộ CFG/CONF live qua Moonraker 192.168.1.43 và so với repository: T0 dock Y live 1.3 so với Git 1.8; T2 dock Y live 1.6 so với Git 2.1. Chỉ hai file dock và heater_bed khác trước các sửa đổi của phiên này.
+- Log Klipper khoảng 19:22: trong một lượt gia nhiệt target 105°C, số đo bàn từ 104,0°C xuống 86,9°C rồi 71,7°C trong khoảng sáu giây, sau đó nhảy lại gần 100°C. PWM lên 1.000 và Klipper shutdown với Heater heater_bed not heating at expected rate. Sự đổi nhiệt này không phù hợp quán tính của bàn 350 mm.
+- Máy live dùng sensor_type NTC 100K MGB18-104F39050L32 tại PB0; người bán ghi MBG18-104F39050L32. Klipper có tên MGB18 này với điện trở 100 kΩ tại 25°C, beta 4100. Chưa xác nhận nhãn người bán có cùng đường cong. Tên/đường cong không giải thích được số đo nhảy hàng chục độ trong vài giây.
+- Drift khác: Git heater_bed.max_temp 120°C; live 150°C. Chưa có bằng chứng về giới hạn phần cứng 150°C, nên không sao chép giá trị cao hơn vào Git.
+
+### Nguyên nhân
+- Pickup T0 thất bại do dock Y trong Git cũ hơn chỉnh sửa đã được người vận hành thử trên máy. KTC đặt chốt recovery theo đúng thiết kế sau khi không xác nhận được tool.
+- Macro RECOVER_TOOL cũ chọn tool kỳ vọng trước INITIALIZE_TOOLCHANGER. Nếu lúc đó active=None nhưng cảm biến nhận lại T0 sau khởi tạo, macro kỳ vọng -1 và tự từ chối lần phục hồi hợp lệ.
+- QGL cũ tự xóa latch khi shuttle rỗng dù QGL chỉ đo gantry, không xác minh ngàm/tool.
+- Bàn nhiệt: đã xác nhận tín hiệu đo NTC không ổn định. Chưa tách được điểm lỗi cụ thể giữa cảm biến, dây/crimp/đầu nối PB0, điểm gắn hoặc nhiễu điện. Không có bằng chứng để tăng check_gain_time, max_error, smooth_time hay đổi PID/SSR.
+
+### Thay đổi trong repository
+- config/toolchanger/tools/T0.cfg: params_park_y 1.8 → 1.3 mm, bằng giá trị live đã hoạt động.
+- config/toolchanger/tools/T2.cfg: params_park_y 2.1 → 1.6 mm, bằng giá trị live; chưa có coupon riêng xác nhận T2.
+- config/Printer-Setup/tool-crash.cfg: RECOVER_TOOL/CONFIRM_TOOL_RECOVERY khởi tạo KTC trước, rồi helper mới đọc active/detected và xác thực; một lệnh attended đủ cho T0 gắn hoặc shuttle rỗng. Không có lệnh XYZ.
+- config/Printer-Setup/print-macros.cfg: QGL khởi tạo lại KTC và kiểm tra active/detected trước khi probe; bỏ tự xóa recovery latch qua QGL. PRINT_START chỉ yêu cầu nhiệt purge khi T0 có nhựa; nhánh T0 trống dùng MODE=DEEP PURGE=0 trước QGL (TOUCH trước QGL bị macro vệ sinh từ chối).
+- AGENTS.md trong Git và AGENTS.md tại workspace: thay bộ quy tắc cũ bằng trạng thái/nguồn bằng chứng hiện hành; các file .agents cũ là lịch sử.
+- README.md/README.vi.md: cập nhật dock, Orca start G-code và ghi rõ chênh lệch giới hạn bàn live/Git.
+- KNOWN_ISSUES.md mới trong Git: ghi trạng thái sự cố đang mở, thay cho kết luận quá hạn trong bộ .agents lịch sử.
+- extras/tests/Test-ProductionCfg.ps1: cập nhật các hợp đồng đúng với dock đã đo và phục hồi sau khi khởi tạo.
+
+### Sao lưu
+- extras/backups/pre-tool-recovery-and-rules-20261027-194340/ giữ nguyên bản trước sửa của các CFG liên quan và bộ quy tắc cũ.
+
+### Kiểm tra
+- Test-ProductionCfg.ps1: 78 bài, đạt; 13 skip gồm kiểm tra lịch sử và các bài phụ thuộc Bash/POSIX PTY. Jinja CFG được compile trong bộ kiểm tra. Không sửa file .py.
+- 19:49 máy vẫn đang in ZAssembly_ABS_43m39s.gcode, T0 active/detected, bed target/actual khoảng 100°C. Chưa triển khai CFG hoặc restart vì job còn chạy.
+- Chưa có kiểm tra phần cứng sau khi chỉnh repo; pickup T0 live đã hoạt động theo xác nhận người vận hành.
+
+### Việc còn lại
+- Khi bàn nguội và ngắt nguồn AC: kiểm tra đầu NTC, đường dây tới PB0, crimp/connector, cách ly dây nhiệt/SSR; đo điện trở khoảng 100 kΩ ở 25°C và độ liên tục khi lay nhẹ dây. Thay cảm biến/dây nếu số đo gián đoạn; sau đó mới đánh giá cần đổi sensor_type/PID.
+- Chỉ triển khai sau khi máy idle và đối chiếu drift max_temp 120/150°C. Sau triển khai cần xác nhận T0/T2 pickup có giám sát và chu trình recovery/QGL, cùng xu hướng nhiệt bàn ổn định. Không đánh dấu lỗi bàn đã khắc phục khi chưa kiểm tra phần cứng.
