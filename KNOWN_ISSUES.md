@@ -12,11 +12,12 @@ The live T2 dock Y value is 1.6 mm, rather than the old repository value of
 2.1 mm. Both values are now in the repository. Mechanical verification of T2
 after deployment remains open.
 
-The pending recovery latch is expected after an unverified pickup. After
-inspecting the tool and dock, run `RECOVER_TOOL` once. It reinitializes KTC,
-compares active and detected tools, verifies any attached tool, and clears the
-latch without moving XYZ. QGL does not clear that latch. If the latch cannot
-clear, repair the dock or detection input instead of repeating motion commands.
+The crash detector pauses the print and marks attachment as uncertain. After
+inspecting the tool and dock, `RESUME` reinitializes KTC and verifies the
+original tool; `CANCEL_PRINT` skips XYZ parking while the guard is set. Both
+clear the temporary guard automatically. An idle sensor edge creates no guard.
+`PRINT_START` and QGL check active/detected agreement before motion. A failed
+verification means the dock or detection input still needs repair.
 
 ## Intermittent bed temperature input
 

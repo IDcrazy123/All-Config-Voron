@@ -21,9 +21,9 @@ Cập nhật: 2026-10-27. File này là điểm vào duy nhất cho công việc
 
 - PRINT_START kiểm tra nhiệt/filament, khởi tạo toolchanger, heat, G28, lấy T0 để vệ sinh, ổn định nhiệt bàn, QGL, Touch, mesh rồi prime tool dùng để in. T0 phải gắp chính xác vì chu trình làm sạch/Touch cần nó ngay cả khi bản in dùng T1–T4.
 - Khi Tn không được nhận diện sau pickup, kiểm tra vị trí dock và detection_pin trước. Expected tool Tn but active is None mô tả lỗi xác thực gắp tool; lỗi recovery và preparation tiếp theo là hệ quả.
-- Sau khi kiểm tra ngàm/dock trực tiếp, dùng RECOVER_TOOL một lần. Macro phải INITIALIZE_TOOLCHANGER trước, rồi so tool active với tool detected và VERIFY_TOOL_DETECTED nếu có tool. QGL không chứng minh ngàm đã an toàn và không được tự xóa latch.
-- Nếu shuttle rỗng, một lần xác nhận attended qua RECOVER_TOOL có thể xác nhận trạng thái rỗng sau khi KTC đọc lại cảm biến. Không tự động di chuyển để gắp lại khi không chắc tool đang ở dock hay kẹt trên shuttle.
-- Trước QGL, khởi tạo lại KTC và yêu cầu active/detected khớp. Không bỏ qua lỗi cảm biến để tiếp tục in. Một lần xác nhận phục hồi đủ; không thêm yêu cầu lặp nếu trạng thái được xác thực.
+- `tool_crash.py` chỉ phát hiện và gọi macro pause; KTC xác thực tool. Không cần lệnh `RECOVER_TOOL` hoặc xác nhận thủ công riêng: sau khi kiểm tra ngàm/dock, `RESUME` tự khởi tạo và xác thực lại tool gốc; `CANCEL_PRINT` bỏ chuyển động park nếu đang có crash rồi xóa chốt tạm. Nếu không biết tool gốc, phải hủy bản in.
+- Chốt crash nội bộ chỉ tồn tại trong bản in đang chạy hoặc pause để tránh chuyển động khi hủy. Sự kiện cảm biến lúc idle không được giữ chốt. Sau hủy, `PRINT_START` khởi tạo KTC và kiểm tra active/detected trước khi home; QGL kiểm tra lại trước probe.
+- Nếu shuttle rỗng hoặc tool nằm sai vị trí sau sự cố, người vận hành cần quan sát và thu dọn trước khi chạy lệnh có chuyển động. Không tự động di chuyển để gắp lại khi không chắc tool đang ở dock hay kẹt trên shuttle.
 - T0 dock Y đã chỉnh trên máy thành 1.3 mm và T2 thành 1.6 mm, đồng bộ vào repository ngày 2026-10-27. Tọa độ dock khác chỉ đổi khi có số đo live xác nhận.
 
 ## Bàn nhiệt và giới hạn

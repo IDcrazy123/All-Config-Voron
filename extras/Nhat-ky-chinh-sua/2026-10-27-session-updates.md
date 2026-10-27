@@ -86,3 +86,27 @@
 ### Việc còn lại
 - Khi bàn nguội và ngắt nguồn AC: kiểm tra đầu NTC, đường dây tới PB0, crimp/connector, cách ly dây nhiệt/SSR; đo điện trở khoảng 100 kΩ ở 25°C và độ liên tục khi lay nhẹ dây. Thay cảm biến/dây nếu số đo gián đoạn; sau đó mới đánh giá cần đổi sensor_type/PID.
 - Các macro đã triển khai riêng; không dùng trình cập nhật toàn bộ cấu hình cho đến khi đối chiếu drift max_temp 120/150°C. Cần xác nhận T0/T2 pickup có giám sát và chu trình QGL, cùng xu hướng nhiệt bàn ổn định. Không đánh dấu lỗi bàn đã khắc phục khi chưa kiểm tra phần cứng.
+
+---
+
+## 3. Rà luồng in và bỏ lệnh phục hồi tool thủ công
+
+### Bằng chứng và quyết định
+- Đối chiếu mã nguồn cekim `tool_crash.py` với bản cài trên máy: module phát hiện lỗi qua chân tool và gọi `crash_gcode`, không có giao thức `RECOVER_TOOL`. Bản cài trên máy đã có bản vá `_sync_expected()` trong callback cạnh cảm biến, chỉ xét trạng thái tool đang hoạt động. Không sửa file Python.
+- `No tool detected` sau pickup do KTC không xác nhận được T0 ở dock đã xê dịch; người vận hành đã chỉnh dock và T0 hoạt động. Lệnh `RECOVER_TOOL`/`CONFIRM_TOOL_RECOVERY` là lớp riêng trong CFG, tạo thêm bước và có thể từ chối khi tool ban đầu chưa xác định.
+- Đọc `PRINT_START`, QGL, CLEAN_NOZZLE, PRIME_LINES, PAUSE/RESUME, CANCEL_PRINT, PRINT_END và G-code Orca của bản in đang chạy. Các lượt kiểm tra của PRIME_LINES và cleaner vẫn cần vì chúng là macro gọi độc lập; vệ sinh sâu trước QGL và lau ngắn trước Touch có mục đích khác nhau; tắt heater lần hai sau dropoff giữ các tool không bị KTC standby làm nóng lại.
+
+### Sửa đổi
+- `config/Printer-Setup/tool-crash.cfg`: xóa các lệnh phục hồi/xác nhận thủ công. Chỉ giữ `_TOOL_RECOVERY.required` như chốt crash nội bộ cho pause/hủy không di chuyển; sự kiện lúc idle không giữ chốt.
+- `config/Printer-Setup/print-macros.cfg`: `RESUME` khởi tạo KTC, xác thực tool gốc/cảm biến filament/nhiệt trước khi tự xóa chốt; nếu không biết tool gốc thì chỉ cho hủy. `CANCEL_PRINT` và `PRINT_END` không park khi chốt bật rồi tự xóa chốt khi kết thúc. `PRINT_START` dựng một danh sách nhiệt của các tool in để dùng xuyên suốt, gộp nhánh ngâm nhiệt, đợi nhiệt bàn theo số đo hiện tại bằng `TEMPERATURE_WAIT MINIMUM=BED_TEMP-1`, bỏ LED và lệnh xóa mesh/tắt bàn lặp không cần thiết. Dùng một helper kiểm tra trạng thái KTC cho cả trước G28 và QGL.
+- `config/toolchanger/toolchanger-config.cfg`: hook đổi tool thành công chỉ xóa chốt nội bộ, không lưu biến tool thừa.
+- `config/Printer-Setup/fans-leds.cfg`, `AGENTS.md`, `KNOWN_ISSUES.md`, `extras/tests/Test-ProductionCfg.ps1`: chỉnh comment/quy tắc và hợp đồng kiểm tra theo luồng mới.
+
+### Sao lưu và kiểm tra
+- Bản gốc trước khi sửa: [pre-print-flow-simplification-20261027-2023](file:///D:/Desktop/All-Config-Voron-main/Voron%205%20Tool/extras/backups/pre-print-flow-simplification-20261027-2023/).
+- `Test-ProductionCfg.ps1`: 80 bài đạt, 13 bài bỏ qua do môi trường Windows hoặc kiểm tra lịch sử; Jinja CFG được biên dịch và phát lại các luồng cancel/end. `git diff --check` đạt. Không sửa file `.py`.
+- Khi đang rà máy live tại `192.168.1.43`, `ZAssembly_ABS_48m6s.gcode` vẫn in, T0 active/detected, Klipper ready. Các CFG của mục này chưa triển khai hoặc reload trên máy trong lúc in.
+
+### Việc còn lại
+- Chờ máy idle rồi triển khai chọn lọc các CFG đã sửa, so hash và trạng thái Klipper; thử pickup/QGL và một lượt in dưới giám sát để xác nhận chuyển động thật. Không dùng deploy toàn bộ vì heater_bed.max_temp trong Git 120°C khác live 150°C.
+- Lỗi bàn nhiệt gián đoạn vẫn cần kiểm tra dây/cảm biến PB0 và linh kiện thực tế; phần refactor không thay verify_heater, PID hoặc sensor_type.

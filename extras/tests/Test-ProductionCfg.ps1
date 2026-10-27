@@ -224,10 +224,17 @@ class CurrentContracts(unittest.TestCase):
         r=Replay(p); r.run('CANCEL_PRINT')
         self.assertFalse(any(re.match(r'G[01]\s|UNSELECT_TOOL|G28',x) for x in r.commands))
         self.assertIn('CANCEL_PRINT_BASE',r.commands)
-        self.assertEqual(p['gcode_macro _TOOL_RECOVERY']['required'],1)
+        self.assertEqual(p['gcode_macro _TOOL_RECOVERY']['required'],0)
         self.assertFalse(p['pause_resume']['is_paused'])
         self.assertEqual(p['heater_bed']['target'],0)
         self.assertEqual(cfg.CFG['toolchanger']['error_gcode'].strip(),'_TOOL_CRASH_SAFE_PAUSE')
+
+    def test_crash_print_end_skips_motion_and_clears_guard(self):
+        p=fixture(); p['gcode_macro _TOOL_RECOVERY']['required']=1
+        r=Replay(p); r.run('PRINT_END')
+        self.assertFalse(any(re.match(r'G[01]\s|UNSELECT_TOOL|G28',x) for x in r.commands))
+        self.assertEqual(p['gcode_macro _TOOL_RECOVERY']['required'],0)
+        self.assertEqual(p['heater_bed']['target'],0)
 
     def test_normal_cancel_is_canceled_and_cold_before_dock_failure(self):
         p=fixture(); p['pause_resume']['is_paused']=True
@@ -255,7 +262,25 @@ class CurrentContracts(unittest.TestCase):
         p=fixture(); p['print_stats']['state']='printing'
         self.assertIn('G28',cfg.render('PRINT_START',p,params))
         p=fixture(); p['filament_switch_sensor filament_sensor_T0']['filament_detected']=False
-        self.assertIn('CLEAN_NOZZLE MODE=DEEP TEMP=150 WIPES=3 PURGE=0',cfg.render('PRINT_START',p,{'TOOL':'1','TOOL_TEMP':'220','T1_TEMP':'220','BED_TEMP':'70'}))
+        out=cfg.render('PRINT_START',p,{'TOOL':'1','TOOL_TEMP':'220','BED_TEMP':'70'})
+        self.assertIn('CLEAN_NOZZLE MODE=DEEP TEMP=150 WIPES=3 PURGE=0',out)
+        self.assertIn('PRIME_LINES INITIAL_TOOL=1 T1_TEMP=220',out)
+        self.assertIn('TEMPERATURE_WAIT SENSOR=heater_bed MINIMUM=69',out)
+        self.assertNotIn('M190 S70',out)
+
+    def test_soak_uses_one_duration_for_cold_warm_hot_and_manual_cases(self):
+        base={'BED_TEMP':'100','MATERIAL':'ABS'}
+        for extra,expected in [({'BED_START':'25'},'G4 P90000'),
+                               ({'BED_START':'90'},'G4 P18000'),
+                               ({'BED_START':'97'},None),
+                               ({'BED_START':'25','SOAK':'120','AUTO_SOAK':'0'},'G4 P120000'),
+                               ({'BED_START':'25','AUTO_SOAK':'0'},None)]:
+            out=cfg.render('_PRINT_START_HEAT_SOAK',fixture(),base|extra)
+            self.assertEqual(next((line.strip() for line in out.splitlines() if line.strip().startswith('G4 P')),None),expected)
+        out=cfg.render('_PRINT_START_HEAT_SOAK',fixture(),{'BED_TEMP':'100','BED_START':'25'})
+        self.assertIn('G4 P90000',out)
+        out=cfg.render('_PRINT_START_HEAT_SOAK',fixture(),{'BED_TEMP':'70','BED_START':'25','MATERIAL':'PLA','FULL_BED':'1'})
+        self.assertIn('G4 P60000',out)
 
     def test_resume_rechecks_original_tool_filament_and_runtime_heater(self):
         p=fixture(); p['pause_resume']['is_paused']=True
@@ -273,28 +298,42 @@ class CurrentContracts(unittest.TestCase):
         with self.assertRaises(ValueError): cfg.render('_RESUME_FINALIZE',p,{'VELOCITY':'50'})
         p=fixture(); p['pause_resume']['is_paused']=True
         p['gcode_macro _TOOL_RECOVERY']['required']=1
-        with self.assertRaises(ValueError): cfg.render('RESUME',p)
+        out=cfg.render('RESUME',p)
+        self.assertLess(out.index('INITIALIZE_TOOLCHANGER'),out.index('VERIFY_TOOL_DETECTED'))
+        self.assertIn('_RESUME_AFTER_TOOL_CHECK',out)
+        with self.assertRaisesRegex(ValueError,'original paused tool'):
+            cfg.render('_RESUME_CHECK_TOOL_AND_FILAMENT',p)
+        p['gcode_macro _TOOL_RECOVERY']['required']=0
+        with self.assertRaisesRegex(ValueError,'original paused tool'):
+            cfg.render('_RESUME_CHECK_TOOL_AND_FILAMENT',p)
+        p['gcode_macro _TOOL_RECOVERY']['required']=1
+        p['gcode_macro _PRINT_STATE']['paused_tool']=0
+        cfg.render('_RESUME_CHECK_TOOL_AND_FILAMENT',p)
+        out=cfg.render('_RESUME_FINALIZE',p,{'VELOCITY':'50'})
+        self.assertLess(out.index('_RESUME_CHECK_TOOL_AND_FILAMENT'),out.index('VARIABLE=required VALUE=0'))
 
-    def test_recovery_confirmation_requires_fresh_expected_tool(self):
-        p=fixture(); p['gcode_macro _TOOL_RECOVERY'].update(required=1,tool=0)
-        with self.assertRaises(ValueError): cfg.render('CONFIRM_TOOL_RECOVERY',p)
-        self.assertIn('_TOOL_RECOVERY_AFTER_INIT T=-2',cfg.render('CONFIRM_TOOL_RECOVERY',p,{'CONFIRM':'1'}))
-        p['toolchanger']['detected_tool_number']=0
-        self.assertIn('VERIFY_TOOL_DETECTED T=0',cfg.render('_TOOL_RECOVERY_AFTER_INIT',p,{'T':'-2'}))
-        p['toolchanger']['tool_number']=2
-        with self.assertRaises(ValueError): cfg.render('_TOOL_RECOVERY_AFTER_INIT',p,{'T':'-2'})
-        p['toolchanger'].update(tool_number=-1,detected_tool_number=-1)
-        self.assertIn('_TOOL_RECOVERY_CONFIRMED T=-1',cfg.render('_TOOL_RECOVERY_AFTER_INIT',p,{'T':'-2'}))
+    def test_crash_guard_autoclears_without_manual_recovery(self):
+        for name in ('RECOVER_TOOL','CONFIRM_TOOL_RECOVERY','_TOOL_RECOVERY_AFTER_INIT','_TOOL_RECOVERY_CONFIRMED'):
+            self.assertNotIn('gcode_macro '+name,cfg.CFG)
+        p=fixture(); p['gcode_macro _TOOL_RECOVERY']['required']=1
         with self.assertRaises(ValueError): cfg.render('_REQUIRE_MOTION_PREPARATION',p)
         p['quad_gantry_level']={'applied':True}
         self.assertNotIn('VARIABLE=required VALUE=0',cfg.render('QUAD_GANTRY_LEVEL',p))
         p['gcode_macro _TOOL_RECOVERY']['required']=0
         self.assertIn('INITIALIZE_TOOLCHANGER',cfg.render('QUAD_GANTRY_LEVEL',p))
-        self.assertEqual(cfg.render('_REQUIRE_LEVELING_TOOL_STATE',p).strip(),'')
+        p['toolchanger'].update(tool_number=-1,detected_tool_number=-1)
+        self.assertEqual(cfg.render('_REQUIRE_TOOL_STATE',p).strip(),'')
         p['toolchanger'].update(tool_number=0,detected_tool_number=0)
-        self.assertIn('VERIFY_TOOL_DETECTED T=0',cfg.render('_REQUIRE_LEVELING_TOOL_STATE',p))
+        self.assertIn('VERIFY_TOOL_DETECTED T=0',cfg.render('_REQUIRE_TOOL_STATE',p))
         p['toolchanger']['detected_tool_number']=-1
-        with self.assertRaises(ValueError): cfg.render('_REQUIRE_LEVELING_TOOL_STATE',p)
+        with self.assertRaises(ValueError): cfg.render('_REQUIRE_TOOL_STATE',p)
+        p=fixture(); p['print_stats']['state']='standby'
+        self.assertNotIn('VARIABLE=required VALUE=1',cfg.render('_TOOL_CRASH_SAFE_PAUSE',p))
+        p['print_stats']['state']='printing'
+        self.assertIn('VARIABLE=required VALUE=1',cfg.render('_TOOL_CRASH_SAFE_PAUSE',p))
+        out=cfg.render('PRINT_START',fixture(),{'TOOL':'0','TOOL_TEMP':'220','BED_TEMP':'70','T0_PURGE_TEMP':'230'})
+        self.assertLess(out.index('INITIALIZE_TOOLCHANGER'),out.index('_REQUIRE_TOOL_STATE'))
+        self.assertLess(out.index('_REQUIRE_TOOL_STATE'),out.index('G28'))
 
     def test_axiscope_final_return_follows_safe_transit(self):
         p=fixture(); p['axiscope']={'probe_results':{str(t):{'z_offset':0.01*t} for t in range(5)}}
