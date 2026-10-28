@@ -22,6 +22,25 @@ import test_individual_cfg as individual
 import test_install_preflight as installer
 import test_klipper_pty as pty
 
+# Keep the historical Python test file unchanged. Its sparse-tool contract
+# expects inline shutdown commands; expand the new shared helper for that one
+# assertion while preserving every original heater, fan and mapping check.
+old_sparse_contract = cfg.PortabilityTests.test_custom_sparse_tool_mapping_and_heater_limit
+def sparse_contract_with_helper(self):
+    original_render = cfg.render
+    def render_with_finish(name, printer, params=None):
+        out = original_render(name, printer, params)
+        if name in ('PRINT_END', '_CUSTOM_CANCEL_CLEANUP'):
+            self.assertIn('_PRINT_FINISH_TOOL_SHUTDOWN', out)
+            out += original_render('_PRINT_FINISH_TOOL_SHUTDOWN', printer)
+        return out
+    cfg.render = render_with_finish
+    try:
+        old_sparse_contract(self)
+    finally:
+        cfg.render = original_render
+cfg.PortabilityTests.test_custom_sparse_tool_mapping_and_heater_limit = sparse_contract_with_helper
+
 ROOT = Path.cwd()
 BACKUP = ROOT / 'extras/backups/pre-cfg-software-hardening-20261016-200256'
 spec = importlib.util.spec_from_file_location('cleaner_checks', ROOT / 'extras/experiments/t0-cleaner-20261015/test_nozzle_clean_v2.py')
@@ -43,6 +62,7 @@ for name in ('test_cfg_native_hardware_and_dock_paths_unchanged',
 
 def fixture(z=30, offset=0):
     p = cfg.printer_fixture()
+    p['toolchanger']['detected_tool_number'] = p['toolchanger']['tool_number']
     p['toolhead']['position'] = cfg.Coord(180,168,z)
     p['gcode_move'].update(gcode_position=cfg.Coord(180,168,z-offset),
                            absolute_coordinates=True, absolute_extrude=False)
@@ -79,6 +99,7 @@ class Replay:
                 if self.fail_dock: raise ValueError('simulated dock failure')
                 if args.get('RESTORE_AXIS')!='': raise AssertionError('Finish docking must not restore tool-relative Z')
                 self.p['toolchanger']['tool_number']=-1
+                self.p['toolchanger']['detected_tool_number']=-1
                 self.p['toolhead']['position']=cfg.Coord(30,120,331)
             elif cmd in ('G90','G91'): self.absolute=cmd=='G90'
             elif cmd in ('G0','G1'):
@@ -245,10 +266,31 @@ class CurrentContracts(unittest.TestCase):
 
     def test_cancel_and_end_skip_motion_without_homing_or_ready_state(self):
         for macro in ('PRINT_END','_CUSTOM_CANCEL_CLEANUP'):
-            for section,key,value in [('toolhead','homed_axes',''),('toolchanger','status','error')]:
+            for section,key,value in [('toolhead','homed_axes',''),('toolchanger','status','error'),('toolchanger','detected_tool_number',-1)]:
                 p=fixture(); p[section][key]=value
                 out=cfg.render(macro,p)
                 self.assertFalse(any(re.match(r'G[01]\s|UNSELECT_TOOL|_PRINT_FINISH_PARK',x.strip()) for x in out.splitlines()))
+
+    def test_shared_finish_motion_checks_guard_and_verified_attachment(self):
+        p=fixture(); out=cfg.render('_PRINT_FINISH_DOCK_AND_PARK',p,{'MIN_Z':'40'})
+        self.assertLess(out.index('M104 S0 T0'),out.index('UNSELECT_TOOL RESTORE_AXIS='))
+        self.assertLess(out.index('UNSELECT_TOOL RESTORE_AXIS='),out.index('_PRINT_FINISH_PARK MIN_Z=40'))
+        p['gcode_macro _TOOL_RECOVERY']['required']=1
+        with self.assertRaises(ValueError): cfg.render('_PRINT_FINISH_DOCK_AND_PARK',p)
+        p['gcode_macro _TOOL_RECOVERY']['required']=0
+        p['toolhead']['homed_axes']=''
+        with self.assertRaises(ValueError): cfg.render('_PRINT_FINISH_DOCK_AND_PARK',p)
+        p=fixture(); p['toolchanger']['detected_tool_number']=-1
+        with self.assertRaises(ValueError): cfg.render('_PRINT_FINISH_DOCK_AND_PARK',p)
+        p['toolchanger']['tool_number']=-1
+        p['toolchanger']['detected_tool_number']=0
+        with self.assertRaises(ValueError): cfg.render('_PRINT_FINISH_PARK',p)
+
+    def test_print_start_reverifies_an_already_mounted_t0_after_homing(self):
+        p=fixture()
+        self.assertIn('VERIFY_TOOL_DETECTED T=0',cfg.render('_PRINT_START_SELECT_T0',p))
+        p['toolchanger']['tool_number']=-1
+        self.assertIn('T0',cfg.render('_PRINT_START_SELECT_T0',p))
 
     def test_start_admission_and_all_heater_limits(self):
         params={'TOOL':'0','TOOL_TEMP':'220','BED_TEMP':'70','T0_PURGE_TEMP':'230'}

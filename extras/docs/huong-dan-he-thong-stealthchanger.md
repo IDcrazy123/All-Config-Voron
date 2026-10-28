@@ -22,11 +22,11 @@ Không trộn quy trình kTAMV, ToolVision, TKC/KCC hoặc cấu hình SexBolt c
 
 ## Luồng in bình thường
 
-`PRINT_START` nhận tool đầu tiên, nhiệt từng tool, nhiệt bàn và vật liệu từ OrcaSlicer. Macro nhận quyền từ dryer nếu cần, home an toàn, chọn T0 sau homing, gia nhiệt/ngâm nhiệt, chạy QGL và Cartographer, vệ sinh nozzle, prime đúng các tool được dùng và để tool in đầu tiên ở trạng thái active.
+`PRINT_START` kiểm tra tool đầu tiên, nhiệt của các tool dùng để in và cảm biến filament đang bật trước khi chuyển động. Macro nhận quyền từ dryer nếu cần, bắt đầu gia nhiệt, home, chọn và xác minh T0, vệ sinh đầu phun, chờ bàn và ngâm nhiệt, rồi chạy QGL, lau ngắn trước Touch, Cartographer Touch, mesh thích ứng và prime lines. Tool in đầu tiên được giữ trên shuttle.
 
-`PRINT_END` retract, nâng Z, trả tool vào dock, đỗ shuttle rỗng, tắt heater/quạt part, xóa offset/mesh và hẹn tắt quạt buồng sau cooldown.
+`PRINT_END` tắt heater trước, xóa mesh và offset, rồi chỉ retract, nâng Z, trả tool và đỗ shuttle khi XYZ và trạng thái tool an toàn. Sau khi trả tool, macro tắt nhiệt từng tool lần nữa vì KTC có thể đặt nhiệt standby, rồi hẹn tắt quạt buồng. `CANCEL_PRINT` dừng job virtual-SD trước khi cân nhắc chuyển động; nếu có crash thì bỏ dock/park.
 
-Dùng `PAUSE`/`RESUME` thay vì tự di chuyển tool. `RESUME` khởi tạo KTC và xác nhận tool hiện diện trước khi tiếp tục.
+Dùng `PAUSE`/`RESUME` thay vì tự di chuyển tool. `RESUME` khởi tạo KTC và xác nhận đúng tool gốc, filament và nhiệt trước khi tiếp tục. Nếu không xác định được tool gốc thì dùng `CANCEL_PRINT`; không cần lệnh phục hồi riêng.
 
 ## Hiệu chuẩn tool
 
@@ -46,9 +46,9 @@ Phân quyền production là: Axiscope camera đo XY; công tắc PF2 tại `(80
 
 `CLEAN_NOZZLE` chỉ chạy với T0 đã được cảm biến xác nhận, KTC ở trạng thái `ready`, XYZ đã home, offset bằng 0 và mesh đã clear. Xả có mặt bàn đỡ tại `X315 Y5 Z5`; điểm đỗ trên khay vẫn là `X315 Y1 Z6`. Khi đã nguội tới cửa sổ lau ấm, nozzle đi thẳng tới `X315 Y-5` ở Z5, hạ qua Z3 tới Z0,2 rồi gạt sang trái tới X278. Người vận hành xác nhận nozzle bắt đầu chạm silicone tại X313. Đoạn xả–gạt này không nâng Z15; các lần tiếp cận khác và rời chổi vẫn dùng Z15.
 
-Mỗi lượt lau quét đủ chiều rộng X278–311 trên cả ba hàng silicone Y-8/-5/-2, đảo thứ tự hàng giữa các lượt. `MODE=DEEP` mặc định ba lượt: hai lượt ấm ở tối đa 170 °C và một lượt cuối ở tối đa 150 °C. Nếu có purge, macro thêm đúng một nhát gạt từ mép phải trước các lượt lau. `PRINT_START` luôn purge T0 `40 mm` ở mỗi bản in, kể cả job không in bằng T0, rồi đưa về 150 °C để lau và chuẩn bị dò bàn. `MODE=TOUCH` cấm purge, yêu cầu QGL đã áp dụng và thực hiện một lượt lau ở tối đa 150 °C ngay trước `CARTOGRAPHER_TOUCH_HOME`.
+Mỗi lượt lau quét đủ chiều rộng X278–311 trên cả ba hàng silicone Y-8/-5/-2, đảo thứ tự hàng giữa các lượt. `MODE=DEEP` mặc định ba lượt: hai lượt ấm ở tối đa 170 °C và một lượt cuối ở tối đa 150 °C. Nếu có purge, macro thêm đúng một nhát gạt từ mép phải trước các lượt lau. `PRINT_START` purge T0 `40 mm` khi cảm biến filament T0 đang bật và nhận thấy có sợi, kể cả job không in bằng T0. Cảm biến đang bật nhưng báo T0 trống sẽ chọn lau khô. Sau đó T0 về 150 °C để chuẩn bị dò bàn. `MODE=TOUCH` cấm purge, yêu cầu QGL đã áp dụng và thực hiện một lượt lau ở tối đa 150 °C ngay trước `CARTOGRAPHER_TOUCH_HOME`.
 
-Orca gửi riêng `T0_PURGE_TEMP={first_layer_temperature[0]}` và `T0_MATERIAL="{filament_type[0]}"`, ngoài các tham số `Tn_TEMP` của tool thật sự dùng. Profile T0 phải khớp cuộn đang nạp, kể cả khi chỉ in bằng T1. Máy chưa có cảm biến nhận loại nhựa hoặc registry Spoolman; nhiệt được lấy từ profile, không đoán theo bảng vật liệu chung. G-code cũ vẫn dùng được `T0_TEMP`, hoặc `TOOL_TEMP` khi TOOL=0; nếu T0 không dùng và thiếu nhiệt riêng, macro dừng trước gia nhiệt/chuyển động. Cần nạp lại preset máy Orca và slice lại job cũ. Metadata vệ sinh riêng không làm T0 bị thêm vào prime lines.
+Orca gửi riêng `T0_PURGE_TEMP={first_layer_temperature[0]}` và `T0_MATERIAL="{filament_type[0]}"`, ngoài các tham số `Tn_TEMP` của tool thật sự dùng. Profile T0 phải khớp cuộn đang nạp, kể cả khi chỉ in bằng T1. Máy chưa có cảm biến nhận loại nhựa hoặc registry Spoolman; nhiệt được lấy từ profile, không đoán theo bảng vật liệu chung. G-code cũ vẫn dùng được `T0_TEMP`, hoặc `TOOL_TEMP` khi TOOL=0. Chỉ khi cảm biến T0 đang bật và báo trống, macro mới chấp nhận thiếu nhiệt purge và lau khô. Metadata vệ sinh riêng không làm T0 bị thêm vào prime lines.
 
 Lệnh thủ công cần truyền nhiệt vật liệu rõ ràng, ví dụ `PURGE_AND_CLEAN PURGE_TEMP=230` với PETG của lượt thử này. Người vận hành chọn mặc định mới `CLEAN_Z=0.2` sau khi quan sát Z1,0 tiếp xúc chưa đủ; khoảng cho phép là 0,2–1,0 mm. Cần quan sát đường mới trước khi chạy không giám sát. Máy khác phải đo lại mặt bàn đỡ sợi, vị trí chổi và khoảng hở của chính máy đó.
 
