@@ -53,3 +53,19 @@
 - Bản trước sửa: `extras/backups/pre-optional-macro-cleanup-20261028-195546/` (ba CFG và runner PowerShell). So sánh byte xác nhận toàn bộ phần từ dấu `SAVE_CONFIG` trở xuống không đổi.
 - `Test-ProductionCfg.ps1`: 83 bài chạy, 70 đạt và 13 bỏ qua vì giới hạn Bash/POSIX hoặc hợp đồng cũ đã được thay thế; `git diff --check` đạt. Đây là kiểm tra offline, chưa chứng minh Klipper đã nạp cấu hình mới trên máy.
 - Máy đang in nên chưa upload/restart. Sau khi idle và xử lý rủi ro cảm biến bàn nhiệt, triển khai cấu hình có chọn lọc rồi kiểm tra các macro thử nghiệm đã biến mất trong Mainsail. Nếu dùng G-code Oxplow tạo sẵn, bật lại `oxplow_runtime.cfg` và restart khi idle trước khi chạy.
+
+## 4. Rà chú thích cấu hình và triển khai khi máy idle
+
+### Bằng chứng và thay đổi
+- Rà các CFG do dự án sở hữu trong `config/Printer-Setup/`, `config/toolchanger/` và `config/printer.cfg`; không sửa `mainsail.cfg`, KTC readonly, Python runtime, khối `SAVE_CONFIG` hay tài liệu lịch sử. Moonraker xác nhận bản in `ZAssembly_ABS_4h16m.gcode` đã `complete`, không pause, toolchanger `ready`, pha in `idle`, dryer tắt, target bàn 0°C trước khi ghi lên máy.
+- Sửa chú thích sai thời điểm: LED chỉ phản ánh trạng thái, không ghi `_PRINT_STATE`; hook toolchange bỏ qua damping KTC kế thừa khi chưa bật tần số riêng; Oxplow/test tốc độ/benchmark nhiệt là include tùy chọn; bỏ số dock cũ và nhãn BUG lịch sử. Gỡ các banner lặp, mô tả benchmark không còn khẳng định phép đo thời gian chứng minh wattage hoặc vị trí cảm biến lỗi. Bổ sung ghi chú smooth_time/SSR không sửa được đường NTC chập chờn.
+- Chỉ đổi chú thích và một `description` LED. So sánh bản trước/sau của 18 file CFG bằng parser cho thấy không có thay đổi section/value/G-code ngoài `description`. Runner được sửa để kiểm tra chân heater PA1, NTC PB0, chamber PB1 thay cho so hash nguyên CFG; hash file readonly và Python vẫn được giữ.
+
+### Kiểm tra và triển khai
+- Sao lưu nguồn Git trước sửa tại `extras/backups/pre-comment-audit-20261028-200526/`. `Test-ProductionCfg.ps1`: 83 bài chạy, 70 đạt, 13 bỏ qua; `git diff --check` đạt. Commit chú thích `da76c29` đã push.
+- Đối chiếu từng file live: đa số khớp Git trước sửa; `printer.cfg`, `print-macros.cfg`, `calibration-probe.cfg`, T0/T2 và `hardware.cfg` có drift đã biết. T0/T2 và calibration không khác giá trị cấu hình ngoài macro/chú thích. `hardware.cfg` chỉ khác `heater_bed.max_temp`: Git 120°C, live 150°C.
+- Triển khai chọn lọc 18 CFG sau khi kiểm tra idle hai lần. Bản live trước ghi nằm tại `/home/voron/printer_data/config_backups/comment-audit-20261028-2015/backup/`, kèm manifest SHA256; bản stage nằm cùng thư mục. File hardware stage giữ nguyên `max_temp: 150` của máy, không chép giới hạn Git 120 lên production. Chép file bằng thay thế từng file và xác nhận hash, sau đó kiểm tra idle lần nữa rồi gọi Klipper restart.
+- Sau restart, Moonraker báo Klipper `ready`, print `standby`, target bàn 0°C, `max_temp` live vẫn 150°C. `PRINT_START`/`PRINT_END` còn trong config; `_OXPLOW_CHECK`, `TEST_SPEED`, `TEST_Z_SPEED`, `MEASURE_TOOL_HEATUP`, `STOP_TOOL_HEATUP`, `BENCH_TOOL_TEMP` không còn được nạp. Toolchanger `uninitialized` ngay sau restart; PRINT_START sẽ khởi tạo lại, chưa thử pickup/QGL/Touch hoặc in thật.
+
+### Còn mở
+- Không coi Klipper ready là xác nhận cơ khí. Cần quan sát chu trình in đầu tiên sau deploy; lỗi đường NTC bàn đã xác nhận ở mục 2 vẫn phải xử lý trước khi tin cậy bản in gia nhiệt dài. Chênh lệch `max_temp` Git/live chưa được giải quyết.
