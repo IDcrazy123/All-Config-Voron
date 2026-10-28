@@ -107,7 +107,7 @@ Tháo đế trước `G28`, QGL, bed mesh, Cartographer Touch hoặc in. Home kh
 
 ## Hiệu chuẩn first-layer Oxplow
 
-[Dự án Oxplow 2.3.2 trên Printables](https://www.printables.com/model/1846885-universal-oxplow-first-layer-z-offset-calibration) được tích hợp tại [extras/Printables-Package](extras/Printables-Package/README.md), cùng runtime `_OXPLOW_CHECK` trong printer.cfg. Profile giữ hình học patch-only/offset hiện có, bù đúng retract 0.6/5 mm sau PRIME_LINES và bàn giao retract/nâng Z cuối bài cho PRINT_END. Có file PETG từng tool, PETG/ABS đủ năm tool, SVG và report đi kèm.
+[Dự án Oxplow 2.3.2 trên Printables](https://www.printables.com/model/1846885-universal-oxplow-first-layer-z-offset-calibration) được tích hợp tại [extras/Printables-Package](extras/Printables-Package/README.md). Runtime `_OXPLOW_CHECK` là module tùy chọn trong `printer.cfg`; bật `include` và khởi động lại Klipper khi máy idle trước khi chạy G-code Oxplow tạo sẵn. Profile giữ hình học patch-only/offset hiện có, bù đúng retract 0.6/5 mm sau PRIME_LINES và bàn giao retract/nâng Z cuối bài cho PRINT_END. Có file PETG từng tool, PETG/ABS đủ năm tool, SVG và report đi kèm.
 
 Đọc report đúng file đã in: ramp Z0.280 -> Z0.200 khác bản 2.0.0 có chữ/vạch cũ. Bắt đầu bằng một tool có giám sát; lần đồng bộ này không áp offset mới hay kết quả hiệu chuẩn vật lý.
 

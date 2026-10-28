@@ -107,7 +107,7 @@ Remove the holder before `G28`, QGL, bed mesh, Cartographer Touch, or printing. 
 
 ## Oxplow first-layer calibration
 
-The [published Oxplow 2.3.2 project](https://www.printables.com/model/1846885-universal-oxplow-first-layer-z-offset-calibration) is integrated under [extras/Printables-Package](extras/Printables-Package/README.md). `printer.cfg` loads its matching `_OXPLOW_CHECK` runtime. Machine profiles preserve the existing patch-only geometry and saved offsets, recover the 0.6/5 mm PRIME_LINES retract once, and hand final retract/lift to PRINT_END. PETG single-tool and PETG/ABS five-tool files include matching SVG previews and reports.
+The [published Oxplow 2.3.2 project](https://www.printables.com/model/1846885-universal-oxplow-first-layer-z-offset-calibration) is integrated under [extras/Printables-Package](extras/Printables-Package/README.md). Its `_OXPLOW_CHECK` runtime is optional in `printer.cfg`; enable the include and restart Klipper while idle before running generated Oxplow G-code. Machine profiles preserve the existing patch-only geometry and saved offsets, recover the 0.6/5 mm PRIME_LINES retract once, and hand final retract/lift to PRINT_END. PETG single-tool and PETG/ABS five-tool files include matching SVG previews and reports.
 
 Use the report from the file actually printed: this version's Z0.280 -> Z0.200 ramp differs from the retired annotated 2.0.0 test. Start with an attended single-tool print; no new offsets or physical calibration results are applied by synchronization.
 

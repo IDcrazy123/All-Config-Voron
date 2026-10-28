@@ -7,7 +7,9 @@ Vietnamese documentation. The root Python file launches that toolkit unchanged.
 
 ## Installed runtime and machine contract
 
-`../../config/Printer-Setup/oxplow_runtime.cfg` is included once by `printer.cfg`.
+`../../config/Printer-Setup/oxplow_runtime.cfg` is optional in `printer.cfg`.
+Enable its include and restart Klipper while idle before running generated
+Oxplow G-code; disable it again after calibration if no longer needed.
 It retains the published runtime logic and adds a local purpose/loading/usage guide
 in its leading comments. Check installation without motion or heating:
 

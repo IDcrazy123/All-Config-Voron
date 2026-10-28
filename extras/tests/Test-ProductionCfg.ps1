@@ -41,6 +41,21 @@ def sparse_contract_with_helper(self):
         cfg.render = original_render
 cfg.PortabilityTests.test_custom_sparse_tool_mapping_and_heater_limit = sparse_contract_with_helper
 
+# Legacy portability checks exercise the standalone benchmark. Load it only
+# for those checks; the production include graph remains optional and minimal.
+for test_name in ('test_custom_sparse_tool_mapping_and_heater_limit',
+                  'test_benchmark_uses_station_geometry',
+                  'test_benchmark_rejects_print_pause_dryer_and_invalid_controls',
+                  'test_print_and_dryer_reject_active_benchmark'):
+    original = getattr(cfg.PortabilityTests,test_name)
+    def with_optional_bench(self,original=original):
+        before=set(cfg.CFG.sections())
+        cfg.CFG.read(Path('config/Printer-Setup/tool-temp-bench.cfg'),encoding='utf-8-sig')
+        try: original(self)
+        finally:
+            for section in set(cfg.CFG.sections())-before: cfg.CFG.remove_section(section)
+    setattr(cfg.PortabilityTests,test_name,with_optional_bench)
+
 ROOT = Path.cwd()
 BACKUP = ROOT / 'extras/backups/pre-cfg-software-hardening-20261016-200256'
 spec = importlib.util.spec_from_file_location('cleaner_checks', ROOT / 'extras/experiments/t0-cleaner-20261015/test_nozzle_clean_v2.py')
@@ -116,18 +131,41 @@ class Replay:
 class CurrentContracts(unittest.TestCase):
     def test_shutdown_cancels_auxiliary_callbacks_before_they_can_reheat(self):
         for macro in ('CANCEL_PRINT','PRINT_END'):
-            p=fixture(); p['toolhead']['homed_axes']=''
-            p['gcode_macro _PRINT_STATE']['state']='drying'
-            p['gcode_macro _DRYER_STATUS'].update(is_drying=1,time_remaining=100,total_time=100,bed_temp=70)
-            p['gcode_macro _TOOL_HEATUP_VARS']['is_running']=1
-            r=Replay(p); r.run(macro)
-            self.assertEqual(r.commands[0],'TURN_OFF_HEATERS')
-            self.assertEqual(p['gcode_macro _DRYER_STATUS']['is_drying'],0)
-            self.assertEqual(p['gcode_macro _TOOL_HEATUP_VARS']['is_running'],0)
-            self.assertIn('UPDATE_DELAYED_GCODE ID=DRYER_TIMER DURATION=0',r.commands)
-            self.assertIn('UPDATE_DELAYED_GCODE ID=_TOOL_HEATUP_TIMER DURATION=0',r.commands)
-            self.assertNotIn('M140',cfg.render('_DRYER_STATUS',p))
-            self.assertNotIn('SET_HEATER_TEMPERATURE',cfg.ENV.from_string(cfg.CFG['delayed_gcode _TOOL_HEATUP_TIMER']['gcode']).render(printer=p))
+            for with_bench in (False,True):
+                with self.subTest(macro=macro,with_bench=with_bench):
+                    p=fixture(); p['toolhead']['homed_axes']=''
+                    p['gcode_macro _PRINT_STATE']['state']='drying'
+                    p['gcode_macro _DRYER_STATUS'].update(is_drying=1,time_remaining=100,total_time=100,bed_temp=70)
+                    if with_bench: p['gcode_macro _TOOL_HEATUP_VARS']={'is_running':1}
+                    r=Replay(p); r.run(macro)
+                    self.assertEqual(r.commands[0],'TURN_OFF_HEATERS')
+                    self.assertEqual(p['gcode_macro _DRYER_STATUS']['is_drying'],0)
+                    self.assertIn('UPDATE_DELAYED_GCODE ID=DRYER_TIMER DURATION=0',r.commands)
+                    self.assertNotIn('M140',cfg.render('_DRYER_STATUS',p))
+                    if with_bench:
+                        self.assertEqual(p['gcode_macro _TOOL_HEATUP_VARS']['is_running'],0)
+                        self.assertIn('UPDATE_DELAYED_GCODE ID=_TOOL_HEATUP_TIMER DURATION=0',r.commands)
+                    else:
+                        self.assertNotIn('UPDATE_DELAYED_GCODE ID=_TOOL_HEATUP_TIMER DURATION=0',r.commands)
+
+    def test_one_off_macros_are_unloaded_without_affecting_core_guards(self):
+        for name in ('_OXPLOW_CHECK','TEST_SPEED','TEST_Z_SPEED','MEASURE_TOOL_HEATUP',
+                     'STOP_TOOL_HEATUP','BENCH_TOOL_TEMP','_TOOL_HEATUP_VARS'):
+            self.assertNotIn('gcode_macro '+name,cfg.CFG)
+        for name in ('oxplow_runtime.cfg','test-speed.cfg','tool-temp-bench.cfg'):
+            self.assertNotIn((ROOT/'config/Printer-Setup'/name).resolve(),cfg.FILES)
+        p=fixture()
+        cfg.render('_REQUIRE_MOTION_PREPARATION',p)
+        cfg.render('CALIBRATE_MOVE_OVER_PROBE',p)
+        with self.assertRaisesRegex(ValueError,'Coarse-Z requires reference'):
+            cfg.render('CALIBRATE_COARSE_Z_OFFSETS',p)
+        p['gcode_macro _TOOL_HEATUP_VARS']={'is_running':1}
+        with self.assertRaisesRegex(ValueError,'Preparation motion requires'):
+            cfg.render('_REQUIRE_MOTION_PREPARATION',p)
+        with self.assertRaisesRegex(ValueError,'competing operations'):
+            cfg.render('CALIBRATE_MOVE_OVER_PROBE',p)
+        with self.assertRaisesRegex(ValueError,'benchmarking'):
+            cfg.render('CALIBRATE_COARSE_Z_OFFSETS',p)
 
     def test_exclusion_empty_reset_matches_native_truthiness(self):
         p=fixture(); p['gcode_macro _PRINT_STATE'].update(state='printing',used_tool_count=2)
@@ -142,7 +180,6 @@ class CurrentContracts(unittest.TestCase):
         calls={'PRIME_LINES':{'INITIAL_TOOL':'0','T0_TEMP':'220'},
                '_PRIME_LINES_TOOL':{},'CLEAN_NOZZLE':{},'_CLEAN_NOZZLE_PURGE':{},
                '_CLEAN_NOZZLE_WIPE_PATH':{},'_CLEAN_NOZZLE_PARK':{},
-               'MEASURE_TOOL_HEATUP':{'PARK_BUCKET':'0'},'TEST_SPEED':{},'TEST_Z_SPEED':{},
                'START_DRYER':{'PARK':'0','CHAMBER':'0'},'_DRYER_PARK':{},
                '_CALIBRATE_SAFE_TRANSIT':{},'CALIBRATE_MOVE_OVER_PROBE':{}}
         for name,args in calls.items():
@@ -220,11 +257,15 @@ class CurrentContracts(unittest.TestCase):
         for name,sha in m['python_files_unchanged_contract'].items():
             self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),sha,name)
         for name,sha in m['originals'].items():
-            if ('readonly-configs/' in name or name=='config/printer.cfg' or
+            if ('readonly-configs/' in name or
                 name=='config/Printer-Setup/hardware.cfg' or
                 (name.startswith('config/toolchanger/tools/') and name not in
                  ('config/toolchanger/tools/T0.cfg','config/toolchanger/tools/T2.cfg'))):
                 self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),sha,name)
+        marker=b'#*# <---------------------- SAVE_CONFIG ---------------------->'
+        current=(ROOT/'config/printer.cfg').read_bytes().replace(b'\r\n',b'\n')
+        baseline=(BACKUP/'config/printer.cfg').read_bytes().replace(b'\r\n',b'\n')
+        self.assertEqual(current[current.index(marker):],baseline[baseline.index(marker):])
         self.assertEqual(float(cfg.CFG['tool T0']['params_park_y'].split('#')[0]),1.3)
         self.assertEqual(float(cfg.CFG['tool T2']['params_park_y'].split('#')[0]),1.6)
 

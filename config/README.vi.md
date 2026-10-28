@@ -9,7 +9,6 @@ Thư mục này chứa payload do repository sở hữu và triển khai sang `~
 `printer.cfg` nạp module active theo thứ tự:
 
 ```ini
-[include Printer-Setup/oxplow_runtime.cfg]
 [include mainsail.cfg]
 [include toolchanger/readonly-configs/toolchanger-include.cfg]
 [include Printer-Setup/calibration-probe.cfg]
@@ -20,10 +19,12 @@ Thư mục này chứa payload do repository sở hữu và triển khai sang `~
 [include Printer-Setup/prime-lines.cfg]
 [include Printer-Setup/print-macros.cfg]
 [include Printer-Setup/filament-dryer.cfg]
-[include Printer-Setup/test-speed.cfg]
-[include Printer-Setup/tool-temp-bench.cfg]
 [include Printer-Setup/tool-crash.cfg]
 ```
+
+Runtime Oxplow, test tốc độ và phép đo nhiệt tool chỉ dùng khi hiệu chuẩn; các
+`include` tương ứng đã được comment trong `printer.cfg`. Bật đúng module cần
+dùng và khởi động lại Klipper khi máy idle trước khi chạy G-code/lệnh thử.
 
 `Printer-Setup/calibration-probe.cfg` bật Axiscope làm backend `probe_multi_axis` duy nhất. Axiscope quản lý đo XY bằng camera; công tắc PF2 tháo rời cho Z tương đối sơ bộ; test first-layer quyết định Z production cuối.
 
@@ -85,4 +86,4 @@ Chỉ deploy khi máy in đang rảnh. Sau restart Moonraker/Klipper, kiểm tra
 
 October 17 update: the [software hardening](../extras/docs/cfg-hardening-2026-10-16.md) and [follow-up fixes](../extras/docs/cfg-followup-2026-10-17.md) are deployed and Klipper reports ready. Physical acceptance remains pending. The installer refuses differing live `SAVE_CONFIG` unless a reviewed replacement explicitly enables `VORON_ALLOW_CALIBRATION_REPLACE=1`.
 
-`Printer-Setup/oxplow_runtime.cfg` cung cấp `_OXPLOW_CHECK` 2.3.2 và được include một lần. [Bộ tích hợp](../extras/Printables-Package/README.md) chứa profile máy, G-code, SVG và report tương ứng; không tự chạy hiệu chuẩn hoặc lưu offset.
+`Printer-Setup/oxplow_runtime.cfg` cung cấp `_OXPLOW_CHECK` 2.3.2 khi được bật. G-code Oxplow tạo sẵn cần runtime này; bật `include` rồi khởi động lại khi máy idle trước khi dùng. [Bộ tích hợp](../extras/Printables-Package/README.md) chứa profile máy, G-code, SVG và report tương ứng; runtime không tự chạy hiệu chuẩn hoặc lưu offset.

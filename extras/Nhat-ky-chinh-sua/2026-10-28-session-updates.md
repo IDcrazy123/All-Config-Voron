@@ -35,3 +35,21 @@
 - Xác nhận đường đo NTC bị chập chờn. Tiếp xúc hở gián đoạn ở cảm biến, dây hoặc giắc là giả thuyết ưu tiên; log chưa phân biệt được các bộ phận này, ngõ PB0 hoặc nhiễu điện khác. Không có bằng chứng để quy riêng lỗi cho SSR hoặc sai đường cong NTC; việc nới `verify_heater` sẽ che lỗi đo.
 - Sau khi bản in kết thúc: ngắt điện lưới, để bàn nguội, kiểm tra gắn cảm biến và đường dây/giắc; đo điện trở NTC ở đầu controller trong lúc uốn nhẹ dây, rồi đo gần cảm biến để khoanh vùng. Chỉ sau sửa phần lỗi mới chạy thử gia nhiệt có giám sát và đối chiếu nhiệt kế độc lập.
 - Chỉ cập nhật `KNOWN_ISSUES.md` và nhật ký. Không sửa CFG, không triển khai lên máy đang in.
+
+## 3. Ẩn macro thử nghiệm và sắp lại printer.cfg
+
+### Bằng chứng
+- `printer.cfg` live và bản Git trước sửa có cùng SHA256 `672E57BC2F4243F38D150C0B902519E961ED5D7FE70E19FF0CF85F9DE3FDDA3B`; máy vẫn đang in `ZAssembly_ABS_4h16m.gcode`. Các giới hạn `[printer]` live trùng Git: XY 350/7000, Z 80/1000, square corner velocity 5.
+- `test-speed.cfg` chỉ cấp `TEST_SPEED`, `TEST_Z_SPEED`; `tool-temp-bench.cfg` cấp ba lệnh đo nhiệt và biến/timer riêng; `oxplow_runtime.cfg` chỉ cấp `_OXPLOW_CHECK` cho G-code hiệu chuẩn tạo sẵn. Các file này không nằm trong luồng in thường ngày.
+- Trước khi tắt benchmark, `_REQUIRE_MOTION_PREPARATION` và hai macro hiệu chuẩn PF2 đọc trực tiếp `_TOOL_HEATUP_VARS`, nên phải cho phép biến này vắng mặt. Những chỗ còn lại đã kiểm tra điều kiện tồn tại. Installer cho phép trạng thái benchmark vắng mặt khi truy vấn Moonraker.
+
+### Thay đổi
+- `config/printer.cfg`: gom chú thích theo include vận hành, module tùy chọn và giới hạn máy; comment ba include Oxplow, test tốc độ và benchmark nhiệt. Không đổi thứ tự các include còn hoạt động, giá trị `[printer]` hoặc khối `SAVE_CONFIG`.
+- `config/Printer-Setup/print-macros.cfg` và `calibration-probe.cfg`: chỉ kiểm tra trạng thái benchmark khi module được nạp; khi bật lại benchmark, chặn chuyển động/hiệu chuẩn như trước.
+- `extras/tests/Test-ProductionCfg.ps1`: kiểm tra các macro tùy chọn không được nạp trong cấu hình mặc định, guard hoạt động cả khi module có/vắng mặt và chỉ so khối `SAVE_CONFIG` thay vì hash toàn bộ `printer.cfg`. Các bài test benchmark độc lập vẫn chạy bằng cách nạp module tạm trong test.
+- Đồng bộ hướng dẫn Oxplow và danh sách include trong README dự án, `config/README*` và `extras/Printables-Package/README.md`.
+
+### Sao lưu, kiểm tra và triển khai
+- Bản trước sửa: `extras/backups/pre-optional-macro-cleanup-20261028-195546/` (ba CFG và runner PowerShell). So sánh byte xác nhận toàn bộ phần từ dấu `SAVE_CONFIG` trở xuống không đổi.
+- `Test-ProductionCfg.ps1`: 83 bài chạy, 70 đạt và 13 bỏ qua vì giới hạn Bash/POSIX hoặc hợp đồng cũ đã được thay thế; `git diff --check` đạt. Đây là kiểm tra offline, chưa chứng minh Klipper đã nạp cấu hình mới trên máy.
+- Máy đang in nên chưa upload/restart. Sau khi idle và xử lý rủi ro cảm biến bàn nhiệt, triển khai cấu hình có chọn lọc rồi kiểm tra các macro thử nghiệm đã biến mất trong Mainsail. Nếu dùng G-code Oxplow tạo sẵn, bật lại `oxplow_runtime.cfg` và restart khi idle trước khi chạy.

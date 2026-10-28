@@ -15,7 +15,6 @@ This directory is the repository-owned payload deployed to `~/printer_data/confi
 `printer.cfg` loads the active modules in this order:
 
 ```ini
-[include Printer-Setup/oxplow_runtime.cfg]
 [include mainsail.cfg]
 [include toolchanger/readonly-configs/toolchanger-include.cfg]
 [include Printer-Setup/calibration-probe.cfg]
@@ -26,10 +25,12 @@ This directory is the repository-owned payload deployed to `~/printer_data/confi
 [include Printer-Setup/prime-lines.cfg]
 [include Printer-Setup/print-macros.cfg]
 [include Printer-Setup/filament-dryer.cfg]
-[include Printer-Setup/test-speed.cfg]
-[include Printer-Setup/tool-temp-bench.cfg]
 [include Printer-Setup/tool-crash.cfg]
 ```
+
+The one-off Oxplow runtime, speed tests and tool heat benchmark are commented
+out in `printer.cfg`. Enable only the needed include and restart Klipper while
+idle before running its calibration G-code or test command.
 
 `Printer-Setup/calibration-probe.cfg` activates Axiscope as the only `probe_multi_axis` backend. Axiscope owns camera-assisted XY; the removable PF2 switch provides coarse relative Z; first-layer tests own final production Z.
 
@@ -93,4 +94,4 @@ Run configuration deployment only while the printer is idle, then restart Moonra
 
 ## Oxplow first-layer runtime
 
-`Printer-Setup/oxplow_runtime.cfg` supplies `_OXPLOW_CHECK` version 2.3.2 and is included once. It performs checks without automatic homing, heating or offset writes. The [integrated toolkit](../extras/Printables-Package/README.md) contains matching machine profiles, G-code, SVG and reports.
+`Printer-Setup/oxplow_runtime.cfg` supplies `_OXPLOW_CHECK` version 2.3.2 when its include is enabled. Generated Oxplow G-code requires this runtime; enable it and restart while idle before use. It performs checks without automatic homing, heating or offset writes. The [integrated toolkit](../extras/Printables-Package/README.md) contains matching machine profiles, G-code, SVG and reports.
