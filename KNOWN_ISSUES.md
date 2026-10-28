@@ -1,6 +1,6 @@
 # Current production issues
 
-Updated: 2026-10-27. This file records the active state of the printer. Older
+Updated: 2026-10-28. This file records the active state of the printer. Older
 entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 
 ## Tool pickup and recovery
@@ -21,15 +21,25 @@ verification means the dock or detection input still needs repair.
 
 ## Intermittent bed temperature input
 
-At about 19:22, the bed reading fell from approximately 104 to 71.7 °C in
-seconds and then rebounded toward 100 °C with heater power at 100%. Klipper
-stopped with `Heater heater_bed not heating at expected rate`. That measurement
-change is implausible for the bed's thermal mass. The specific faulty component
-has not been isolated. Inspect the NTC attachment, wiring, crimps, PB0 input,
-and routing near AC/SSR wiring with power disconnected. Check for unstable
-resistance while gently flexing the cold sensor lead. Replace a defective
-sensor, cable, or connector and verify stable readings before another long
-heated print. Do not relax `verify_heater`, PID, or smoothing to mask the fault.
+The October 26–28 Klipper logs show recurrent implausible jumps in the bed
+reading. On October 27, two shutdowns reported `ADC out of range`; just before
+them the reported bed temperature jumped 99.4→120.3 °C and 87.1→127.5 °C in
+about one second. Other episodes dropped tens of degrees and triggered `Heater
+heater_bed not heating at expected rate`. On October 28, with the heater target
+and PWM at zero for over 15 minutes, the reading went 49.7→4.4→49.8 °C in two
+seconds. SSR switching or inadequate heater power alone cannot explain that
+heater-off reading. The NTC measurement path is intermittently faulty; logs
+cannot isolate the NTC element from its lead, crimps, connector, or PB0 input.
+An intermittent open contact is a leading hypothesis, but electrical noise or
+an input fault has not been ruled out.
+
+After the current print ends, disconnect mains power and let the bed cool.
+Inspect the sensor attachment, cable, crimps, PB0 connector and routing near
+AC/SSR wiring. With power off, measure the cold NTC resistance at the controller
+end while gently flexing the cable and connectors; repeat closer to the sensor
+if the reading jumps or opens. Repair or replace the faulty part, then verify
+stable readings and a supervised heat cycle before another long heated print.
+Do not relax `verify_heater`, PID, or smoothing to mask the fault.
 
 The seller labels the sensor `NTC 100k MBG18-104F39050L32`; the installed
 Klipper type is `NTC 100K MGB18-104F39050L32`. Confirm the actual component

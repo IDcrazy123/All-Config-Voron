@@ -22,3 +22,16 @@
 ### Chưa xác minh trên phần cứng
 - Chưa triển khai/reload vì job đang in; bản live vẫn là bản trước sửa. Khi máy idle cần triển khai chọn lọc print-macros.cfg, đối chiếu hash, restart và thử đường G28/T0/QGL/Touch/prime cùng PRINT_END/CANCEL_PRINT dưới quan sát trực tiếp.
 - Không triển khai toàn bộ config vì `heater_bed.max_temp` trong Git là 120°C còn live là 150°C. Lỗi cảm biến bàn nhiệt gián đoạn vẫn cần kiểm tra riêng.
+
+## 2. Phân tích log bàn nhiệt gián đoạn
+
+### Bằng chứng
+- Đọc `klippy.log.2026-10-26`, `klippy.log.2026-10-27` và `klippy.log` ngày 28/10 trực tiếp trên máy qua SSH; đối chiếu Moonraker: máy đang in `ZAssembly_ABS_4h16m.gcode`, bàn 100/100°C tại thời điểm đọc. Không gửi lệnh nhiệt, chuyển động hoặc restart.
+- Ngày 27/10 có hai lần `MCU shutdown: ADC out of range`; ngay trước khi dừng, mẫu bàn lần lượt nhảy 99,4→120,3°C và 87,1→127,5°C trong khoảng một giây. Các lần `Heater heater_bed not heating at expected rate` đi kèm tín hiệu bàn sụt/tăng bất thường khi PWM đáp ứng đến 100%.
+- Ngày 28/10, khi target và PWM đều bằng 0 liên tục hơn 15 phút, mẫu bàn đi 49,7→4,4→49,8°C trong hai giây. Sự kiện khi tắt heater loại trừ thiếu công suất gia nhiệt hay riêng xung đóng ngắt SSR là nguyên nhân duy nhất. Thay đổi hàng chục độ trong một giây không thể là nhiệt thật của bàn 350 mm.
+- Cấu hình live: NTC `NTC 100K MGB18-104F39050L32` trên PB0; `verify_heater` max_error=200, check_gain_time=240, hysteresis=5, heating_gain=1; smooth_time=3.0. Khác biệt max_temp Git 120°C/live 150°C vẫn tồn tại.
+
+### Kết luận và việc còn chờ
+- Xác nhận đường đo NTC bị chập chờn. Tiếp xúc hở gián đoạn ở cảm biến, dây hoặc giắc là giả thuyết ưu tiên; log chưa phân biệt được các bộ phận này, ngõ PB0 hoặc nhiễu điện khác. Không có bằng chứng để quy riêng lỗi cho SSR hoặc sai đường cong NTC; việc nới `verify_heater` sẽ che lỗi đo.
+- Sau khi bản in kết thúc: ngắt điện lưới, để bàn nguội, kiểm tra gắn cảm biến và đường dây/giắc; đo điện trở NTC ở đầu controller trong lúc uốn nhẹ dây, rồi đo gần cảm biến để khoanh vùng. Chỉ sau sửa phần lỗi mới chạy thử gia nhiệt có giám sát và đối chiếu nhiệt kế độc lập.
+- Chỉ cập nhật `KNOWN_ISSUES.md` và nhật ký. Không sửa CFG, không triển khai lên máy đang in.
