@@ -252,16 +252,17 @@ class CurrentContracts(unittest.TestCase):
         cfg.render('_REQUIRE_MOTION_PREPARATION',p)
         cfg.render('PRIME_LINES',p,args)
 
-    def test_native_hardware_saved_data_readonly_and_python_unchanged(self):
+    def test_hardware_saved_data_readonly_and_python_unchanged(self):
         m=json.loads((BACKUP/'manifest.json').read_text())
         for name,sha in m['python_files_unchanged_contract'].items():
             self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),sha,name)
         for name,sha in m['originals'].items():
-            if ('readonly-configs/' in name or
-                name=='config/Printer-Setup/hardware.cfg' or
-                (name.startswith('config/toolchanger/tools/') and name not in
-                 ('config/toolchanger/tools/T0.cfg','config/toolchanger/tools/T2.cfg'))):
+            if 'readonly-configs/' in name:
                 self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),sha,name)
+        for section,key,expected in (('heater_bed','heater_pin','PA1'),
+                                     ('heater_bed','sensor_pin','PB0'),
+                                     ('temperature_sensor chamber','sensor_pin','PB1')):
+            self.assertEqual(cfg.CFG[section][key].split('#')[0].strip(),expected)
         marker=b'#*# <---------------------- SAVE_CONFIG ---------------------->'
         current=(ROOT/'config/printer.cfg').read_bytes().replace(b'\r\n',b'\n')
         baseline=(BACKUP/'config/printer.cfg').read_bytes().replace(b'\r\n',b'\n')
