@@ -147,21 +147,30 @@ A second event at 17:29:01 recovered before confirmation and was filtered at
 That session reported filament present with automatic T2 runout handling
 disabled. The authorized samples=200 deployment restarted Klipper after print
 completion; at 17:41 T2 again reports filament present and enabled=true, as
-expected after restart. The T2 configuration file was not changed, so the
-false-runout issue remains open.
+expected after restart. The T2 configuration file was unchanged at that point;
+the later native-debounce deployment below now mitigates short false inputs.
 
 Live T2 uses ^EBB2:PB8 with event_delay=0.5 and a delayed state recheck after
 0.5 seconds. This is not a continuous signal-stability filter. In the installed
 Klipper, insert_gcode runs only outside the Printing idle-timeout state, so
 its cancellation hook cannot be relied on to cancel noisy events while
 printing. The installed filament switch/button code supports debounce_delay;
-T2 currently omits it and therefore uses zero.
+all five sensors previously omitted it and therefore used zero.
 
-A targeted candidate is debounce_delay: 0.5 in the T2 filament-switch section,
-retaining the existing delayed confirmation and active-tool checks. An
-isolated replay of the installed DebounceButton class rejected short and
-intermittent pulses while accepting persistent absence. This option has not
-been deployed or physically tested. It cannot repair a sustained false input;
-inspect the sensor's filament actuation, mounting, PTFE loading, connector,
-signal and ground wiring before declaring the problem resolved. The exact
-faulty component and raw pulse durations are not established by these logs.
+On the operator's repair request, T2 received debounce_delay: 0.5 at 21:04.
+The operator then expanded the scope to all five tools. T0/T1/T3/T4 received
+the same option at 21:07; T2 was not rewritten. At 21:08:28, Klipper was Ready,
+all five sensors were enabled and reported filament present, and effective
+settings differed from the initial snapshot only in these five debounce
+values (0 -> 0.5 seconds). Existing delayed confirmations, active-tool checks,
+pins/polarities and runout pause behavior are preserved. Each stage used one
+idle-checked RESTART; no motion, heat or print was started.
+
+Replay of the installed DebounceButton class rejected a 125 ms false pulse
+and intermittent chatter, while accepting persistent absence and insertion
+after 500 ms. This verifies software filtering, not the physical switch or a
+new T2 print. A sustained false input can still pause the active printing
+tool; inspect filament actuation, mounting, PTFE loading, connector, signal
+and ground wiring if the fault recurs. The exact failed component and raw
+pulse durations are not established. See
+extras/docs/filament-runout-debounce-2026-10-30.md for backups and verification.

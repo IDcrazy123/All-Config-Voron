@@ -1,0 +1,185 @@
+{
+  "validation": {
+    "changed_option": "filament_sensor_T2.debounce_delay",
+    "before": 0.0,
+    "after": 0.5,
+    "other_parsed_settings_unchanged": true,
+    "native_class_replay_passed": [
+      "125 ms false runout pulse rejected",
+      "Intermittent chatter rejected",
+      "Persistent absence accepted after 500 ms",
+      "Persistent insertion accepted after 500 ms"
+    ],
+    "before_sha256": "8453beb5d0fe677c6a811f59651b3639864a8e0614652b913a5dd65fd2d0c27e",
+    "after_sha256": "2e6364251c85dea6c34ce4ed309edd5103bfe767dd64f81680027cc3f649acb3"
+  },
+  "deployment-result": {
+    "deployed_at": "2026-10-30T21:04:48.307578+07:00",
+    "target": "/home/voron/printer_data/config/toolchanger/tools/T2.cfg",
+    "backup": "/home/voron/printer_data/config_backups/pre-t2-debounce-20261030-210250",
+    "diff": "--- T2.before.cfg\n+++ T2.after.cfg\n@@ -169,6 +169,8 @@\n [filament_switch_sensor filament_sensor_T2]\n # Runout switch polarity/pull-up: verify filament_detected with and without filament.\n switch_pin: ^EBB2:PB8\n+# Require a stable input for 0.5 s before accepting either sensor state.\n+debounce_delay: 0.5\n pause_on_runout: False\n event_delay: 0.5\n pause_delay: 0.5\n",
+    "before_sha256": "8453beb5d0fe677c6a811f59651b3639864a8e0614652b913a5dd65fd2d0c27e",
+    "after_sha256": "2e6364251c85dea6c34ce4ed309edd5103bfe767dd64f81680027cc3f649acb3",
+    "restart_count": 1,
+    "restart_response": {
+      "result": "ok"
+    }
+  },
+  "verification": {
+    "verified_at": "2026-10-30T21:05:22.236937+07:00",
+    "klipper": "ready",
+    "only_effective_change": "T2 debounce_delay: 0.0 -> 0.5",
+    "sensor": {
+      "filament_detected": true,
+      "enabled": true
+    },
+    "all_heater_targets_and_power_zero": true,
+    "homed_axes": "",
+    "gcode_query_result": [
+      "// Filament Sensor filament_sensor_T2: filament detected"
+    ],
+    "changed_settings": {
+      "filament_switch_sensor filament_sensor_t2": {
+        "before": {
+          "switch_pin": "^EBB2:PB8",
+          "debounce_delay": 0.0,
+          "pause_on_runout": false,
+          "runout_gcode": "\nUPDATE_DELAYED_GCODE ID=_FILTER_RUNOUT_T2 DURATION=0.5\nRESPOND MSG=\"[T2] Filament sensor reports runout; waiting for confirmation...\"",
+          "insert_gcode": "\nUPDATE_DELAYED_GCODE ID=_FILTER_RUNOUT_T2 DURATION=0\nRESPOND MSG=\"[T2] Filament sensor recovered; canceling debounce counter\"",
+          "pause_delay": 0.5,
+          "event_delay": 0.5
+        },
+        "after": {
+          "switch_pin": "^EBB2:PB8",
+          "debounce_delay": 0.5,
+          "pause_on_runout": false,
+          "runout_gcode": "\nUPDATE_DELAYED_GCODE ID=_FILTER_RUNOUT_T2 DURATION=0.5\nRESPOND MSG=\"[T2] Filament sensor reports runout; waiting for confirmation...\"",
+          "insert_gcode": "\nUPDATE_DELAYED_GCODE ID=_FILTER_RUNOUT_T2 DURATION=0\nRESPOND MSG=\"[T2] Filament sensor recovered; canceling debounce counter\"",
+          "pause_delay": 0.5,
+          "event_delay": 0.5
+        }
+      }
+    },
+    "warnings": []
+  },
+  "all-validation": {
+    "files": {
+      "0": {
+        "before": "3cda11402352792a3c759c60789a900e541064cccd9b258a018c8fc7395d3492",
+        "after": "61820f57b0466a50895f04075589517aa400a70697547ed4ba6bb2a4feb5dd2a"
+      },
+      "1": {
+        "before": "c3177bef673d06bd07f06b71e429319d88e3ebaa36a2c725df74c178eaf738af",
+        "after": "342ae26ffab6bc581b5b9ea7aa6e113e7de720524a4534b0fb6d374a5daccab2"
+      },
+      "2": {
+        "before": "2e6364251c85dea6c34ce4ed309edd5103bfe767dd64f81680027cc3f649acb3",
+        "after": "2e6364251c85dea6c34ce4ed309edd5103bfe767dd64f81680027cc3f649acb3"
+      },
+      "3": {
+        "before": "b0b841be1c203e0818e73be9da920ba457b54c0a45ce246c9da4ab8b5304b720",
+        "after": "1728dddb2215035b8cb7314da6e763e8376f102f3fabe0dcf522b60b1e66c9d4"
+      },
+      "4": {
+        "before": "f6cd97603dddbed4d6b186a8eef112a61ffd5afe27e71112945fb503177e825a",
+        "after": "05dab3aa6201e2384ea6512d971d2f916fda81d5d677ec34c3325cf600c7394f"
+      }
+    },
+    "only_four_debounce_options_changed": true,
+    "T2_unchanged": true,
+    "shared_native_replay": [
+      "125 ms false runout pulse rejected",
+      "Intermittent chatter rejected",
+      "Persistent absence accepted after 500 ms",
+      "Persistent insertion accepted after 500 ms"
+    ]
+  },
+  "all-deployment-result": {
+    "deployed_at": "2026-10-30T21:07:55.704091+07:00",
+    "backup": "/home/voron/printer_data/config_backups/pre-all-tool-runout-debounce-20261030-210635",
+    "changed_files": [
+      0,
+      1,
+      3,
+      4
+    ],
+    "T2_unchanged": true,
+    "hashes": {
+      "0": {
+        "before": "3cda11402352792a3c759c60789a900e541064cccd9b258a018c8fc7395d3492",
+        "after": "61820f57b0466a50895f04075589517aa400a70697547ed4ba6bb2a4feb5dd2a"
+      },
+      "1": {
+        "before": "c3177bef673d06bd07f06b71e429319d88e3ebaa36a2c725df74c178eaf738af",
+        "after": "342ae26ffab6bc581b5b9ea7aa6e113e7de720524a4534b0fb6d374a5daccab2"
+      },
+      "2": {
+        "before": "2e6364251c85dea6c34ce4ed309edd5103bfe767dd64f81680027cc3f649acb3",
+        "after": "2e6364251c85dea6c34ce4ed309edd5103bfe767dd64f81680027cc3f649acb3"
+      },
+      "3": {
+        "before": "b0b841be1c203e0818e73be9da920ba457b54c0a45ce246c9da4ab8b5304b720",
+        "after": "1728dddb2215035b8cb7314da6e763e8376f102f3fabe0dcf522b60b1e66c9d4"
+      },
+      "4": {
+        "before": "f6cd97603dddbed4d6b186a8eef112a61ffd5afe27e71112945fb503177e825a",
+        "after": "05dab3aa6201e2384ea6512d971d2f916fda81d5d677ec34c3325cf600c7394f"
+      }
+    },
+    "restart_count": 1,
+    "restart_response": {
+      "result": "ok"
+    }
+  },
+  "all-verification": {
+    "verified_at": "2026-10-30T21:08:28.585883+07:00",
+    "klipper": "ready",
+    "all_five_debounce_delay": 0.5,
+    "sensors": {
+      "0": {
+        "filament_detected": true,
+        "enabled": true
+      },
+      "1": {
+        "filament_detected": true,
+        "enabled": true
+      },
+      "2": {
+        "filament_detected": true,
+        "enabled": true
+      },
+      "3": {
+        "filament_detected": true,
+        "enabled": true
+      },
+      "4": {
+        "filament_detected": true,
+        "enabled": true
+      }
+    },
+    "only_effective_changes_since_task_start": [
+      "filament_switch_sensor filament_sensor_t0",
+      "filament_switch_sensor filament_sensor_t1",
+      "filament_switch_sensor filament_sensor_t2",
+      "filament_switch_sensor filament_sensor_t3",
+      "filament_switch_sensor filament_sensor_t4"
+    ],
+    "all_heater_targets_and_power_zero": true,
+    "homed_axes": "",
+    "gcode_query_results": [
+      "// Filament Sensor filament_sensor_T2: filament detected",
+      "// Filament Sensor filament_sensor_T0: filament detected",
+      "// Filament Sensor filament_sensor_T1: filament detected",
+      "// Filament Sensor filament_sensor_T2: filament detected",
+      "// Filament Sensor filament_sensor_T3: filament detected",
+      "// Filament Sensor filament_sensor_T4: filament detected"
+    ],
+    "warnings": []
+  },
+  "source_sha256": {
+    "buttons.py": "6d283901aef866645cb43b534cb79cd43c5f90f95a20c7fff62b18125524db15",
+    "filament_switch_sensor.py": "bc4bd637c47d9c280ff77e410ac870637d925bdcd8fbdf298dd7dc153fdf59fc"
+  },
+  "scope": "Native 0.5-second input debounce on all five filament switch sensors. Existing confirmed-runout pause is preserved.",
+  "physical_validation": "Not performed; no motion, heating or new print was started."
+}
