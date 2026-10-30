@@ -69,13 +69,14 @@ range increased. During the subsequent print start at a maintained 105 C bed
 target, QGL passed at retry 7 with a 0.005290 mm range. The requested belt
 tensioner file then passed Touch/mesh and began printing with T2.
 
-The repository probe config now prepares scan samples=200 (previous default
-20). This is separate from QGL retries. Deployment is pending completion of
-the current print and a verified idle state; an authorized heartbeat in the
-current chat will apply only this probe-config change and verify it after
-RESTART. The 200-sample setting has not yet been mechanically validated with
-the newly recalibrated, uncompensated model. No runtime Python changes are
-planned.
+After the requested print completed, scan samples=200 (previous default 20)
+was selectively deployed and verified on October 30 at 17:41 local time.
+Klipper is ready, and all other effective configuration settings match the
+pre-restart snapshot. The scan/touch models, disabled coil compensation, QGL
+retries=10 and heater limits are preserved. The 200-sample setting has not yet
+been mechanically validated with the newly recalibrated, uncompensated model;
+no homing, QGL or new print was started after deployment. No runtime Python
+changes were made. The one-time deployment heartbeat was removed afterward.
 
 ## T2 false filament runout
 
@@ -83,8 +84,11 @@ The operator reports filament remained loaded when T2 paused. On October 30,
 the T2 sensor triggered at 17:25:15 and the delayed handler paused at 17:25:17.
 A second event at 17:29:01 recovered before confirmation and was filtered at
 17:29:03. The operator then issued SET_FILAMENT_SENSOR for T2 with ENABLE=0.
-The input currently reports filament present, but automatic T2 runout handling
-is disabled for this session. A Klipper restart normally enables it again.
+That session reported filament present with automatic T2 runout handling
+disabled. The authorized samples=200 deployment restarted Klipper after print
+completion; at 17:41 T2 again reports filament present and enabled=true, as
+expected after restart. The T2 configuration file was not changed, so the
+false-runout issue remains open.
 
 Live T2 uses ^EBB2:PB8 with event_delay=0.5 and a delayed state recheck after
 0.5 seconds. This is not a continuous signal-stability filter. In the installed

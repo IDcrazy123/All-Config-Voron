@@ -33,3 +33,14 @@
 - `buttons.py` có `DebounceButton` và tham số `debounce_delay` mặc định 0. Phương án nhắm riêng T2 là thêm **debounce_delay: 0.5**, yêu cầu input ổn định trước khi báo sang runout helper, vẫn giữ delayed confirmation và kiểm tra tool active. Chưa sửa CFG hay triển khai phương án này trong tác vụ kiểm tra.
 - Replay độc lập đúng class đang cài với reactor giả lập: xung ngắn và chuỗi chập chờn bị bỏ, mất nhựa liên tục vẫn phát sự kiện; 3 trường hợp đạt. Không sửa runtime Python và không điều khiển máy để thử cơ khí.
 - Còn cần kiểm tra cơ cấu tác động của sợi vào cảm biến, lực PTFE, gá, giắc và dây SIG/GND khi máy idle. Log chưa phân biệt được lỗi cơ cấu với lỗi dây/điện. Bộ lọc phần mềm không sửa được input sai kéo dài. Tắt sensor chỉ là trạng thái phiên; RESTART thường bật lại mặc định.
+
+## 5. Cài samples=200 sau khi bản in hoàn tất
+
+- Heartbeat khoảng **17:38** xác nhận đúng file `[a]_belt_tensioner_x2+1mm_ABS_26m52s.gcode` chuyển sang `complete`, idle_timeout=Ready, `_PRINT_STATE=idle`, không pause/recovery/drying, toolchanger ready và active/detected đều rỗng; không còn chuyển động chờ. Không hủy hoặc can thiệp lúc job đang chạy.
+- Đọc lại toàn bộ hướng dẫn hiện hành, config live và file trên đĩa. Backup mới tại `extras/backups/pre-live-cartographer-samples-20261030-174004/`, có probe config, printer.cfg, print-macros.cfg, T2.cfg và snapshot trạng thái trước/sau. Backup trên máy: `/home/voron/printer_data/config_backups/pre-cartographer-samples-20261030-174004/`.
+- Chỉ thêm `[cartographer scan] samples: 200` vào file live `Printer-Setup/calibration-probe.cfg`; trước đó dùng mặc định **20**. Diff đúng bốn dòng đã review, ConfigParser đọc được và nội dung chuẩn hóa khớp bản đã commit. Recheck idle/hash trước ghi atomic và trước reload. Không chạy install.sh hoặc triển khai nguyên config.
+- Một lần chuẩn bị script bị lỗi cú pháp trước khi thực thi nên chưa ghi file/chưa gửi RESTART; đã sửa và compile script trước lần thực thi thành công. Chỉ gửi **một RESTART** lên máy.
+- Xác minh lúc **17:41:18**: Klipper **ready**, `configfile.settings['cartographer scan'].samples=200`, không cảnh báo config. So toàn bộ settings trước/sau chỉ khác samples 20→200. Model scan mới, Touch threshold=1504, trạng thái không bù nhiệt coil, QGL retries=10 và mọi setting còn lại giữ nguyên.
+- SHA256 probe config sau triển khai: `69ca73536dccbc1e0567351fbb8af0a10f903f253659878c0e8cfd7a6f5a7977`; hash `printer.cfg`, `print-macros.cfg` và `T2.cfg` không đổi. Không sửa runtime Python.
+- Không chạy G28/QGL/Touch hoặc khởi động bản in khác sau reload; chưa xác minh cơ khí với 200 mẫu. Trạng thái homed_axes rỗng sau RESTART là dự kiến. T2 tự bật lại mặc định (`enabled=true`, `filament_detected=true`); không áp dụng phương án debounce T2 trong lần cài này.
+- Đã hoàn tất yêu cầu cài sau khi in xong; xóa heartbeat một lần để không tiếp tục polling/reload.
