@@ -61,6 +61,26 @@ specification before changing the thermistor curve. The 120 °C repository
 `heater_bed.max_temp` and 150 °C live value also remain unresolved; do not
 raise the repository limit without a verified hardware rating.
 
+Read-only October 30 follow-up distinguished preparation from printing. The
+17:08 start had 79.8 -> 116.4 C in one second at an unchanged 105 C target.
+Printing later showed smaller isolated steps: 99.8 -> 101.5 C at 17:20:51,
+99.2 -> 101.1 C at 19:28:29, and 100.3 -> 102.4 C at 19:28:54. The ZAssembly
+job completed at 20:28:28. Its entire heated printing phase, 19:22:11-20:28:10,
+has 3,956 raw Stats samples with no step >=3 C; maximum adjacent step is
+2.1 C. The three steps >=0.8 C all occurred at 19:27:58-19:28:54. A separate
+19:45:07-19:55:07
+client-time monitor completed 600 GET-only API samples and 599 matching-boot
+raw Stats samples: raw bed 99.9-100.1 C, largest adjacent step 0.1 C. API
+temperature is smoothed for 3 seconds and must not substitute for raw Stats.
+Nozzle PWM and part fan changed while this window stayed stable. Earlier
+bed-only spikes did not coincide with PB1 chamber spikes, narrowing suspicion
+to the bed NTC/wiring/TH0-PB0 input or interference local to that path; the
+part or interference source remains unproven. Commanded PWM is not measured
+SSR current. The operator retained the mainboard, bed wiring and SSR through
+the StealthChanger upgrade. Per the manufacturer schematic, TH0 already has
+C34=0.1 uF plus series filtering, so an added 104 capacitor is not a verified
+repair. See extras/docs/bed-temperature-review-2026-10-30.md.
+
 ## Cartographer coil temperature and QGL
 
 Negative coil readings first appear in the October 29 log at approximately
@@ -108,6 +128,15 @@ thermal/probe drift with mechanical effects and do not establish lost Z steps
 or tool nozzle reseating accuracy. The ABS 100/105 C motion trials remain
 unperformed because of the bed input fault above. All effective settings
 remain unchanged. See extras/docs/qgl-motion-trial-2026-10-30.md.
+
+At the later read-only review, live scan samples was 20, while the repository
+probe file still specifies 200; no synchronization was performed. The scan
+and touch models remain unchanged. A 19:18 print-start QGL aborted as range
+increased 0.075379 -> 0.076728 -> 0.092545 mm despite bed 104.7-105.3 C without
+a large step. The retrying print start passed at 0.006676 mm, retry 2, around
+19:21:08. Both starts skipped automatic heat soak. This does not establish a
+controlled 20-versus-200 comparison or prove the bed input caused this QGL
+failure. The ZAssembly job subsequently completed; no intervention was made.
 
 ## T2 false filament runout
 
