@@ -1,0 +1,2734 @@
+{
+  "date": "2026-10-30",
+  "timezone": "Asia/Saigon",
+  "completed_runs": [
+    {
+      "material": "PETG",
+      "bed_target": 70,
+      "soak_seconds": 60,
+      "repeat": 1,
+      "finished": "2026-10-30T18:41:12+07:00",
+      "tool_swap_roundtrips": 3,
+      "individual_tool_changes": 6,
+      "z_cycles": 3,
+      "z_min": 20,
+      "z_max": 200,
+      "z_speed_mm_s": 25,
+      "before_center": {
+        "values_z": [
+          2.11135,
+          2.124052,
+          2.134999
+        ],
+        "mean_z": 2.1234669999999998,
+        "range_z": 0.023649000000000253,
+        "time": "2026-10-30T18:36:54+07:00"
+      },
+      "after_center": {
+        "values_z": [
+          2.070477,
+          2.087104,
+          2.098403
+        ],
+        "mean_z": 2.085328,
+        "range_z": 0.027925999999999895,
+        "time": "2026-10-30T18:40:18+07:00"
+      },
+      "center_delta_z_mm": -0.0381389999999997,
+      "baseline_corners": [
+        [
+          20.0,
+          -0.0,
+          2.167441
+        ],
+        [
+          20.0,
+          280.0,
+          2.194533
+        ],
+        [
+          330.0,
+          280.0,
+          2.133453
+        ],
+        [
+          330.0,
+          -0.0,
+          2.140053
+        ]
+      ],
+      "initial_qgl_corners": [
+        [
+          20.0,
+          0.0,
+          2.170247
+        ],
+        [
+          20.0,
+          280.0,
+          2.216813
+        ],
+        [
+          330.0,
+          280.0,
+          2.121754
+        ],
+        [
+          330.0,
+          0.0,
+          2.110784
+        ]
+      ],
+      "corner_delta_z_mm": [
+        0.002805999999999642,
+        0.0222800000000003,
+        -0.011698999999999682,
+        -0.029268999999999767
+      ],
+      "corner_common_shift_mm": -0.003970499999999877,
+      "corner_shape_change_range_mm": 0.05154900000000007,
+      "initial_qgl_range_mm": 0.10603,
+      "final": {
+        "retry": 3,
+        "max_retries": 10,
+        "range_mm": 0.002764,
+        "tolerance_mm": 0.0075,
+        "points": [
+          [
+            20.0,
+            0.0,
+            2.283319
+          ],
+          [
+            20.0,
+            280.0,
+            2.281848
+          ],
+          [
+            330.0,
+            280.0,
+            2.284495
+          ],
+          [
+            330.0,
+            0.0,
+            2.281731
+          ]
+        ]
+      },
+      "steps": [
+        {
+          "retry": 0,
+          "max_retries": 10,
+          "range_mm": 0.10603,
+          "tolerance_mm": 0.0075,
+          "points": [
+            [
+              20.0,
+              0.0,
+              2.170247
+            ],
+            [
+              20.0,
+              280.0,
+              2.216813
+            ],
+            [
+              330.0,
+              280.0,
+              2.121754
+            ],
+            [
+              330.0,
+              0.0,
+              2.110784
+            ]
+          ]
+        },
+        {
+          "retry": 1,
+          "max_retries": 10,
+          "range_mm": 0.01453,
+          "tolerance_mm": 0.0075,
+          "points": [
+            [
+              20.0,
+              0.0,
+              2.207921
+            ],
+            [
+              20.0,
+              280.0,
+              2.218878
+            ],
+            [
+              330.0,
+              280.0,
+              2.204349
+            ],
+            [
+              330.0,
+              0.0,
+              2.207594
+            ]
+          ]
+        },
+        {
+          "retry": 2,
+          "max_retries": 10,
+          "range_mm": 0.014427,
+          "tolerance_mm": 0.0075,
+          "points": [
+            [
+              20.0,
+              0.0,
+              2.26216
+            ],
+            [
+              20.0,
+              280.0,
+              2.253051
+            ],
+            [
+              330.0,
+              280.0,
+              2.250143
+            ],
+            [
+              330.0,
+              0.0,
+              2.247733
+            ]
+          ]
+        },
+        {
+          "retry": 3,
+          "max_retries": 10,
+          "range_mm": 0.002764,
+          "tolerance_mm": 0.0075,
+          "points": [
+            [
+              20.0,
+              0.0,
+              2.283319
+            ],
+            [
+              20.0,
+              280.0,
+              2.281848
+            ],
+            [
+              330.0,
+              280.0,
+              2.284495
+            ],
+            [
+              330.0,
+              0.0,
+              2.281731
+            ]
+          ]
+        }
+      ],
+      "error": null,
+      "temperature_after": {
+        "temperature": 70.07,
+        "target": 70.0,
+        "power": 0.11535452453544433
+      },
+      "qgl_bed_min_C": 70.02,
+      "qgl_bed_max_C": 70.08
+    },
+    {
+      "material": "PETG",
+      "bed_target": 70,
+      "soak_seconds": 60,
+      "repeat": 2,
+      "finished": "2026-10-30T18:46:20+07:00",
+      "tool_swap_roundtrips": 3,
+      "individual_tool_changes": 6,
+      "z_cycles": 3,
+      "z_min": 20,
+      "z_max": 200,
+      "z_speed_mm_s": 25,
+      "before_center": {
+        "values_z": [
+          2.020613,
+          2.028852,
+          2.031451
+        ],
+        "mean_z": 2.026972,
+        "range_z": 0.010838000000000125,
+        "time": "2026-10-30T18:42:27+07:00"
+      },
+      "after_center": {
+        "values_z": [
+          1.866099,
+          1.843158,
+          1.85157
+        ],
+        "mean_z": 1.853609,
+        "range_z": 0.022940999999999878,
+        "time": "2026-10-30T18:45:50+07:00"
+      },
+      "center_delta_z_mm": -0.17336300000000016,
+      "baseline_corners": [
+        [
+          20.0,
+          -0.0,
+          2.031275
+        ],
+        [
+          20.0,
+          280.0,
+          2.025999
+        ],
+        [
+          330.0,
+          280.0,
+          2.051292
+        ],
+        [
+          330.0,
+          -0.0,
+          2.050912
+        ]
+      ],
+      "initial_qgl_corners": [
+        [
+          20.0,
+          0.0,
+          1.912354
+        ],
+        [
+          20.0,
+          280.0,
+          1.898335
+        ],
+        [
+          330.0,
+          280.0,
+          1.913111
+        ],
+        [
+          330.0,
+          0.0,
+          1.932581
+        ]
+      ],
+      "corner_delta_z_mm": [
+        -0.11892099999999983,
+        -0.127664,
+        -0.1381810000000001,
+        -0.11833099999999974
+      ],
+      "corner_common_shift_mm": -0.12577424999999992,
+      "corner_shape_change_range_mm": 0.019850000000000367,
+      "initial_qgl_range_mm": 0.034246,
+      "final": {
+        "retry": 1,
+        "max_retries": 10,
+        "range_mm": 0.005048,
+        "tolerance_mm": 0.0075,
+        "points": [
+          [
+            20.0,
+            0.0,
+            1.96869
+          ],
+          [
+            20.0,
+            280.0,
+            1.965471
+          ],
+          [
+            330.0,
+            280.0,
+            1.963642
+          ],
+          [
+            330.0,
+            0.0,
+            1.965059
+          ]
+        ]
+      },
+      "steps": [
+        {
+          "retry": 0,
+          "max_retries": 10,
+          "range_mm": 0.034246,
+          "tolerance_mm": 0.0075,
+          "points": [
+            [
+              20.0,
+              0.0,
+              1.912354
+            ],
+            [
+              20.0,
+              280.0,
+              1.898335
+            ],
+            [
+              330.0,
+              280.0,
+              1.913111
+            ],
+            [
+              330.0,
+              0.0,
+              1.932581
+            ]
+          ]
+        },
+        {
+          "retry": 1,
+          "max_retries": 10,
+          "range_mm": 0.005048,
+          "tolerance_mm": 0.0075,
+          "points": [
+            [
+              20.0,
+              0.0,
+              1.96869
+            ],
+            [
+              20.0,
+              280.0,
+              1.965471
+            ],
+            [
+              330.0,
+              280.0,
+              1.963642
+            ],
+            [
+              330.0,
+              0.0,
+              1.965059
+            ]
+          ]
+        }
+      ],
+      "error": null,
+      "temperature_after": {
+        "temperature": 69.96,
+        "target": 70.0,
+        "power": 0.10668593595210303
+      },
+      "qgl_bed_min_C": 69.94,
+      "qgl_bed_max_C": 70.05
+    }
+  ],
+  "planned_runs": 6,
+  "completed_tool_changes": 12,
+  "completed_z_cycles": 6,
+  "aborted_before": "ABS_100_1 baseline and motion",
+  "events": [
+    {
+      "time": "2026-10-30T18:34:36+07:00",
+      "kind": "command_start",
+      "label": "prepare",
+      "script": "_REQUIRE_MOTION_PREPARATION\nINITIALIZE_TOOLCHANGER\n_REQUIRE_TOOL_STATE\nSTOP_CRASH_DETECTION\nBED_MESH_CLEAR\nSET_GCODE_OFFSET X=0 Y=0 Z=0\nG90\nG28\nG0 Z20 F1500\n_PRINT_START_SELECT_T0\nG0 X174 Y168 F6000\nM400"
+    },
+    {
+      "time": "2026-10-30T18:34:49+07:00",
+      "kind": "command_done",
+      "label": "prepare",
+      "elapsed": 13.5
+    },
+    {
+      "time": "2026-10-30T18:34:49+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_heat",
+      "script": "M140 S70\nM104 T0 S150\nM104 T2 S150\nBED_FAN_ON SPEED=0.5"
+    },
+    {
+      "time": "2026-10-30T18:34:52+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_heat",
+      "elapsed": 2.2
+    },
+    {
+      "time": "2026-10-30T18:34:52+07:00",
+      "kind": "stable_soak_start",
+      "label": "PETG_70_1",
+      "bed_target": 70,
+      "required_seconds": 60
+    },
+    {
+      "time": "2026-10-30T18:34:52+07:00",
+      "kind": "stable_soak_progress",
+      "label": "PETG_70_1",
+      "bed": 52.12,
+      "T0": 62.42,
+      "T2": 67.76,
+      "stable_seconds": 0
+    },
+    {
+      "time": "2026-10-30T18:35:19+07:00",
+      "kind": "stable_soak_progress",
+      "label": "PETG_70_1",
+      "bed": 64.38,
+      "T0": 149.74,
+      "T2": 150.15,
+      "stable_seconds": 0
+    },
+    {
+      "time": "2026-10-30T18:35:46+07:00",
+      "kind": "stable_soak_progress",
+      "label": "PETG_70_1",
+      "bed": 69.19,
+      "T0": 150.74,
+      "T2": 150.02,
+      "stable_seconds": 2.3
+    },
+    {
+      "time": "2026-10-30T18:36:13+07:00",
+      "kind": "stable_soak_progress",
+      "label": "PETG_70_1",
+      "bed": 70.43,
+      "T0": 149.94,
+      "T2": 150.37,
+      "stable_seconds": 29.3
+    },
+    {
+      "time": "2026-10-30T18:36:40+07:00",
+      "kind": "stable_soak_progress",
+      "label": "PETG_70_1",
+      "bed": 70.11,
+      "T0": 150.34,
+      "T2": 150.37,
+      "stable_seconds": 56.4
+    },
+    {
+      "time": "2026-10-30T18:36:45+07:00",
+      "kind": "stable_soak_done",
+      "label": "PETG_70_1",
+      "seconds": 60.9,
+      "bed": 69.98
+    },
+    {
+      "time": "2026-10-30T18:36:45+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_before_center",
+      "script": "RESPOND MSG=\"MOTION_PETG_70_1_before_center_c1d92bab_BEGIN\"\nG90\nG0 Z20 F1500\nG0 X174 Y168 F6000\nM400\nPROBE\nPROBE\nPROBE\nRESPOND MSG=\"MOTION_PETG_70_1_before_center_c1d92bab_END\""
+    },
+    {
+      "time": "2026-10-30T18:36:54+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_before_center",
+      "elapsed": 9.0
+    },
+    {
+      "time": "2026-10-30T18:36:54+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_before_corners",
+      "script": "RESPOND MSG=\"MOTION_PETG_70_1_before_corners_c6f28ed1_BEGIN\"\nG90\nG0 Z20 F1500\nG0 Z10 F1500\nG0 X20 Y0 F6000\nPROBE\nG0 Z10 F1500\nG0 X20 Y280 F6000\nPROBE\nG0 Z10 F1500\nG0 X330 Y280 F6000\nPROBE\nG0 Z10 F1500\nG0 X330 Y0 F6000\nPROBE\nG0 Z20 F1500\nG0 X174 Y168 F6000\nM400\nRESPOND MSG=\"MOTION_PETG_70_1_before_corners_c6f28ed1_END\""
+    },
+    {
+      "time": "2026-10-30T18:37:19+07:00",
+      "kind": "progress",
+      "label": "PETG_70_1_before_corners",
+      "elapsed": 25,
+      "bed": {
+        "temperature": 70.96,
+        "target": 70.0,
+        "power": 0.21047115291574447
+      },
+      "nozzle": 150.87,
+      "coil": -11.337747879830715
+    },
+    {
+      "time": "2026-10-30T18:37:25+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_before_corners",
+      "elapsed": 31.5
+    },
+    {
+      "time": "2026-10-30T18:37:25+07:00",
+      "kind": "baseline",
+      "label": "PETG_70_1",
+      "center": {
+        "values_z": [
+          2.11135,
+          2.124052,
+          2.134999
+        ],
+        "mean_z": 2.1234669999999998,
+        "range_z": 0.023649000000000253,
+        "time": "2026-10-30T18:36:54+07:00"
+      },
+      "corners": [
+        [
+          20.0,
+          -0.0,
+          2.167441
+        ],
+        [
+          20.0,
+          280.0,
+          2.194533
+        ],
+        [
+          330.0,
+          280.0,
+          2.133453
+        ],
+        [
+          330.0,
+          -0.0,
+          2.140053
+        ]
+      ]
+    },
+    {
+      "time": "2026-10-30T18:37:25+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_safe_start",
+      "script": "G90\nG0 Z20 F1500\nG0 X174 Y168 F6000\nM400"
+    },
+    {
+      "time": "2026-10-30T18:37:28+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_safe_start",
+      "elapsed": 2.2
+    },
+    {
+      "time": "2026-10-30T18:37:28+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_swap_1_T2",
+      "script": "T2\nVERIFY_TOOL_DETECTED T=2\nM400"
+    },
+    {
+      "time": "2026-10-30T18:37:46+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_swap_1_T2",
+      "elapsed": 18.0
+    },
+    {
+      "time": "2026-10-30T18:37:46+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_swap_1_T0",
+      "script": "T0\nVERIFY_TOOL_DETECTED T=0\nM400"
+    },
+    {
+      "time": "2026-10-30T18:38:05+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_swap_1_T0",
+      "elapsed": 19.0
+    },
+    {
+      "time": "2026-10-30T18:38:05+07:00",
+      "kind": "swap_cycle_done",
+      "label": "PETG_70_1",
+      "cycle": 1
+    },
+    {
+      "time": "2026-10-30T18:38:05+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_swap_2_T2",
+      "script": "T2\nVERIFY_TOOL_DETECTED T=2\nM400"
+    },
+    {
+      "time": "2026-10-30T18:38:23+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_swap_2_T2",
+      "elapsed": 18.2
+    },
+    {
+      "time": "2026-10-30T18:38:23+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_swap_2_T0",
+      "script": "T0\nVERIFY_TOOL_DETECTED T=0\nM400"
+    },
+    {
+      "time": "2026-10-30T18:38:41+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_swap_2_T0",
+      "elapsed": 18.1
+    },
+    {
+      "time": "2026-10-30T18:38:42+07:00",
+      "kind": "swap_cycle_done",
+      "label": "PETG_70_1",
+      "cycle": 2
+    },
+    {
+      "time": "2026-10-30T18:38:42+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_swap_3_T2",
+      "script": "T2\nVERIFY_TOOL_DETECTED T=2\nM400"
+    },
+    {
+      "time": "2026-10-30T18:39:00+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_swap_3_T2",
+      "elapsed": 18.2
+    },
+    {
+      "time": "2026-10-30T18:39:00+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_swap_3_T0",
+      "script": "T0\nVERIFY_TOOL_DETECTED T=0\nM400"
+    },
+    {
+      "time": "2026-10-30T18:39:18+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_swap_3_T0",
+      "elapsed": 18.1
+    },
+    {
+      "time": "2026-10-30T18:39:18+07:00",
+      "kind": "swap_cycle_done",
+      "label": "PETG_70_1",
+      "cycle": 3
+    },
+    {
+      "time": "2026-10-30T18:39:18+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_center_before_z",
+      "script": "G90\nG0 Z20 F1500\nG0 X174 Y168 F6000\nM400"
+    },
+    {
+      "time": "2026-10-30T18:39:21+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_center_before_z",
+      "elapsed": 2.2
+    },
+    {
+      "time": "2026-10-30T18:39:21+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_z_cycle_1",
+      "script": "G90\nG0 Z200 F1500\nG0 Z20 F1500\nM400"
+    },
+    {
+      "time": "2026-10-30T18:39:36+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_z_cycle_1",
+      "elapsed": 15.8
+    },
+    {
+      "time": "2026-10-30T18:39:37+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_z_cycle_2",
+      "script": "G90\nG0 Z200 F1500\nG0 Z20 F1500\nM400"
+    },
+    {
+      "time": "2026-10-30T18:39:52+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_z_cycle_2",
+      "elapsed": 15.8
+    },
+    {
+      "time": "2026-10-30T18:39:53+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_z_cycle_3",
+      "script": "G90\nG0 Z200 F1500\nG0 Z20 F1500\nM400"
+    },
+    {
+      "time": "2026-10-30T18:40:08+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_z_cycle_3",
+      "elapsed": 15.8
+    },
+    {
+      "time": "2026-10-30T18:40:09+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_after_center",
+      "script": "RESPOND MSG=\"MOTION_PETG_70_1_after_center_093dcd3f_BEGIN\"\nG90\nG0 Z20 F1500\nG0 X174 Y168 F6000\nM400\nPROBE\nPROBE\nPROBE\nRESPOND MSG=\"MOTION_PETG_70_1_after_center_093dcd3f_END\""
+    },
+    {
+      "time": "2026-10-30T18:40:18+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_after_center",
+      "elapsed": 9.0
+    },
+    {
+      "time": "2026-10-30T18:40:18+07:00",
+      "kind": "post_motion",
+      "label": "PETG_70_1",
+      "center": {
+        "values_z": [
+          2.070477,
+          2.087104,
+          2.098403
+        ],
+        "mean_z": 2.085328,
+        "range_z": 0.027925999999999895,
+        "time": "2026-10-30T18:40:18+07:00"
+      },
+      "delta_z_mm": -0.0381389999999997
+    },
+    {
+      "time": "2026-10-30T18:40:18+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_QGL",
+      "script": "RESPOND MSG=\"MOTION_PETG_70_1_QGL_4e23adfe_BEGIN\"\nQUAD_GANTRY_LEVEL\nRESPOND MSG=\"MOTION_PETG_70_1_QGL_4e23adfe_END\""
+    },
+    {
+      "time": "2026-10-30T18:40:45+07:00",
+      "kind": "progress",
+      "label": "PETG_70_1_QGL",
+      "elapsed": 27,
+      "bed": {
+        "temperature": 70.08,
+        "target": 70.0,
+        "power": 0.12590998334713593
+      },
+      "nozzle": 150.76,
+      "coil": -11.354773849946753
+    },
+    {
+      "time": "2026-10-30T18:41:12+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_QGL",
+      "elapsed": 54.0
+    },
+    {
+      "time": "2026-10-30T18:41:12+07:00",
+      "kind": "qgl_result",
+      "material": "PETG",
+      "bed_target": 70,
+      "soak_seconds": 60,
+      "repeat": 1,
+      "finished": "2026-10-30T18:41:12+07:00",
+      "tool_swap_roundtrips": 3,
+      "individual_tool_changes": 6,
+      "z_cycles": 3,
+      "z_min": 20,
+      "z_max": 200,
+      "z_speed_mm_s": 25,
+      "before_center": {
+        "values_z": [
+          2.11135,
+          2.124052,
+          2.134999
+        ],
+        "mean_z": 2.1234669999999998,
+        "range_z": 0.023649000000000253,
+        "time": "2026-10-30T18:36:54+07:00"
+      },
+      "after_center": {
+        "values_z": [
+          2.070477,
+          2.087104,
+          2.098403
+        ],
+        "mean_z": 2.085328,
+        "range_z": 0.027925999999999895,
+        "time": "2026-10-30T18:40:18+07:00"
+      },
+      "center_delta_z_mm": -0.0381389999999997,
+      "baseline_corners": [
+        [
+          20.0,
+          -0.0,
+          2.167441
+        ],
+        [
+          20.0,
+          280.0,
+          2.194533
+        ],
+        [
+          330.0,
+          280.0,
+          2.133453
+        ],
+        [
+          330.0,
+          -0.0,
+          2.140053
+        ]
+      ],
+      "initial_qgl_corners": [
+        [
+          20.0,
+          0.0,
+          2.170247
+        ],
+        [
+          20.0,
+          280.0,
+          2.216813
+        ],
+        [
+          330.0,
+          280.0,
+          2.121754
+        ],
+        [
+          330.0,
+          0.0,
+          2.110784
+        ]
+      ],
+      "corner_delta_z_mm": [
+        0.002805999999999642,
+        0.0222800000000003,
+        -0.011698999999999682,
+        -0.029268999999999767
+      ],
+      "corner_common_shift_mm": -0.003970499999999877,
+      "corner_shape_change_range_mm": 0.05154900000000007,
+      "initial_qgl_range_mm": 0.10603,
+      "final": {
+        "retry": 3,
+        "max_retries": 10,
+        "range_mm": 0.002764,
+        "tolerance_mm": 0.0075,
+        "points": [
+          [
+            20.0,
+            0.0,
+            2.283319
+          ],
+          [
+            20.0,
+            280.0,
+            2.281848
+          ],
+          [
+            330.0,
+            280.0,
+            2.284495
+          ],
+          [
+            330.0,
+            0.0,
+            2.281731
+          ]
+        ]
+      },
+      "steps": [
+        {
+          "retry": 0,
+          "max_retries": 10,
+          "range_mm": 0.10603,
+          "tolerance_mm": 0.0075,
+          "points": [
+            [
+              20.0,
+              0.0,
+              2.170247
+            ],
+            [
+              20.0,
+              280.0,
+              2.216813
+            ],
+            [
+              330.0,
+              280.0,
+              2.121754
+            ],
+            [
+              330.0,
+              0.0,
+              2.110784
+            ]
+          ]
+        },
+        {
+          "retry": 1,
+          "max_retries": 10,
+          "range_mm": 0.01453,
+          "tolerance_mm": 0.0075,
+          "points": [
+            [
+              20.0,
+              0.0,
+              2.207921
+            ],
+            [
+              20.0,
+              280.0,
+              2.218878
+            ],
+            [
+              330.0,
+              280.0,
+              2.204349
+            ],
+            [
+              330.0,
+              0.0,
+              2.207594
+            ]
+          ]
+        },
+        {
+          "retry": 2,
+          "max_retries": 10,
+          "range_mm": 0.014427,
+          "tolerance_mm": 0.0075,
+          "points": [
+            [
+              20.0,
+              0.0,
+              2.26216
+            ],
+            [
+              20.0,
+              280.0,
+              2.253051
+            ],
+            [
+              330.0,
+              280.0,
+              2.250143
+            ],
+            [
+              330.0,
+              0.0,
+              2.247733
+            ]
+          ]
+        },
+        {
+          "retry": 3,
+          "max_retries": 10,
+          "range_mm": 0.002764,
+          "tolerance_mm": 0.0075,
+          "points": [
+            [
+              20.0,
+              0.0,
+              2.283319
+            ],
+            [
+              20.0,
+              280.0,
+              2.281848
+            ],
+            [
+              330.0,
+              280.0,
+              2.284495
+            ],
+            [
+              330.0,
+              0.0,
+              2.281731
+            ]
+          ]
+        }
+      ],
+      "error": null,
+      "temperature_after": {
+        "temperature": 70.07,
+        "target": 70.0,
+        "power": 0.11535452453544433
+      }
+    },
+    {
+      "time": "2026-10-30T18:41:12+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_1_park",
+      "script": "G90\nG0 Z20 F1500\nG0 X174 Y168 F6000\nM400"
+    },
+    {
+      "time": "2026-10-30T18:41:15+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_1_park",
+      "elapsed": 2.2
+    },
+    {
+      "time": "2026-10-30T18:41:15+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_heat",
+      "script": "M140 S70\nM104 T0 S150\nM104 T2 S150\nBED_FAN_ON SPEED=0.5"
+    },
+    {
+      "time": "2026-10-30T18:41:17+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_heat",
+      "elapsed": 2.3
+    },
+    {
+      "time": "2026-10-30T18:41:17+07:00",
+      "kind": "stable_soak_start",
+      "label": "PETG_70_2",
+      "bed_target": 70,
+      "required_seconds": 60
+    },
+    {
+      "time": "2026-10-30T18:41:17+07:00",
+      "kind": "stable_soak_progress",
+      "label": "PETG_70_2",
+      "bed": 70.06,
+      "T0": 149.95,
+      "T2": 151.63,
+      "stable_seconds": 0.0
+    },
+    {
+      "time": "2026-10-30T18:41:44+07:00",
+      "kind": "stable_soak_progress",
+      "label": "PETG_70_2",
+      "bed": 70.0,
+      "T0": 149.84,
+      "T2": 151.65,
+      "stable_seconds": 27.1
+    },
+    {
+      "time": "2026-10-30T18:42:11+07:00",
+      "kind": "stable_soak_progress",
+      "label": "PETG_70_2",
+      "bed": 70.0,
+      "T0": 150.37,
+      "T2": 151.62,
+      "stable_seconds": 54.1
+    },
+    {
+      "time": "2026-10-30T18:42:18+07:00",
+      "kind": "stable_soak_done",
+      "label": "PETG_70_2",
+      "seconds": 60.9,
+      "bed": 70.02
+    },
+    {
+      "time": "2026-10-30T18:42:18+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_before_center",
+      "script": "RESPOND MSG=\"MOTION_PETG_70_2_before_center_262259b3_BEGIN\"\nG90\nG0 Z20 F1500\nG0 X174 Y168 F6000\nM400\nPROBE\nPROBE\nPROBE\nRESPOND MSG=\"MOTION_PETG_70_2_before_center_262259b3_END\""
+    },
+    {
+      "time": "2026-10-30T18:42:27+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_before_center",
+      "elapsed": 9.0
+    },
+    {
+      "time": "2026-10-30T18:42:27+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_before_corners",
+      "script": "RESPOND MSG=\"MOTION_PETG_70_2_before_corners_98c26ea7_BEGIN\"\nG90\nG0 Z20 F1500\nG0 Z10 F1500\nG0 X20 Y0 F6000\nPROBE\nG0 Z10 F1500\nG0 X20 Y280 F6000\nPROBE\nG0 Z10 F1500\nG0 X330 Y280 F6000\nPROBE\nG0 Z10 F1500\nG0 X330 Y0 F6000\nPROBE\nG0 Z20 F1500\nG0 X174 Y168 F6000\nM400\nRESPOND MSG=\"MOTION_PETG_70_2_before_corners_98c26ea7_END\""
+    },
+    {
+      "time": "2026-10-30T18:42:54+07:00",
+      "kind": "progress",
+      "label": "PETG_70_2_before_corners",
+      "elapsed": 27,
+      "bed": {
+        "temperature": 70.0,
+        "target": 70.0,
+        "power": 0.13320201050548972
+      },
+      "nozzle": 149.79,
+      "coil": -10.552658766895263
+    },
+    {
+      "time": "2026-10-30T18:42:58+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_before_corners",
+      "elapsed": 31.5
+    },
+    {
+      "time": "2026-10-30T18:42:59+07:00",
+      "kind": "baseline",
+      "label": "PETG_70_2",
+      "center": {
+        "values_z": [
+          2.020613,
+          2.028852,
+          2.031451
+        ],
+        "mean_z": 2.026972,
+        "range_z": 0.010838000000000125,
+        "time": "2026-10-30T18:42:27+07:00"
+      },
+      "corners": [
+        [
+          20.0,
+          -0.0,
+          2.031275
+        ],
+        [
+          20.0,
+          280.0,
+          2.025999
+        ],
+        [
+          330.0,
+          280.0,
+          2.051292
+        ],
+        [
+          330.0,
+          -0.0,
+          2.050912
+        ]
+      ]
+    },
+    {
+      "time": "2026-10-30T18:42:59+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_safe_start",
+      "script": "G90\nG0 Z20 F1500\nG0 X174 Y168 F6000\nM400"
+    },
+    {
+      "time": "2026-10-30T18:43:01+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_safe_start",
+      "elapsed": 2.2
+    },
+    {
+      "time": "2026-10-30T18:43:01+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_swap_1_T2",
+      "script": "T2\nVERIFY_TOOL_DETECTED T=2\nM400"
+    },
+    {
+      "time": "2026-10-30T18:43:19+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_swap_1_T2",
+      "elapsed": 18.0
+    },
+    {
+      "time": "2026-10-30T18:43:19+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_swap_1_T0",
+      "script": "T0\nVERIFY_TOOL_DETECTED T=0\nM400"
+    },
+    {
+      "time": "2026-10-30T18:43:37+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_swap_1_T0",
+      "elapsed": 18.3
+    },
+    {
+      "time": "2026-10-30T18:43:38+07:00",
+      "kind": "swap_cycle_done",
+      "label": "PETG_70_2",
+      "cycle": 1
+    },
+    {
+      "time": "2026-10-30T18:43:38+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_swap_2_T2",
+      "script": "T2\nVERIFY_TOOL_DETECTED T=2\nM400"
+    },
+    {
+      "time": "2026-10-30T18:43:56+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_swap_2_T2",
+      "elapsed": 18.3
+    },
+    {
+      "time": "2026-10-30T18:43:56+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_swap_2_T0",
+      "script": "T0\nVERIFY_TOOL_DETECTED T=0\nM400"
+    },
+    {
+      "time": "2026-10-30T18:44:14+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_swap_2_T0",
+      "elapsed": 18.1
+    },
+    {
+      "time": "2026-10-30T18:44:14+07:00",
+      "kind": "swap_cycle_done",
+      "label": "PETG_70_2",
+      "cycle": 2
+    },
+    {
+      "time": "2026-10-30T18:44:14+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_swap_3_T2",
+      "script": "T2\nVERIFY_TOOL_DETECTED T=2\nM400"
+    },
+    {
+      "time": "2026-10-30T18:44:32+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_swap_3_T2",
+      "elapsed": 18.3
+    },
+    {
+      "time": "2026-10-30T18:44:33+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_swap_3_T0",
+      "script": "T0\nVERIFY_TOOL_DETECTED T=0\nM400"
+    },
+    {
+      "time": "2026-10-30T18:44:51+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_swap_3_T0",
+      "elapsed": 18.1
+    },
+    {
+      "time": "2026-10-30T18:44:51+07:00",
+      "kind": "swap_cycle_done",
+      "label": "PETG_70_2",
+      "cycle": 3
+    },
+    {
+      "time": "2026-10-30T18:44:51+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_center_before_z",
+      "script": "G90\nG0 Z20 F1500\nG0 X174 Y168 F6000\nM400"
+    },
+    {
+      "time": "2026-10-30T18:44:53+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_center_before_z",
+      "elapsed": 2.3
+    },
+    {
+      "time": "2026-10-30T18:44:53+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_z_cycle_1",
+      "script": "G90\nG0 Z200 F1500\nG0 Z20 F1500\nM400"
+    },
+    {
+      "time": "2026-10-30T18:45:09+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_z_cycle_1",
+      "elapsed": 15.8
+    },
+    {
+      "time": "2026-10-30T18:45:09+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_z_cycle_2",
+      "script": "G90\nG0 Z200 F1500\nG0 Z20 F1500\nM400"
+    },
+    {
+      "time": "2026-10-30T18:45:25+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_z_cycle_2",
+      "elapsed": 15.8
+    },
+    {
+      "time": "2026-10-30T18:45:25+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_z_cycle_3",
+      "script": "G90\nG0 Z200 F1500\nG0 Z20 F1500\nM400"
+    },
+    {
+      "time": "2026-10-30T18:45:41+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_z_cycle_3",
+      "elapsed": 15.8
+    },
+    {
+      "time": "2026-10-30T18:45:41+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_after_center",
+      "script": "RESPOND MSG=\"MOTION_PETG_70_2_after_center_66de092a_BEGIN\"\nG90\nG0 Z20 F1500\nG0 X174 Y168 F6000\nM400\nPROBE\nPROBE\nPROBE\nRESPOND MSG=\"MOTION_PETG_70_2_after_center_66de092a_END\""
+    },
+    {
+      "time": "2026-10-30T18:45:50+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_after_center",
+      "elapsed": 9.0
+    },
+    {
+      "time": "2026-10-30T18:45:50+07:00",
+      "kind": "post_motion",
+      "label": "PETG_70_2",
+      "center": {
+        "values_z": [
+          1.866099,
+          1.843158,
+          1.85157
+        ],
+        "mean_z": 1.853609,
+        "range_z": 0.022940999999999878,
+        "time": "2026-10-30T18:45:50+07:00"
+      },
+      "delta_z_mm": -0.17336300000000016
+    },
+    {
+      "time": "2026-10-30T18:45:50+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_QGL",
+      "script": "RESPOND MSG=\"MOTION_PETG_70_2_QGL_6e272a02_BEGIN\"\nQUAD_GANTRY_LEVEL\nRESPOND MSG=\"MOTION_PETG_70_2_QGL_6e272a02_END\""
+    },
+    {
+      "time": "2026-10-30T18:46:15+07:00",
+      "kind": "progress",
+      "label": "PETG_70_2_QGL",
+      "elapsed": 25,
+      "bed": {
+        "temperature": 69.95,
+        "target": 70.0,
+        "power": 0.15835200014243517
+      },
+      "nozzle": 150.08,
+      "coil": -11.151366847688678
+    },
+    {
+      "time": "2026-10-30T18:46:20+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_QGL",
+      "elapsed": 29.3
+    },
+    {
+      "time": "2026-10-30T18:46:20+07:00",
+      "kind": "qgl_result",
+      "material": "PETG",
+      "bed_target": 70,
+      "soak_seconds": 60,
+      "repeat": 2,
+      "finished": "2026-10-30T18:46:20+07:00",
+      "tool_swap_roundtrips": 3,
+      "individual_tool_changes": 6,
+      "z_cycles": 3,
+      "z_min": 20,
+      "z_max": 200,
+      "z_speed_mm_s": 25,
+      "before_center": {
+        "values_z": [
+          2.020613,
+          2.028852,
+          2.031451
+        ],
+        "mean_z": 2.026972,
+        "range_z": 0.010838000000000125,
+        "time": "2026-10-30T18:42:27+07:00"
+      },
+      "after_center": {
+        "values_z": [
+          1.866099,
+          1.843158,
+          1.85157
+        ],
+        "mean_z": 1.853609,
+        "range_z": 0.022940999999999878,
+        "time": "2026-10-30T18:45:50+07:00"
+      },
+      "center_delta_z_mm": -0.17336300000000016,
+      "baseline_corners": [
+        [
+          20.0,
+          -0.0,
+          2.031275
+        ],
+        [
+          20.0,
+          280.0,
+          2.025999
+        ],
+        [
+          330.0,
+          280.0,
+          2.051292
+        ],
+        [
+          330.0,
+          -0.0,
+          2.050912
+        ]
+      ],
+      "initial_qgl_corners": [
+        [
+          20.0,
+          0.0,
+          1.912354
+        ],
+        [
+          20.0,
+          280.0,
+          1.898335
+        ],
+        [
+          330.0,
+          280.0,
+          1.913111
+        ],
+        [
+          330.0,
+          0.0,
+          1.932581
+        ]
+      ],
+      "corner_delta_z_mm": [
+        -0.11892099999999983,
+        -0.127664,
+        -0.1381810000000001,
+        -0.11833099999999974
+      ],
+      "corner_common_shift_mm": -0.12577424999999992,
+      "corner_shape_change_range_mm": 0.019850000000000367,
+      "initial_qgl_range_mm": 0.034246,
+      "final": {
+        "retry": 1,
+        "max_retries": 10,
+        "range_mm": 0.005048,
+        "tolerance_mm": 0.0075,
+        "points": [
+          [
+            20.0,
+            0.0,
+            1.96869
+          ],
+          [
+            20.0,
+            280.0,
+            1.965471
+          ],
+          [
+            330.0,
+            280.0,
+            1.963642
+          ],
+          [
+            330.0,
+            0.0,
+            1.965059
+          ]
+        ]
+      },
+      "steps": [
+        {
+          "retry": 0,
+          "max_retries": 10,
+          "range_mm": 0.034246,
+          "tolerance_mm": 0.0075,
+          "points": [
+            [
+              20.0,
+              0.0,
+              1.912354
+            ],
+            [
+              20.0,
+              280.0,
+              1.898335
+            ],
+            [
+              330.0,
+              280.0,
+              1.913111
+            ],
+            [
+              330.0,
+              0.0,
+              1.932581
+            ]
+          ]
+        },
+        {
+          "retry": 1,
+          "max_retries": 10,
+          "range_mm": 0.005048,
+          "tolerance_mm": 0.0075,
+          "points": [
+            [
+              20.0,
+              0.0,
+              1.96869
+            ],
+            [
+              20.0,
+              280.0,
+              1.965471
+            ],
+            [
+              330.0,
+              280.0,
+              1.963642
+            ],
+            [
+              330.0,
+              0.0,
+              1.965059
+            ]
+          ]
+        }
+      ],
+      "error": null,
+      "temperature_after": {
+        "temperature": 69.96,
+        "target": 70.0,
+        "power": 0.10668593595210303
+      }
+    },
+    {
+      "time": "2026-10-30T18:46:20+07:00",
+      "kind": "command_start",
+      "label": "PETG_70_2_park",
+      "script": "G90\nG0 Z20 F1500\nG0 X174 Y168 F6000\nM400"
+    },
+    {
+      "time": "2026-10-30T18:46:23+07:00",
+      "kind": "command_done",
+      "label": "PETG_70_2_park",
+      "elapsed": 2.3
+    },
+    {
+      "time": "2026-10-30T18:46:23+07:00",
+      "kind": "command_start",
+      "label": "ABS_100_1_heat",
+      "script": "M140 S100\nM104 T0 S150\nM104 T2 S150\nBED_FAN_ON SPEED=0.5"
+    },
+    {
+      "time": "2026-10-30T18:46:25+07:00",
+      "kind": "command_done",
+      "label": "ABS_100_1_heat",
+      "elapsed": 2.2
+    },
+    {
+      "time": "2026-10-30T18:46:25+07:00",
+      "kind": "stable_soak_start",
+      "label": "ABS_100_1",
+      "bed_target": 100,
+      "required_seconds": 90
+    },
+    {
+      "time": "2026-10-30T18:46:25+07:00",
+      "kind": "stable_soak_progress",
+      "label": "ABS_100_1",
+      "bed": 70.02,
+      "T0": 149.7,
+      "T2": 149.99,
+      "stable_seconds": 0
+    },
+    {
+      "time": "2026-10-30T18:46:52+07:00",
+      "kind": "stable_soak_progress",
+      "label": "ABS_100_1",
+      "bed": 82.44,
+      "T0": 150.68,
+      "T2": 150.34,
+      "stable_seconds": 0
+    },
+    {
+      "time": "2026-10-30T18:47:19+07:00",
+      "kind": "stable_soak_progress",
+      "label": "ABS_100_1",
+      "bed": 82.76,
+      "T0": 149.96,
+      "T2": 150.39,
+      "stable_seconds": 0
+    },
+    {
+      "time": "2026-10-30T18:47:40+07:00",
+      "kind": "trial_failed",
+      "error": "Implausible bed temperature jump during trial",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\batca\\AppData\\Local\\Temp/voron-qgl-motion-trial-20261030/run-motion-trial.py\", line 109, in <module>\n    label=f'{material}_{target}_{repeat}';stable_soak(label,target,soak);before=center_measure(label+'_before_center');corners=corner_measure(label+'_before_corners');emit('baseline',label=label,center=before,corners=corners)\n                                          ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\batca\\AppData\\Local\\Temp/voron-qgl-motion-trial-20261030/run-motion-trial.py\", line 93, in stable_soak\n    s=tool_ok(0);b=s['heater_bed']['temperature'];n=s['extruder']['temperature'];n2=s['extruder2']['temperature'];t=time.time()\n  File \"C:\\Users\\batca\\AppData\\Local\\Temp/voron-qgl-motion-trial-20261030/run-motion-trial.py\", line 54, in tool_ok\n    s=status();assert s['toolchanger']['status']=='ready';assert s['toolchanger']['tool_number']==s['toolchanger']['detected_tool_number']==n;return s\n  File \"C:\\Users\\batca\\AppData\\Local\\Temp/voron-qgl-motion-trial-20261030/run-motion-trial.py\", line 30, in status\n    raise RuntimeError('Implausible bed temperature jump during trial')\nRuntimeError: Implausible bed temperature jump during trial\n"
+    },
+    {
+      "time": "2026-10-30T18:47:40+07:00",
+      "kind": "cleanup_failed",
+      "error": "{\"error\":{\"code\":400,\"message\":\"Unknown\",\"traceback\":\"Traceback (most recent call last):\\n\\n  File \\\"/home/voron/moonraker/moonraker/components/application.py\\\", line 714, in _process_http_request\\n    result = await self.api_defintion.request(\\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n\\n  File \\\"/home/voron/moonraker/moonraker/components/klippy_connection.py\\\", line 617, in request\\n    return await self._request_standard(web_request)\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n\\n  File \\\"/home/voron/moonraker/moonraker/components/klippy_connection.py\\\", line 714, in _request_standard\\n    return await base_request.wait(timeout)\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n\\n  File \\\"/home/voron/moonraker/moonraker/components/klippy_connection.py\\\", line 825, in wait\\n    return await asyncio.wait_for(asyncio.shield(self._fut), to)\\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n\\n  File \\\"/usr/lib/python3.11/asyncio/tasks.py\\\", line 479, in wait_for\\n    return fut.result()\\n           ^^^^^^^^^^^^\\n\\nmoonraker.utils.exceptions.ServerError: Shutdown due to webhooks request\\nOnce the underlying issue is corrected, use the\\n\\\"FIRMWARE_RESTART\\\" command to reset the firmware, reload the\\nconfig, and restart the host software.\\nPrinter is shutdown\\n\\n\\n\\nThe above exception was the direct cause of the following exception:\\n\\n\\nTraceback (most recent call last):\\n\\n  File \\\"/home/voron/moonraker-env/lib/python3.11/site-packages/tornado/web.py\\\", line 1886, in _execute\\n    result = await result\\n             ^^^^^^^^^^^^\\n\\n  File \\\"/home/voron/moonraker/moonraker/components/application.py\\\", line 700, in post\\n    await self._process_http_request(RequestType.POST)\\n\\n  File \\\"/home/voron/moonraker/moonraker/components/application.py\\\", line 720, in _process_http_request\\n    raise tornado.web.HTTPError(\\n\\ntornado.web.HTTPError: HTTP 400: Shutdown due to webhooks request\\nOnce the underlying issue is corrected, use the\\n\\\"FIRMWARE_RESTART\\\" command to reset the firmware, reload the\\nconfig, and restart the host software.\\nPrinter is shutdown\\n\\n\"}}"
+    }
+  ],
+  "bed_fault_log": [
+    {
+      "klipper_monotonic_s": 7855.5,
+      "target_C": 70.0,
+      "temperature_C": 70.0,
+      "pwm": 0.111
+    },
+    {
+      "klipper_monotonic_s": 7856.5,
+      "target_C": 70.0,
+      "temperature_C": 70.0,
+      "pwm": 0.107
+    },
+    {
+      "klipper_monotonic_s": 7857.5,
+      "target_C": 70.0,
+      "temperature_C": 70.0,
+      "pwm": 0.107
+    },
+    {
+      "klipper_monotonic_s": 7858.5,
+      "target_C": 70.0,
+      "temperature_C": 69.9,
+      "pwm": 0.118
+    },
+    {
+      "klipper_monotonic_s": 7859.5,
+      "target_C": 100.0,
+      "temperature_C": 70.0,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7860.5,
+      "target_C": 100.0,
+      "temperature_C": 70.5,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7861.5,
+      "target_C": 100.0,
+      "temperature_C": 69.0,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7862.5,
+      "target_C": 100.0,
+      "temperature_C": 72.3,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7863.5,
+      "target_C": 100.0,
+      "temperature_C": 72.0,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7864.5,
+      "target_C": 100.0,
+      "temperature_C": 72.7,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7865.5,
+      "target_C": 100.0,
+      "temperature_C": 73.4,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7866.5,
+      "target_C": 100.0,
+      "temperature_C": 73.5,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7867.5,
+      "target_C": 100.0,
+      "temperature_C": 72.1,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7868.5,
+      "target_C": 100.0,
+      "temperature_C": 74.5,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7869.5,
+      "target_C": 100.0,
+      "temperature_C": 75.3,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7870.5,
+      "target_C": 100.0,
+      "temperature_C": 75.6,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7871.5,
+      "target_C": 100.0,
+      "temperature_C": 73.1,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7872.5,
+      "target_C": 100.0,
+      "temperature_C": 72.1,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7873.5,
+      "target_C": 100.0,
+      "temperature_C": 78.7,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7874.5,
+      "target_C": 100.0,
+      "temperature_C": 78.7,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7875.5,
+      "target_C": 100.0,
+      "temperature_C": 78.3,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7876.5,
+      "target_C": 100.0,
+      "temperature_C": 77.7,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7877.5,
+      "target_C": 100.0,
+      "temperature_C": 74.4,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7878.5,
+      "target_C": 100.0,
+      "temperature_C": 75.0,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7879.5,
+      "target_C": 100.0,
+      "temperature_C": 77.2,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7880.5,
+      "target_C": 100.0,
+      "temperature_C": 72.2,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7881.5,
+      "target_C": 100.0,
+      "temperature_C": 77.8,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7882.5,
+      "target_C": 100.0,
+      "temperature_C": 79.0,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7883.5,
+      "target_C": 100.0,
+      "temperature_C": 78.6,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7884.5,
+      "target_C": 100.0,
+      "temperature_C": 85.0,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7885.5,
+      "target_C": 100.0,
+      "temperature_C": 82.8,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7886.5,
+      "target_C": 100.0,
+      "temperature_C": 83.2,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7887.5,
+      "target_C": 100.0,
+      "temperature_C": 83.3,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7888.5,
+      "target_C": 100.0,
+      "temperature_C": 88.2,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7890.5,
+      "target_C": 100.0,
+      "temperature_C": 82.1,
+      "pwm": 0.642
+    },
+    {
+      "klipper_monotonic_s": 7891.5,
+      "target_C": 100.0,
+      "temperature_C": 81.5,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7892.5,
+      "target_C": 100.0,
+      "temperature_C": 86.0,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7893.5,
+      "target_C": 100.0,
+      "temperature_C": 85.0,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7894.5,
+      "target_C": 100.0,
+      "temperature_C": 85.3,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7895.5,
+      "target_C": 100.0,
+      "temperature_C": 85.1,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7896.5,
+      "target_C": 100.0,
+      "temperature_C": 83.7,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7897.5,
+      "target_C": 100.0,
+      "temperature_C": 78.4,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7898.5,
+      "target_C": 100.0,
+      "temperature_C": 85.0,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7899.5,
+      "target_C": 100.0,
+      "temperature_C": 84.7,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7900.5,
+      "target_C": 100.0,
+      "temperature_C": 85.6,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7901.5,
+      "target_C": 100.0,
+      "temperature_C": 65.5,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7902.5,
+      "target_C": 100.0,
+      "temperature_C": 86.4,
+      "pwm": 0.663
+    },
+    {
+      "klipper_monotonic_s": 7903.5,
+      "target_C": 100.0,
+      "temperature_C": 87.2,
+      "pwm": 0.731
+    },
+    {
+      "klipper_monotonic_s": 7904.5,
+      "target_C": 100.0,
+      "temperature_C": 86.0,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7905.5,
+      "target_C": 100.0,
+      "temperature_C": 71.1,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7906.5,
+      "target_C": 100.0,
+      "temperature_C": 70.8,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7907.5,
+      "target_C": 100.0,
+      "temperature_C": 88.7,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7908.5,
+      "target_C": 100.0,
+      "temperature_C": 72.1,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7909.5,
+      "target_C": 100.0,
+      "temperature_C": 88.3,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7910.5,
+      "target_C": 100.0,
+      "temperature_C": 84.5,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7911.5,
+      "target_C": 100.0,
+      "temperature_C": 88.7,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7912.5,
+      "target_C": 100.0,
+      "temperature_C": 80.5,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7913.5,
+      "target_C": 100.0,
+      "temperature_C": 89.3,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7914.5,
+      "target_C": 100.0,
+      "temperature_C": 79.8,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7915.5,
+      "target_C": 100.0,
+      "temperature_C": 78.6,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7916.5,
+      "target_C": 100.0,
+      "temperature_C": 78.5,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7917.5,
+      "target_C": 100.0,
+      "temperature_C": 91.6,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7918.5,
+      "target_C": 100.0,
+      "temperature_C": 81.0,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7919.5,
+      "target_C": 100.0,
+      "temperature_C": 79.5,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7920.5,
+      "target_C": 100.0,
+      "temperature_C": 79.0,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7921.5,
+      "target_C": 100.0,
+      "temperature_C": 80.0,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7922.5,
+      "target_C": 100.0,
+      "temperature_C": 79.6,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7923.5,
+      "target_C": 100.0,
+      "temperature_C": 79.9,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7924.5,
+      "target_C": 100.0,
+      "temperature_C": 80.6,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7925.5,
+      "target_C": 100.0,
+      "temperature_C": 78.9,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7926.5,
+      "target_C": 100.0,
+      "temperature_C": 77.5,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7927.5,
+      "target_C": 100.0,
+      "temperature_C": 76.3,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7928.5,
+      "target_C": 100.0,
+      "temperature_C": 77.7,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7929.5,
+      "target_C": 100.0,
+      "temperature_C": 76.1,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7930.5,
+      "target_C": 100.0,
+      "temperature_C": 75.3,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7931.5,
+      "target_C": 100.0,
+      "temperature_C": 74.4,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7932.5,
+      "target_C": 100.0,
+      "temperature_C": 68.9,
+      "pwm": 1.0
+    },
+    {
+      "klipper_monotonic_s": 7933.5,
+      "target_C": 100.0,
+      "temperature_C": 101.0,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7934.5,
+      "target_C": 100.0,
+      "temperature_C": 100.6,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7935.5,
+      "target_C": 100.0,
+      "temperature_C": 97.2,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7936.5,
+      "target_C": 100.0,
+      "temperature_C": 97.0,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7937.5,
+      "target_C": 100.0,
+      "temperature_C": 98.4,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7938.5,
+      "target_C": 100.0,
+      "temperature_C": 97.8,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7939.5,
+      "target_C": 100.0,
+      "temperature_C": 97.0,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7940.5,
+      "target_C": 100.0,
+      "temperature_C": 97.4,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7941.5,
+      "target_C": 100.0,
+      "temperature_C": 100.4,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7942.5,
+      "target_C": 100.0,
+      "temperature_C": 100.0,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7943.5,
+      "target_C": 100.0,
+      "temperature_C": 99.5,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7944.5,
+      "target_C": 100.0,
+      "temperature_C": 97.4,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7945.5,
+      "target_C": 100.0,
+      "temperature_C": 97.0,
+      "pwm": 0.0
+    },
+    {
+      "klipper_monotonic_s": 7946.5,
+      "target_C": 100.0,
+      "temperature_C": 96.7,
+      "pwm": 0.0
+    }
+  ],
+  "settings_unchanged": true,
+  "measurement_settings": {
+    "cartographer": {
+      "mcu": "cartographer",
+      "x_offset": 0.0,
+      "y_offset": 35.0,
+      "z_backlash": 0.05,
+      "travel_speed": 50,
+      "lift_speed": 5,
+      "verbose": false,
+      "register_as_probe": true
+    },
+    "cartographer coil": {
+      "name": "cartographer_coil",
+      "min_temp": 0,
+      "max_temp": 105
+    },
+    "cartographer scan_model default": {
+      "coefficients": [
+        1.4257754943622163,
+        1.9239074301151076,
+        0.7815251719373009,
+        -0.07221516797529137,
+        0.7058039473916567,
+        2.296590065563911,
+        -0.5941169541746449,
+        -2.8194190797455816,
+        0.48589608327181666,
+        1.379185750166442
+      ],
+      "domain": [
+        2.9458421694730643e-07,
+        3.067197796764957e-07
+      ],
+      "z_offset": 0.0,
+      "reference_temperature": -8.53,
+      "software_version": "1.10.1",
+      "mcu_version": "CARTOGRAPHER V3 6.1.0"
+    },
+    "cartographer scan": {
+      "samples": 200,
+      "probe_speed": 5,
+      "mesh_runs": 1,
+      "mesh_height": 3,
+      "mesh_direction": "x",
+      "mesh_path": "snake"
+    },
+    "cartographer touch": {
+      "samples": 3,
+      "max_samples": 10,
+      "max_noisy_samples": 2,
+      "unsafe_max_touch_temperature": 150,
+      "experimental_home_random_radius": 0.0,
+      "retract_distance": 2.0,
+      "sample_range": 0.01
+    },
+    "cartographer touch_model default": {
+      "samples": 3,
+      "sample_range": 0.01,
+      "speed": 2.0,
+      "z_offset": -0.05,
+      "threshold": 1504,
+      "software_version": "1.10.1",
+      "mcu_version": "CARTOGRAPHER V3 6.1.0"
+    },
+    "quad_gantry_level": {
+      "retries": 10,
+      "retry_tolerance": 0.0075,
+      "max_adjust": 10.0,
+      "horizontal_move_z": 10.0,
+      "points": [
+        [
+          20.0,
+          0.0
+        ],
+        [
+          20.0,
+          280.0
+        ],
+        [
+          330.0,
+          280.0
+        ],
+        [
+          330.0,
+          0.0
+        ]
+      ],
+      "speed": 200.0,
+      "gantry_corners": [
+        [
+          -10.0,
+          -10.0
+        ],
+        [
+          353.0,
+          350.0
+        ]
+      ]
+    }
+  },
+  "post_shutdown_status": {
+    "webhooks": {
+      "state": "shutdown",
+      "state_message": "Shutdown due to webhooks request\nOnce the underlying issue is corrected, use the\n\"FIRMWARE_RESTART\" command to reset the firmware, reload the\nconfig, and restart the host software.\nPrinter is shutdown\n"
+    },
+    "print_stats": {
+      "filename": "",
+      "total_duration": 0.0,
+      "print_duration": 0.0,
+      "filament_used": 0.0,
+      "state": "standby",
+      "message": "",
+      "info": {
+        "total_layer": null,
+        "current_layer": null
+      }
+    },
+    "toolhead": {
+      "homed_axes": "xyz",
+      "axis_minimum": [
+        0.0,
+        -10.0,
+        -5.0,
+        0
+      ],
+      "axis_maximum": [
+        348.0,
+        336.0,
+        347.0,
+        0
+      ],
+      "print_time": 6921.796680267307,
+      "stalls": 0,
+      "estimated_print_time": 7008.967933669231,
+      "extruder": "extruder",
+      "position": [
+        174.0,
+        168.0,
+        20.0,
+        0.0
+      ],
+      "max_velocity": 350.0,
+      "max_accel": 7000.0,
+      "minimum_cruise_ratio": 0.5,
+      "square_corner_velocity": 5.0,
+      "extra_axes": {
+        "extruder": 3
+      }
+    },
+    "gcode_move": {
+      "speed_factor": 1.0,
+      "speed": 6000.0,
+      "extrude_factor": 1.0,
+      "absolute_coordinates": true,
+      "absolute_extrude": true,
+      "homing_origin": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position": [
+        174.0,
+        168.0,
+        20.0,
+        0.0
+      ],
+      "gcode_position": [
+        174.0,
+        168.0,
+        20.0,
+        0.0
+      ],
+      "axis_map": {
+        "X": 0,
+        "Y": 1,
+        "Z": 2,
+        "E": 3
+      }
+    },
+    "toolchanger": {
+      "params_safe_y": 120,
+      "params_close_y": 30,
+      "params_fast_speed": 15000,
+      "params_path_speed": 900,
+      "params_dropoff_path": [
+        {
+          "y": 9.5,
+          "z": 3
+        },
+        {
+          "y": 9.5,
+          "z": 1.5
+        },
+        {
+          "y": 5.5,
+          "z": 0
+        },
+        {
+          "z": 0,
+          "y": 0,
+          "f": 0.5
+        },
+        {
+          "z": -12,
+          "y": 0
+        },
+        {
+          "z": -12,
+          "y": 16
+        }
+      ],
+      "params_pickup_path": [
+        {
+          "z": -12,
+          "y": 16
+        },
+        {
+          "z": -12,
+          "y": 0
+        },
+        {
+          "z": 0,
+          "y": 0,
+          "f": 0.5,
+          "verify": 1
+        },
+        {
+          "y": 5.5,
+          "z": 0
+        },
+        {
+          "y": 9.5,
+          "z": 1.5
+        },
+        {
+          "y": 9.5,
+          "z": 3
+        }
+      ],
+      "params_input_shaper_freq_x": 0,
+      "params_input_shaper_type_x": "mzv",
+      "params_input_shaper_damping_ratio_x": 0.1,
+      "params_input_shaper_freq_y": 0,
+      "params_input_shaper_type_y": "mzv",
+      "params_input_shaper_damping_ratio_y": 0.1,
+      "name": "toolchanger",
+      "status": "uninitialized",
+      "tool": null,
+      "tool_number": -1,
+      "detected_tool": "tool T0",
+      "detected_tool_number": 0,
+      "tool_numbers": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "tool_names": [
+        "tool T0",
+        "tool T1",
+        "tool T2",
+        "tool T3",
+        "tool T4"
+      ],
+      "has_detection": true
+    },
+    "heater_bed": {
+      "temperature": 97.75,
+      "target": 100.0,
+      "power": 0.0
+    },
+    "extruder": {
+      "temperature": 139.21,
+      "target": 150.0,
+      "power": 0.0,
+      "can_extrude": false,
+      "pressure_advance": 0.0,
+      "smooth_time": 0.04,
+      "motion_queue": null
+    },
+    "extruder1": {
+      "temperature": 126.12,
+      "target": 0.0,
+      "power": 0.0,
+      "can_extrude": false,
+      "pressure_advance": 0.0,
+      "smooth_time": 0.04,
+      "motion_queue": null
+    },
+    "extruder2": {
+      "temperature": 135.83,
+      "target": 150.0,
+      "power": 0.0,
+      "can_extrude": false,
+      "pressure_advance": 0.0,
+      "smooth_time": 0.04,
+      "motion_queue": null
+    },
+    "extruder3": {
+      "temperature": 44.39,
+      "target": 0.0,
+      "power": 0.0,
+      "can_extrude": false,
+      "pressure_advance": 0.0,
+      "smooth_time": 0.04,
+      "motion_queue": null
+    },
+    "extruder4": {
+      "temperature": 42.84,
+      "target": 0.0,
+      "power": 0.0,
+      "can_extrude": false,
+      "pressure_advance": 0.0,
+      "smooth_time": 0.04,
+      "motion_queue": null
+    },
+    "fan_generic bed_fan": {
+      "speed": 0.5,
+      "rpm": null
+    },
+    "gcode_macro _PRINT_STATE": {
+      "state": "idle",
+      "paused_tool": -1,
+      "used_tool_count": 0
+    },
+    "gcode_macro _TOOL_RECOVERY": {
+      "required": 0
+    },
+    "gcode_macro _DRYER_STATUS": {
+      "time_remaining": 0,
+      "total_time": 0,
+      "bed_temp": 0.0,
+      "chamber_target": 0.0,
+      "humidity_target": 0.0,
+      "base_fan_speed": 0.0,
+      "current_fan_speed": 0.0,
+      "material": "CUSTOM",
+      "is_drying": 0
+    }
+  },
+  "notes": [
+    "Local controller wall-clock timestamps are UTC+07; bed-fault CSV uses Klipper monotonic time.",
+    "Apparent center/corner Z changes combine thermal/probe and mechanical effects; no independent displacement reference was used.",
+    "Probe is on shuttle; tool nozzle reseating Z cannot be inferred from these scan measurements.",
+    "Emergency stop was intentionally sent by the independent controller after a >8 C jump within 3.5 seconds; this was not an autonomous ADC shutdown.",
+    "Cleanup G-code was rejected because Klipper was already shutdown. Heater output power is zero; targets may retain cached nonzero values. No firmware restart was sent.",
+    "After the operator explicitly requested a reset, one FIRMWARE_RESTART restored Ready with all heater targets/power zero. Thermal trials were not resumed because the bed measurement fault remains unresolved."
+  ],
+  "post_user_requested_reset": {
+    "verified_at": "2026-10-30T18:52:17+07:00",
+    "firmware_restart_count": 1,
+    "settings_unchanged": true,
+    "motion_or_heating_after_reset": false,
+    "status": {
+      "webhooks": {
+        "state": "ready",
+        "state_message": "Printer is ready"
+      },
+      "print_stats": {
+        "filename": "",
+        "total_duration": 0.0,
+        "print_duration": 0.0,
+        "filament_used": 0.0,
+        "state": "standby",
+        "message": "",
+        "info": {
+          "total_layer": null,
+          "current_layer": null
+        }
+      },
+      "pause_resume": {
+        "is_paused": false
+      },
+      "heater_bed": {
+        "temperature": 72.86,
+        "target": 0.0,
+        "power": 0.0
+      },
+      "extruder": {
+        "temperature": 59.99,
+        "target": 0.0,
+        "power": 0.0,
+        "can_extrude": false,
+        "pressure_advance": 0.0,
+        "smooth_time": 0.04,
+        "motion_queue": null
+      },
+      "extruder1": {
+        "temperature": 125.97,
+        "target": 0.0,
+        "power": 0.0,
+        "can_extrude": false,
+        "pressure_advance": 0.0,
+        "smooth_time": 0.04,
+        "motion_queue": null
+      },
+      "extruder2": {
+        "temperature": 48.82,
+        "target": 0.0,
+        "power": 0.0,
+        "can_extrude": false,
+        "pressure_advance": 0.0,
+        "smooth_time": 0.04,
+        "motion_queue": null
+      },
+      "extruder3": {
+        "temperature": 41.31,
+        "target": 0.0,
+        "power": 0.0,
+        "can_extrude": false,
+        "pressure_advance": 0.0,
+        "smooth_time": 0.04,
+        "motion_queue": null
+      },
+      "extruder4": {
+        "temperature": 42.66,
+        "target": 0.0,
+        "power": 0.0,
+        "can_extrude": false,
+        "pressure_advance": 0.0,
+        "smooth_time": 0.04,
+        "motion_queue": null
+      },
+      "toolchanger": {
+        "params_safe_y": 120,
+        "params_close_y": 30,
+        "params_fast_speed": 15000,
+        "params_path_speed": 900,
+        "params_dropoff_path": [
+          {
+            "y": 9.5,
+            "z": 3
+          },
+          {
+            "y": 9.5,
+            "z": 1.5
+          },
+          {
+            "y": 5.5,
+            "z": 0
+          },
+          {
+            "z": 0,
+            "y": 0,
+            "f": 0.5
+          },
+          {
+            "z": -12,
+            "y": 0
+          },
+          {
+            "z": -12,
+            "y": 16
+          }
+        ],
+        "params_pickup_path": [
+          {
+            "z": -12,
+            "y": 16
+          },
+          {
+            "z": -12,
+            "y": 0
+          },
+          {
+            "z": 0,
+            "y": 0,
+            "f": 0.5,
+            "verify": 1
+          },
+          {
+            "y": 5.5,
+            "z": 0
+          },
+          {
+            "y": 9.5,
+            "z": 1.5
+          },
+          {
+            "y": 9.5,
+            "z": 3
+          }
+        ],
+        "params_input_shaper_freq_x": 0,
+        "params_input_shaper_type_x": "mzv",
+        "params_input_shaper_damping_ratio_x": 0.1,
+        "params_input_shaper_freq_y": 0,
+        "params_input_shaper_type_y": "mzv",
+        "params_input_shaper_damping_ratio_y": 0.1,
+        "name": "toolchanger",
+        "status": "uninitialized",
+        "tool": null,
+        "tool_number": -1,
+        "detected_tool": "tool T0",
+        "detected_tool_number": 0,
+        "tool_numbers": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "tool_names": [
+          "tool T0",
+          "tool T1",
+          "tool T2",
+          "tool T3",
+          "tool T4"
+        ],
+        "has_detection": true
+      },
+      "toolhead": {
+        "homed_axes": "",
+        "axis_minimum": [
+          0.0,
+          -10.0,
+          -5.0,
+          0
+        ],
+        "axis_maximum": [
+          348.0,
+          336.0,
+          347.0,
+          0
+        ],
+        "print_time": 9.72651521923077,
+        "stalls": 0,
+        "estimated_print_time": 11.177513419230769,
+        "extruder": "extruder",
+        "position": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_velocity": 350.0,
+        "max_accel": 7000.0,
+        "minimum_cruise_ratio": 0.5,
+        "square_corner_velocity": 5.0,
+        "extra_axes": {
+          "extruder": 3
+        }
+      },
+      "gcode_macro _PRINT_STATE": {
+        "state": "idle",
+        "paused_tool": -1,
+        "used_tool_count": 0
+      },
+      "gcode_macro _TOOL_RECOVERY": {
+        "required": 0
+      },
+      "gcode_macro _DRYER_STATUS": {
+        "time_remaining": 0,
+        "total_time": 0,
+        "bed_temp": 0.0,
+        "chamber_target": 0.0,
+        "humidity_target": 0.0,
+        "base_fan_speed": 0.0,
+        "current_fan_speed": 0.0,
+        "material": "CUSTOM",
+        "is_drying": 0
+      }
+    }
+  }
+}

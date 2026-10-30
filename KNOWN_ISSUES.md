@@ -9,8 +9,9 @@ At 19:03, T0 pickup returned `No tool detected` and `Expected tool tool T0 but
 active is None`. The operator found that the dock had shifted. The live T0 dock
 Y value of 1.3 mm restored pickup; the repository previously specified 1.8 mm.
 The live T2 dock Y value is 1.6 mm, rather than the old repository value of
-2.1 mm. Both values are now in the repository. Mechanical verification of T2
-after deployment remains open.
+2.1 mm. Both values are now in the repository. An authorized October 30 trial
+verified 12 alternating T0/T2 tool changes without a pickup detection failure.
+This does not establish long-term pickup reliability or nozzle Z repeatability.
 
 The crash detector pauses the print and marks attachment as uncertain. After
 inspecting the tool and dock, `RESUME` reinitializes KTC and verifies the
@@ -33,7 +34,20 @@ cannot isolate the NTC element from its lead, crimps, connector, or PB0 input.
 An intermittent open contact is a leading hypothesis, but electrical noise or
 an input fault has not been ruled out.
 
-After the current print ends, disconnect mains power and let the bed cool.
+The fault recurred during the October 30 motion/QGL trial while raising the
+bed target from 70 to 100 C, before any ABS motion/QGL measurements. Klipper
+logged 85.6 -> 65.5 -> 86.4 C in two seconds and 68.9 -> 101.0 C in one second.
+The independent trial monitor deliberately sent emergency_stop at about
+18:47:40 client local time; the shutdown reason is consequently a webhooks
+request, not a native ADC or QGL error. Heater outputs report power=0, although
+cached targets initially remained nonzero. Cleanup G-code was rejected after
+shutdown. On the operator's subsequent reset request, one FIRMWARE_RESTART
+returned Klipper to Ready at 18:52:17, with all heater targets/power zero and
+unchanged settings. No homing, movement or heating followed this reset. Keep
+heaters off pending inspection and repair of the temperature input. Data is in
+extras/docs/qgl-motion-trial-2026-10-30-bed-fault.csv.
+
+Before heating again, disconnect mains power and let the bed cool.
 Inspect the sensor attachment, cable, crimps, PB0 connector and routing near
 AC/SSR wiring. With power off, measure the cold NTC resistance at the controller
 end while gently flexing the cable and connectors; repeat closer to the sensor
@@ -84,6 +98,16 @@ at 0.007201 mm. Some passes remain marginal and need many retries; this does
 not establish a repaired sensor or reliable cold starts. No runtime Python
 or configuration changes were made during the trial. See
 extras/docs/qgl-thermal-trial-2026-10-30.md for measured temperatures and data.
+
+A subsequent motion trial applied three T0->T2->T0 round trips and three
+Z20->Z200->Z20 cycles before EACH QGL. Both PETG 70 C trials passed at
+0.002764/0.005048 mm, retries 3/1, after 12 verified tool changes and six Z
+cycles in total. Apparent center Z shifted -0.038139/-0.173363 mm; consecutive
+center probes already varied by 0.010838-0.027926 mm. These measurements mix
+thermal/probe drift with mechanical effects and do not establish lost Z steps
+or tool nozzle reseating accuracy. The ABS 100/105 C motion trials remain
+unperformed because of the bed input fault above. All effective settings
+remain unchanged. See extras/docs/qgl-motion-trial-2026-10-30.md.
 
 ## T2 false filament runout
 
