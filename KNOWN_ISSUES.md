@@ -1,6 +1,6 @@
 # Current production issues
 
-Updated: 2026-10-28. This file records the active state of the printer. Older
+Updated: 2026-10-30. This file records the active state of the printer. Older
 entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 
 ## Tool pickup and recovery
@@ -46,3 +46,33 @@ Klipper type is `NTC 100K MGB18-104F39050L32`. Confirm the actual component
 specification before changing the thermistor curve. The 120 °C repository
 `heater_bed.max_temp` and 150 °C live value also remain unresolved; do not
 raise the repository limit without a verified hardware rating.
+
+## Cartographer coil temperature and QGL
+
+Negative coil readings first appear in the October 29 log at approximately
+20:11:35 local time, while plugin 1.9.0 was still installed. The upgrade to
+1.10.1 occurred on October 30 at 09:32:54, after the fault was already present.
+The temperature path needs inspection; a specific failed component has not
+been established.
+
+The operator disabled the saved coil temperature-compensation coefficients
+and recalibrated the scan model on October 30. Live scan calibration now has
+reference_temperature=-8.53 and software_version=1.10.1; the live touch model
+has threshold=1504. Coil temperature is still reported but no longer enters
+scan temperature compensation. These live calibrations differ from the
+repository printer.cfg. Live QGL retries is 10, while the repository still
+specifies 5. Do not overwrite these operator changes with a full deployment.
+
+QGL remains sensitive to thermal settling. A manual run after SAVE_CONFIG,
+with bed target zero and the bed cooling, aborted at retry 6 as the measured
+range increased. During the subsequent print start at a maintained 105 C bed
+target, QGL passed at retry 7 with a 0.005290 mm range. The requested belt
+tensioner file then passed Touch/mesh and began printing with T2.
+
+The repository probe config now prepares scan samples=200 (previous default
+20). This is separate from QGL retries. Deployment is pending completion of
+the current print and a verified idle state; an authorized heartbeat in the
+current chat will apply only this probe-config change and verify it after
+RESTART. The 200-sample setting has not yet been mechanically validated with
+the newly recalibrated, uncompensated model. No runtime Python changes are
+planned.
