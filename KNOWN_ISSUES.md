@@ -76,3 +76,28 @@ current chat will apply only this probe-config change and verify it after
 RESTART. The 200-sample setting has not yet been mechanically validated with
 the newly recalibrated, uncompensated model. No runtime Python changes are
 planned.
+
+## T2 false filament runout
+
+The operator reports filament remained loaded when T2 paused. On October 30,
+the T2 sensor triggered at 17:25:15 and the delayed handler paused at 17:25:17.
+A second event at 17:29:01 recovered before confirmation and was filtered at
+17:29:03. The operator then issued SET_FILAMENT_SENSOR for T2 with ENABLE=0.
+The input currently reports filament present, but automatic T2 runout handling
+is disabled for this session. A Klipper restart normally enables it again.
+
+Live T2 uses ^EBB2:PB8 with event_delay=0.5 and a delayed state recheck after
+0.5 seconds. This is not a continuous signal-stability filter. In the installed
+Klipper, insert_gcode runs only outside the Printing idle-timeout state, so
+its cancellation hook cannot be relied on to cancel noisy events while
+printing. The installed filament switch/button code supports debounce_delay;
+T2 currently omits it and therefore uses zero.
+
+A targeted candidate is debounce_delay: 0.5 in the T2 filament-switch section,
+retaining the existing delayed confirmation and active-tool checks. An
+isolated replay of the installed DebounceButton class rejected short and
+intermittent pulses while accepting persistent absence. This option has not
+been deployed or physically tested. It cannot repair a sustained false input;
+inspect the sensor's filament actuation, mounting, PTFE loading, connector,
+signal and ground wiring before declaring the problem resolved. The exact
+faulty component and raw pulse durations are not established by these logs.
