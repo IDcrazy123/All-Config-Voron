@@ -1,0 +1,517 @@
+[
+  {
+    "material": "ABS",
+    "bed_target": 100,
+    "soak_seconds": 90,
+    "repeat": 1,
+    "finished": "2026-10-30T17:51:56+07:00",
+    "error": null,
+    "steps": [
+      {
+        "retry": 0,
+        "max_retries": 10,
+        "range_mm": 0.027679,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 1,
+        "max_retries": 10,
+        "range_mm": 0.017962,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 2,
+        "max_retries": 10,
+        "range_mm": 0.009872,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 3,
+        "max_retries": 10,
+        "range_mm": 0.015079,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 4,
+        "max_retries": 10,
+        "range_mm": 0.008535,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 5,
+        "max_retries": 10,
+        "range_mm": 0.008196,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 6,
+        "max_retries": 10,
+        "range_mm": 0.007957,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 7,
+        "max_retries": 10,
+        "range_mm": 0.014332,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 8,
+        "max_retries": 10,
+        "range_mm": 0.007445,
+        "tolerance_mm": 0.0075
+      }
+    ],
+    "final": {
+      "retry": 8,
+      "max_retries": 10,
+      "range_mm": 0.007445,
+      "tolerance_mm": 0.0075
+    },
+    "temperature": {
+      "temperature": 100.07,
+      "target": 100.0,
+      "power": 0.3258236034478151
+    },
+    "tool": 0
+  },
+  {
+    "material": "ABS",
+    "bed_target": 100,
+    "soak_seconds": 90,
+    "repeat": 2,
+    "finished": "2026-10-30T17:53:32+07:00",
+    "error": null,
+    "steps": [
+      {
+        "retry": 0,
+        "max_retries": 10,
+        "range_mm": 0.04044,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 1,
+        "max_retries": 10,
+        "range_mm": 0.021516,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 2,
+        "max_retries": 10,
+        "range_mm": 0.016479,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 3,
+        "max_retries": 10,
+        "range_mm": 0.01187,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 4,
+        "max_retries": 10,
+        "range_mm": 0.01809,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 5,
+        "max_retries": 10,
+        "range_mm": 0.011483,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 6,
+        "max_retries": 10,
+        "range_mm": 0.007069,
+        "tolerance_mm": 0.0075
+      }
+    ],
+    "final": {
+      "retry": 6,
+      "max_retries": 10,
+      "range_mm": 0.007069,
+      "tolerance_mm": 0.0075
+    },
+    "temperature": {
+      "temperature": 99.96,
+      "target": 100.0,
+      "power": 0.1497974859882972
+    },
+    "tool": 0
+  },
+  {
+    "material": "ABS",
+    "bed_target": 100,
+    "soak_seconds": 90,
+    "repeat": 3,
+    "finished": "2026-10-30T17:54:33+07:00",
+    "error": null,
+    "steps": [
+      {
+        "retry": 0,
+        "max_retries": 10,
+        "range_mm": 0.012788,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 1,
+        "max_retries": 10,
+        "range_mm": 0.009916,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 2,
+        "max_retries": 10,
+        "range_mm": 0.007796,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 3,
+        "max_retries": 10,
+        "range_mm": 0.00598,
+        "tolerance_mm": 0.0075
+      }
+    ],
+    "final": {
+      "retry": 3,
+      "max_retries": 10,
+      "range_mm": 0.00598,
+      "tolerance_mm": 0.0075
+    },
+    "temperature": {
+      "temperature": 100.0,
+      "target": 100.0,
+      "power": 0.2971993637422592
+    },
+    "tool": 0
+  },
+  {
+    "material": "ABS",
+    "bed_target": 105,
+    "soak_seconds": 90,
+    "repeat": 1,
+    "finished": "2026-10-30T17:58:03+07:00",
+    "error": null,
+    "steps": [
+      {
+        "retry": 0,
+        "max_retries": 10,
+        "range_mm": 0.026923,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 1,
+        "max_retries": 10,
+        "range_mm": 0.010578,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 2,
+        "max_retries": 10,
+        "range_mm": 0.008645,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 3,
+        "max_retries": 10,
+        "range_mm": 0.011722,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 4,
+        "max_retries": 10,
+        "range_mm": 0.011267,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 5,
+        "max_retries": 10,
+        "range_mm": 0.011378,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 6,
+        "max_retries": 10,
+        "range_mm": 0.004011,
+        "tolerance_mm": 0.0075
+      }
+    ],
+    "final": {
+      "retry": 6,
+      "max_retries": 10,
+      "range_mm": 0.004011,
+      "tolerance_mm": 0.0075
+    },
+    "temperature": {
+      "temperature": 105.02,
+      "target": 105.0,
+      "power": 0.3673383757068766
+    },
+    "tool": 0
+  },
+  {
+    "material": "ABS",
+    "bed_target": 105,
+    "soak_seconds": 90,
+    "repeat": 2,
+    "finished": "2026-10-30T17:59:16+07:00",
+    "error": null,
+    "steps": [
+      {
+        "retry": 0,
+        "max_retries": 10,
+        "range_mm": 0.008981,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 1,
+        "max_retries": 10,
+        "range_mm": 0.013245,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 2,
+        "max_retries": 10,
+        "range_mm": 0.009875,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 3,
+        "max_retries": 10,
+        "range_mm": 0.0106,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 4,
+        "max_retries": 10,
+        "range_mm": 0.006525,
+        "tolerance_mm": 0.0075
+      }
+    ],
+    "final": {
+      "retry": 4,
+      "max_retries": 10,
+      "range_mm": 0.006525,
+      "tolerance_mm": 0.0075
+    },
+    "temperature": {
+      "temperature": 104.93,
+      "target": 105.0,
+      "power": 0.36875806471793215
+    },
+    "tool": 0
+  },
+  {
+    "material": "ABS",
+    "bed_target": 105,
+    "soak_seconds": 90,
+    "repeat": 3,
+    "finished": "2026-10-30T18:00:18+07:00",
+    "error": null,
+    "steps": [
+      {
+        "retry": 0,
+        "max_retries": 10,
+        "range_mm": 0.011867,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 1,
+        "max_retries": 10,
+        "range_mm": 0.011784,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 2,
+        "max_retries": 10,
+        "range_mm": 0.009679,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 3,
+        "max_retries": 10,
+        "range_mm": 0.00504,
+        "tolerance_mm": 0.0075
+      }
+    ],
+    "final": {
+      "retry": 3,
+      "max_retries": 10,
+      "range_mm": 0.00504,
+      "tolerance_mm": 0.0075
+    },
+    "temperature": {
+      "temperature": 105.06,
+      "target": 105.0,
+      "power": 0.3903780780972449
+    },
+    "tool": 0
+  },
+  {
+    "material": "PETG",
+    "bed_target": 70,
+    "soak_seconds": 60,
+    "repeat": 1,
+    "finished": "2026-10-30T18:13:21+07:00",
+    "error": null,
+    "steps": [
+      {
+        "retry": 0,
+        "max_retries": 10,
+        "range_mm": 0.307421,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 1,
+        "max_retries": 10,
+        "range_mm": 0.078013,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 2,
+        "max_retries": 10,
+        "range_mm": 0.001506,
+        "tolerance_mm": 0.0075
+      }
+    ],
+    "final": {
+      "retry": 2,
+      "max_retries": 10,
+      "range_mm": 0.001506,
+      "tolerance_mm": 0.0075
+    },
+    "temperature": {
+      "temperature": 71.79,
+      "target": 70.0,
+      "power": 0.0
+    },
+    "tool": 0
+  },
+  {
+    "material": "PETG",
+    "bed_target": 70,
+    "soak_seconds": 60,
+    "repeat": 2,
+    "finished": "2026-10-30T18:14:23+07:00",
+    "error": null,
+    "steps": [
+      {
+        "retry": 0,
+        "max_retries": 10,
+        "range_mm": 0.044665,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 1,
+        "max_retries": 10,
+        "range_mm": 0.027575,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 2,
+        "max_retries": 10,
+        "range_mm": 0.017206,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 3,
+        "max_retries": 10,
+        "range_mm": 0.005967,
+        "tolerance_mm": 0.0075
+      }
+    ],
+    "final": {
+      "retry": 3,
+      "max_retries": 10,
+      "range_mm": 0.005967,
+      "tolerance_mm": 0.0075
+    },
+    "temperature": {
+      "temperature": 70.06,
+      "target": 70.0,
+      "power": 0.15619310089353752
+    },
+    "tool": 0
+  },
+  {
+    "material": "PETG",
+    "bed_target": 70,
+    "soak_seconds": 60,
+    "repeat": 3,
+    "finished": "2026-10-30T18:15:00+07:00",
+    "error": null,
+    "steps": [
+      {
+        "retry": 0,
+        "max_retries": 10,
+        "range_mm": 0.010352,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 1,
+        "max_retries": 10,
+        "range_mm": 0.004392,
+        "tolerance_mm": 0.0075
+      }
+    ],
+    "final": {
+      "retry": 1,
+      "max_retries": 10,
+      "range_mm": 0.004392,
+      "tolerance_mm": 0.0075
+    },
+    "temperature": {
+      "temperature": 69.94,
+      "target": 70.0,
+      "power": 0.07009912785817554
+    },
+    "tool": 0
+  },
+  {
+    "material": "PETG",
+    "bed_target": 70,
+    "soak_seconds": 60,
+    "repeat": 4,
+    "finished": "2026-10-30T18:19:14+07:00",
+    "error": null,
+    "steps": [
+      {
+        "retry": 0,
+        "max_retries": 10,
+        "range_mm": 0.031937,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 1,
+        "max_retries": 10,
+        "range_mm": 0.020705,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 2,
+        "max_retries": 10,
+        "range_mm": 0.011252,
+        "tolerance_mm": 0.0075
+      },
+      {
+        "retry": 3,
+        "max_retries": 10,
+        "range_mm": 0.007201,
+        "tolerance_mm": 0.0075
+      }
+    ],
+    "final": {
+      "retry": 3,
+      "max_retries": 10,
+      "range_mm": 0.007201,
+      "tolerance_mm": 0.0075
+    },
+    "temperature": {
+      "temperature": 69.94,
+      "target": 70.0,
+      "power": 0.11226853653095019
+    },
+    "tool": 0,
+    "continuous_stability_checked": true
+  }
+]

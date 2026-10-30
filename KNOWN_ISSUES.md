@@ -73,10 +73,17 @@ After the requested print completed, scan samples=200 (previous default 20)
 was selectively deployed and verified on October 30 at 17:41 local time.
 Klipper is ready, and all other effective configuration settings match the
 pre-restart snapshot. The scan/touch models, disabled coil compensation, QGL
-retries=10 and heater limits are preserved. The 200-sample setting has not yet
-been mechanically validated with the newly recalibrated, uncompensated model;
-no homing, QGL or new print was started after deployment. No runtime Python
-changes were made. The one-time deployment heartbeat was removed afterward.
+retries=10 and heater limits are preserved. The one-time deployment heartbeat
+was removed afterward. A later authorized thermal trial completed 10 QGLs:
+three at 100 C after a 90-second initial soak (retries 8/6/3), three at 105 C
+after a 90-second initial soak (6/4/3), and four with a PETG target of 70 C
+(2/3/1/3). All met the 0.0075 mm tolerance, but the first PETG run was still
+at 71.89-74.83 C and must be treated as a thermal transition. The last PETG
+control followed 60.9 seconds continuously within the target band and passed
+at 0.007201 mm. Some passes remain marginal and need many retries; this does
+not establish a repaired sensor or reliable cold starts. No runtime Python
+or configuration changes were made during the trial. See
+extras/docs/qgl-thermal-trial-2026-10-30.md for measured temperatures and data.
 
 ## T2 false filament runout
 

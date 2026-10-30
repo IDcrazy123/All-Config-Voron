@@ -44,3 +44,14 @@
 - SHA256 probe config sau triển khai: `69ca73536dccbc1e0567351fbb8af0a10f903f253659878c0e8cfd7a6f5a7977`; hash `printer.cfg`, `print-macros.cfg` và `T2.cfg` không đổi. Không sửa runtime Python.
 - Không chạy G28/QGL/Touch hoặc khởi động bản in khác sau reload; chưa xác minh cơ khí với 200 mẫu. Trạng thái homed_axes rỗng sau RESTART là dự kiến. T2 tự bật lại mặc định (`enabled=true`, `filament_detected=true`); không áp dụng phương án debounce T2 trong lần cài này.
 - Đã hoàn tất yêu cầu cài sau khi in xong; xóa heartbeat một lần để không tiếp tục polling/reload.
+
+## 6. Thử nghiệm QGL ở điều kiện ABS và PETG
+
+- Người dùng xác nhận bàn sạch/không vướng và yêu cầu thử nhiệt. Đợi QGL thủ công đang chạy kết thúc; kiểm tra standby, không pause/recovery/drying, không chuyển động chờ rồi mới home/lấy T0. Mô phỏng riêng giai đoạn QGL trước in: T0=150°C, quạt bàn 50%, không chạy chu trình đùn/vệ sinh/Touch/mesh.
+- Giữ samples=200, không bù nhiệt coil, retries=10 và tolerance=0,0075 mm. Không sửa CFG hoặc Python trong thử nghiệm.
+- ABS 100°C sau soak ban đầu 90 giây: **3/3 đạt**, range cuối **0,007445 / 0,007069 / 0,005980 mm**, retry **8 / 6 / 3**. ABS 105°C sau soak ban đầu 90 giây: **3/3 đạt**, **0,004011 / 0,006525 / 0,005040 mm**, retry **6 / 4 / 3**.
+- PETG target 70°C theo profile trong repo, soak ban đầu 60 giây: ba lượt đạt **0,001506 / 0,005967 / 0,004392 mm**, retry **2 / 3 / 1**. Lượt đầu thực tế còn **71,89–74,83°C**, vì nhiệt tăng lại sau khi chạm dải; giữ riêng là kết quả chuyển tiếp, không gọi là thử 70°C ổn định.
+- Bổ sung một lượt PETG kiểm chứng sau khi bàn liên tục nằm trong 69–71°C và nozzle trong 148–152°C đủ **60,9 giây**: đạt **0,007201 mm**, retry **3**; bàn **69,80–69,92°C** trong lúc QGL. Tổng **10/10 lệnh QGL** hội tụ; một số lượt rất sát ngưỡng và cần nhiều retry, chưa chứng minh đã hết lỗi cảm biến hoặc khởi động lạnh ổn định.
+- Trong pha nguội 105→70°C, ghi đoạn nhiệt bàn giảm về khoảng 75°C rồi tăng gần 80°C, kèm xung PWM ngắn. Chưa tách được đáp ứng nhiệt/PID khỏi bất thường NTC. Không sửa/nới PID, verify_heater hoặc smoothing. Khuyến nghị đợi nhiệt ổn định liên tục trước khi tính soak, thay vì chỉ đợi chạm dải một lần.
+- Sau kiểm chứng cuối: tắt mọi heater và quạt bàn; xác nhận Ready/standby, không pause, QGL applied=true, T0 active/detected khớp ở X174 Y168 Z10. Toàn bộ configfile.settings trước/sau giống nhau. Không khởi động bản in khác.
+- Báo cáo và dữ liệu bền vững: `extras/docs/qgl-thermal-trial-2026-10-30.md`, CSV tóm tắt và JSON các bước retry cùng tên. Telemetry mỗi khoảng 2 giây và G-code thô ở thư mục TEMP `voron-qgl-thermal-trial-20261030`.
