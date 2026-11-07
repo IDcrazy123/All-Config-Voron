@@ -249,6 +249,13 @@ pending an operating-temperature comparison. A timing shutdown during the
 diagnostic's long sample stream did not recur after switching to short scans.
 See [the alignment retest](extras/Nhat-ky-chinh-sua/2026-11-07-qgl-after-hardware-alignment.md).
 
+The frame-derived trial corners `(-52, 1)` and `(417, 423)` exhausted all 10
+fine QGL retries twice at about 33 C with the heaters off. The previous
+corners passed all five scored cases at the same tolerance, including Z2
+and Z0 perturbations. The machine was reverted to `(-10, -10)` and
+`(350, 350)`. The trial alternated the calculated Z3 correction direction,
+with the physical Z3 response still unverified. See [the corner comparison](extras/Nhat-ky-chinh-sua/2026-11-07-qgl-gantry-corners-ab.md).
+
 ## T2 false filament runout
 
 The operator reports filament remained loaded when T2 paused. On October 30,
