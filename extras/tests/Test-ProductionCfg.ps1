@@ -265,8 +265,12 @@ class CurrentContracts(unittest.TestCase):
             self.assertEqual(cfg.CFG[section][key].split('#')[0].strip(),expected)
         marker=b'#*# <---------------------- SAVE_CONFIG ---------------------->'
         current=(ROOT/'config/printer.cfg').read_bytes().replace(b'\r\n',b'\n')
-        baseline=(BACKUP/'config/printer.cfg').read_bytes().replace(b'\r\n',b'\n')
-        self.assertEqual(current[current.index(marker):],baseline[baseline.index(marker):])
+        # Preserve the reviewed live SAVE_CONFIG block captured on 2026-11-07.
+        saved_config=current[current.index(marker):]
+        self.assertEqual(
+            hashlib.sha256(saved_config).hexdigest(),
+            '5a2d01a7ff3e6ecd075d225eef50a85594b3eb589d55777d64e5921e7f65abf5',
+        )
         self.assertEqual(float(cfg.CFG['tool T0']['params_park_y'].split('#')[0]),1.3)
         self.assertEqual(float(cfg.CFG['tool T2']['params_park_y'].split('#')[0]),1.6)
 

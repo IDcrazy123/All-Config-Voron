@@ -43,6 +43,8 @@ Sau khi bản in hoàn tất, đồng bộ `calibration-probe.cfg` và `print-ma
 
 Đối chiếu toàn bộ CFG/CONF và script do Git theo dõi, sau các cập nhật trên chỉ còn `heater_bed.max_temp` khác nhau: 150°C live và 120°C Git. Quy tắc dự án yêu cầu xác nhận giới hạn phần cứng trước khi đưa giới hạn cao hơn vào Git. Giữ riêng khác biệt này và tránh triển khai nguyên config vì có thể đổi giới hạn đang chạy.
 
+Bộ kiểm tra offline trước đây khóa `SAVE_CONFIG` theo bản sao tháng 10. Sau khi đối chiếu lại file live, cập nhật checksum kỳ vọng sang khối ngày 07/11. Kiểm tra tiếp tục phát hiện mọi thay đổi ngoài snapshot đã xác minh.
+
 Cần đo vị trí tác động đai thật theo tọa độ bàn có tính offset probe Y+35 trước khi chỉnh `gantry_corners`. Thông tin bốn góc và thử nghiệm cũ ở [báo cáo ngày 02/11](../diagnostics/2026-11-02-first-layer-qgl/REPORT.vi.md) và [thử nghiệm ngày 30/10](../docs/qgl-thermal-trial-2026-10-30.md).
 
 Nguồn kỹ thuật: [Klipper QGL](https://www.klipper3d.org/Config_Reference.html#quad_gantry_level), [Cartographer Scan và Touch](https://docs.cartographer3d.com/cartographer-probe/classic-vs-survey-touch), [Cartographer FAQ về coil âm](https://docs.cartographer3d.com/cartographer-probe/faq), [Voron V2 Gantry Squaring](https://docs.vorondesign.com/build/mechanical/v2_gantry_squaring.html).
