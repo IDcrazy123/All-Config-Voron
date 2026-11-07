@@ -230,6 +230,15 @@ count, and Scan sample configuration. The bed temperature limit remains 120 C
 in Git and 150 C on the printer pending separate hardware verification.
 See [the November 7 log](extras/Nhat-ky-chinh-sua/2026-11-07-qgl-live-calibration-sync.md).
 
+The attended corner checks later that day confirmed motion in both directions
+on all four Z drives. Z2 showed the smallest local Scan response and largest
+return residual. Stationary Scan at Z2 also varied by up to 0.046 mm. The
+two T3 round trips produced larger four-corner changes than the two T4 round
+trips, and the largest change followed the first sampled corner when the
+measurement order was reversed. The T0 and empty-shuttle confirmation QGLs
+both passed. Independent measurement at Z2 is still needed to separate
+physical motion from Scan drift. See [the corner test results](extras/Nhat-ky-chinh-sua/2026-11-07-z-corner-live-tests.md).
+
 ## T2 false filament runout
 
 The operator reports filament remained loaded when T2 paused. On October 30,
