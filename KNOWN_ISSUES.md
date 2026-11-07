@@ -1,7 +1,33 @@
 # Current production issues
 
-Updated: 2026-10-30. This file records the active state of the printer. Older
+Updated: 2026-11-07. This file records the active state of the printer. Older
 entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
+
+## Mainsail Estimate and ETA during printing (2026-11-04)
+
+Read-only observation reproduced Estimate changing from 23:55:17 to 21:42:35
+in 78 seconds on Voron Skirt_ABS_2h45m.gcode, with ETA moving from 09:42 +1
+to 08:15 +1. Slicer metadata is 2:44:30. Live Mainsail v2.19.0 defaults
+average file/filament extrapolations for Estimate and file/filament/slicer
+for ETA. PRINT_START purges T0 before bed waiting, a 90-second soak, QGL,
+Touch and mesh; print_duration includes this time after initial extrusion
+while virtual-SD file progress barely advances. Fine QGL needed eight
+retries in this job. Nonuniform bytes/extrusion per second and macro purge
+further destabilize extrapolation. Twenty-four samples reproduced this
+while T3 remained active; a tool switch is not required.
+
+On the operator's workaround request, Mainsail GUI preferences were changed
+to ETA=Slicer only and Estimate=no selected sources (displaying --).
+Estimate's average only supports File and Filament; this disables misleading
+extrapolation rather than correcting that algorithm. Moonraker DB readback
+confirmed only these two preferences changed. No Python, CFG, macro or
+printer-control changes were made. The printer had returned to standby
+before the preference changes, so live-print verification awaits the next
+job. Slicer-based ETA can still be inaccurate when actual time differs.
+Rollback and backup details are recorded in
+extras/Nhat-ky-chinh-sua/2026-11-04-mainsail-time-display-workaround.md.
+See extras/Nhat-ky-chinh-sua/2026-11-04-estimate-eta-readonly-diagnosis.md and
+extras/diagnostics/20261104-time-estimate/ for evidence and limitations.
 
 ## Tool pickup and recovery
 
@@ -137,6 +163,72 @@ a large step. The retrying print start passed at 0.006676 mm, retry 2, around
 19:21:08. Both starts skipped automatic heat soak. This does not establish a
 controlled 20-versus-200 comparison or prove the bed input caused this QGL
 failure. The ZAssembly job subsequently completed; no intervention was made.
+
+## November 2 first-layer and post-docking QGL follow-up
+
+Operator follow-up on November 2 identifies an incorrectly substituted spacer
+part as the cause. This supersedes the provisional cause ranking below and in
+the diagnostic report. The exact part/location, failure mechanism and results
+after fitting the correct spacer have not yet been supplied. Do not mark the
+first-layer/QGL issue mechanically verified as resolved, or infer pulley slip,
+joint binding or lost motor steps from this report alone. The independently
+observed coil-temperature and bed-input faults remain unverified as repaired.
+
+A read-only review found large QGL ranges recurring after dock travel. At
+18:45 the empty shuttle measured 0.981970 mm after the T4 print ended. After
+an initial T0 pickup and four T0/T4 round trips, the 18:49 run started at
+2.026687 mm, but bed readings were faulty and thermally transitioning. After
+five further round trips ending on T0, the 18:54 run started at 1.179902 mm
+while raw bed readings stayed at 79.9-80.1 C. All three requested their largest
+initial correction on Z2. These are probe measurements and commanded motor
+corrections, not independent proof of mechanical displacement or lost steps.
+
+Live Z limits are 80 mm/s and 1000 mm/s2. Native dock paths reach Z346 with
+position_max=347. Inspect the rebuilt Z/GE5C assembly, especially the Z2 drive,
+pulley retention, belts, joint freedom and actual upper clearance. The loaded
+PRINT_START/PRIME_LINES sequence keeps T0 mounted after Touch/mesh for a
+T0-only print, but changes T0 to the other tool and back before a multicolor
+print starting on T0. A T3/T4-only print also changes tools after T0 Touch.
+This provides a plausible trigger for losing the reference; no physical
+before/after measurement or reduced-speed comparison has yet isolated it.
+
+Coil readings remain near -20 C. The latest T4 start had Touch samples
+-0.6290/-0.1750/-0.6090/-0.6090/-0.6090 mm before accepting the final cluster.
+The 0.454 mm spread warrants investigation, but the resulting Touch adjustment
+is not the nozzle-to-bed error. Bed input faults also recurred, including
+84.1 -> 38.8 -> 25.8 -> 86.8 C within a few seconds at approximately 18:47.
+Inspect and verify that measurement path before further heated ABS trials.
+
+Recent downloaded T0-only, T0/T3, T3-only and T4-only G-code files use a
+0.20 mm first layer and zero slicer Z offset, without runtime SET_GCODE_OFFSET
+or G92 Z commands. Live gantry_corners remain (-10,-10)/(350,350); their
+relationship to the actual Z belt positions still needs measurement and may
+contribute to slow convergence. No production settings or slicer profiles
+were changed. Final SSH/API reads timed out, so later machine state is not
+verified. Evidence and the provisional cause ranking are in
+extras/diagnostics/2026-11-02-first-layer-qgl/REPORT.vi.md.
+
+## November 7 QGL recurrence and calibration sync
+
+QGL still aborted intermittently after the new Scan and Touch models were
+saved. After a T0/T3 round trip, the 11:38 coarse pass measured 0.956585 mm
+and requested +0.804969 mm at Z2. The fine pass reached 0.009511 mm at
+retry 10 and failed against 0.0075 mm. Other runs passed in five or six
+retries. A T0-only print completed at 11:59 after a 90-second heat soak and
+a QGL pass at retry 2. Touch on that job needed nine attempts to accept its
+three-sample cluster. The motor numbering error comes from the retry trend
+check. The larger post-dock deviation makes Z2 a mechanical inspection
+priority. The fine-pass variation still needs independent comparison against
+Scan.
+
+Coil temperature remains negative with no compensation coefficients loaded.
+Bed telemetry jumped from 109.0 to 44.3 to 106.2 C in about two seconds at
+a 100 C target. Verify the NTC input path before further heated trials.
+
+The repository mirrors the loaded SAVE_CONFIG block, QGL geometry and retry
+count, and Scan sample configuration. The bed temperature limit remains 120 C
+in Git and 150 C on the printer pending separate hardware verification.
+See [the November 7 log](extras/Nhat-ky-chinh-sua/2026-11-07-qgl-live-calibration-sync.md).
 
 ## T2 false filament runout
 

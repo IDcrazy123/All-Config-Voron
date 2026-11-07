@@ -1,0 +1,46 @@
+{
+  "count": 24,
+  "first": {
+    "time": "2026-11-04T16:55:44.1065508+07:00",
+    "eventtime": 1101.834392306,
+    "state": "printing",
+    "phase": "printing",
+    "extruder": "extruder3",
+    "duration": 737.1138508019999,
+    "filament": 231.45771999999837,
+    "file_position": 169820,
+    "display_progress": 0.01,
+    "relative_progress": 0.006273627572551588,
+    "file_remaining": 116757,
+    "filament_remaining": 46724,
+    "slicer_remaining": 9133,
+    "estimate": 81740.5,
+    "eta_remaining": 57538.0
+  },
+  "last": {
+    "time": "2026-11-04T16:57:45.1573926+07:00",
+    "eventtime": 1222.912014678,
+    "state": "printing",
+    "phase": "printing",
+    "extruder": "extruder3",
+    "duration": 858.1914731740001,
+    "filament": 377.592429999998,
+    "file_position": 190467,
+    "display_progress": 0.02,
+    "relative_progress": 0.007217336416411127,
+    "file_remaining": 118049,
+    "filament_remaining": 33014,
+    "slicer_remaining": 9012,
+    "estimate": 75531.5,
+    "eta_remaining": 53358.333333333336
+  },
+  "estimate_min_sec": 75525.0,
+  "estimate_max_sec": 81740.5,
+  "states": [
+    "printing"
+  ],
+  "extruders": [
+    "extruder3"
+  ],
+  "estimate_increases": 2
+}
