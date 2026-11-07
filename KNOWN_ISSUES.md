@@ -239,6 +239,16 @@ measurement order was reversed. The T0 and empty-shuttle confirmation QGLs
 both passed. Independent measurement at Z2 is still needed to separate
 physical motion from Scan drift. See [the corner test results](extras/Nhat-ky-chinh-sua/2026-11-07-z-corner-live-tests.md).
 
+The operator then adjusted the lower Z motor drive GT2 belts. The repeated
+checks found smaller Z200 and post-T3 four-corner changes, with no consistent
+motor-specific failure. The colder test conditions also differed. Stationary
+Scan still drifted after docking, and the last production QGL needed eight
+retries. Fine QGL with 3 mm travel height passed in 0-2 retries in three cold
+trials, including one after T3. The production height remains unchanged
+pending an operating-temperature comparison. A timing shutdown during the
+diagnostic's long sample stream did not recur after switching to short scans.
+See [the alignment retest](extras/Nhat-ky-chinh-sua/2026-11-07-qgl-after-hardware-alignment.md).
+
 ## T2 false filament runout
 
 The operator reports filament remained loaded when T2 paused. On October 30,
