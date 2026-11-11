@@ -14,7 +14,7 @@ Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five Stealth
 | Z home / mesh | Cartographer V3 Touch at `(174, 168)`; adaptive 55 × 55 scan mesh |
 | Tool calibration | Axiscope camera for XY; PF2 switch at `(80, -8)` for coarse Z from Z3 over the observed Z0–2 contact range; first-layer tests for final Z |
 | Motion limits | XY 350 mm/s, 7000 mm/s²; Z 80 mm/s, 1000 mm/s² |
-| Heated bed | 1000 W AC pad through SSR on `PA1`; sensor `PB0`; maximum 120 °C |
+| Heated bed | 1000 W AC pad through SSR on `PA5`; sensor `PB0`; maximum 120 °C |
 | Cooling | TMC `PF9`, CM4 `PF6`, enclosure/MCU `PF7`, chamber circulation `PF8` |
 | Lighting | 40 × WS2812B chamber strip on `PD15` plus 3 LEDs per toolhead |
 | Slicer | OrcaSlicer user presets synchronized from `%APPDATA%\OrcaSlicer\user` |

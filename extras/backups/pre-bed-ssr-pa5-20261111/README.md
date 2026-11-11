@@ -1,0 +1,1 @@
+Backup of config/Printer-Setup/hardware.cfg before synchronizing the bed SSR control pin from PA1 to the live PA5 setting on 2026-11-11. At backup time, the live machine was on standby; heater target and power were zero. This backup preserves the repository's 120 C bed limit. The live machine initially had a 150 C limit, then was edited and reloaded at 120 C during the session.

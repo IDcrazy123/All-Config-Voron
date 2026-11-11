@@ -14,7 +14,7 @@ Kho cấu hình Klipper production cho Voron 2.4 CoreXY 350 mm dùng năm đầu
 | Home Z / mesh | Cartographer V3 Touch tại `(174, 168)`; mesh adaptive 55 × 55 |
 | Hiệu chuẩn tool | Camera Axiscope cho XY; công tắc PF2 tại `(80, -8)` cho Z sơ bộ từ Z3 trên vùng chạm quan sát Z0–2; test first-layer cho Z cuối |
 | Giới hạn chuyển động | XY 350 mm/s, 7000 mm/s²; Z 80 mm/s, 1000 mm/s² |
-| Bàn nhiệt | Silicone AC 1000 W qua SSR chân `PA1`; sensor `PB0`; tối đa 120 °C |
+| Bàn nhiệt | Silicone AC 1000 W qua SSR chân `PA5`; sensor `PB0`; tối đa 120 °C |
 | Làm mát | TMC `PF9`, CM4 `PF6`, MCU/vỏ `PF7`, tuần hoàn buồng `PF8` |
 | Chiếu sáng | 40 × WS2812B chân `PD15` và 3 LED trên mỗi toolhead |
 | Slicer | Profile OrcaSlicer đồng bộ từ `%APPDATA%\OrcaSlicer\user` |

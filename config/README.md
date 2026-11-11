@@ -63,7 +63,7 @@ Use the [machine adaptation guide](../extras/docs/machine-adaptation.md) before 
 | Coarse-Z calibration switch | `^PF2`; holder at `(80, -8)`; observed contact range Z0–2; Axiscope starts at Z3 and uses Z15 transit |
 | XY | X `PE6`/`PF0`, Y `PE2`/`PF4`; 350 mm/s, 7000 mm/s² |
 | Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |
-| Bed | Heater `PA1`, sensor `PB0`, maximum 120 °C |
+| Bed | Heater `PA5`, sensor `PB0`, maximum 120 °C |
 | Chamber | Sensor `PB1`, circulation fan `PF8` |
 | Electronics cooling | TMC `PF9`, CM4 `PF6`, enclosure/MCU `PF7` |
 | Lights | Chamber strip `PD15`; tool LEDs on each EBB36 `PD3` |

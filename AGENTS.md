@@ -1,6 +1,6 @@
 # Quy tắc làm việc hiện hành — Voron 5 Tool
 
-Cập nhật: 2026-10-27. File này là điểm vào duy nhất cho công việc trong Git repository này. Các ghi chép ở thư mục ../.agents và extras là tài liệu tham khảo theo thời điểm, không tự động ghi đè trạng thái máy hoặc yêu cầu mới của người dùng.
+Cập nhật: 2026-11-11. File này là điểm vào duy nhất cho công việc trong Git repository này. Các ghi chép ở thư mục ../.agents và extras là tài liệu tham khảo theo thời điểm, không tự động ghi đè trạng thái máy hoặc yêu cầu mới của người dùng.
 
 ## Máy và nguồn sự thật
 
@@ -28,9 +28,10 @@ Cập nhật: 2026-10-27. File này là điểm vào duy nhất cho công việc
 
 ## Bàn nhiệt và giới hạn
 
-- Bàn AC 1000 W qua SSR PA1, NTC trên PB0. Klipper nhận sensor_type NTC 100K MGB18-104F39050L32; tên người bán ghi MBG18-104F39050L32 cần kiểm tra với linh kiện thật trước khi đổi đường cong nhiệt.
+- Bàn AC 1000 W qua SSR PA5, NTC trên PB0. Klipper nhận sensor_type NTC 100K MGB18-104F39050L32; tên người bán ghi MBG18-104F39050L32 cần kiểm tra với linh kiện thật trước khi đổi đường cong nhiệt.
 - Log ngày 2026-10-27 khoảng 19:22 ghi số đo bàn nhảy từ khoảng 104°C xuống 71,7°C trong vài giây rồi tăng lại, khi target 105°C. Cần kiểm tra đầu nối, dây NTC, điểm gắn cảm biến và nhiễu điện trước khi kết luận heater hoặc SSR hỏng. Không nới verify_heater hay tăng smooth_time để che tín hiệu sai.
-- Có drift chưa giải quyết: max_temp của heater_bed là 120°C trong Git nhưng 150°C trên máy. Không tự đồng bộ giá trị cao hơn khi chưa có giới hạn phần cứng được xác nhận. Triển khai nguyên config có thể thay đổi giới hạn live này; review riêng trước.
+- Ngày 2026-11-11 người vận hành báo đã thay cảm biến bàn. Một lượt gia nhiệt 24,5→100,4°C có 389 mẫu Stats 1 Hz, không có bước nhiệt từ 2°C trở lên; thời gian giữ gần 100°C chỉ khoảng hai phút, chưa xác nhận hết lỗi gián đoạn lâu dài hay độ chính xác nhiệt tuyệt đối.
+- Sau reload 2026-11-11, max_temp live và Git cùng 120°C. `smooth_time` và `pwm_cycle_time` live đang dùng mặc định 1,0/0,1 còn Git đặt 3,0/0,2; không ghi đè thử nghiệm live này bằng deploy nguyên file khi chưa đánh giá riêng. Không nâng giới hạn nhiệt nếu thiếu thông số phần cứng.
 
 ## Cách sửa và báo cáo
 

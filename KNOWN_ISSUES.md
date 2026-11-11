@@ -107,6 +107,22 @@ the StealthChanger upgrade. Per the manufacturer schematic, TH0 already has
 C34=0.1 uF plus series filtering, so an added 104 capacitor is not a verified
 repair. See extras/docs/bed-temperature-review-2026-10-30.md.
 
+On November 11, the operator reported replacing the bed sensor and moving the
+SSR control to `PA5`. The live config and loaded settings both confirm `PA5`;
+`PB0` remains the bed sensor input. A supervised heat cycle to 100 °C produced
+389 raw Klipper Stats samples over about 6.5 minutes, from 24.5 to 100.4 °C.
+The largest adjacent rise was 0.8 °C and the largest fall was 0.1 °C; no step
+reached 2 °C and no bed heater or ADC error appeared in that window. The bed
+was held near 100 °C for only about two minutes before its target returned to
+zero. This is encouraging but does not establish long-term stability or absolute
+sensor accuracy. The live file was edited and reloaded during the session:
+`max_temp` is now 120 °C, while commented `smooth_time` and `pwm_cycle_time`
+use Klipper defaults 1.0 s and 0.1 s. The repository still explicitly sets
+3.0 s and 0.2 s. Review that separate drift before deploying the whole file.
+See `extras/diagnostics/2026-11-11-bed-sensor-monitor/raw-stats.csv`,
+`extras/diagnostics/2026-11-11-bed-sensor-monitor/samples.csv` and
+`extras/Nhat-ky-chinh-sua/2026-11-11-bed-sensor-ssr-pa5.md`.
+
 ## Cartographer coil temperature and QGL
 
 Negative coil readings first appear in the October 29 log at approximately

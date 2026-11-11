@@ -53,7 +53,7 @@ Xem [hướng dẫn chia sẻ từng file](../extras/docs/sharing-cfg-files.md) 
 | Công tắc hiệu chuẩn Z sơ bộ | `^PF2`; đế tại `(80, -8)`; vùng chạm quan sát Z0–2; Axiscope bắt đầu tại Z3 và di chuyển an toàn ở Z15 |
 | XY | X `PE6`/`PF0`, Y `PE2`/`PF4`; 350 mm/s, 7000 mm/s² |
 | Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |
-| Bàn nhiệt | Heater `PA1`, sensor `PB0`, tối đa 120 °C |
+| Bàn nhiệt | Heater `PA5`, sensor `PB0`, tối đa 120 °C |
 | Buồng in | Sensor `PB1`, quạt tuần hoàn `PF8` |
 | Làm mát điện tử | TMC `PF9`, CM4 `PF6`, MCU/vỏ `PF7` |
 | Đèn | LED buồng `PD15`; LED tool trên `PD3` của từng EBB36 |
