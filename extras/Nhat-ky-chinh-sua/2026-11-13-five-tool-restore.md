@@ -1,0 +1,8 @@
+# 2026-11-13 — Khôi phục năm tool sau bảo trì T1
+
+- Trước thay đổi, máy `ready`, bản in trước hoàn tất, shuttle rỗng, mọi heater target 0 và không có cảnh báo cấu hình. Live `printer.cfg`, `print-macros.cfg`, `T1.cfg` khớp Git; không có calibration mới phát sinh trong thời gian T0-only. Sao lưu ở `extras/backups/pre-five-tool-restore-20261113-192714/` và trên máy tại `/home/voron/printer_data/config_backups/pre-five-tool-restore-20261113-192714/`.
+- Người vận hành báo thay cảm biến T1 cùng loại `Generic 3950`, thay vị trí dock sang X104 Y0 và điểm kích hoạt Z327–330; chọn Z330 tạm. `T1.cfg`: `params_park_y` 1,5 → 0, `params_park_z` 343 → 330; X vẫn 104. Chưa có xác nhận cơ khí của chu trình gắp/thả tự động.
+- Bốn UUID EBB1–EBB4 xuất hiện trên CAN; `can0` không có bus-off/error. Khôi phục include KTC năm tool và 8 section SAVE_CONFIG của extruder/tool T1–T4 từ backup trước T0-only. Giữ `PRINT_START` guard theo tool registry, chỉ sửa comment cho đúng chế độ hiện tại.
+- Klipper parser kiểm tra bản thử: 160 → 204 section, đúng 44 section T1–T4 được thêm, không bỏ section nào và không đổi giá trị các section đang dùng. Triển khai ba file `printer.cfg`, `T1.cfg`, `print-macros.cfg` sau khi kiểm tra lại máy idle/shuttle rỗng/target 0.
+- `RESTART` đầu tiên báo MCU Cartographer còn shutdown trong lúc cấu hình lại. `FIRMWARE_RESTART` tiếp theo đưa Klipper về `ready`, `warnings=[]`, `tool_numbers=[0,1,2,3,4]`, T1 khoảng 39°C với target 0; T2–T4 khoảng 38–39°C. Không chạy lệnh gắp/thả hoặc gia nhiệt trong bước triển khai.
+- Người vận hành đang căn chỉnh dock và sẽ tự gắp T1 lên shuttle trước khi yêu cầu PID 250°C. Cần đối chiếu trạng thái KTC/detection và quạt hotend T1 trước khi gia nhiệt; chưa tuyên bố T1 sẵn sàng in.

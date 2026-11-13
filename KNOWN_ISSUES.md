@@ -43,6 +43,14 @@ tool/CAN state and an attended first-layer test before claiming print readiness.
 Restore five-tool includes and saved calibrations only after T1–T4 hardware is
 reconnected and verified. See the November 13 maintenance journal.
 
+Later on November 13, the operator reported replacing the T1 sensor with the
+same `Generic 3950` type and moving its dock. All four EBB1–EBB4 CAN UUIDs were
+visible. The five-tool include and stored PID/offset sections were restored;
+`FIRMWARE_RESTART` brought Klipper to `ready` with tool registry `[0,1,2,3,4]`,
+no warnings and T1 reading about 39 C with its target off. T1 dock is
+provisionally X104 Y0 Z330 based on the operator's observed trigger at Z327–330.
+Pickup/dropoff and heated T1 operation remain to be validated with an attendant.
+
 ## Mainsail Estimate and ETA during printing (2026-11-04)
 
 Read-only observation reproduced Estimate changing from 23:55:17 to 21:42:35
