@@ -49,7 +49,10 @@ visible. The five-tool include and stored PID/offset sections were restored;
 `FIRMWARE_RESTART` brought Klipper to `ready` with tool registry `[0,1,2,3,4]`,
 no warnings and T1 reading about 39 C with its target off. T1 dock is
 provisionally X104 Y0 Z330 based on the operator's observed trigger at Z327–330.
-Pickup/dropoff and heated T1 operation remain to be validated with an attendant.
+An attended T1 pickup and `PID_CALIBRATE` at 250 C completed. The saved T1 PID
+is 28.787/9.596/21.590; Klipper restarted `ready`, with all five tools listed
+and no warnings. T1 dropoff/repickup and a print remain to be validated before
+the new dock coordinates are considered calibrated.
 
 ## Mainsail Estimate and ETA during printing (2026-11-04)
 
