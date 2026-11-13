@@ -1,7 +1,26 @@
 # Current production issues
 
-Updated: 2026-11-07. This file records the active state of the printer. Older
+Updated: 2026-11-13. This file records the active state of the printer. Older
 entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
+
+## T1 sensor fault and temporary T0-only mode (2026-11-13)
+
+The operator reported a T1 sensor fault and requested T1–T4 be disconnected
+for maintenance while T0 remains printable. Before the change, all heater
+targets were zero and the machine was idle with an empty shuttle; T1 reported
+about 114 C, which cannot be trusted as a physical temperature because of the
+reported sensor fault. The live `printer.cfg` now explicitly includes only the
+T0 tool file alongside the KTC core. T1–T4 extruder/tool SAVE_CONFIG sections
+were omitted from the active file, with the original file backed up. A
+`PRINT_START` guard rejects nonzero T1–T4 temperature requests before motion.
+
+One idle RESTART returned Klipper `ready` without warnings. The live tool
+registry is `[0]`; T1–T4 MCU, extruder, sensor and macro sections are absent.
+No homing, pickup, heat or print was run afterward. Reslice every maintenance
+job for T0 only; old multicolor G-code must not be reused. Confirm the physical
+tool/CAN state and an attended first-layer test before claiming print readiness.
+Restore five-tool includes and saved calibrations only after T1–T4 hardware is
+reconnected and verified. See the November 13 maintenance journal.
 
 ## Mainsail Estimate and ETA during printing (2026-11-04)
 

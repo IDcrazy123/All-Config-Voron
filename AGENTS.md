@@ -12,6 +12,7 @@ Cập nhật: 2026-11-13. File này là điểm vào duy nhất cho công việc
 ## Kiến trúc đang chạy
 
 - Voron 2.4 350 mm, 5 tool T0–T4; Manta M8P V2, CM4, EBB36 qua CAN.
+- Tạm thời từ 2026-11-13: Klipper production chỉ nạp T0 để bảo trì T1–T4; lỗi cảm biến T1 do người vận hành báo. `printer.cfg` dùng include KTC tường minh và chỉ `tools/T0.cfg`; các section SAVE_CONFIG của T1–T4 được giữ trong backup. Không in G-code nhiều tool. Khôi phục năm tool chỉ sau khi phần cứng được nối lại và xác minh, đồng thời hợp nhất calibration mới nếu có; xem nhật ký cùng ngày.
 - KTC-Easy quản lý dock, chọn tool và detection_pin. Cartographer gắn vào shuttle quản lý home Z, Touch và mesh. Axiscope quản lý XY và đo Z tương đối sơ bộ qua PF2; Z production do first-layer quyết định.
 - printer.cfg là entrypoint. print-macros.cfg sở hữu PRINT_START, PRINT_END, PAUSE, RESUME, CANCEL_PRINT, G32 và QGL. tool-crash.cfg sở hữu latch phục hồi. toolchanger-config.cfg và tools/T*.cfg chứa đường đổi tool, cảm biến và dock.
 - toolchanger/readonly-configs do KTC-Easy cài đặt quản lý. Không sửa các file đó trong repository. Không sửa runtime .py cho tác vụ 2026-10-27.
