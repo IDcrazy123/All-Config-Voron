@@ -1,0 +1,44 @@
+file,line,t,bed_c,target_c,coil_c,tolerance_mm,outcome,first_range_mm,last_range_mm,last_retry,rounds,error
+klippy-11.log,24960,5483.1,90.9,0.0,-28.0,1.0,pass,0.233173,0.233173,0,1,
+klippy-11.log,25002,5491.2,90.2,0.0,-28.0,0.0075,pass,0.064047,0.005542,2,3,
+klippy-11.log,31100,6172.4,94.3,0.0,-18.8,1.0,pass,0.264468,0.264468,0,1,
+klippy-11.log,31143,6181.4,93.5,0.0,-19.1,0.0075,pass,0.010328,0.00634,3,4,
+klippy-11.log,31331,6220.4,92.9,100.0,-19.2,0.0075,pass,0.053613,0.005034,3,4,
+klippy-11.log,31548,6288.5,100.5,100.0,-19.5,0.0075,fail,0.046808,0.013508,10,11,Too many retries
+klippy-11.log,32325,6675.8,100.1,100.0,-20.9,1.0,pass,0.326786,0.326786,0,1,
+klippy-11.log,32368,6684.8,99.9,100.0,-21.0,0.0075,incomplete,0.065795,0.021678,7,8,
+klippy-11.log,36736,132.3,76.1,0.0,-24.7,1.0,pass,0.095514,0.095514,0,1,
+klippy-11.log,36779,141.3,75.8,0.0,-25.3,0.0075,pass,0.037051,0.006198,4,5,
+klippy-11.log,42032,596.9,100.0,100.0,-20.1,1.0,pass,0.293038,0.293038,0,1,
+klippy-11.log,42074,604.9,100.0,100.0,-19.8,0.0075,fail,0.197906,0.04292,7,8,Retries aborting: Probed points range is increasing. Possibly Z motor numbering is wrong
+klippy-11.log,42467,698.9,100.0,100.0,-19.8,1.0,pass,0.618722,0.618722,0,1,
+klippy-11.log,42509,707.0,100.0,100.0,-19.9,0.0075,fail,0.177122,0.049262,10,11,Too many retries
+klippy-11.log,48882,2365.3,105.0,105.0,-20.6,1.0,pass,1.619717,0.390923,1,2,
+klippy-11.log,48995,2398.4,105.0,105.0,-20.1,0.0075,fail,0.28141,0.058577,10,11,Too many retries
+klippy-11.log,49734,2718.5,105.0,105.0,-20.0,1.0,pass,0.898937,0.898937,0,1,
+klippy-11.log,49777,2727.6,105.0,105.0,-19.8,0.0075,fail,0.301908,0.105629,10,11,Too many retries
+klippy-11.log,50818,3350.0,105.1,105.0,-20.2,1.0,pass,1.72467,0.419359,1,2,
+klippy-11.log,50931,3383.0,105.0,105.0,-19.9,0.0075,fail,0.352262,0.119788,10,11,Too many retries
+klippy-11.log,59558,3725.4,99.8,100.0,-18.4,1.0,pass,2.290885,0.534377,1,2,
+klippy-11.log,59670,3757.4,100.3,100.0,-18.2,0.0075,fail,0.165368,0.01711,5,6,Retries aborting: Probed points range is increasing. Possibly Z motor numbering is wrong
+klippy-11.log,64552,429.7,32.4,0.0,-35.6,1.0,pass,0.085497,0.085497,0,1,
+klippy-11.log,75139,1614.3,100.0,100.0,-20.0,1.0,pass,0.094941,0.094941,0,1,
+klippy-11.log,75182,1623.3,100.0,100.0,-20.1,0.0075,incomplete,0.08134,0.011645,7,8,
+klippy-11.log,79587,177.6,100.4,100.0,-22.2,1.0,pass,0.140183,0.140183,0,1,
+klippy-11.log,79630,186.6,100.2,100.0,-22.6,0.0075,fail,0.078599,0.015325,4,5,Retries aborting: Probed points range is increasing. Possibly Z motor numbering is wrong
+klippy-11.log,79888,257.6,100.1,100.0,-21.7,1.0,pass,0.060241,0.060241,0,1,
+klippy-11.log,79931,266.7,100.1,100.0,-21.4,0.0075,fail,0.050363,0.016482,7,8,Retries aborting: Probed points range is increasing. Possibly Z motor numbering is wrong
+klippy-11.log,85446,598.2,94.9,0.0,-17.4,1.0,pass,0.132429,0.132429,0,1,
+klippy-11.log,85489,607.2,94.1,0.0,-17.5,0.0075,pass,0.032826,0.002253,3,4,
+klippy-11.log,85855,784.3,104.9,105.0,-20.9,0.0075,fail,0.119413,0.043574,4,5,Retries aborting: Probed points range is increasing. Possibly Z motor numbering is wrong
+klippy-11.log,86313,978.5,105.0,105.0,-21.1,1.0,pass,0.114068,0.114068,0,1,
+klippy-11.log,86356,987.5,105.0,105.0,-20.9,0.0075,pass,0.075756,0.005728,7,8,
+klippy-11.log,103531,3292.3,105.2,105.0,-21.9,0.0075,pass,0.119835,0.002801,3,4,
+klippy-11.log,104053,3497.4,105.0,105.0,-20.8,0.0075,fail,0.093904,0.033513,3,4,Retries aborting: Probed points range is increasing. Possibly Z motor numbering is wrong
+klippy-11.log,104403,3667.5,105.0,105.0,-20.4,1.0,pass,0.143384,0.143384,0,1,
+klippy-11.log,104446,3676.5,105.0,105.0,-19.9,0.0075,pass,0.078877,0.005539,6,7,
+klippy-final.log,5445,1549.0,21.9,0.0,-37.7,1.0,pass,0.14573,0.14573,0,1,
+klippy-final.log,5488,1558.1,22.0,0.0,-39.8,0.0075,pass,0.044205,0.007061,1,2,
+klippy-final.log,6437,2388.1,105.2,105.0,-31.4,0.0075,fail,0.095679,0.35369,5,6,Retries aborting: Probed points range is increasing. Possibly Z motor numbering is wrong
+klippy-final.log,8310,3959.6,105.1,105.0,-25.8,1.0,pass,0.167698,0.167698,0,1,
+klippy-final.log,8353,3968.6,105.2,105.0,-24.8,0.0075,pass,0.025144,0.003413,2,3,

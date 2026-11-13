@@ -259,17 +259,17 @@ class CurrentContracts(unittest.TestCase):
         for name,sha in m['originals'].items():
             if 'readonly-configs/' in name:
                 self.assertEqual(hashlib.sha256((ROOT/name).read_bytes()).hexdigest(),sha,name)
-        for section,key,expected in (('heater_bed','heater_pin','PA1'),
+        for section,key,expected in (('heater_bed','heater_pin','PA5'),
                                      ('heater_bed','sensor_pin','PB0'),
                                      ('temperature_sensor chamber','sensor_pin','PB1')):
             self.assertEqual(cfg.CFG[section][key].split('#')[0].strip(),expected)
         marker=b'#*# <---------------------- SAVE_CONFIG ---------------------->'
         current=(ROOT/'config/printer.cfg').read_bytes().replace(b'\r\n',b'\n')
-        # Preserve the reviewed SAVE_CONFIG block, including the 2026-11-08 T3 XY update.
+        # Preserve the reviewed SAVE_CONFIG block, including the 2026-11-11 bed PID and Scan updates.
         saved_config=current[current.index(marker):]
         self.assertEqual(
             hashlib.sha256(saved_config).hexdigest(),
-            '8afa92fb40f40be37029221536b1066765ac494372db8bbf9a407592ef4dfb2d',
+            '3e01108d5854262f07569ae4055552b27bea0f3f625bdbc09a33245f9545554e',
         )
         self.assertEqual(float(cfg.CFG['tool T0']['params_park_y'].split('#')[0]),1.3)
         self.assertEqual(float(cfg.CFG['tool T2']['params_park_y'].split('#')[0]),1.6)

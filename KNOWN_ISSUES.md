@@ -83,9 +83,9 @@ Do not relax `verify_heater`, PID, or smoothing to mask the fault.
 
 The seller labels the sensor `NTC 100k MBG18-104F39050L32`; the installed
 Klipper type is `NTC 100K MGB18-104F39050L32`. Confirm the actual component
-specification before changing the thermistor curve. The 120 °C repository
-`heater_bed.max_temp` and 150 °C live value also remain unresolved; do not
-raise the repository limit without a verified hardware rating.
+specification before changing the thermistor curve. Since November 11,
+`heater_bed.max_temp` is 120 °C both live and in the repository; do not
+raise it without a verified hardware rating.
 
 Read-only October 30 follow-up distinguished preparation from printing. The
 17:08 start had 79.8 -> 116.4 C in one second at an unchanged 105 C target.
@@ -117,8 +117,8 @@ was held near 100 °C for only about two minutes before its target returned to
 zero. This is encouraging but does not establish long-term stability or absolute
 sensor accuracy. The live file was edited and reloaded during the session:
 `max_temp` is now 120 °C, while commented `smooth_time` and `pwm_cycle_time`
-use Klipper defaults 1.0 s and 0.1 s. The repository still explicitly sets
-3.0 s and 0.2 s. Review that separate drift before deploying the whole file.
+use Klipper defaults 1.0 s and 0.1 s. The repository was synchronized to
+these live defaults on November 13, after the QGL log review.
 See `extras/diagnostics/2026-11-11-bed-sensor-monitor/raw-stats.csv`,
 `extras/diagnostics/2026-11-11-bed-sensor-monitor/samples.csv` and
 `extras/Nhat-ky-chinh-sua/2026-11-11-bed-sensor-ssr-pa5.md`.
@@ -241,9 +241,10 @@ Coil temperature remains negative with no compensation coefficients loaded.
 Bed telemetry jumped from 109.0 to 44.3 to 106.2 C in about two seconds at
 a 100 C target. Verify the NTC input path before further heated trials.
 
-The repository mirrors the loaded SAVE_CONFIG block, QGL geometry and retry
-count, and Scan sample configuration. The bed temperature limit remains 120 C
-in Git and 150 C on the printer pending separate hardware verification.
+The repository mirrored the November 7 SAVE_CONFIG block, QGL geometry and retry
+count, and Scan sample configuration. The bed temperature limit was later
+returned to 120 C on the printer; newer PID and Scan values were synchronized
+on November 13.
 See [the November 7 log](extras/Nhat-ky-chinh-sua/2026-11-07-qgl-live-calibration-sync.md).
 
 The attended corner checks later that day confirmed motion in both directions
@@ -271,6 +272,34 @@ corners passed all five scored cases at the same tolerance, including Z2
 and Z0 perturbations. The machine was reverted to `(-10, -10)` and
 `(350, 350)`. The trial alternated the calculated Z3 correction direction,
 with the physical Z3 response still unverified. See [the corner comparison](extras/Nhat-ky-chinh-sua/2026-11-07-qgl-gantry-corners-ab.md).
+
+## November 11–13 bed sensor replacement and QGL result
+
+The operator confirmed the previous bed sensor showed failure in use and
+replaced it, then recalibrated the bed PID and Cartographer Scan. Old logs
+support intermittent large jumps while heating, but an October 28 episode
+also occurred with heater target/PWM zero, so "only when heating" is not
+established by the logs. The November 11 and 13 Klipper logs show no adjacent
+bed-temperature jump >=2 C while the target was nonzero. The new sensor's
+absolute accuracy and long-term reliability remain unmeasured.
+
+After the last Scan model and Touch 792 were saved on November 11, seven hot
+fine-QGL attempts at a 105 C target are identifiable across the November 11
+and 13 logs: four met 0.0075 mm tolerance and three aborted. The short
+November 13 cube print completed after QGL reached 0.003413 mm at retry 2;
+an earlier attempt that day aborted after its range climbed from 0.013422
+to 0.249438 and 0.353690 mm. Bed readings during that failed pass stayed
+about 105.1–105.2 C. QGL convergence is therefore still unreliable.
+
+The installed Cartographer Python reads temperature from the probe MCU, not
+the bed thermistor. No coil temperature-compensation calibration is loaded,
+so its negative coil reading is not used to correct scan frequency. The
+Klipper motor-numbering message is a generic result of two increasing range
+checks. Repeated Scan deviations, especially at the right-side points, need
+independent dial-indicator comparison before assigning the cause to the probe
+mount, thermal drift, or Z mechanics. Current live PID, Scan model, bed
+smoothing/PWM defaults and disabled axis twist are now mirrored in Git; no
+printer reload was performed. See the [November 13 analysis](extras/diagnostics/2026-11-13-qgl/REPORT.vi.md).
 
 ## T2 false filament runout
 

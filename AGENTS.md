@@ -1,6 +1,6 @@
 # Quy tắc làm việc hiện hành — Voron 5 Tool
 
-Cập nhật: 2026-11-11. File này là điểm vào duy nhất cho công việc trong Git repository này. Các ghi chép ở thư mục ../.agents và extras là tài liệu tham khảo theo thời điểm, không tự động ghi đè trạng thái máy hoặc yêu cầu mới của người dùng.
+Cập nhật: 2026-11-13. File này là điểm vào duy nhất cho công việc trong Git repository này. Các ghi chép ở thư mục ../.agents và extras là tài liệu tham khảo theo thời điểm, không tự động ghi đè trạng thái máy hoặc yêu cầu mới của người dùng.
 
 ## Máy và nguồn sự thật
 
@@ -31,7 +31,9 @@ Cập nhật: 2026-11-11. File này là điểm vào duy nhất cho công việc
 - Bàn AC 1000 W qua SSR PA5, NTC trên PB0. Klipper nhận sensor_type NTC 100K MGB18-104F39050L32; tên người bán ghi MBG18-104F39050L32 cần kiểm tra với linh kiện thật trước khi đổi đường cong nhiệt.
 - Log ngày 2026-10-27 khoảng 19:22 ghi số đo bàn nhảy từ khoảng 104°C xuống 71,7°C trong vài giây rồi tăng lại, khi target 105°C. Cần kiểm tra đầu nối, dây NTC, điểm gắn cảm biến và nhiễu điện trước khi kết luận heater hoặc SSR hỏng. Không nới verify_heater hay tăng smooth_time để che tín hiệu sai.
 - Ngày 2026-11-11 người vận hành báo đã thay cảm biến bàn. Một lượt gia nhiệt 24,5→100,4°C có 389 mẫu Stats 1 Hz, không có bước nhiệt từ 2°C trở lên; thời gian giữ gần 100°C chỉ khoảng hai phút, chưa xác nhận hết lỗi gián đoạn lâu dài hay độ chính xác nhiệt tuyệt đối.
-- Sau reload 2026-11-11, max_temp live và Git cùng 120°C. `smooth_time` và `pwm_cycle_time` live đang dùng mặc định 1,0/0,1 còn Git đặt 3,0/0,2; không ghi đè thử nghiệm live này bằng deploy nguyên file khi chưa đánh giá riêng. Không nâng giới hạn nhiệt nếu thiếu thông số phần cứng.
+- Sau reload 2026-11-11, max_temp live và Git cùng 120°C. `smooth_time` và `pwm_cycle_time` live dùng mặc định 1,0/0,1; Git đã đồng bộ ngày 13/11. Không nâng giới hạn nhiệt nếu thiếu thông số phần cứng.
+- Đánh giá log đến 13/11: người vận hành xác nhận cảm biến cũ có dấu hiệu hỏng khi dùng và đã thay. Log cũ có lỗi lúc gia nhiệt, nhưng 28/10 còn ghi 49,7→4,4→49,8°C khi target/PWM bằng 0, nên không kết luận lỗi chỉ lúc bật heater. Sau thay chưa thấy bước >=2°C trong Stats có target >0 của log 11 và 13/11. PID bàn hiện 64,710/2,713/385,835.
+- QGL vẫn không ổn định sau thay NTC và Scan model mới: 4/7 lượt tinh ở target 105°C đạt 0,0075 mm, 3/7 hủy. Bản Cube 13/11 hoàn tất sau lượt đạt 0,003413 mm ở retry 2; lượt trước đó hủy dù bàn báo 105,1–105,2°C. Python đang chạy lấy nhiệt coil từ MCU Cartographer, không lấy NTC bàn; không có hệ số bù nhiệt coil đang nạp. Xem `extras/diagnostics/2026-11-13-qgl/REPORT.vi.md` trước khi điều chỉnh QGL hoặc quy lỗi motor.
 
 ## Cách sửa và báo cáo
 
