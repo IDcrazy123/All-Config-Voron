@@ -3,6 +3,27 @@
 Updated: 2026-11-13. This file records the active state of the printer. Older
 entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 
+## Cartographer adaptive mesh failed during T0 print (2026-11-13)
+
+The T0-only job `A4T Stealthchanger_ABS_17m48s.gcode` was cancelled at 15:21:21
+while `PRINT_START` ran `BED_MESH_CALIBRATE ADAPTIVE=1`. The live error was
+`Mesh scan failed: 195/195 grid points have no valid samples`; the scan did
+collect 2880 raw samples, and 1237 were assigned to the grid. QGL and Touch
+completed beforehand. The scan model converted no grid point to a finite
+distance, so this is a Cartographer scan/model problem, not a T1–T4 include or
+Orca tool-selection rejection. The coil reported about -25 C during the failed
+scan, versus about -21.9 C during a previous successful mesh. Its reference
+temperature is -21.41 C and no coil compensation calibration is saved. The
+negative coil reading warrants a physical probe inspection; the exact cause of
+this single failed scan cannot be proved without raw scan frequencies.
+
+No scan-height, model, or temperature limits were changed. After cancellation,
+Klipper was `ready` but toolchanger state was `uninitialized`, active tool was
+`None` and T0 was detected on the shuttle. Do not resume or command automatic
+pickup/mesh from that state. Power off and inspect the Cartographer coil and
+connectors, then validate scan readings/calibration with an attended test before
+retrying a print. See `extras/diagnostics/2026-11-13-t0-print-mesh-failure/REPORT.vi.md`.
+
 ## T1 sensor fault and temporary T0-only mode (2026-11-13)
 
 The operator reported a T1 sensor fault and requested T1–T4 be disconnected
