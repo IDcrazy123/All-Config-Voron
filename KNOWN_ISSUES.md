@@ -1,7 +1,16 @@
 # Current production issues
 
-Updated: 2026-11-13. This file records the active state of the printer. Older
+Updated: 2026-11-14. This file records the active state of the printer. Older
 entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
+
+## Cartographer remains shutdown after a five-tool RESTART (2026-11-14)
+
+During five-tool restoration on November 13 and twice on November 14, the
+first idle `RESTART` could not update the Cartographer MCU because it remained
+shutdown. In each observed case, `FIRMWARE_RESTART` subsequently brought
+Klipper to `ready` with all five tools registered and no config warnings.
+The underlying cause was not isolated; `ready` does not verify probing or
+mechanical behavior. See the November 14 five-tool restoration journals.
 
 ## Cartographer adaptive mesh failed during T0 print (2026-11-13)
 
@@ -30,13 +39,13 @@ The operator reported a T1 sensor fault and requested T1–T4 be disconnected
 for maintenance while T0 remains printable. Before the change, all heater
 targets were zero and the machine was idle with an empty shuttle; T1 reported
 about 114 C, which cannot be trusted as a physical temperature because of the
-reported sensor fault. The live `printer.cfg` now explicitly includes only the
+reported sensor fault. At that time, `printer.cfg` explicitly included only the
 T0 tool file alongside the KTC core. T1–T4 extruder/tool SAVE_CONFIG sections
 were omitted from the active file, with the original file backed up. A
 `PRINT_START` guard rejects nonzero T1–T4 temperature requests before motion.
 
 One idle RESTART returned Klipper `ready` without warnings. The live tool
-registry is `[0]`; T1–T4 MCU, extruder, sensor and macro sections are absent.
+registry was `[0]`; T1–T4 MCU, extruder, sensor and macro sections were absent.
 No homing, pickup, heat or print was run afterward. Reslice every maintenance
 job for T0 only; old multicolor G-code must not be reused. Confirm the physical
 tool/CAN state and an attended first-layer test before claiming print readiness.
