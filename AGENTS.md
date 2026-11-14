@@ -1,6 +1,6 @@
 # Quy tắc làm việc hiện hành — Voron 5 Tool
 
-Cập nhật: 2026-11-13. File này là điểm vào duy nhất cho công việc trong Git repository này. Các ghi chép ở thư mục ../.agents và extras là tài liệu tham khảo theo thời điểm, không tự động ghi đè trạng thái máy hoặc yêu cầu mới của người dùng.
+Cập nhật: 2026-11-14. File này là điểm vào duy nhất cho công việc trong Git repository này. Các ghi chép ở thư mục ../.agents và extras là tài liệu tham khảo theo thời điểm, không tự động ghi đè trạng thái máy hoặc yêu cầu mới của người dùng.
 
 ## Máy và nguồn sự thật
 
@@ -12,6 +12,7 @@ Cập nhật: 2026-11-13. File này là điểm vào duy nhất cho công việc
 ## Kiến trúc đang chạy
 
 - Voron 2.4 350 mm, 5 tool T0–T4; Manta M8P V2, CM4, EBB36 qua CAN.
+- Từ 2026-11-14: T2 đã được người vận hành tháo để bảo trì; production tạm chỉ nạp T0/T1. `printer.cfg` dùng include KTC core và include riêng T0/T1, không nạp EBB2–EBB4. PID/offset T2–T4 được giữ trong `extras/backups/pre-t2-t4-maintenance-20261114-073028/`. Klipper đã `ready` với registry `[0,1]`; chưa in thử sau reload. Xem `extras/Nhat-ky-chinh-sua/2026-11-14-t2-t4-maintenance.md` trước khi khôi phục.
 - Từ 2026-11-13: sau bảo trì, Klipper production đã nạp lại T0–T4 và các PID/offset lưu trước chế độ T0-only. Người vận hành báo T1 thay cảm biến cùng loại `Generic 3950` và chuyển dock sang X104 Y0 Z330; Z330 là giá trị tạm từ điểm kích hoạt khoảng Z327–330. T1 đã gắp có người quan sát và PID_CALIBRATE ở 250°C được lưu với Kp/Ki/Kd 28,787/9,596/21,590. Cần xác minh thả/gắp lại và bản in đầu trước khi coi dock đã căn xong.
 - KTC-Easy quản lý dock, chọn tool và detection_pin. Cartographer gắn vào shuttle quản lý home Z, Touch và mesh. Axiscope quản lý XY và đo Z tương đối sơ bộ qua PF2; Z production do first-layer quyết định.
 - printer.cfg là entrypoint. print-macros.cfg sở hữu PRINT_START, PRINT_END, PAUSE, RESUME, CANCEL_PRINT, G32 và QGL. tool-crash.cfg sở hữu latch phục hồi. toolchanger-config.cfg và tools/T*.cfg chứa đường đổi tool, cảm biến và dock.
