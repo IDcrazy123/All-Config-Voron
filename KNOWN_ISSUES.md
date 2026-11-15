@@ -1,16 +1,19 @@
 # Current production issues
 
-Updated: 2026-11-14. This file records the active state of the printer. Older
+Updated: 2026-11-15. This file records the active state of the printer. Older
 entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 
-## Cartographer remains shutdown after a five-tool RESTART (2026-11-14)
+## Cartographer remains shutdown after a five-tool RESTART (2026-11-15)
 
 During five-tool restoration on November 13 and three times on November 14, the
 first idle `RESTART` could not update the Cartographer MCU because it remained
 shutdown. In each observed case, `FIRMWARE_RESTART` subsequently brought
 Klipper to `ready` with all five tools registered and no config warnings.
-The underlying cause was not isolated; `ready` does not verify probing or
-mechanical behavior. See the November 14 five-tool restoration journals.
+The November 15 restoration also showed the error. An immediate
+`FIRMWARE_RESTART` request returned HTTP 503 while Klippy was disconnected;
+Klipper then reached `ready` after a few seconds. It is unknown whether that
+request executed. The underlying cause was not isolated; `ready` does not
+verify probing or mechanical behavior. See the restoration journals.
 
 ## Cartographer adaptive mesh failed during T0 print (2026-11-13)
 
