@@ -11,6 +11,7 @@ Cập nhật: 2026-11-15. File này là điểm vào duy nhất cho công việc
 
 ## Kiến trúc đang chạy
 
+- Tối 2026-11-15: người vận hành cung cấp tọa độ dock T0 (30,2/0/333), T1 (104/0/330), T2 (176/0/331), T3 (249,5/0/331), T4 (321,5/0/332). Production và Git đã cập nhật Y/Z của T0, T2, T3, T4; T1/X các tool đã trùng. Sau RESTART Klipper `ready`, KTC `ready`, registry `[0,1,2,3,4]`, shuttle trống, không cảnh báo, chưa home hay thử gắp/thả trên tọa độ mới. Xem `extras/Nhat-ky-chinh-sua/2026-11-15-five-dock-coordinate-update.md`.
 - Tối 2026-11-15: production đã khôi phục cấu hình năm-tool để đo lại toàn bộ dock. Klipper `ready`, KTC `ready`, registry `[0,1,2,3,4]`, shuttle trống, không cảnh báo; chưa home, gắp/thả, gia nhiệt hoặc in sau reload. T0–T4 giữ PID/offset trước chế độ T1-only; T1 trở lại `extruder1` và Z offset 0,1665. Cảm biến T3 live dùng `^EBB3:PB8`, đã đồng bộ Git. Dock T1 X104 Y0 Z330 vẫn là tạm; không coi dock nào đã xác minh trước lượt đo có người quan sát. Xem `extras/Nhat-ky-chinh-sua/2026-11-15-five-tool-dock-survey-restore.md`.
 - Tối 2026-11-15: production tạm nạp duy nhất T1 để tháo T0 bảo trì. T1 đã gắn trên shuttle; sau reload KTC `ready`, active/detected đều là 1, registry `[1]`, không có cảnh báo. T1 tạm dùng `[extruder]` và PID T1 cũ; Z offset tool T1 đặt 0 để Touch trực tiếp với T1. Dock T1 chưa căn, PRINT_END/CANCEL không tự thả T1. Cảm biến nhựa T1 hiện báo trống, chưa thử gia nhiệt, G28/QGL/Touch hay in sau đổi chế độ. Xem nhật ký `extras/Nhat-ky-chinh-sua/2026-11-15-t0-removal-t1-only.md`.
 - Voron 2.4 350 mm, 5 tool T0–T4; Manta M8P V2, CM4, EBB36 qua CAN.
@@ -32,7 +33,7 @@ Cập nhật: 2026-11-15. File này là điểm vào duy nhất cho công việc
 - `tool_crash.py` chỉ phát hiện và gọi macro pause; KTC xác thực tool. Không cần lệnh `RECOVER_TOOL` hoặc xác nhận thủ công riêng: sau khi kiểm tra ngàm/dock, `RESUME` tự khởi tạo và xác thực lại tool gốc; `CANCEL_PRINT` bỏ chuyển động park nếu đang có crash rồi xóa chốt tạm. Nếu không biết tool gốc, phải hủy bản in.
 - Chốt crash nội bộ chỉ tồn tại trong bản in đang chạy hoặc pause để tránh chuyển động khi hủy. Sự kiện cảm biến lúc idle không được giữ chốt. Sau hủy, `PRINT_START` khởi tạo KTC và kiểm tra active/detected trước khi home; QGL kiểm tra lại trước probe.
 - Nếu shuttle rỗng hoặc tool nằm sai vị trí sau sự cố, người vận hành cần quan sát và thu dọn trước khi chạy lệnh có chuyển động. Không tự động di chuyển để gắp lại khi không chắc tool đang ở dock hay kẹt trên shuttle.
-- T0 dock Y đã chỉnh trên máy thành 1.3 mm và T2 thành 1.6 mm, đồng bộ vào repository ngày 2026-10-27. Tọa độ dock khác chỉ đổi khi có số đo live xác nhận.
+- T0 dock Y từng là 1.3 mm và T2 là 1.6 mm từ ngày 2026-10-27; các giá trị này đã được thay bằng tọa độ người vận hành cung cấp ngày 2026-11-15. Đường gắp/thả với tọa độ mới vẫn cần kiểm tra thực tế có người quan sát.
 
 ## Bàn nhiệt và giới hạn
 
