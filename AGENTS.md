@@ -11,6 +11,7 @@ Cập nhật: 2026-11-15. File này là điểm vào duy nhất cho công việc
 
 ## Kiến trúc đang chạy
 
+- Tối 2026-11-15: production tạm nạp duy nhất T1 để tháo T0 bảo trì. T1 đã gắn trên shuttle; sau reload KTC `ready`, active/detected đều là 1, registry `[1]`, không có cảnh báo. T1 tạm dùng `[extruder]` và PID T1 cũ; Z offset tool T1 đặt 0 để Touch trực tiếp với T1. Dock T1 chưa căn, PRINT_END/CANCEL không tự thả T1. Cảm biến nhựa T1 hiện báo trống, chưa thử gia nhiệt, G28/QGL/Touch hay in sau đổi chế độ. Xem nhật ký `extras/Nhat-ky-chinh-sua/2026-11-15-t0-removal-t1-only.md`.
 - Voron 2.4 350 mm, 5 tool T0–T4; Manta M8P V2, CM4, EBB36 qua CAN.
 - Từ tối 2026-11-15: production đã bật lại T3/T4 để thử nghiệm; Klipper `ready`, registry `[0,1,2,3,4]`, không cảnh báo. T3 báo có nhựa; T4 báo không có nhựa và người vận hành xác nhận chưa nạp. Chưa thử T4 đổi trạng thái khi nạp nhựa, gắp/thả, gia nhiệt hoặc in T3/T4 sau reload. Xem `extras/Nhat-ky-chinh-sua/2026-11-15-t3-t4-test-restore.md` trước khi coi đã xác minh cơ khí.
 - Chiều 2026-11-15, production đã tạm chỉ nạp T0–T2 để bảo trì T3/T4; các PID/offset được giữ trong `extras/backups/pre-t3-maintenance-20261115-163710/` và `extras/backups/pre-t4-filament-sensor-maintenance-20261115-091735/`.
@@ -25,7 +26,7 @@ Cập nhật: 2026-11-15. File này là điểm vào duy nhất cho công việc
 
 ## Luồng in và phục hồi
 
-- PRINT_START kiểm tra nhiệt/filament, khởi tạo toolchanger, heat, G28, lấy T0 để vệ sinh, ổn định nhiệt bàn, QGL, Touch, mesh rồi prime tool dùng để in. T0 phải gắp chính xác vì chu trình làm sạch/Touch cần nó ngay cả khi bản in dùng T1–T4.
+- PRINT_START kiểm tra nhiệt/filament, khởi tạo toolchanger, heat, G28, ổn định nhiệt bàn, QGL, Touch, mesh rồi prime tool dùng để in. Khi T0 được đăng ký, macro lấy T0 để vệ sinh và Touch. Ở chế độ T1-only, T1 phải có sẵn trên shuttle và đầu phun T1 phải được người vận hành làm sạch trước khi chạy Touch; trạm lau T0 không dùng cho T1.
 - Khi Tn không được nhận diện sau pickup, kiểm tra vị trí dock và detection_pin trước. Expected tool Tn but active is None mô tả lỗi xác thực gắp tool; lỗi recovery và preparation tiếp theo là hệ quả.
 - `tool_crash.py` chỉ phát hiện và gọi macro pause; KTC xác thực tool. Không cần lệnh `RECOVER_TOOL` hoặc xác nhận thủ công riêng: sau khi kiểm tra ngàm/dock, `RESUME` tự khởi tạo và xác thực lại tool gốc; `CANCEL_PRINT` bỏ chuyển động park nếu đang có crash rồi xóa chốt tạm. Nếu không biết tool gốc, phải hủy bản in.
 - Chốt crash nội bộ chỉ tồn tại trong bản in đang chạy hoặc pause để tránh chuyển động khi hủy. Sự kiện cảm biến lúc idle không được giữ chốt. Sau hủy, `PRINT_START` khởi tạo KTC và kiểm tra active/detected trước khi home; QGL kiểm tra lại trước probe.
