@@ -11,6 +11,7 @@ Cập nhật: 2026-11-15. File này là điểm vào duy nhất cho công việc
 
 ## Kiến trúc đang chạy
 
+- Tối 2026-11-15: production đã khôi phục cấu hình năm-tool để đo lại toàn bộ dock. Klipper `ready`, KTC `ready`, registry `[0,1,2,3,4]`, shuttle trống, không cảnh báo; chưa home, gắp/thả, gia nhiệt hoặc in sau reload. T0–T4 giữ PID/offset trước chế độ T1-only; T1 trở lại `extruder1` và Z offset 0,1665. Cảm biến T3 live dùng `^EBB3:PB8`, đã đồng bộ Git. Dock T1 X104 Y0 Z330 vẫn là tạm; không coi dock nào đã xác minh trước lượt đo có người quan sát. Xem `extras/Nhat-ky-chinh-sua/2026-11-15-five-tool-dock-survey-restore.md`.
 - Tối 2026-11-15: production tạm nạp duy nhất T1 để tháo T0 bảo trì. T1 đã gắn trên shuttle; sau reload KTC `ready`, active/detected đều là 1, registry `[1]`, không có cảnh báo. T1 tạm dùng `[extruder]` và PID T1 cũ; Z offset tool T1 đặt 0 để Touch trực tiếp với T1. Dock T1 chưa căn, PRINT_END/CANCEL không tự thả T1. Cảm biến nhựa T1 hiện báo trống, chưa thử gia nhiệt, G28/QGL/Touch hay in sau đổi chế độ. Xem nhật ký `extras/Nhat-ky-chinh-sua/2026-11-15-t0-removal-t1-only.md`.
 - Voron 2.4 350 mm, 5 tool T0–T4; Manta M8P V2, CM4, EBB36 qua CAN.
 - Từ tối 2026-11-15: production đã bật lại T3/T4 để thử nghiệm; Klipper `ready`, registry `[0,1,2,3,4]`, không cảnh báo. T3 báo có nhựa; T4 báo không có nhựa và người vận hành xác nhận chưa nạp. Chưa thử T4 đổi trạng thái khi nạp nhựa, gắp/thả, gia nhiệt hoặc in T3/T4 sau reload. Xem `extras/Nhat-ky-chinh-sua/2026-11-15-t3-t4-test-restore.md` trước khi coi đã xác minh cơ khí.

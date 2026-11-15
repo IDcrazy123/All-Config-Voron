@@ -3,7 +3,7 @@
 Updated: 2026-11-15. This file records the active state of the printer. Older
 entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 
-## Cartographer remains shutdown after a five-tool RESTART (2026-11-15)
+## MCU remains shutdown after a five-tool RESTART (2026-11-15)
 
 During five-tool restoration on November 13 and three times on November 14, the
 first idle `RESTART` could not update the Cartographer MCU because it remained
@@ -14,6 +14,12 @@ The November 15 restoration also showed the error. An immediate
 Klipper then reached `ready` after a few seconds. It is unknown whether that
 request executed. The underlying cause was not isolated; `ready` does not
 verify probing or mechanical behavior. See the restoration journals.
+
+During the later November 15 restoration for dock measurement, the first idle
+`RESTART` instead reported `Can not update MCU 'EBB1' config as it is shutdown`.
+One `FIRMWARE_RESTART` brought Klipper to `ready`, registry `[0,1,2,3,4]`,
+with no config warnings. No homing, pickup/dropoff, heat or print followed.
+The common cause of these restart-time MCU shutdowns is still unknown.
 
 ## Cartographer adaptive mesh failed during T0 print (2026-11-13)
 
