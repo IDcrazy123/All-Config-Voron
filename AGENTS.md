@@ -1,6 +1,6 @@
 # Quy tắc làm việc hiện hành — Voron 5 Tool
 
-Cập nhật: 2026-11-15. File này là điểm vào duy nhất cho công việc trong Git repository này. Các ghi chép ở thư mục ../.agents và extras là tài liệu tham khảo theo thời điểm, không tự động ghi đè trạng thái máy hoặc yêu cầu mới của người dùng.
+Cập nhật: 2026-11-16. File này là điểm vào duy nhất cho công việc trong Git repository này. Các ghi chép ở thư mục ../.agents và extras là tài liệu tham khảo theo thời điểm, không tự động ghi đè trạng thái máy hoặc yêu cầu mới của người dùng.
 
 ## Máy và nguồn sự thật
 
@@ -11,6 +11,7 @@ Cập nhật: 2026-11-15. File này là điểm vào duy nhất cho công việc
 
 ## Kiến trúc đang chạy
 
+- Ngày 2026-11-16: người vận hành xác nhận năm tọa độ dock bên dưới đã được thử gắp/thả trực tiếp. Công tắc PF2 chuyển sang X81 Y-7, T0 kích hoạt gần Z3; production và Git đã đồng bộ, Klipper/KTC `ready`. Đã đo Z tương đối sơ bộ T0–T4 ở 150°C: 0; -0,4321; -0,4196; -0,3832; -0,2150 mm. Offset production cũ chưa đổi; phải thử first-layer từng tool trước khi lưu Z cuối. Giá PF2 vẫn phải tháo trước G28/QGL/Touch/mesh/in. Xem `extras/Nhat-ky-chinh-sua/2026-11-16-pf2-coarse-z.md`.
 - Tối 2026-11-15: người vận hành cung cấp tọa độ dock T0 (30,2/0/333), T1 (104/0/330), T2 (176/0/331), T3 (249,5/0/331), T4 (321,5/0/332). Production và Git đã cập nhật Y/Z của T0, T2, T3, T4; T1/X các tool đã trùng. Sau RESTART Klipper `ready`, KTC `ready`, registry `[0,1,2,3,4]`, shuttle trống, không cảnh báo, chưa home hay thử gắp/thả trên tọa độ mới. Xem `extras/Nhat-ky-chinh-sua/2026-11-15-five-dock-coordinate-update.md`.
 - Tối 2026-11-15: production đã khôi phục cấu hình năm-tool để đo lại toàn bộ dock. Klipper `ready`, KTC `ready`, registry `[0,1,2,3,4]`, shuttle trống, không cảnh báo; chưa home, gắp/thả, gia nhiệt hoặc in sau reload. T0–T4 giữ PID/offset trước chế độ T1-only; T1 trở lại `extruder1` và Z offset 0,1665. Cảm biến T3 live dùng `^EBB3:PB8`, đã đồng bộ Git. Dock T1 X104 Y0 Z330 vẫn là tạm; không coi dock nào đã xác minh trước lượt đo có người quan sát. Xem `extras/Nhat-ky-chinh-sua/2026-11-15-five-tool-dock-survey-restore.md`.
 - Tối 2026-11-15: production tạm nạp duy nhất T1 để tháo T0 bảo trì. T1 đã gắn trên shuttle; sau reload KTC `ready`, active/detected đều là 1, registry `[1]`, không có cảnh báo. T1 tạm dùng `[extruder]` và PID T1 cũ; Z offset tool T1 đặt 0 để Touch trực tiếp với T1. Dock T1 chưa căn, PRINT_END/CANCEL không tự thả T1. Cảm biến nhựa T1 hiện báo trống, chưa thử gia nhiệt, G28/QGL/Touch hay in sau đổi chế độ. Xem nhật ký `extras/Nhat-ky-chinh-sua/2026-11-15-t0-removal-t1-only.md`.
