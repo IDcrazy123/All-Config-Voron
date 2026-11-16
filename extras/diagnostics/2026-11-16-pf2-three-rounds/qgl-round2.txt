@@ -1,0 +1,31 @@
+1794821921,397 [command] QUAD_GANTRY_LEVEL
+1794821921,444 [response] // toolchanger initialized, active tool T0
+1794821925,032 [response] probe at 20.000,10.000 is z=1.935080 |
+1794821925,391 [response] probe at 20.000,280.000 is z=1.937728 |
+1794821927,560 [response] probe at 330.000,280.000 is z=1.944798 |
+1794821929,543 [response] probe at 330.000,10.000 is z=1.954483 |
+1794821929,546 [response] // Gantry-relative probe points: | // 0: 10.064920 1: 10.062272 2: 10.055202 3: 10.045517
+1794821929,548 [response] // Actuator Positions: | // z: 10.067581 z1: 10.062459 z2: 10.056105 z3: 10.042131
+1794821929,548 [response] // Average: 10.057069
+1794821929,550 [response] // Making the following Z adjustments: | // stepper_z = -0.010512 | // stepper_z1 = -0.005390 | // stepper_z2 = 0.000964 | // stepper_z3 = 0.014938
+1794821929,554 [response] // Retries: 0/10 Probed points range: 0.019403 tolerance: 0.007500
+1794821931,823 [response] probe at 20.000,10.000 is z=1.965439 |
+1794821933,813 [response] probe at 20.000,280.000 is z=1.963244 |
+1794821935,995 [response] probe at 330.000,280.000 is z=1.956222 |
+1794821937,977 [response] probe at 330.000,10.000 is z=1.954927 |
+1794821937,978 [response] // Gantry-relative probe points: | // 0: 10.034561 1: 10.036756 2: 10.043778 3: 10.045073
+1794821937,979 [response] // Actuator Positions: | // z: 10.033028 z1: 10.036404 z2: 10.044033 z3: 10.046062
+1794821937,979 [response] // Average: 10.039882
+1794821937,981 [response] // Making the following Z adjustments: | // stepper_z = 0.006854 | // stepper_z1 = 0.003478 | // stepper_z2 = -0.004151 | // stepper_z3 = -0.006180
+1794821937,985 [response] // Retries: 1/10 Probed points range: 0.010512 tolerance: 0.007500
+1794821940,254 [response] probe at 20.000,10.000 is z=1.976419 |
+1794821942,240 [response] probe at 20.000,280.000 is z=1.971974 |
+1794821944,427 [response] probe at 330.000,280.000 is z=1.970240 |
+1794821946,410 [response] probe at 330.000,10.000 is z=1.970681 |
+1794821946,413 [response] // Gantry-relative probe points: | // 0: 10.023581 1: 10.028026 2: 10.029760 3: 10.029319
+1794821946,416 [response] // Actuator Positions: | // z: 10.022041 z1: 10.028485 z2: 10.029896 z3: 10.029652
+1794821946,416 [response] // Average: 10.027518
+1794821946,416 [response] // Making the following Z adjustments: | // stepper_z = 0.005478 | // stepper_z1 = -0.000966 | // stepper_z2 = -0.002377 | // stepper_z3 = -0.002134
+1794821946,424 [response] // Retries: 2/10 Probed points range: 0.006180 tolerance: 0.007500
+1794821946,479 [response] // toolchanger initialized, active tool T0
+1794821950,817 [response] probe at 178.600,165.800 is z=511.500065 |

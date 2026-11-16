@@ -1,0 +1,2 @@
+"round","tool","z_trigger_mm","axiscope_z_offset_mm","temperature_c","axiscope_last_run","reason"
+"3","1","2.97520000000035","-0.281934998198111","150.33","2977.746754373","T1 first contact 3.022 vs later 2.958-2.966; 0.064 mm five-sample spread; inspect nozzle and latch"

@@ -1,0 +1,4 @@
+round,bed_temperature_c,success,first_range_mm,final_range_mm,fine_retries,notes
+1,27.7,true,0.070117,0.004698,7,PF2 holder installed; user confirmed clearance; bed target 0
+2,28.1,true,0.019403,0.006180,2,PF2 holder installed; bed target 0
+3,28.5,true,0.013147,0.005309,1,PF2 holder installed; bed target 0
