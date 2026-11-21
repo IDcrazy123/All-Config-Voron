@@ -11,7 +11,7 @@ Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five Stealth
 | Controller / host | BTT Manta M8P V2.0 + BTT CM4, CAN interface `can0` |
 | Toolheads | 5 × BTT EBB36 V1.2, WW BMG extruders, TZ V6 2.0 hotends |
 | Toolchanger | KTC-Easy, five docks at measured park coordinates, OptoTap presence sensing |
-| Z home / mesh | LDC1612 on Manta hardware I²C3 `PA8`/`PC9`, coil thermistor `PC5`; native tap at `(174, 168)` and adaptive 55 × 55 rapid scan mesh remain gated pending verification |
+| Z home / mesh | LDC1612 on Manta hardware I²C3 `PA8`/`PC9`, coil thermistor `PC5`; native tap at `(174, 168)` and adaptive 15 × 15 regular scan mesh remain gated pending verification |
 | Tool calibration | Axiscope camera for XY; PF2 switch at `(81, -7)` for coarse Z from Z4 over the observed T0 contact near Z3; first-layer tests for final Z |
 | Motion limits | XY 350 mm/s, 7000 mm/s²; Z 80 mm/s, 1000 mm/s² |
 | Heated bed | 1000 W AC pad through SSR on `PA5`; sensor `PB0`; maximum 120 °C |

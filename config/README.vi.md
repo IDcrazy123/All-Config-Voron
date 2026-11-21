@@ -49,7 +49,7 @@ Xem [hướng dẫn chia sẻ từng file](../extras/docs/sharing-cfg-files.md) 
 | Chức năng | Giá trị active |
 | --- | --- |
 | MCU chính | CAN UUID `19b203d75137` |
-| LDC1612 | I²C Manta `PA8`/`PC9`, nhiệt điện trở TH1 `PC5`, offset cuộn dây X0/Y35; chưa hiệu chuẩn mới |
+| LDC1612 | I²C3 phần cứng Manta `PA8`/`PC9`, nhiệt điện trở TH1 `PC5`, offset cuộn dây X0/Y35; đã lưu dòng kích/mô hình Z ở 100°C, còn tap/mesh/trôi nhiệt |
 | Công tắc hiệu chuẩn Z sơ bộ | `^PF2`; đế tại `(81, -7)`; T0 chạm gần Z3; Axiscope bắt đầu tại Z4 và di chuyển an toàn ở Z15 |
 | XY | X `PE6`/`PF0`, Y `PE2`/`PF4`; 350 mm/s, 7000 mm/s² |
 | Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |

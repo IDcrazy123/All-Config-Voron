@@ -11,7 +11,7 @@ Kho cấu hình Klipper production cho Voron 2.4 CoreXY 350 mm dùng năm đầu
 | Controller / host | BTT Manta M8P V2.0 + BTT CM4, CAN `can0` |
 | Toolhead | 5 × BTT EBB36 V1.2, extruder WW BMG, hotend TZ V6 2.0 |
 | Toolchanger | KTC-Easy, năm dock tại tọa độ đã đo, cảm biến hiện diện OptoTap |
-| Home Z / mesh | LDC1612 trên I²C3 phần cứng Manta `PA8`/`PC9`, nhiệt cuộn dây `PC5`; tap gốc tại `(174, 168)` và mesh adaptive rapid scan 55 × 55 vẫn bị chặn chờ kiểm chứng |
+| Home Z / mesh | LDC1612 trên I²C3 phần cứng Manta `PA8`/`PC9`, nhiệt cuộn dây `PC5`; tap gốc tại `(174, 168)` và mesh adaptive quét thường 15 × 15 vẫn bị chặn chờ kiểm chứng |
 | Hiệu chuẩn tool | Camera Axiscope cho XY; công tắc PF2 tại `(81, -7)` cho Z sơ bộ từ Z4 trên điểm T0 chạm gần Z3; test first-layer cho Z cuối |
 | Giới hạn chuyển động | XY 350 mm/s, 7000 mm/s²; Z 80 mm/s, 1000 mm/s² |
 | Bàn nhiệt | Silicone AC 1000 W qua SSR chân `PA5`; sensor `PB0`; tối đa 120 °C |

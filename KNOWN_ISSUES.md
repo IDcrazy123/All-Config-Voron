@@ -19,10 +19,15 @@ global acceleration reduction to 300 mm/s² worsened tap detection and was
 reverted. No tap threshold is saved. A 9x9 native rapid-scan mesh succeeded;
 the full 55x55 mesh stopped with a sensor outage after the main MCU shutdown.
 The same main-MCU `Missed scheduling of next digital out event` shutdown had
-occurred during tap. The active software I2C bus on PA8/PC9 is being replaced
-with the MCU-advertised hardware `i2c3_PA8_PC9` at 100 kHz; whether this fixes
-the scheduling fault is not yet verified. Full mesh, thermal drift compensation,
-and first layers remain unverified. `PRINT_START` stays gated. The seller
+occurred during tap. Switching from software I2C to the MCU-advertised hardware
+`i2c3_PA8_PC9` at 100 kHz did not eliminate full-mesh shutdown: G28, QGL and
+9x9 rapid scan succeeded, but a second 55x55 full rapid scan caused the same
+MCU fault. The two full scans queued about 52 and 47 seconds of motion shortly
+before shutdown. The software configuration is being reduced to a 15x15 native
+regular scan at 150 mm/s and Z2; this has not been tested on hardware. The tap
+shutdown had a short motion queue, so its cause remains separate and unknown.
+Full mesh, thermal drift compensation, and first layers remain unverified.
+`PRINT_START` stays gated. The seller
 recommends about 5 mm from coil underside to nozzle tip; the operator reports
 about 3 mm on this mount. The historical Cartographer issues below describe
 the retired sensor and should not guide new probe tuning.

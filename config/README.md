@@ -59,7 +59,7 @@ Use the [machine adaptation guide](../extras/docs/machine-adaptation.md) before 
 | Function | Active value |
 | --- | --- |
 | Main MCU | CAN UUID `19b203d75137` |
-| LDC1612 | Manta I2C `PA8`/`PC9`, thermistor TH1 `PC5`, coil offset X0/Y35; new calibration pending |
+| LDC1612 | Manta hardware I2C3 `PA8`/`PC9`, thermistor TH1 `PC5`, coil offset X0/Y35; drive and 100 C height model saved, tap/mesh/drift pending |
 | Coarse-Z calibration switch | `^PF2`; holder at `(81, -7)`; T0 contact near Z3; Axiscope starts at Z4 and uses Z15 transit |
 | XY | X `PE6`/`PF0`, Y `PE2`/`PF4`; 350 mm/s, 7000 mm/s² |
 | Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |
