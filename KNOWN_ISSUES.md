@@ -45,9 +45,15 @@ CAN reported zero bus errors, drops and retransmits, and host load was low;
 the source of the missed digital-output schedule is still unknown. An
 operator-triggered QGL while heaters were off and the bed cooled to 86 C
 converged, but this does not validate hot printing. A subsequent `PRINT_START`
-was correctly blocked by `_LDC1612_PRODUCTION.verified=0`. Do not attempt
-another print until the MCU fault is diagnosed and hot G28/QGL/tap/mesh run
-reliably. Scan thermal drift compensation and first layers remain unverified.
+was correctly blocked by `_LDC1612_PRODUCTION.verified=0`. One attended
+scan-only, one-layer T0 ABS trial at 100/240 C completed without an MCU
+shutdown using the saved 15x15 mesh. It did not run hot QGL, tap or a fresh
+mesh, and first-layer quality has not been assessed. A second attempt failed
+before heating because the temporary test macro required T0 on the shuttle;
+the preceding `PRINT_END` had docked T0. The test path is being replaced with
+the normal `PRINT_START` flow restricted to this reviewed file. Do not release
+ordinary production printing until the MCU fault is diagnosed and hot
+G28/QGL/tap/mesh run reliably. Scan thermal drift compensation remains pending.
 The seller
 recommends about 5 mm from coil underside to nozzle tip; the operator reports
 about 3 mm on this mount. The historical Cartographer issues below describe
