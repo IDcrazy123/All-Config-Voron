@@ -60,7 +60,7 @@ Xem [hướng dẫn chia sẻ từng file](../extras/docs/sharing-cfg-files.md) 
 
 ## Quyền sở hữu hiệu chuẩn
 
-- LDC1612: home Z, tap vòi và quét mesh thích ứng. `PRINT_START` yêu cầu hiệu chuẩn scan và tap đã lưu, đồng thời đợi bàn trở lại nhiệt độ in trước khi prime.
+- LDC1612: home Z, tap vòi và quét liên tục mesh 25×25 trên vùng đo đã cấu hình. `PRINT_START` yêu cầu hiệu chuẩn scan và tap đã lưu, đồng thời đợi bàn trở lại nhiệt độ in trước khi prime.
 - Đo cộng hưởng: ADXL345 của EBB36 T0, phải gắn T0 khi đo.
 - Axiscope: đo XY bằng camera và đo Z tương đối sơ bộ có người giám sát trên PF2.
 - Khối `SAVE_CONFIG` trong `printer.cfg`: nguồn chuẩn cho offset XYZ T1–T4.

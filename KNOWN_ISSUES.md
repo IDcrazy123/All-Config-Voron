@@ -6,12 +6,13 @@ entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 ## LDC1612 tap and print validation pending (2026-11-21)
 
 Current configuration holds bed temperature during QGL as requested by the
-operator. Bed power is paused during tap and the adaptive mesh. Print start waits for the bed before
+operator. Bed power is paused during tap and the continuous 25x25 mesh. Print start waits for the bed before
 probing and before priming. The operator requested removal of the manual
 print gate. Saved scan and tap data are required before heating, and the
-leveling, tap and mesh commands must succeed before priming. The first
-operator-run print with the new sequence is pending. The underlying
-main-MCU digital-output timeout has not been proven resolved.
+leveling, tap and mesh commands must succeed before priming. `Khoi lap phuong_ABS_3m33s.gcode`
+completed with the preceding settings (bed power paused during QGL and
+13x14 adaptive scan). The 25x25 rapid scan and QGL with bed power on still need
+an attended run. The underlying MCU digital-output timeout remains open.
 
 Before this change, a sixth main-MCU `Missed scheduling of next digital out event` shutdown
 occurred during the first hot QGL attempt after deploying the five-sample tap

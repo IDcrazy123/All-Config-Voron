@@ -1,6 +1,6 @@
 # Hiệu chuẩn LDC1612 trong Klipper trên Voron 5 Tool
 
-Dùng Console của Mainsail và chạy từng khối theo thứ tự. Hướng dẫn này dành cho T0, bàn ABS 100°C, vòi đo 150°C và cảm biến LDC1612 trên shuttle. Vị trí giữa bàn là X174 Y168. Mesh đầy đủ của máy là 15×15, đo ở Z2.
+Dùng Console của Mainsail và chạy từng khối theo thứ tự. Hướng dẫn này dành cho T0, bàn ABS 100°C, vòi đo 150°C và cảm biến LDC1612 trên shuttle. Vị trí giữa bàn là X174 Y168. Mesh đối chiếu thủ công là 15×15, đo ở Z2. `PRINT_START` quét liên tục 25×25 trên cùng vùng đo.
 
 | Bước | Tác dụng | Kết quả lưu |
 | --- | --- | --- |
@@ -91,6 +91,12 @@ M400
 BED_MESH_OUTPUT
 ```
 
-Kiểm tra bản đồ trong mục Heightmap của Mainsail. Nếu muốn giữ mesh vừa đo để so sánh hoặc nạp lại, chạy `SAVE_CONFIG` để ghi profile `ldc1612_abs100_t0` đã đặt trong lệnh quét. Khi hiệu chuẩn xong và chưa in, chạy `TURN_OFF_HEATERS`. Cấu hình in bình thường dùng `BED_MESH_CALIBRATE ADAPTIVE=1 METHOD=scan` để đo theo vùng của bản in, rồi bật và đợi bàn trở lại nhiệt độ yêu cầu trước prime. [Klipper Bed Mesh và profile](https://www.klipper3d.org/Bed_Mesh.html#bed-mesh-gcodes)
+Kiểm tra bản đồ trong mục Heightmap của Mainsail. Nếu muốn giữ mesh vừa đo để so sánh hoặc nạp lại, chạy `SAVE_CONFIG` để ghi profile `ldc1612_abs100_t0` đã đặt trong lệnh quét. Khi hiệu chuẩn xong và chưa in, chạy `TURN_OFF_HEATERS`. [Klipper Bed Mesh và profile](https://www.klipper3d.org/Bed_Mesh.html#bed-mesh-gcodes)
+
+Để dùng đúng kiểu quét của bản in, thay lệnh `BED_MESH_CALIBRATE` trong khối trên bằng lệnh dưới đây. Klipper đo 625 điểm trong lúc đầu in di chuyển trên các đường quét liên tục. `PRINT_START` tự làm bước này, rồi bật và đợi bàn trở lại nhiệt độ yêu cầu trước prime. [Klipper rapid scan](https://www.klipper3d.org/Bed_Mesh.html#rapid-continuous-scanning)
+
+```gcode
+BED_MESH_CALIBRATE METHOD=rapid_scan ADAPTIVE=0 HORIZONTAL_MOVE_Z=2 PROBE_COUNT=25,25 SCAN_SPEED=180 PROFILE=ldc1612_rapid
+```
 
 Mesh 55×55 là phép đo chẩn đoán riêng. Hai lượt `rapid_scan` 55×55 trước đây đã gây shutdown MCU. Hãy hoàn tất lượt scan 15×15 và kiểm tra lớp đầu trước khi tăng mật độ.
