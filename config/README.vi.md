@@ -49,8 +49,8 @@ Xem [hướng dẫn chia sẻ từng file](../extras/docs/sharing-cfg-files.md) 
 | Chức năng | Giá trị active |
 | --- | --- |
 | MCU chính | CAN UUID `19b203d75137` |
-| Cartographer | CAN UUID `da13d909ce34`; Touch home tại `(174, 168)` |
-| Công tắc hiệu chuẩn Z sơ bộ | `^PF2`; đế tại `(80, -8)`; vùng chạm quan sát Z0–2; Axiscope bắt đầu tại Z3 và di chuyển an toàn ở Z15 |
+| LDC1612 | I²C Manta `PA8`/`PC9`, nhiệt điện trở TH1 `PC5`, offset cuộn dây X0/Y35; chưa hiệu chuẩn mới |
+| Công tắc hiệu chuẩn Z sơ bộ | `^PF2`; đế tại `(81, -7)`; T0 chạm gần Z3; Axiscope bắt đầu tại Z4 và di chuyển an toàn ở Z15 |
 | XY | X `PE6`/`PF0`, Y `PE2`/`PF4`; 350 mm/s, 7000 mm/s² |
 | Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |
 | Bàn nhiệt | Heater `PA5`, sensor `PB0`, tối đa 120 °C |
@@ -60,15 +60,16 @@ Xem [hướng dẫn chia sẻ từng file](../extras/docs/sharing-cfg-files.md) 
 
 ## Quyền sở hữu hiệu chuẩn
 
-- Cartographer: home Z, chuẩn Touch, adaptive bed mesh và ADXL345 trên shuttle.
+- LDC1612: home Z và adaptive bed mesh sau khi hiệu chuẩn dòng kích, chiều cao và trôi nhiệt. In tự động bị chặn cho tới khi kiểm tra cơ khí có người giám sát.
+- Đo cộng hưởng: ADXL345 của EBB36 T0, phải gắn T0 khi đo.
 - Axiscope: đo XY bằng camera và đo Z tương đối sơ bộ có người giám sát trên PF2.
 - Khối `SAVE_CONFIG` trong `printer.cfg`: nguồn chuẩn cho offset XYZ T1–T4.
-- `_CALIBRATION_SWITCH.z: 15` là độ cao di chuyển XY/đổi tool an toàn. Axiscope bắt đầu tại Z3 trên vùng chạm quan sát Z0–2. Sau khi kiểm tra cả hai trạng thái PF2 bằng `QUERY_ENDSTOPS`, dùng `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1`; lệnh chỉ báo Z sơ bộ. Axiscope và helper KTC cũ không được tự ghi file cấu hình; XY được xem lại rồi nhập thủ công, còn Z cuối luôn lấy từ test first-layer. `CALIBRATE_ALL_OFFSETS` cũ và hiệu chuẩn offset probe tiếp tục bị chặn.
+- `_CALIBRATION_SWITCH.z: 15` là độ cao di chuyển XY/đổi tool an toàn. Axiscope bắt đầu tại Z4 trên điểm T0 chạm gần Z3. Sau khi kiểm tra cả hai trạng thái PF2 bằng `QUERY_ENDSTOPS`, dùng `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1`; lệnh chỉ báo Z sơ bộ. Axiscope và helper KTC cũ không được tự ghi file cấu hình; XY được xem lại rồi nhập thủ công, còn Z cuối luôn lấy từ test first-layer. `CALIBRATE_ALL_OFFSETS` cũ và hiệu chuẩn offset probe tiếp tục bị chặn.
 - kTAMV, ToolVision, TKC, KCC và các cấu hình SexBolt cũ chỉ còn là tài liệu lịch sử.
 
 Trước mỗi lần đổi tool trong chu trình hiệu chuẩn, `_CALIBRATE_SAFE_TRANSIT` nâng thẳng lên ít nhất độ cao di chuyển Z15 đã cấu hình; macro không di chuyển XY.
 
-Phải tháo đế trước `G28`, QGL, bed mesh, Cartographer Touch hoặc in. Home khi mặt bàn thông thoáng, nâng tới Z15, lắp đế rồi xác nhận X80/Y-8 và trạng thái công tắc PF2 trước khi dò có người giám sát.
+Phải tháo đế trước `G28`, QGL, bed mesh hoặc in. Home khi mặt bàn thông thoáng, nâng tới Z15, lắp đế rồi xác nhận X81/Y-7 và trạng thái công tắc PF2 trước khi dò có người giám sát.
 
 ## Thông số để dùng trên máy khác
 

@@ -1,0 +1,32 @@
+零、软/硬件要求
+
+1. 请确认购买的涡流板为外置晶振版本
+2. 请更新Klipper至0.13最新版本
+
+一、安装涡流调平板
+
+先安装涡流调平板到滑车上，确保涡流板底部线圈垂直距离喷嘴尖大约5mm。连接热敏接口、I2C接口至下位机或CAN板。并引入（include）ldc1612-eddy.cfg配置文件到printer.cfg配置文件中。
+
+* 打开配置文件ldc1612-eddy.cfg，调整里面的:
+1、y_offset
+2、i2c_xxxxxx, i2c_xxxxxx
+3、sensor_pin
+4、home_xy_position
+
+* 打开printer.cfg，[stepper_z]中的endstop_pin设为：
+endstop_pin: probe:z_virtual_endstop
+
+
+二、调配涡流板参数
+
+先将热床加热到60℃。
+
+第一步：执行EDDY_SETUP_AUTO，用白纸调喷嘴高度，调完后点“Accept（接受）”。期间涡流板会进行数据采样，采样完成后，请点击右上角的『保存』按钮重启klipper。
+
+第二步：重启Klipper，即可测试打印。
+
+
+注意：非Voron机型，可能需要调节配置文件(printer.cfg)里面的3Z/4Z点位(points, 3Z中的Z_TILT，4Z中的QUAD_GANTRY_LEVEL)。确保在z定位时，涡流线圈能一直完全处于打印床内，否则一定会引起刮PEI板，请注意！
+
+小提示：
+如果测试打印的高度离热床稍高或稍低，可以调整ldc1612-eddy.cfg配置文件中的tap_z_offset参数。正值表示打印嘴更远离热床，负值表示打印嘴更接近热床

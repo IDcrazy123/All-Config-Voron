@@ -1,0 +1,40 @@
+插件wiki:
+https://github.com/vvuk/eddy-ng/wiki
+
+
+零、安装eddy-ng插件
+
+eddy-ng不支持最新版本的klipper，需要先手动降级，先执行以下命令降级到指定版本：
+
+cd ~/klipper && git reset --hard && git pull && git checkout 373f200ca69adb624675f42e685f61d85d49ba40
+
+接着解压eddy-ng.zip至HOME目录。然后使用命令: cd ~/eddy-ng/ && ./install.sh 安装eddy-ng。
+重新编译klipper，并重新刷入至CAN板或下位机。
+
+一、安装涡流调平板
+
+先安装涡流调平板到滑车上，确保涡流板底部线圈垂直距离喷嘴尖大约5mm。连接热敏接口、I2C接口至下位机或CAN板。并引入（include）ldc1612-eddy.cfg配置文件到printer.cfg配置文件中。
+
+* 打开配置文件ldc1612-eddy-ng.cfg，调整里面的:
+1、y_offset
+2、i2c_xxxxxx, i2c_xxxxxx
+3、sensor_pin
+4、home_xy_position
+
+* 打开printer.cfg，[stepper_z]中的endstop_pin设为：
+endstop_pin: probe:z_virtual_endstop
+
+
+二、调配涡流板参数
+
+先将热床加热到60℃。
+
+第一步：执行PROBE_EDDY_NG_SETUP_AUTO，用白纸调喷嘴高度，调完后点“Accept（接受）”。期间涡流板会自动识别合适电流（电流值19-22）。正确识别电流后，请点击右上角的『保存』按钮重启klipper。若最终没能查找出适合的电流值，表明安装高度不对，请调整安装高度后重试第一步。
+
+第二步：重启Klipper，即可测试打印。
+
+
+注意：非Voron机型，可能需要调节配置文件(printer.cfg)里面的3Z/4Z点位(points, 3Z中的Z_TILT，4Z中的QUAD_GANTRY_LEVEL)。确保在z定位时，涡流线圈能一直完全处于打印床内，否则一定会引起刮PEI板，请注意！
+
+小提示：
+如果测试打印的高度离热床稍高或稍低，可以调整ldc1612-eddy-ng.cfg配置文件中的tap_adjust_z参数。正值表示打印嘴更远离热床，负值表示打印嘴更接近热床

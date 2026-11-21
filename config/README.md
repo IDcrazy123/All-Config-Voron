@@ -59,8 +59,8 @@ Use the [machine adaptation guide](../extras/docs/machine-adaptation.md) before 
 | Function | Active value |
 | --- | --- |
 | Main MCU | CAN UUID `19b203d75137` |
-| Cartographer | CAN UUID `da13d909ce34`; Touch home at `(174, 168)` |
-| Coarse-Z calibration switch | `^PF2`; holder at `(80, -8)`; observed contact range Z0–2; Axiscope starts at Z3 and uses Z15 transit |
+| LDC1612 | Manta I2C `PA8`/`PC9`, thermistor TH1 `PC5`, coil offset X0/Y35; new calibration pending |
+| Coarse-Z calibration switch | `^PF2`; holder at `(81, -7)`; T0 contact near Z3; Axiscope starts at Z4 and uses Z15 transit |
 | XY | X `PE6`/`PF0`, Y `PE2`/`PF4`; 350 mm/s, 7000 mm/s² |
 | Z | `PG9`, `PB4`, `PG13`, `PB8`; 80 mm/s, 1000 mm/s² |
 | Bed | Heater `PA5`, sensor `PB0`, maximum 120 °C |
@@ -70,15 +70,16 @@ Use the [machine adaptation guide](../extras/docs/machine-adaptation.md) before 
 
 ## Calibration ownership
 
-- Cartographer: Z homing, Touch reference, adaptive bed mesh, and shuttle ADXL345.
+- LDC1612: Z homing and adaptive bed mesh after drive-current, height, and thermal calibration. Automatic printing is gated until supervised verification.
+- Resonance tester: T0 EBB36 ADXL345, requiring T0 to be mounted during a test.
 - Axiscope: camera-assisted XY measurement and attended coarse relative-Z measurement on PF2.
 - `printer.cfg` `SAVE_CONFIG`: authoritative T1–T4 XYZ offsets.
-- `_CALIBRATION_SWITCH.z: 15` is the safe XY/tool-change transit height. Axiscope starts at Z3 over the observed Z0–2 contact range. After checking both PF2 states with `QUERY_ENDSTOPS`, use `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1`; it reports preliminary Z only. Axiscope config writes and legacy KTC save helpers are disabled; XY changes are reviewed and applied manually, while final Z always comes from first-layer tests. The retired `CALIBRATE_ALL_OFFSETS` and probe-offset calibration remain blocked.
+- `_CALIBRATION_SWITCH.z: 15` is the safe XY/tool-change transit height. Axiscope starts at Z4 over the observed Z3 T0 contact point. After checking both PF2 states with `QUERY_ENDSTOPS`, use `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1`; it reports preliminary Z only. Axiscope config writes and legacy KTC save helpers are disabled; XY changes are reviewed and applied manually, while final Z always comes from first-layer tests. The retired `CALIBRATE_ALL_OFFSETS` and probe-offset calibration remain blocked.
 - kTAMV, ToolVision, TKC, KCC, and earlier SexBolt configurations are historical references only.
 
 Before every tool change in the calibration sequence, `_CALIBRATE_SAFE_TRANSIT` lifts vertically to at least the configured transit Z15; it does not move XY.
 
-The holder must be removed before `G28`, QGL, bed mesh, Cartographer Touch, or printing. Home with an unobstructed plate, raise to Z15, install the holder, then verify X80/Y-8 and the PF2 switch state before attended probing.
+The holder must be removed before `G28`, QGL, bed mesh, or printing. Home with an unobstructed plate, raise to Z15, install the holder, then verify X81/Y-7 and the PF2 switch state before attended probing.
 
 ## Deployment behavior
 
