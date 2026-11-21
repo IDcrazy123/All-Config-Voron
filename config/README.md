@@ -70,7 +70,7 @@ Use the [machine adaptation guide](../extras/docs/machine-adaptation.md) before 
 
 ## Calibration ownership
 
-- LDC1612: Z homing and adaptive bed mesh after drive-current, height, and thermal calibration. Automatic printing is gated until supervised verification.
+- LDC1612: Z homing, nozzle tap, and adaptive bed mesh. Print start requires saved scan and tap calibration and restores the bed temperature before priming.
 - Resonance tester: T0 EBB36 ADXL345, requiring T0 to be mounted during a test.
 - Axiscope: camera-assisted XY measurement and attended coarse relative-Z measurement on PF2.
 - `printer.cfg` `SAVE_CONFIG`: authoritative T1–T4 XYZ offsets.

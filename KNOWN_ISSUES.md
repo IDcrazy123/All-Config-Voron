@@ -5,14 +5,21 @@ entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 
 ## LDC1612 tap and print validation pending (2026-11-21)
 
-A sixth main-MCU `Missed scheduling of next digital out event` shutdown
+Current configuration pauses bed power during hot QGL and again during tap
+and the adaptive mesh. The normal print start waits for the bed before
+probing and before priming. The operator requested removal of the manual
+print gate. Saved scan and tap data are required before heating, and the
+leveling, tap and mesh commands must succeed before priming. The first
+operator-run print with the new sequence is pending. The underlying
+main-MCU digital-output timeout has not been proven resolved.
+
+Before this change, a sixth main-MCU `Missed scheduling of next digital out event` shutdown
 occurred during the first hot QGL attempt after deploying the five-sample tap
 macro. The QGL had just measured a 0.051810 mm corner range; it never reached
 tap or mesh. The operator confirmed T0 was safe. The log still shows no CAN
 retransmits; the root cause is unproven. The temporary `LDC_TEST` print-start
-bypass has been removed at the operator's request to use native Klipper
-calibration commands without extra trial macros. Do not run the uploaded trial
-file while the MCU fault is unresolved. `PRINT_START` remains gated.
+bypass was removed at the operator's request to use native Klipper
+calibration commands without extra trial macros.
 
 Later on November 21, the official Klipper `TAP=guess`, `TAP=refine`,
 `TAP=verify` sequence was repeated after a hot QGL converged to 0.005730 mm.
@@ -25,9 +32,8 @@ failed `Probe samples exceed samples_tolerance` after two retries, with
 readings from -0.031667 to +0.016395 mm. This remains a first-layer Z
 repeatability issue. The printer was lifted to Z10 and heaters turned off;
 the save restart left T0 physically detected on the shuttle and XYZ unhomed.
-The attended full-flow test file is uploaded but must not be started until
-this repeatability issue and the intermittent MCU shutdowns are resolved.
-Ordinary production printing remains blocked by `_LDC1612_PRODUCTION.verified=0`.
+The full-flow test had been held back at that point due to repeatability
+and MCU shutdowns.
 
 The active Cartographer MCU and plugin have been removed. Native Klipper
 communicates with the LDC1612 over Manta I2C and reads its coil thermistor on
