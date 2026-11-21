@@ -13,21 +13,27 @@ QGL at 100 C first failed due to increasing range (0.0105 to 0.0223 mm), then
 a second run converged to 0.00619 mm in four retries. Independent corner range
 was 0.01685 mm; repeatability and thermal compensation need further work.
 Native `TAP=guess` initially stopped with `insufficient lift (0.226 vs 0.350
-mm)`; `LIFT_SPEED=10` allowed guess/refine/verify, but later five-tap sets at
-100/150 C spread about 0.043 and 0.029 mm with early outliers. A temporary
-global acceleration reduction to 300 mm/s² worsened tap detection and was
-reverted. No tap threshold is saved. A 9x9 native rapid-scan mesh succeeded;
-the full 55x55 mesh stopped with a sensor outage after the main MCU shutdown.
+mm)`; `LIFT_SPEED=10` allowed guess/refine/verify, but five-tap sets at
+100/150 C spread as much as 0.043 mm with outliers. A temporary global
+acceleration reduction to 300 mm/s² worsened tap detection and was reverted.
+After a successful 15x15 mesh and another QGL, three five-tap sets using
+threshold 16449.278 spread 0.0303 / 0.0116 / 0.0146 mm. A higher refined
+threshold 20508.366 spread 0.0285 mm. The operator observed gentle contact.
+Neither threshold was saved; `RESTART` discarded pending calibration. The
+installed Klipper guide states that tap does not use the scan drift model, so
+thermal drift calibration alone will not explain the tap outliers.
 The same main-MCU `Missed scheduling of next digital out event` shutdown had
 occurred during tap. Switching from software I2C to the MCU-advertised hardware
 `i2c3_PA8_PC9` at 100 kHz did not eliminate full-mesh shutdown: G28, QGL and
 9x9 rapid scan succeeded, but a second 55x55 full rapid scan caused the same
 MCU fault. The two full scans queued about 52 and 47 seconds of motion shortly
-before shutdown. The software configuration is being reduced to a 15x15 native
-regular scan at 150 mm/s and Z2; this has not been tested on hardware. The tap
-shutdown had a short motion queue, so its cause remains separate and unknown.
-Full mesh, thermal drift compensation, and first layers remain unverified.
-`PRINT_START` stays gated. The seller
+before shutdown. Native regular scan at 150 mm/s, Z2 and 15x15 completed once
+at a 100 C bed and 150 C nozzle, range -0.031001..+0.086492 mm. It is saved
+as the `default` profile. The final observed motion buffer was about 1.1 s;
+repeatability over multiple full scans remains unknown. The tap shutdown had
+a short motion queue, so its cause remains separate and unknown. Scan thermal
+drift compensation and first layers remain unverified. `PRINT_START` stays
+gated. The seller
 recommends about 5 mm from coil underside to nozzle tip; the operator reports
 about 3 mm on this mount. The historical Cartographer issues below describe
 the retired sensor and should not guide new probe tuning.
