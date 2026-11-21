@@ -5,6 +5,15 @@ entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 
 ## LDC1612 tap and print validation pending (2026-11-21)
 
+A sixth main-MCU `Missed scheduling of next digital out event` shutdown
+occurred during the first hot QGL attempt after deploying the five-sample tap
+macro. The QGL had just measured a 0.051810 mm corner range; it never reached
+tap or mesh. The operator confirmed T0 was safe. The log still shows no CAN
+retransmits; the root cause is unproven. The temporary `LDC_TEST` print-start
+bypass has been removed at the operator's request to use native Klipper
+calibration commands without extra trial macros. Do not run the uploaded trial
+file while the MCU fault is unresolved. `PRINT_START` remains gated.
+
 Later on November 21, the official Klipper `TAP=guess`, `TAP=refine`,
 `TAP=verify` sequence was repeated after a hot QGL converged to 0.005730 mm.
 The operator confirmed light contact and no bed mark. Both five-tap verify
