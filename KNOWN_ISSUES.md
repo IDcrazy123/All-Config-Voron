@@ -5,6 +5,21 @@ entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 
 ## LDC1612 tap and print validation pending (2026-11-21)
 
+Later on November 21, the official Klipper `TAP=guess`, `TAP=refine`,
+`TAP=verify` sequence was repeated after a hot QGL converged to 0.005730 mm.
+The operator confirmed light contact and no bed mark. Both five-tap verify
+commands completed; the native `tap_threshold: 24888.543` was saved with
+`SAVE_CONFIG` and Klipper restarted ready without warnings. However, the
+five-tap ranges were 0.024289 and 0.029504 mm. A separate trial using the
+print macro's `SAMPLES=3 SAMPLES_TOLERANCE=0.01 SAMPLES_TOLERANCE_RETRIES=2`
+failed `Probe samples exceed samples_tolerance` after two retries, with
+readings from -0.031667 to +0.016395 mm. This remains a first-layer Z
+repeatability issue. The printer was lifted to Z10 and heaters turned off;
+the save restart left T0 physically detected on the shuttle and XYZ unhomed.
+The attended full-flow test file is uploaded but must not be started until
+this repeatability issue and the intermittent MCU shutdowns are resolved.
+Ordinary production printing remains blocked by `_LDC1612_PRODUCTION.verified=0`.
+
 The active Cartographer MCU and plugin have been removed. Native Klipper
 communicates with the LDC1612 over Manta I2C and reads its coil thermistor on
 PC5. Drive current 17 and native Z scan calibration were saved; a second scan
