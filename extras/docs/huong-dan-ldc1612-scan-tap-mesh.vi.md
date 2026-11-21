@@ -1,6 +1,6 @@
 # Hiệu chuẩn LDC1612 trong Klipper trên Voron 5 Tool
 
-Dùng Console của Mainsail và chạy từng khối theo thứ tự. Hướng dẫn này dành cho T0, bàn ABS 100°C, vòi đo 150°C và cảm biến LDC1612 trên shuttle. Vị trí giữa bàn là X174 Y168. Mesh đối chiếu thủ công là 15×15, đo ở Z2. `PRINT_START` quét liên tục 25×25 trên cùng vùng đo.
+Dùng Console của Mainsail và chạy từng khối theo thứ tự. Hướng dẫn này dành cho T0, bàn ABS 100°C, vòi đo 150°C và cảm biến LDC1612 trên shuttle. Vị trí giữa bàn là X174 Y168. Lưới đối chiếu trong hướng dẫn là 15×15 ở Z2. Nút Calibrate trong Mainsail chạy quét liên tục 55×55 theo cấu hình máy, và `PRINT_START` chạy 25×25 trên cùng vùng đo.
 
 | Bước | Tác dụng | Kết quả lưu |
 | --- | --- | --- |
@@ -37,7 +37,7 @@ G0 Z10 F3000
 G0 X174 Y168 F6000
 ```
 
-QGL chạy khi bàn giữ target 100°C. Với cấu hình 4Z của máy, lượt QGL tinh phải báo dải bốn góc trong ngưỡng 0,0075 mm. Nếu MCU báo `Missed scheduling of next digital out event`, giữ log và dừng quy trình tại đó.
+QGL chạy khi bàn giữ target 100°C. Khi chưa cân giàn, vòng thô dò từng góc từ Z10 để xác lập khoảng hở. Vòng tinh dùng `METHOD=scan` ở Z2 để lấy mẫu tại bốn góc ở độ cao cố định. Lượt tinh phải báo dải bốn góc trong ngưỡng 0,0075 mm. Nếu MCU báo `Missed scheduling of next digital out event`, giữ log và dừng quy trình tại đó.
 
 ## 2. Hiệu chuẩn scan bằng giấy
 
@@ -99,4 +99,4 @@ Kiểm tra bản đồ trong mục Heightmap của Mainsail. Nếu muốn giữ 
 BED_MESH_CALIBRATE METHOD=rapid_scan ADAPTIVE=0 HORIZONTAL_MOVE_Z=2 PROBE_COUNT=25,25 SCAN_SPEED=180 PROFILE=ldc1612_rapid
 ```
 
-Mesh 55×55 là phép đo chẩn đoán riêng. Hai lượt `rapid_scan` 55×55 trước đây đã gây shutdown MCU. Hãy hoàn tất lượt scan 15×15 và kiểm tra lớp đầu trước khi tăng mật độ.
+Khi bấm Calibrate trong Mainsail hoặc gửi `BED_MESH_CALIBRATE` sau QGL, máy mặc định quét liên tục 55×55 ở Z2, 150 mm/s. Có thể truyền `PROBE_COUNT=25,25` cho lượt kiểm tra ngắn hơn. `METHOD=scan` tường minh vẫn sử dụng được để đo đối chiếu tại chỗ. Hai lượt `rapid_scan` 55×55 trước đây đã gây shutdown MCU, nên quan sát lần chạy đầu với cấu hình hiện tại.

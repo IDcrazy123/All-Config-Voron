@@ -1,0 +1,1 @@
+Repository configuration before making bare BED_MESH_CALIBRATE use rapid scan and switching fine QGL to scan. The live calibration-probe.cfg differed only in probe_count (55,55), which is preserved in the change.

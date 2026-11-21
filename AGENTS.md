@@ -11,7 +11,7 @@ Cập nhật: 2026-11-21. File này là điểm vào duy nhất cho công việc
 
 ## Kiến trúc đang chạy
 
-- Thay đổi theo yêu cầu ngày 2026-11-21: QGL trong `PRINT_START` giữ nhiệt bàn theo PID. Bước ngắt PWM bàn chỉ áp dụng cho tap và quét mesh. `PRINT_START` quét liên tục 25×25 trên toàn vùng đo ở 180 mm/s, Z2, quá mép lưới 6 mm theo X để đổi hướng. Hướng dẫn tại `extras/docs/huong-dan-ldc1612-scan-tap-mesh.vi.md`.
+- Thay đổi theo yêu cầu ngày 2026-11-21: QGL giữ PID bàn, dò mặc định vòng thô từ Z10 khi chưa áp dụng, dùng scan tại Z2 cho vòng tinh. Bước ngắt PWM bàn chỉ áp dụng cho tap và mesh trong `PRINT_START`. `PRINT_START` quét liên tục 25×25 ở 180 mm/s. `BED_MESH_CALIBRATE` từ Console hoặc Mainsail mặc định quét liên tục 55×55 ở 150 mm/s, sau QGL. Hướng dẫn tại `extras/docs/huong-dan-ldc1612-scan-tap-mesh.vi.md`.
 
 - Cập nhật mới nhất ngày 2026-11-21: người vận hành yêu cầu mở `PRINT_START` để tự gửi lệnh và bắt đầu in. Đã thay cờ `_LDC1612_PRODUCTION.verified` bằng kiểm tra `calibrate` và `tap_threshold` đã lưu. Bàn được làm nóng trước QGL rồi ngắt PWM trong QGL và trong tap/mesh. Bàn trở lại nhiệt độ yêu cầu trước prime. Đây là cách tránh lỗi MCU xuất hiện khi đang giữ nhiệt bàn và probe, cần xác nhận bằng bản in có người vận hành giám sát. Các ghi chép dưới đây mô tả trạng thái trước thay đổi này.
 
