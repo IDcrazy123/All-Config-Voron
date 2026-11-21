@@ -22,6 +22,12 @@ threshold 20508.366 spread 0.0285 mm. The operator observed gentle contact.
 Neither threshold was saved; `RESTART` discarded pending calibration. The
 installed Klipper guide states that tap does not use the scan drift model, so
 thermal drift calibration alone will not explain the tap outliers.
+At 100/150 C, an attended runtime trial with acceleration 500 mm/s², lift
+speed 15 mm/s and threshold 20508.366 returned +0.067115 mm on the first tap,
+then failed on the second: `no contact found at z=-0.052` with negative slope
+delta. There was no MCU shutdown, mark on the bed or loose mount. Acceleration
+was restored to 7000 mm/s²; heaters were turned off. Do not persist this trial
+or loosen the 0.01 mm print-macro tap tolerance to conceal the variation.
 The same main-MCU `Missed scheduling of next digital out event` shutdown had
 occurred during tap. Switching from software I2C to the MCU-advertised hardware
 `i2c3_PA8_PC9` at 100 kHz did not eliminate full-mesh shutdown: G28, QGL and
