@@ -11,6 +11,8 @@ Cập nhật: 2026-11-21. File này là điểm vào duy nhất cho công việc
 
 ## Kiến trúc đang chạy
 
+- Thay đổi theo yêu cầu ngày 2026-11-21: QGL trong `PRINT_START` giữ nhiệt bàn theo PID. Bước ngắt PWM bàn chỉ áp dụng cho tap và quét mesh. Xem hướng dẫn thao tác tại `extras/docs/huong-dan-ldc1612-scan-tap-mesh.vi.md`.
+
 - Cập nhật mới nhất ngày 2026-11-21: người vận hành yêu cầu mở `PRINT_START` để tự gửi lệnh và bắt đầu in. Đã thay cờ `_LDC1612_PRODUCTION.verified` bằng kiểm tra `calibrate` và `tap_threshold` đã lưu. Bàn được làm nóng trước QGL rồi ngắt PWM trong QGL và trong tap/mesh. Bàn trở lại nhiệt độ yêu cầu trước prime. Đây là cách tránh lỗi MCU xuất hiện khi đang giữ nhiệt bàn và probe, cần xác nhận bằng bản in có người vận hành giám sát. Các ghi chép dưới đây mô tả trạng thái trước thay đổi này.
 
 - Cập nhật sau cùng ngày 2026-11-21: QGL nóng kế tiếp gây shutdown MCU chính lần thứ sáu với `Missed scheduling of next digital out event`, trước tap/mesh; người vận hành xác nhận T0 an toàn. Sau đó người vận hành yêu cầu dùng trực tiếp lệnh Klipper và không thêm macro không cần thiết, nên nhánh thử `LDC_TEST` trong `PRINT_START` đã được gỡ; file thử đã tải lên không được chạy khi lỗi MCU chưa xác định. Giữ ngưỡng tap native đã lưu và chốt production 0. Cấu hình người bán là ví dụ cho nll36, không sao chép pin/offset/macro của họ sang M8P.

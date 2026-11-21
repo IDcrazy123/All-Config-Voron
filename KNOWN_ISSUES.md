@@ -5,8 +5,8 @@ entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 
 ## LDC1612 tap and print validation pending (2026-11-21)
 
-Current configuration pauses bed power during hot QGL and again during tap
-and the adaptive mesh. The normal print start waits for the bed before
+Current configuration holds bed temperature during QGL as requested by the
+operator. Bed power is paused during tap and the adaptive mesh. Print start waits for the bed before
 probing and before priming. The operator requested removal of the manual
 print gate. Saved scan and tap data are required before heating, and the
 leveling, tap and mesh commands must succeed before priming. The first
