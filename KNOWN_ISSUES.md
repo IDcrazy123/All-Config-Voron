@@ -37,9 +37,18 @@ before shutdown. Native regular scan at 150 mm/s, Z2 and 15x15 completed once
 at a 100 C bed and 150 C nozzle, range -0.031001..+0.086492 mm. It is saved
 as the `default` profile. The final observed motion buffer was about 1.1 s;
 repeatability over multiple full scans remains unknown. The tap shutdown had
-a short motion queue, so its cause remains separate and unknown. Scan thermal
-drift compensation and first layers remain unverified. `PRINT_START` stays
-gated. The seller
+a short motion queue, so its cause remains separate and unknown. Two more main
+MCU shutdowns with the same message occurred during ordinary hot QGL before
+tap or mesh 55x55, with motion buffer at most about 0.68 s. The fifth occurred
+with crowsnest camera streaming stopped; the service was restored afterward.
+CAN reported zero bus errors, drops and retransmits, and host load was low;
+the source of the missed digital-output schedule is still unknown. An
+operator-triggered QGL while heaters were off and the bed cooled to 86 C
+converged, but this does not validate hot printing. A subsequent `PRINT_START`
+was correctly blocked by `_LDC1612_PRODUCTION.verified=0`. Do not attempt
+another print until the MCU fault is diagnosed and hot G28/QGL/tap/mesh run
+reliably. Scan thermal drift compensation and first layers remain unverified.
+The seller
 recommends about 5 mm from coil underside to nozzle tip; the operator reports
 about 3 mm on this mount. The historical Cartographer issues below describe
 the retired sensor and should not guide new probe tuning.
