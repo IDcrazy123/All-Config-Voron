@@ -1,6 +1,8 @@
 # Hiệu chuẩn LDC1612 trong Klipper trên Voron 5 Tool
 
-Dùng Console của Mainsail và chạy từng khối theo thứ tự. Hướng dẫn này dành cho T0, bàn ABS 100°C, vòi đo 150°C và cảm biến LDC1612 trên shuttle. Vị trí giữa bàn là X174 Y168. Lưới đối chiếu trong hướng dẫn là 15×15 ở Z2. Nút Calibrate trong Mainsail chạy quét liên tục 55×55 theo cấu hình máy, và `PRINT_START` chạy 25×25 trên cùng vùng đo.
+Dùng Console của Mainsail và chạy từng khối theo thứ tự. Hướng dẫn này dành cho T0, bàn ABS 100°C, vòi đo 150°C và cảm biến LDC1612 trên shuttle. Vị trí giữa bàn là X174 Y168. Lưới đối chiếu trong hướng dẫn là 15×15 ở Z2. Nút Calibrate trong Mainsail chạy quét liên tục 55×55 theo cấu hình máy; `PRINT_START` dùng adaptive mesh, quét vùng vật thể cộng lề 10 mm với mật độ tối đa 25×25. Nếu vùng in không chứa điểm X174 Y168, Klipper có thể đo thêm một điểm mốc Z ở giữa bàn.
+
+**Sau khi thay bo/cuộn LDC1612:** drive current, mô hình chiều cao, ngưỡng tap và mesh của đầu dò cũ không phải kết quả hiệu chuẩn của đầu dò mới. Không chạy `G28 Z`, QGL, tap, mesh hoặc `PRINT_START` dựa trên các giá trị cũ. Xác nhận dây, offset và khoảng hở thật trước; dùng [quy trình hiệu chuẩn lần đầu của Klipper](https://www.klipper3d.org/Eddy_Probe.html#performing-initial-calibration-when-homing-with-probe) nếu đã xóa mô hình cũ. Các khối có `G28` bên dưới chỉ áp dụng sau khi mô hình Z của cảm biến mới đã được lưu và xác minh.
 
 | Bước | Tác dụng | Kết quả lưu |
 | --- | --- | --- |
@@ -12,7 +14,7 @@ Trước khi chạy, lau sạch vòi T0 và mặt bàn, lấy mẫu in ra, tháo
 
 ## 1. Chuẩn bị và cân giàn
 
-Sau mỗi `SAVE_CONFIG`, chờ Klipper trở lại `ready` rồi chạy lại khối này trước bước có chuyển động. Cấu hình hiện tại đã có scan model nên có thể home Z bằng LDC1612. Nếu đã xóa model và `G28` báo cảm biến chưa hiệu chuẩn, dừng và dùng quy trình hiệu chuẩn lần đầu của Klipper. Các tọa độ Z dưới đây chỉ dùng sau khi đã home. [Hiệu chuẩn lần đầu khi home bằng eddy probe](https://www.klipper3d.org/Eddy_Probe.html#performing-initial-calibration-when-homing-with-probe)
+Sau mỗi `SAVE_CONFIG`, chờ Klipper trở lại `ready` rồi chạy lại khối này trước bước có chuyển động. Chỉ home Z bằng LDC1612 sau khi đã có mô hình Z của cảm biến **đang gắn trên máy**. Nếu chưa có mô hình đó, dùng quy trình hiệu chuẩn lần đầu của Klipper. Các tọa độ Z dưới đây chỉ dùng sau khi đã home. [Hiệu chuẩn lần đầu khi home bằng eddy probe](https://www.klipper3d.org/Eddy_Probe.html#performing-initial-calibration-when-homing-with-probe)
 
 ```gcode
 INITIALIZE_TOOLCHANGER
@@ -41,7 +43,7 @@ QGL chạy khi bàn giữ target 100°C. Khi chưa cân giàn, vòng thô dò t�
 
 ## 2. Hiệu chuẩn scan bằng giấy
 
-`reg_drive_current=17` đã được đo và lưu trên máy. Nếu thay cuộn hoặc cần đo lại dòng kích, đưa cuộn vào giữa bàn, cách mặt bàn khoảng 20 mm, chạy `LDC_CALIBRATE_DRIVE_CURRENT CHIP=ldc1612_eddy_coil`, rồi `SAVE_CONFIG` và làm lại bước 1. Dùng số do Klipper đo với phần cứng thực tế. [Hiệu chuẩn dòng kích và chiều cao](https://www.klipper3d.org/Eddy_Probe.html#calibrating-drive-current)
+`reg_drive_current=17` của đầu dò cũ đã được lưu trên máy. Với đầu dò mới, đưa cuộn vào giữa bàn, cách mặt bàn khoảng 20 mm, chạy `LDC_CALIBRATE_DRIVE_CURRENT CHIP=ldc1612_eddy_coil`, rồi `SAVE_CONFIG`. Dùng số do Klipper đo ở đúng khoảng hở thực tế. [Hiệu chuẩn dòng kích và chiều cao](https://www.klipper3d.org/Eddy_Probe.html#calibrating-drive-current)
 
 Ở giữa bàn sau bước 1, chạy:
 
@@ -57,9 +59,19 @@ Chờ Klipper tự lấy mẫu xong và console báo dữ liệu hiệu chuẩn,
 SAVE_CONFIG
 ```
 
-`SAVE_CONFIG` ghi `printer.cfg` và khởi động lại Klipper. Giữ cùng loại tấm in, vị trí gá và điều kiện nhiệt khi dùng kết quả scan. Nếu cần bù trôi nhiệt cho nhiều mức nhiệt, đó là quy trình riêng bắt đầu khi máy nguội với `TEMPERATURE_PROBE_CALIBRATE`. [Hiệu chuẩn trôi nhiệt](https://www.klipper3d.org/Eddy_Probe.html#thermal-drift-calibration)
+`SAVE_CONFIG` ghi `printer.cfg` và khởi động lại Klipper. Giữ cùng loại tấm in và vị trí gá khi dùng kết quả scan. Với cảm biến mới, tiếp tục bước bù nhiệt bên dưới trước khi đánh giá mesh nóng. [Hiệu chuẩn trôi nhiệt](https://www.klipper3d.org/Eddy_Probe.html#thermal-drift-calibration)
 
-## 3. Hiệu chuẩn tap
+## 3. Bù trôi nhiệt từ nguội đến bàn 100°C / vòi T0 150°C
+
+Cấu hình `[temperature_probe ldc1612_eddy_coil]` có `calibration_position: 174,168,1`, `extruder_heating_z: 50`, `calibration_extruder_temp: 150`, `calibration_bed_temp: 100` và `max_validation_temp: 100`. Lệnh dưới đây tự đưa vòi T0 lên Z50 để gia nhiệt 150°C, tới giữa bàn ở Z1 để thử giấy lần đầu, rồi bắt đầu gia nhiệt bàn 100°C sau mẫu đầu tiên. Bắt đầu khi bàn/cuộn/vòi nguội, T0 đã gắn và được phát hiện, XYZ đã home, vòi và bàn sạch. Mô hình Z của cảm biến mới phải được `SAVE_CONFIG` trước. Không chạy `PRINT_START` trong lúc hiệu chuẩn.
+
+```gcode
+TEMPERATURE_PROBE_CALIBRATE PROBE=ldc1612_eddy_coil TARGET=58 STEP=2
+```
+
+Ở mỗi lần Klipper yêu cầu manual probe, dùng giấy và `TESTZ` từng nấc nhỏ rồi `ACCEPT` khi vừa rà. Klipper tự lấy mẫu tần số, đợi cuộn tăng thêm khoảng 2°C và mở lượt thử giấy kế tiếp. TARGET=58°C là mốc khởi đầu dựa trên nhiệt cuộn cũ khoảng 58,51°C khi bàn 100°C/vòi 150°C; kiểm tra nhiệt cuộn thực của cảm biến mới. Nếu nhiệt ổn định thấp hơn 58°C nhưng đã có ít nhất ba mẫu, dùng `TEMPERATURE_PROBE_COMPLETE` để kết thúc với dải thực tế; nếu thao tác sai dùng `ABORT` và đo lại từ nguội. Khi hoàn tất, `SAVE_CONFIG`, rồi kiểm tra `drift_calibration` xuất hiện và `temperature_probe ... compensation_enabled=true`. [Quy trình Klipper](https://www.klipper3d.org/Eddy_Probe.html#thermal-drift-calibration)
+
+## 4. Hiệu chuẩn tap
 
 Sau khi chạy lại bước 1, đảm bảo đã rút giấy, vòi và bàn sạch. Ở X174 Y168, chạy `G0 Z7 F1200` và xác minh khoảng hở thật khoảng 3–10 mm. Với máy này, `LIFT_SPEED=10` đã giúp tránh lỗi `insufficient lift` gặp ở tốc độ mặc định. Chạy từng lệnh dưới đây riêng lẻ và xem vòi chạm nhẹ, nhấc lên ngay trước khi gửi lệnh kế tiếp. Đưa vòi về Z7 nếu khoảng hở giữa hai lượt ra ngoài 3–10 mm.
 
@@ -78,7 +90,7 @@ PROBE_EDDY_CURRENT_TAP_CALIBRATE TAP=verify LIFT_SPEED=10
 
 `verify` thực hiện 5 lần chạm. So sánh Z cao nhất và thấp nhất, đồng thời quan sát cả 5 lần có chạm nhẹ và nhấc ngay. Dung sai tap của `PRINT_START` trên máy là 0,040 mm cho 5 mẫu. Nếu kết quả vượt mức đó hoặc có lần chạm bất thường, kiểm tra sạch vòi, gá T0 và độ lặp trước khi lưu. Khi `verify` báo giá trị `tap_threshold` và kết quả ổn định, chạy `SAVE_CONFIG`. [Hiệu chuẩn tap native](https://www.klipper3d.org/Eddy_Probe.html#tap-calibration)
 
-## 4. Lấy mốc Z bằng tap và quét mesh
+## 5. Lấy mốc Z bằng tap và quét mesh
 
 Sau khi Klipper khởi động lại, chạy lại bước 1. Lau vòi lần cuối và đợi bàn trở lại gần 100°C nếu đã nguội. Lấy mốc Z bằng lệnh có sẵn của máy `LDC_TAP_HOME`. Lệnh này chạy `PROBE METHOD=tap` với 5 mẫu, áp dụng kết quả làm mốc Z và nhấc vòi lên. Lệnh `PROBE METHOD=tap` chạy riêng chỉ trả số đo, nên dùng `LDC_TAP_HOME` khi chuẩn bị mesh theo mốc vòi. Nếu tap báo lỗi, dừng trước khi quét. Home Z sau tap sẽ thay mốc vừa lấy.
 
@@ -93,10 +105,10 @@ BED_MESH_OUTPUT
 
 Kiểm tra bản đồ trong mục Heightmap của Mainsail. Nếu muốn giữ mesh vừa đo để so sánh hoặc nạp lại, chạy `SAVE_CONFIG` để ghi profile `ldc1612_abs100_t0` đã đặt trong lệnh quét. Khi hiệu chuẩn xong và chưa in, chạy `TURN_OFF_HEATERS`. [Klipper Bed Mesh và profile](https://www.klipper3d.org/Bed_Mesh.html#bed-mesh-gcodes)
 
-Để dùng đúng kiểu quét của bản in, thay lệnh `BED_MESH_CALIBRATE` trong khối trên bằng lệnh dưới đây. Klipper đo 625 điểm trong lúc đầu in di chuyển trên các đường quét liên tục. `PRINT_START` tự làm bước này, rồi bật và đợi bàn trở lại nhiệt độ yêu cầu trước prime. [Klipper rapid scan](https://www.klipper3d.org/Bed_Mesh.html#rapid-continuous-scanning)
+Để dùng đúng kiểu quét của bản in, G-code phải khai báo vật thể bằng `EXCLUDE_OBJECT_DEFINE` **trước** `PRINT_START`. Khi in, Klipper tự thu nhỏ vùng quét và số điểm theo vùng vật thể cộng lề 10 mm; 25×25 là mức tối đa. Một lệnh gửi riêng từ Console không có khai báo vật thể nên không dùng `ADAPTIVE=1` để thử. `PRINT_START` bật và đợi bàn trở lại nhiệt độ yêu cầu trước prime. [Klipper adaptive mesh](https://www.klipper3d.org/Bed_Mesh.html#adaptive-meshes)
 
 ```gcode
-BED_MESH_CALIBRATE METHOD=rapid_scan ADAPTIVE=0 HORIZONTAL_MOVE_Z=2 PROBE_COUNT=25,25 SCAN_SPEED=180 PROFILE=ldc1612_rapid
+BED_MESH_CALIBRATE METHOD=rapid_scan ADAPTIVE=1 HORIZONTAL_MOVE_Z=2 PROBE_COUNT=25,25 SCAN_SPEED=180 PROFILE=print_adaptive
 ```
 
 Khi bấm Calibrate trong Mainsail hoặc gửi `BED_MESH_CALIBRATE` sau QGL, máy mặc định quét liên tục 55×55 ở Z2, 150 mm/s. Có thể truyền `PROBE_COUNT=25,25` cho lượt kiểm tra ngắn hơn. `METHOD=scan` tường minh vẫn sử dụng được để đo đối chiếu tại chỗ. Hai lượt `rapid_scan` 55×55 trước đây đã gây shutdown MCU, nên quan sát lần chạy đầu với cấu hình hiện tại.

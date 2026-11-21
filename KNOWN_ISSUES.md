@@ -1,7 +1,24 @@
 # Current production issues
 
-Updated: 2026-11-21. This file records the active state of the printer. Older
+Updated: 2026-11-22. This file records the active state of the printer. Older
 entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
+
+## Replacement LDC1612 needs thermal and tap calibration (2026-11-22)
+
+The operator replaced the LDC1612 coil/board while retaining the Manta I2C,
+thermistor wiring and X0/Y35 offset. A cold 101-point Z calibration and drive
+current 17 were saved at a coil temperature of 22.06 C. The old tap threshold
+and default mesh remain in the live SAVE_CONFIG until the reviewed replacement
+configuration is deployed. No thermal drift calibration, new tap threshold, hot
+mesh or first-layer test has been completed. The prepared configuration clears
+the stale tap/mesh and adds a 100 C bed / 150 C T0 drift-calibration route.
+
+The first attended Z home was emergency-stopped. The operator found and fixed
+a loose stepper wire and confirmed no nozzle or bed damage. Subsequent G28 and
+cold QGL completed; QGL required coarse correction from a 6.461489 mm corner
+range and fine retries to reach 0.004765 mm. This is the second loose stepper
+wire incident recorded during LDC setup. Recheck the connector before further
+hot probing, and do not infer Z repeatability from this single QGL.
 
 ## LDC1612 tap and print validation pending (2026-11-21)
 
