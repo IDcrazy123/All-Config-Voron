@@ -1,7 +1,31 @@
 # Current production issues
 
-Updated: 2026-11-15. This file records the active state of the printer. Older
+Updated: 2026-11-21. This file records the active state of the printer. Older
 entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
+
+## LDC1612 tap and print validation pending (2026-11-21)
+
+The active Cartographer MCU and plugin have been removed. Native Klipper
+communicates with the LDC1612 over Manta I2C and reads its coil thermistor on
+PC5. Drive current 17 and native Z scan calibration were saved; a second scan
+was calibrated at 100 C bed, 150 C T0 and 58.51 C coil. Attended G28 succeeded.
+QGL at 100 C first failed due to increasing range (0.0105 to 0.0223 mm), then
+a second run converged to 0.00619 mm in four retries. Independent corner range
+was 0.01685 mm; repeatability and thermal compensation need further work.
+Native `TAP=guess` initially stopped with `insufficient lift (0.226 vs 0.350
+mm)`; `LIFT_SPEED=10` allowed guess/refine/verify, but later five-tap sets at
+100/150 C spread about 0.043 and 0.029 mm with early outliers. A temporary
+global acceleration reduction to 300 mm/s² worsened tap detection and was
+reverted. No tap threshold is saved. A 9x9 native rapid-scan mesh succeeded;
+the full 55x55 mesh stopped with a sensor outage after the main MCU shutdown.
+The same main-MCU `Missed scheduling of next digital out event` shutdown had
+occurred during tap. The active software I2C bus on PA8/PC9 is being replaced
+with the MCU-advertised hardware `i2c3_PA8_PC9` at 100 kHz; whether this fixes
+the scheduling fault is not yet verified. Full mesh, thermal drift compensation,
+and first layers remain unverified. `PRINT_START` stays gated. The seller
+recommends about 5 mm from coil underside to nozzle tip; the operator reports
+about 3 mm on this mount. The historical Cartographer issues below describe
+the retired sensor and should not guide new probe tuning.
 
 ## MCU remains shutdown after a five-tool RESTART (2026-11-15)
 

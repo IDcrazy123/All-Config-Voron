@@ -2,7 +2,7 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Cấu hình active](config/README.vi.md) | [Tài liệu](extras/docs/README.vi.md) | [Profile OrcaSlicer](Orca%20Config/README.vi.md) | [Oxplow 2.3.2](extras/Printables-Package/README.md)
 
-Kho cấu hình Klipper production cho Voron 2.4 CoreXY 350 mm dùng năm đầu in StealthChanger. KTC-Easy quản lý đổi tool, Cartographer V3 quản lý home Z/quét mesh, Axiscope đo XY, công tắc PF2 đo Z tương đối sơ bộ và test first-layer quyết định Z production cuối cùng.
+Kho cấu hình Klipper production cho Voron 2.4 CoreXY 350 mm dùng năm đầu in StealthChanger. KTC-Easy quản lý đổi tool, LDC1612 qua Klipper gốc quản lý home Z/mesh, Axiscope đo XY, công tắc PF2 đo Z tương đối sơ bộ và test first-layer quyết định Z production cuối cùng. In tự động đang chờ hiệu chuẩn cảm biến có giám sát.
 
 ## Kiến trúc production hiện tại
 
@@ -11,8 +11,8 @@ Kho cấu hình Klipper production cho Voron 2.4 CoreXY 350 mm dùng năm đầu
 | Controller / host | BTT Manta M8P V2.0 + BTT CM4, CAN `can0` |
 | Toolhead | 5 × BTT EBB36 V1.2, extruder WW BMG, hotend TZ V6 2.0 |
 | Toolchanger | KTC-Easy, năm dock tại tọa độ đã đo, cảm biến hiện diện OptoTap |
-| Home Z / mesh | Cartographer V3 Touch tại `(174, 168)`; mesh adaptive 55 × 55 |
-| Hiệu chuẩn tool | Camera Axiscope cho XY; công tắc PF2 tại `(80, -8)` cho Z sơ bộ từ Z3 trên vùng chạm quan sát Z0–2; test first-layer cho Z cuối |
+| Home Z / mesh | LDC1612 trên I²C3 phần cứng Manta `PA8`/`PC9`, nhiệt cuộn dây `PC5`; tap gốc tại `(174, 168)` và mesh adaptive rapid scan 55 × 55 vẫn bị chặn chờ kiểm chứng |
+| Hiệu chuẩn tool | Camera Axiscope cho XY; công tắc PF2 tại `(81, -7)` cho Z sơ bộ từ Z4 trên điểm T0 chạm gần Z3; test first-layer cho Z cuối |
 | Giới hạn chuyển động | XY 350 mm/s, 7000 mm/s²; Z 80 mm/s, 1000 mm/s² |
 | Bàn nhiệt | Silicone AC 1000 W qua SSR chân `PA5`; sensor `PB0`; tối đa 120 °C |
 | Làm mát | TMC `PF9`, CM4 `PF6`, MCU/vỏ `PF7`, tuần hoàn buồng `PF8` |
@@ -32,7 +32,7 @@ Tọa độ dock dưới đây lấy từ `config/toolchanger/tools/T*.cfg`; cá
 | T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.3265)` |
 | T4 | `28650279df58` | `(321.5, 3.1, 343)` | `(0.213, -0.007, 0.0279)` |
 
-Ngày 2026-09-25, người vận hành xác nhận mức chỉnh thêm `-0.0800 mm` trên BTT/KlipperScreen cho từng tool T1-T4. Các giá trị đã lưu này đã cộng mức chỉnh đúng một lần vào bộ gốc khôi phục ngày 2026-09-23; giữ nguyên T0, X/Y và Cartographer. Không chỉnh lặp lại cùng mức babystep `-0.08 mm` sau khi nạp cấu hình này. Cần in first layer mới để kiểm chứng kết quả đã lưu.
+Ngày 2026-09-25, người vận hành xác nhận mức chỉnh thêm `-0.0800 mm` trên BTT/KlipperScreen cho từng tool T1-T4. Các giá trị đã lưu này đã cộng mức chỉnh đúng một lần vào bộ gốc khôi phục ngày 2026-09-23; giữ nguyên T0 và X/Y. Không chỉnh lặp lại cùng mức babystep `-0.08 mm` sau khi nạp cấu hình này. Cần in first layer mới để kiểm chứng kết quả đã lưu.
 
 Không chép offset lịch sử từ nhật ký, snapshot tải về, thí nghiệm hoặc cấu hình đã retired vào production.
 
@@ -99,11 +99,11 @@ Danh sách profile active và quy trình đồng bộ nằm trong [`Orca Config/
 | Kiểm tra chuyển động/nhiệt | `TEST_SPEED`, `TEST_Z_SPEED`, `MEASURE_TOOL_HEATUP` |
 | Đèn/quạt | `LIGHTS_ON`, `LIGHTS_OFF`, `BED_FAN_ON`, `BED_FAN_OFF` |
 
-Axiscope là backend `probe_multi_axis` duy nhất đang hoạt động. Workflow camera của Axiscope đo XY; công tắc PF2 tại `(80, -8)` chỉ cho kết quả Z tương đối sơ bộ. Đường dò bắt đầu tại Z3, cao hơn 1 mm so với mép trên của vùng chạm quan sát Z0–2, dùng năm mẫu và gia nhiệt từng nozzle đã chọn tới 150 °C. Z15 vẫn là độ cao di chuyển XY/đổi tool an toàn. Sau khi dùng `QUERY_ENDSTOPS` xác nhận `Axiscope:open` và `Axiscope:TRIGGERED`, phải chủ động gọi `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1` trong khi có người giám sát. Cố ý không cho Axiscope tự ghi file cấu hình: phải xem lại kết quả, nhập XY thủ công sau khi sao lưu, và chốt từng Z production bằng test first-layer. `CALIBRATE_ALL_OFFSETS` tiếp tục bị chặn để tránh dùng nhầm workflow XYZ đã nghỉ hưu.
+Axiscope là backend `probe_multi_axis` duy nhất đang hoạt động. Workflow camera của Axiscope đo XY; công tắc PF2 tại `(81, -7)` chỉ cho kết quả Z tương đối sơ bộ. Đường dò bắt đầu tại Z4, cao hơn 1 mm so với điểm T0 chạm gần Z3, dùng năm mẫu và gia nhiệt từng nozzle đã chọn tới 150 °C. Z15 vẫn là độ cao di chuyển XY/đổi tool an toàn. Sau khi dùng `QUERY_ENDSTOPS` xác nhận `Axiscope:open` và `Axiscope:TRIGGERED`, phải chủ động gọi `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1` trong khi có người giám sát. Cố ý không cho Axiscope tự ghi file cấu hình: phải xem lại kết quả, nhập XY thủ công sau khi sao lưu, và chốt từng Z production bằng test first-layer. `CALIBRATE_ALL_OFFSETS` tiếp tục bị chặn để tránh dùng nhầm workflow XYZ đã nghỉ hưu.
 
 Trước mỗi lần đổi tool, chu trình hiệu chuẩn nâng thẳng lên ít nhất Z15 để đường đi tới dock rời công tắc ở độ cao an toàn.
 
-Tháo đế trước `G28`, QGL, bed mesh, Cartographer Touch hoặc in. Home khi mặt bàn thông thoáng, nâng tới Z15, lắp đế, xác nhận X80/Y-8 và trạng thái công tắc rồi mới chạy phép đo Z sơ bộ có giám sát. Xem [quy trình hiệu chuẩn tool](extras/docs/huong-dan-he-thong-stealthchanger.md#hiệu-chuẩn-tool).
+Tháo đế trước `G28`, QGL, bed mesh hoặc in. Home khi mặt bàn thông thoáng, nâng tới Z15, lắp đế, xác nhận X81/Y-7 và trạng thái công tắc rồi mới chạy phép đo Z sơ bộ có giám sát. Xem [quy trình hiệu chuẩn tool](extras/docs/huong-dan-he-thong-stealthchanger.md#hiệu-chuẩn-tool).
 
 ## Hiệu chuẩn first-layer Oxplow
 
@@ -123,4 +123,4 @@ Tháo đế trước `G28`, QGL, bed mesh, Cartographer Touch hoặc in. Home kh
 
 ## Ghi công
 
-Cấu hình này sử dụng [Voron Design](https://vorondesign.com/), [StealthChanger](https://stealthchanger.com/), [KTC-Easy](https://github.com/jwellman80/klipper-toolchanger-easy), [Axiscope](https://github.com/nic335/Axiscope), [Cartographer](https://cartographer3d.com/), [Mainsail](https://mainsail.xyz/) và [Klippain Shake&Tune](https://github.com/Frix-x/klippain-shaketune).
+Cấu hình này sử dụng [Voron Design](https://vorondesign.com/), [StealthChanger](https://stealthchanger.com/), [KTC-Easy](https://github.com/jwellman80/klipper-toolchanger-easy), [Axiscope](https://github.com/nic335/Axiscope), [Klipper Eddy Probe](https://www.klipper3d.org/Eddy_Probe.html), [Mainsail](https://mainsail.xyz/) và [Klippain Shake&Tune](https://github.com/Frix-x/klippain-shaketune).

@@ -2,7 +2,7 @@
 
 [English](README.md) | [Tiếng Việt](README.vi.md) | [Active config](config/README.md) | [Documentation](extras/docs/README.md) | [OrcaSlicer profiles](Orca%20Config/README.md) | [Oxplow 2.3.2](extras/Printables-Package/README.md)
 
-Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five StealthChanger toolheads. KTC-Easy handles tool changes, Cartographer V3 handles Z homing and bed mesh, Axiscope measures XY, the PF2 switch provides coarse relative Z, and first-layer tests determine final production Z.
+Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five StealthChanger toolheads. KTC-Easy handles tool changes, native Klipper LDC1612 handles Z homing and bed mesh, Axiscope measures XY, the PF2 switch provides coarse relative Z, and first-layer tests determine final production Z. Automatic printing awaits supervised probe calibration.
 
 ## Current production architecture
 
@@ -11,8 +11,8 @@ Production Klipper configuration for a Voron 2.4 350 mm CoreXY with five Stealth
 | Controller / host | BTT Manta M8P V2.0 + BTT CM4, CAN interface `can0` |
 | Toolheads | 5 × BTT EBB36 V1.2, WW BMG extruders, TZ V6 2.0 hotends |
 | Toolchanger | KTC-Easy, five docks at measured park coordinates, OptoTap presence sensing |
-| Z home / mesh | Cartographer V3 Touch at `(174, 168)`; adaptive 55 × 55 scan mesh |
-| Tool calibration | Axiscope camera for XY; PF2 switch at `(80, -8)` for coarse Z from Z3 over the observed Z0–2 contact range; first-layer tests for final Z |
+| Z home / mesh | LDC1612 on Manta hardware I²C3 `PA8`/`PC9`, coil thermistor `PC5`; native tap at `(174, 168)` and adaptive 55 × 55 rapid scan mesh remain gated pending verification |
+| Tool calibration | Axiscope camera for XY; PF2 switch at `(81, -7)` for coarse Z from Z4 over the observed T0 contact near Z3; first-layer tests for final Z |
 | Motion limits | XY 350 mm/s, 7000 mm/s²; Z 80 mm/s, 1000 mm/s² |
 | Heated bed | 1000 W AC pad through SSR on `PA5`; sensor `PB0`; maximum 120 °C |
 | Cooling | TMC `PF9`, CM4 `PF6`, enclosure/MCU `PF7`, chamber circulation `PF8` |
@@ -32,7 +32,7 @@ the values currently persisted in `config/printer.cfg`.
 | T3 | `c2465b7c36f8` | `(249.5, 2.5, 343)` | `(0.003, 0.369, -0.3265)` |
 | T4 | `28650279df58` | `(321.5, 3.1, 343)` | `(0.213, -0.007, 0.0279)` |
 
-On 2026-09-25, the operator confirmed an additional `-0.0800 mm` BTT/KlipperScreen adjustment for each of T1-T4. These saved values include that adjustment once, applied to the baseline restored on 2026-09-23; T0, X/Y, and Cartographer remain unchanged. Do not repeat the same `-0.08 mm` babystep after reloading this configuration. A new first-layer print is still needed to verify the persisted result.
+On 2026-09-25, the operator confirmed an additional `-0.0800 mm` BTT/KlipperScreen adjustment for each of T1-T4. These saved values include that adjustment once, applied to the baseline restored on 2026-09-23; T0 and X/Y remained unchanged. Do not repeat the same `-0.08 mm` babystep after reloading this configuration. A new first-layer print is still needed to verify the persisted result.
 
 Do not copy historical offsets from journals, downloaded snapshots, experiments, or retired configurations into production.
 
@@ -99,11 +99,11 @@ The active Orca profile inventory and synchronization workflow are documented in
 | Motion/thermal tests | `TEST_SPEED`, `TEST_Z_SPEED`, `MEASURE_TOOL_HEATUP` |
 | Lighting/fans | `LIGHTS_ON`, `LIGHTS_OFF`, `BED_FAN_ON`, `BED_FAN_OFF` |
 
-Axiscope is the sole active `probe_multi_axis` backend. Its camera workflow measures XY, while the PF2 switch at `(80, -8)` provides only a preliminary relative-Z result. The switch path starts at Z3, 1 mm above the upper edge of the observed Z0–2 contact range, uses five samples, and heats each selected nozzle to 150 °C. Z15 remains the safe XY/tool-change transit height. After verifying `Axiscope:open` and `Axiscope:TRIGGERED` with `QUERY_ENDSTOPS`, the attended run must be invoked explicitly as `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1`. Automatic Axiscope config writes are intentionally disabled: review measurements, apply XY manually with backup, and finalize every production Z offset with an attended first-layer test. `CALIBRATE_ALL_OFFSETS` remains blocked to prevent the retired combined-XYZ workflow from being used.
+Axiscope is the sole active `probe_multi_axis` backend. Its camera workflow measures XY, while the PF2 switch at `(81, -7)` provides only a preliminary relative-Z result. The switch path starts at Z4, 1 mm above the observed T0 contact near Z3, uses five samples, and heats each selected nozzle to 150 °C. Z15 remains the safe XY/tool-change transit height. After verifying `Axiscope:open` and `Axiscope:TRIGGERED` with `QUERY_ENDSTOPS`, the attended run must be invoked explicitly as `CALIBRATE_COARSE_Z_OFFSETS CONFIRM=1`. Automatic Axiscope config writes are intentionally disabled: review measurements, apply XY manually with backup, and finalize every production Z offset with an attended first-layer test. `CALIBRATE_ALL_OFFSETS` remains blocked to prevent the retired combined-XYZ workflow from being used.
 
 Before each tool change, the calibration sequence lifts vertically to at least Z15 so the docking route leaves the switch at transit clearance.
 
-Remove the holder before `G28`, QGL, bed mesh, Cartographer Touch, or printing. Home with the plate unobstructed, move to safe Z15, install the holder, verify X80/Y-8 and the switch state, then run any attended coarse-Z measurement. See the [tool calibration procedure](extras/docs/huong-dan-he-thong-stealthchanger.en.md#tool-calibration).
+Remove the holder before `G28`, QGL, bed mesh, or printing. Home with the plate unobstructed, move to safe Z15, install the holder, verify X81/Y-7 and the switch state, then run any attended coarse-Z measurement. See the [tool calibration procedure](extras/docs/huong-dan-he-thong-stealthchanger.en.md#tool-calibration).
 
 ## Oxplow first-layer calibration
 
@@ -123,4 +123,4 @@ Use [`extras/docs/legacy-calibration-troubleshooting.md`](extras/docs/legacy-cal
 
 ## Credits
 
-This configuration builds on [Voron Design](https://vorondesign.com/), [StealthChanger](https://stealthchanger.com/), [KTC-Easy](https://github.com/jwellman80/klipper-toolchanger-easy), [Axiscope](https://github.com/nic335/Axiscope), [Cartographer](https://cartographer3d.com/), [Mainsail](https://mainsail.xyz/), and [Klippain Shake&Tune](https://github.com/Frix-x/klippain-shaketune).
+This configuration builds on [Voron Design](https://vorondesign.com/), [StealthChanger](https://stealthchanger.com/), [KTC-Easy](https://github.com/jwellman80/klipper-toolchanger-easy), [Axiscope](https://github.com/nic335/Axiscope), [Klipper Eddy Probe](https://www.klipper3d.org/Eddy_Probe.html), [Mainsail](https://mainsail.xyz/), and [Klippain Shake&Tune](https://github.com/Frix-x/klippain-shaketune).
