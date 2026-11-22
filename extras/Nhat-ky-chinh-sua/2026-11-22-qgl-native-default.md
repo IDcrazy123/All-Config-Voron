@@ -9,4 +9,6 @@
 
 ## Giới hạn xác minh
 
+- Commit `83d5abd` đã push và pull lên máy. Installer dry-run chỉ báo thay đổi nội dung dự kiến ở `calibration-probe.cfg`/`print-macros.cfg` và timestamp `printer.cfg`; không có khác biệt SAVE_CONFIG ngoài threshold đã đồng bộ. Sau kiểm tra lại `ready`, `print_stats=cancelled`, idle `Ready`, heater target 0, đã deploy bằng `config/scripts/install.sh`. Backup production: `/home/voron/printer_data/config_backups/config-install-20261122-124915-EpHwOK`.
+- `RESTART` khi idle thành công. Live `configfile` xác nhận macro QGL tinh chứa `_QUAD_GANTRY_LEVEL` không `METHOD=scan`, tolerance 0,0075 mm, `horizontal_move_z=10`; wrapper mesh vẫn dùng `rapid_scan`, lưới 55×55 vẫn giữ. `tap_z_offset=+0,10`, `tap_threshold=18555,665`; tốc độ I²C hiệu lực sau khi comment override là mặc định Klipper 400000. Klipper `ready`, không warning, heater target 0. Sau restart XYZ chưa home, T0 được phát hiện trên shuttle nhưng toolchanger chưa khởi tạo.
 - Bản sửa chỉ thay phương pháp QGL tinh; chưa có lượt QGL hoặc bản in sau triển khai để xác nhận độ lặp ở production. Nhiễu số đo LDC khi PWM bàn bật và model Z ở nhiệt cuộn khác nhiệt làm việc vẫn là vấn đề mở; không nới tolerance để che sai số. Lỗi MCU `Missed scheduling of next digital out event` chưa được xử lý.

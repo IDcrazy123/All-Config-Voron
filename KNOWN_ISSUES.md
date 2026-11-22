@@ -56,10 +56,11 @@ override and saved tap_threshold 18555.665; see
 
 ## LDC1612 fine QGL repeatability (2026-11-22)
 
-The fine QGL macro is being restored from `METHOD=scan HORIZONTAL_MOVE_Z=2`
+The fine QGL macro was restored from `METHOD=scan HORIZONTAL_MOVE_Z=2`
 to Klipper's default Eddy method at the configured 10 mm travel height, as
-requested by the operator. A single attended native default-method run reached
-0.005078 mm after four corrections; production repeatability remains untested.
+requested by the operator. It was deployed idle and read back after restart.
+A single attended native default-method run before deployment reached
+0.005078 mm after four corrections; post-deployment repeatability remains untested.
 The hot coil/PWM measurement issues below remain open.
 
 Follow-up at the same X174 Y168 Z2 position and near 100 C bed / 150 C T0:
