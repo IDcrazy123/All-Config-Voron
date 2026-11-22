@@ -12,6 +12,7 @@
 - Đổi helper và nơi gọi sang `_LDC_APPLY_TAP_Z`, tên toàn chữ/underscore nên bộ phân tích Klipper nhận đủ lệnh. Giữ phép tính `SET_KINEMATIC_POSITION Z=current_z-contact_z`, cần thực hiện sau khi `PROBE METHOD=tap` hoàn tất để đọc kết quả mới.
 - Đồng bộ `config/printer.cfg` với mô hình Z và threshold đã được người vận hành lưu trên máy. Không cộng cố định +0,10 mm vào T0 hoặc `PRINT_START`: lượt thử 0,10 mm diễn ra khi helper hiệu chỉnh tap chưa hoạt động. Sau khi sửa, mức cần bù còn lại phải đo lại bằng first layer có người quan sát tại nhiệt in thực tế.
 - Backup: `extras/backups/pre-tap-origin-fix-20261122/`.
+- Khi dry-run triển khai, installer phát hiện live `printer.cfg` đã thay đổi tiếp: người vận hành lưu T2 `gcode_z_offset` từ -0,4203 thành -0,6203 mm. Đã lấy lại bản live, sao lưu `printer.live-after-commit.cfg` và đồng bộ giá trị mới vào Git trước khi triển khai; không dùng cờ thay thế hiệu chuẩn để ghi đè.
 
 ## Xác minh còn chờ
 
