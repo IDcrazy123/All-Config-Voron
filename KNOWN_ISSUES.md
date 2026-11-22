@@ -44,13 +44,23 @@ not verified the combined adjustment. See
 The -0.04 mm setting was deployed idle and verified in the live config after
 restart; both heater targets are zero. An attended hot tap and first-layer
 print remain to validate the physical result.
-The operator later changed the live tap_z_offset to +0.10 mm while Git remains
-at -0.04 mm. Do not overwrite that live change without reconciling intent.
+The operator later changed the live tap_z_offset to +0.10 mm and explicitly
+confirmed keeping it; Git has now been synced to that operator value.
 The latest attended print attempt reached a successful QGL but failed tap with
 `no contact found`; the operator reported no damage. This tap issue is separate
 from scan QGL convergence and remains unresolved.
+For the native default QGL update, the operator explicitly confirmed retaining
+tap_z_offset +0.10 mm. Git now also preserves the live commented I2C speed
+override and saved tap_threshold 18555.665; see
+`extras/Nhat-ky-chinh-sua/2026-11-22-qgl-native-default.md`.
 
 ## LDC1612 fine QGL repeatability (2026-11-22)
+
+The fine QGL macro is being restored from `METHOD=scan HORIZONTAL_MOVE_Z=2`
+to Klipper's default Eddy method at the configured 10 mm travel height, as
+requested by the operator. A single attended native default-method run reached
+0.005078 mm after four corrections; production repeatability remains untested.
+The hot coil/PWM measurement issues below remain open.
 
 Follow-up at the same X174 Y168 Z2 position and near 100 C bed / 150 C T0:
 12-second direct LDC captures with bed PWM on, off, then on showed linearly

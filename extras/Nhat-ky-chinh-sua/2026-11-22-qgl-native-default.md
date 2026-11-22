@@ -1,0 +1,12 @@
+# 2026-11-22 — Trả QGL tinh về phương pháp dò mặc định của Klipper
+
+## Căn cứ và thay đổi
+
+- Người vận hành yêu cầu bỏ `METHOD=scan` ở QGL và dùng phương pháp dò mặc định. Tài liệu [Klipper Eddy Probe](https://www.klipper3d.org/Eddy_Probe.html) khuyến nghị phương pháp mặc định cho `QUAD_GANTRY_LEVEL`. Lượt `_QUAD_GANTRY_LEVEL` native có người quan sát tại bàn 100°C/vòi 150°C đã đạt dải 0,005078 mm sau bốn chỉnh, dù có một vòng tăng lại; đây là bằng chứng máy chạy được phương pháp này, không bảo đảm mọi lượt sau hội tụ.
+- `config/Printer-Setup/print-macros.cfg`: giữ kiểm tra tool/motion, `BED_MESH_CLEAR`, vòng QGL thô tolerance 1 khi chưa applied, `G28 Z` và khôi phục G-code state. Vòng tinh đổi từ `_QUAD_GANTRY_LEVEL METHOD=scan HORIZONTAL_MOVE_Z=2` thành `_QUAD_GANTRY_LEVEL` không truyền `METHOD`; Klipper dùng dò mặc định và `horizontal_move_z: 10` trong section QGL. Không đổi `retry_tolerance: 0.0075`, điểm bốn góc hoặc mesh adaptive của bản in.
+- Trước sửa, live `print-macros.cfg` trùng Git. Live `calibration-probe.cfg` khác Git ở `i2c_speed` đã được người vận hành comment và `tap_z_offset=+0,10`; live `printer.cfg` có `tap_threshold=18555,665` thay cho 25318,090. Người vận hành xác nhận giữ offset +0,10. Đã đồng bộ cả ba thay đổi live vào Git trước khi triển khai để không bị installer ghi đè. Không coi chúng là nguyên nhân QGL: offset/threshold chỉ áp dụng tap, tốc độ I²C đổi do thao tác live cần theo dõi riêng.
+- Backup trước sửa: `extras/backups/pre-qgl-native-default-20261122/`, gồm bản Git và live của ba CFG liên quan.
+
+## Giới hạn xác minh
+
+- Bản sửa chỉ thay phương pháp QGL tinh; chưa có lượt QGL hoặc bản in sau triển khai để xác nhận độ lặp ở production. Nhiễu số đo LDC khi PWM bàn bật và model Z ở nhiệt cuộn khác nhiệt làm việc vẫn là vấn đề mở; không nới tolerance để che sai số. Lỗi MCU `Missed scheduling of next digital out event` chưa được xử lý.

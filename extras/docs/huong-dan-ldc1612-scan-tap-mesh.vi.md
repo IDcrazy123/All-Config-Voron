@@ -39,7 +39,7 @@ G0 Z10 F3000
 G0 X174 Y168 F6000
 ```
 
-QGL chạy khi bàn giữ target 100°C. Khi chưa cân giàn, vòng thô dò từng góc từ Z10 để xác lập khoảng hở. Vòng tinh dùng `METHOD=scan` ở Z2 để lấy mẫu tại bốn góc ở độ cao cố định. Lượt tinh phải báo dải bốn góc trong ngưỡng 0,0075 mm. Nếu MCU báo `Missed scheduling of next digital out event`, giữ log và dừng quy trình tại đó.
+QGL chạy khi bàn giữ target 100°C. Khi chưa cân giàn, vòng thô dò từng góc từ Z10 để xác lập khoảng hở. Vòng tinh dùng phương pháp dò Eddy mặc định của Klipper, với `horizontal_move_z: 10` từ `[quad_gantry_level]`; mesh adaptive ở bước sau vẫn dùng quét. Lượt tinh phải báo dải bốn góc trong ngưỡng 0,0075 mm. Nếu MCU báo `Missed scheduling of next digital out event`, giữ log và dừng quy trình tại đó.
 
 ## 2. Hiệu chuẩn scan bằng giấy
 
