@@ -3,6 +3,18 @@
 Updated: 2026-11-22. This file records the active state of the printer. Older
 entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 
+## Main MCU shutdown before hot QGL (2026-11-22)
+
+An attended attempt to test QGL at 100 C bed and 150 C T0 stopped before any
+QGL command was issued. While stationary at X330 Y280 Z10, the main MCU
+reported `Missed scheduling of next digital out event` during a short hold at
+100.2 C bed / 150.0 C nozzle; coil was 43.8 C. Bed and nozzle PWM were
+0.684/0.108 immediately before the event. CAN counters were zero and LDC bulk
+reported no overflow. Firmware shut down heater outputs. The printer was left
+in shutdown without restarting or repeating heat. No new hot QGL convergence
+result was obtained. See
+`extras/Nhat-ky-chinh-sua/2026-11-22-hot-qgl-attempt-mcu-shutdown.md`.
+
 ## T0 tap origin correction was skipped (2026-11-22)
 
 The completed `Khoi lap phuong_ABS_3m31s.gcode` first-layer test needed a net
