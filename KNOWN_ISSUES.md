@@ -3,15 +3,32 @@
 Updated: 2026-11-22. This file records the active state of the printer. Older
 entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 
-## Replacement LDC1612 needs thermal and tap calibration (2026-11-22)
+## T0 tap origin correction was skipped (2026-11-22)
+
+The completed `Khoi lap phuong_ABS_3m31s.gcode` first-layer test needed a net
++0.10 mm live Z adjustment for the operator's desired surface. The preceding
+five-tap result was contact Z=+0.059759 mm, immediately followed by
+`Unknown command:"_LDC1612"`. Klipper's G-code parser splits the configured
+`_LDC1612_APPLY_TAP_Z` helper after the digits, so the intended
+`SET_KINEMATIC_POSITION` never ran. Print start still completed a 17x18
+adaptive mesh, reheated T0 from 150 C tap temperature to 260 C print
+temperature, primed and printed. The first-layer adjustment cannot be saved
+as a fixed T0 offset until the corrected tap origin has been tested; thermal
+expansion over the nozzle heat-up may account for a remaining difference.
+The live replacement-sensor Z curve was recalibrated at coil 46.683760 C,
+and a tap threshold of 25318.090 was saved. Preserve both on deployment.
+
+## Replacement LDC1612 thermal calibration stopped (2026-11-22)
 
 The operator replaced the LDC1612 coil/board while retaining the Manta I2C,
 thermistor wiring and X0/Y35 offset. A cold 101-point Z calibration and drive
 current 17 were saved at a coil temperature of 22.06 C. The reviewed
 replacement configuration was deployed from commit `4b9e6a9` while idle,
 removing the old tap threshold and mesh and enabling the 100 C bed / 150 C T0
-drift-calibration route. No thermal drift model, new tap threshold, hot mesh
-or first-layer test has been completed.
+drift-calibration route. This paragraph describes the state before the
+operator saved the new hot Z curve and tap threshold and ran a first-layer
+test. No thermal drift model has been saved; the operator requested a stop to
+thermal drift calibration.
 
 The first attended Z home was emergency-stopped. The operator found and fixed
 a loose stepper wire and confirmed no nozzle or bed damage. Subsequent G28 and
@@ -45,8 +62,9 @@ completed with the preceding settings (bed power paused during QGL and
 13x14 adaptive scan). Print start now calls `BED_MESH_CALIBRATE ADAPTIVE=1`;
 the wrapper selects rapid scan and Klipper scales the 55x55 base grid to each
 object region plus 10 mm. Orca process presets in this repository now enable
-object labels. The new print mesh, 55x55 rapid mesh from Mainsail and fine QGL
-using fixed-height scan still need an attended run. The underlying
+object labels. A later first-layer test completed an attended 17x18 adaptive
+print mesh and fine QGL at a 0.005320 mm range. The 55x55 rapid mesh from
+Mainsail still needs an attended run. The underlying
 MCU digital-output timeout remains open.
 
 Before this change, a sixth main-MCU `Missed scheduling of next digital out event` shutdown

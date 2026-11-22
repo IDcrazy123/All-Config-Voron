@@ -1,6 +1,6 @@
 # Quy tắc làm việc hiện hành — Voron 5 Tool
 
-Cập nhật: 2026-11-21. File này là điểm vào duy nhất cho công việc trong Git repository này. Các ghi chép ở thư mục ../.agents và extras là tài liệu tham khảo theo thời điểm, không tự động ghi đè trạng thái máy hoặc yêu cầu mới của người dùng.
+Cập nhật: 2026-11-22. File này là điểm vào duy nhất cho công việc trong Git repository này. Các ghi chép ở thư mục ../.agents và extras là tài liệu tham khảo theo thời điểm, không tự động ghi đè trạng thái máy hoặc yêu cầu mới của người dùng.
 
 ## Máy và nguồn sự thật
 
@@ -11,7 +11,9 @@ Cập nhật: 2026-11-21. File này là điểm vào duy nhất cho công việc
 
 ## Kiến trúc đang chạy
 
-- Ngày 2026-11-22: người vận hành thay bo/cuộn nhưng xác nhận chip vẫn là LDC1612, I²C Manta PA8/PC9, nhiệt PC5, offset X0/Y35. Dòng kích 17 và mô hình Z nguội 101 điểm đã được đo lại, `SAVE_CONFIG` trên máy; cấu hình này và tùy chọn bù nhiệt T0 150°C/bàn 100°C đã nạp production, tap threshold/mesh cũ đã xóa. Lượt G28 Z đầu bị dừng khẩn do dây motor bước lỏng; người vận hành sửa và xác nhận không hư hại, G28/QGL kế tiếp thành công. Lượt hiệu chuẩn bù nhiệt có ba mẫu giấy rồi MCU chính shutdown `Missed scheduling of next digital out event` khi bàn khoảng 86,4°C; **chưa lưu mô hình drift, chưa có tap threshold, mesh nóng hoặc first-layer của đầu dò mới**. Người vận hành yêu cầu dừng hiệu chuẩn trôi nhiệt và ưu tiên quét adaptive từng bản in. Xem `extras/Nhat-ky-chinh-sua/2026-11-22-ldc1612-replacement-thermal.md`.
+- Bản in T0 ABS `Khoi lap phuong_ABS_3m31s.gcode` mới nhất hoàn tất; người vận hành chỉnh Z ròng +0,10 mm để lớp đầu đẹp. `PRINT_START` đã tap ở T0 150°C với kết quả tiếp xúc Z≈+0,059759 mm, rồi console báo `Unknown command:"_LDC1612"` vì tên helper `_LDC1612_APPLY_TAP_Z` bị Klipper phân tách trước phần `_APPLY_TAP_Z`. Gốc Z sau tap không được sửa; máy vẫn mesh adaptive 17×18, gia nhiệt T0 lên 260°C, prime và in. Git đang sửa tên helper thành `_LDC_APPLY_TAP_Z`; **không lưu +0,10 mm cố định trước khi thử lại lớp đầu sau sửa**. Live còn mô hình Z mới ở `calibration_temp=46,683760` và `tap_threshold=25318,090`, phải giữ khi triển khai. Xem `extras/Nhat-ky-chinh-sua/2026-11-22-t0-tap-origin-first-layer.md`.
+
+- Đầu ngày 2026-11-22: người vận hành thay bo/cuộn nhưng xác nhận chip vẫn là LDC1612, I²C Manta PA8/PC9, nhiệt PC5, offset X0/Y35. Dòng kích 17 và mô hình Z nguội 101 điểm đã được đo lại; sau đó người vận hành lưu thêm đường cong Z nóng và tap threshold như ghi ở mục mới nhất. Lượt G28 Z đầu bị dừng khẩn do dây motor bước lỏng; người vận hành sửa và xác nhận không hư hại, G28/QGL kế tiếp thành công. Lượt hiệu chuẩn bù nhiệt có ba mẫu giấy rồi MCU chính shutdown `Missed scheduling of next digital out event` khi bàn khoảng 86,4°C; **chưa lưu mô hình drift**. Người vận hành yêu cầu dừng hiệu chuẩn trôi nhiệt và ưu tiên quét adaptive từng bản in. Xem `extras/Nhat-ky-chinh-sua/2026-11-22-ldc1612-replacement-thermal.md`.
 
 - `PRINT_START` dùng `BED_MESH_CALIBRATE ADAPTIVE=1`; macro bọc tự chọn `rapid_scan`, còn Z2, tốc độ 150 mm/s và mật độ tham chiếu 55×55 lấy từ `[bed_mesh]`. Klipper tính bao vật thể từ `EXCLUDE_OBJECT_DEFINE`, cộng lề 10 mm và giảm số điểm theo kích thước vùng. Các preset process Orca trong repository cần bật nhãn vật thể; file G-code cũ không có khai báo sẽ bị chặn trước khi gia nhiệt. Lỗi MCU digital output còn mở; không chạy thử nóng tự động khi chưa được xử lý.
 
