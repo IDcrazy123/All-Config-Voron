@@ -14,6 +14,8 @@
 - Backup: `extras/backups/pre-tap-origin-fix-20261122/`.
 - Khi dry-run triển khai, installer phát hiện live `printer.cfg` đã thay đổi tiếp: người vận hành lưu T2 `gcode_z_offset` từ -0,4203 thành -0,6203 mm. Đã lấy lại bản live, sao lưu `printer.live-after-commit.cfg` và đồng bộ giá trị mới vào Git trước khi triển khai; không dùng cờ thay thế hiệu chuẩn để ghi đè.
 
-## Xác minh còn chờ
+## Triển khai và xác minh
 
-- Kiểm tra cú pháp/lệnh sau deploy, Klipper `ready`, không warning. Lượt tap tiếp theo phải hiện `LDC1612 tap corrected Z by ... mm` và không còn `Unknown command`. Sau đó thử lớp đầu mới để xác định có cần bù Z do chênh nhiệt vòi hay không.
+- Sau khi đồng bộ T2, installer dry-run chỉ thấy thay đổi dự kiến ở `calibration-probe.cfg` và timestamp của `printer.cfg`. Đã deploy lúc máy idle; backup production tại `/home/voron/printer_data/config_backups/config-install-20261122-112835-pYlfNN`. `RESTART` hoàn tất, Klipper `ready`, không warning; registry G-code có `_LDC_APPLY_TAP_Z` và không có helper tên cũ. T2 vẫn là -0,6203 mm, threshold LDC vẫn 25318,090.
+- G28 có người vận hành quan sát đã thành công sau restart để đo QGL/LDC; chưa chạy hot tap hoặc bản in đầu mới sau bản sửa. Lượt tap tiếp theo phải hiện `LDC1612 tap corrected Z by ... mm` và không còn `Unknown command`. Sau đó thử lớp đầu để xác định có cần bù Z do chênh nhiệt vòi hay không.
+- Rà soát QGL và phép đo LDC khi máy đứng yên: xem `extras/diagnostics/2026-11-22-qgl/REPORT.vi.md`. Không chỉnh tolerance QGL hoặc offset T0 dựa trên dữ liệu chưa tách được ảnh hưởng nhiệt.

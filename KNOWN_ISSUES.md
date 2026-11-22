@@ -17,6 +17,22 @@ as a fixed T0 offset until the corrected tap origin has been tested; thermal
 expansion over the nozzle heat-up may account for a remaining difference.
 The live replacement-sensor Z curve was recalibrated at coil 46.683760 C,
 and a tap threshold of 25318.090 was saved. Preserve both on deployment.
+The renamed `_LDC_APPLY_TAP_Z` helper was deployed idle and is registered after
+restart. A new hot tap and first-layer print have not yet verified the physical
+correction. The operator's live T2 offset of -0.6203 mm was preserved.
+
+## LDC1612 fine QGL repeatability (2026-11-22)
+
+Review of 206 QGL rounds found 7/23 fine sessions at bed >=95 C met the
+0.0075 mm tolerance, versus 3/3 below 50 C. All 11 consecutive fine rounds
+starting above a 0.030 mm spread improved after four-Z adjustment, so there is
+no evidence identifying one failed Z stepper or swapped motor order. All four
+TMC drivers reported GSTAT=0 when checked idle. Stationary direct LDC streams
+at two QGL corners (4,836 samples each at Z2) showed 0.0263/0.0307 mm total
+Z ranges and frequent amplitude error counts while the unpowered bed cooled.
+Thermal bed movement and LDC signal drift are not yet separated. Do not loosen
+QGL tolerance or assign a specific motor fault from these measurements. See
+`extras/diagnostics/2026-11-22-qgl/REPORT.vi.md`.
 
 ## Replacement LDC1612 thermal calibration stopped (2026-11-22)
 
