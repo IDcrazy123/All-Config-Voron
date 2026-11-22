@@ -15,7 +15,13 @@
 - `extras/docs/huong-dan-ldc1612-scan-tap-mesh.vi.md`: cập nhật adaptive mesh và trình tự bù nhiệt từ nguội, lấy mẫu giấy mỗi 2°C tới nhiệt cuộn mục tiêu khoảng 58°C.
 - Backup Git/live trước sửa: `extras/backups/pre-ldc1612-recalibration-20261122/`.
 
-## Chưa xác minh
+## Triển khai và thử bù nhiệt
 
-- CFG nhiệt mới chưa nạp production. Chưa chạy `TEMPERATURE_PROBE_CALIBRATE`, chưa có `drift_calibration` hoặc tap threshold của cảm biến mới, chưa mesh nóng/adaptive hay thử first layer. `PRINT_START` phải còn bị chặn do thiếu threshold mới.
-- Lỗi MCU `Missed scheduling of next digital out event` từ ngày trước vẫn chưa có nguyên nhân xác định; theo dõi khi thử QGL/mesh nóng.
+- Commit `4b9e6a9` đã được push và triển khai khi máy idle bằng `config/scripts/install.sh`; backup production ở `/home/voron/printer_data/config_backups/config-install-20261122-065344-eBgz9Q`. Kiểm tra lại live: Klipper `ready`, đường cong Z nguội và `calibration_temp=22,057667` có hiệu lực; tap threshold và mesh cũ đã xóa. Tùy chọn bù nhiệt T0 150°C/bàn 100°C đã nạp. `PRINT_START` đã dùng adaptive mesh theo vùng vật thể, nhưng vẫn bị chặn trước khi gia nhiệt do chưa có threshold mới.
+- G28 với đường cong mới thành công; T0 active/detected=0. Bắt đầu `TEMPERATURE_PROBE_CALIBRATE PROBE=ldc1612_eddy_coil TARGET=58 STEP=2`. Lượt giấy đầu được người vận hành `ACCEPT` ở nhiệt cuộn khoảng 24,03°C; Klipper tự đặt bàn 100°C và vòi 150°C. Người vận hành tiếp tục `ACCEPT` lượt hai khoảng 27,31°C và lượt ba khoảng 30,80°C.
+- Khi bàn khoảng 86,4°C, vòi khoảng 149,4°C, cuộn khoảng 31,2°C, MCU chính shutdown `Missed scheduling of next digital out event` (`klippy.log` dòng 27081/27285 của phiên 2026-11-22). Lượt hiệu chuẩn bị hủy trước khi tới 100°C; không có `drift_calibration` được lưu, trạng thái `compensation_enabled=false`. Người vận hành tự `FIRMWARE_RESTART`, G28, QGL; QGL đạt dải 0,006297 mm. Kiểm tra sau đó: `ready`, XYZ homed, T0 active/detected=0, vòi ở X173,2/Y169,5/Z35, cả hai heater target 0, không in.
+- Ở thời điểm shutdown, log cho thấy gói `queue_digital_out oid=31` cuối trên MCU chính lúc 2621,944883; lệnh hết hạn đúng khoảng 3 giây sau. Cảm biến ADC và LDC1612 vẫn trả dữ liệu, CAN không có lỗi/retransmit, tải CPU khoảng 0,67. `heaters.py` thiết lập giới hạn gia hạn đầu ra 3 giây; `gpiocmds.c` shutdown khi hàng đợi digital output rỗng. OID 31 nhiều khả năng là điều khiển SSR bàn PA5, nhưng chưa có ánh xạ OID độc lập nên chưa coi là kết luận cuối. Không tăng watchdog hoặc nới bảo vệ heater để che lỗi. Lỗi từng lặp khi bàn ổn định quanh 100°C, nên không thể quy riêng cho giai đoạn tăng nhiệt.
+
+## Còn chờ
+
+- Cần xác định và xử lý lỗi lịch digital output trước khi chạy tiếp bù nhiệt nóng. Sau đó chạy lại từ bàn/vòi/cuộn nguội, hoàn tất các lượt giấy đến nhiệt cuộn mục tiêu, `SAVE_CONFIG`, kiểm tra `compensation_enabled=true`, rồi mới hiệu chuẩn tap threshold, mesh nóng và first layer.

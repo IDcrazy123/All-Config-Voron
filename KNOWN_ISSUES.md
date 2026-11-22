@@ -7,11 +7,11 @@ entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 
 The operator replaced the LDC1612 coil/board while retaining the Manta I2C,
 thermistor wiring and X0/Y35 offset. A cold 101-point Z calibration and drive
-current 17 were saved at a coil temperature of 22.06 C. The old tap threshold
-and default mesh remain in the live SAVE_CONFIG until the reviewed replacement
-configuration is deployed. No thermal drift calibration, new tap threshold, hot
-mesh or first-layer test has been completed. The prepared configuration clears
-the stale tap/mesh and adds a 100 C bed / 150 C T0 drift-calibration route.
+current 17 were saved at a coil temperature of 22.06 C. The reviewed
+replacement configuration was deployed from commit `4b9e6a9` while idle,
+removing the old tap threshold and mesh and enabling the 100 C bed / 150 C T0
+drift-calibration route. No thermal drift model, new tap threshold, hot mesh
+or first-layer test has been completed.
 
 The first attended Z home was emergency-stopped. The operator found and fixed
 a loose stepper wire and confirmed no nozzle or bed damage. Subsequent G28 and
@@ -20,16 +20,33 @@ range and fine retries to reach 0.004765 mm. This is the second loose stepper
 wire incident recorded during LDC setup. Recheck the connector before further
 hot probing, and do not infer Z repeatability from this single QGL.
 
+An attended `TEMPERATURE_PROBE_CALIBRATE TARGET=58 STEP=2` reached three
+accepted paper samples while the bed heated. At approximately 86.4 C bed,
+149.4 C nozzle and 31.2 C coil, the main MCU shut down with `Missed scheduling
+of next digital out event`. The attempt was aborted before reaching 100 C;
+`compensation_enabled=false` and no drift model was saved. The operator
+restarted, homed and completed QGL to a 0.006297 mm range. Subsequent status
+was ready, homed, T0 detected, heaters off. The log indicates a missed refresh
+of main-MCU digital output OID 31; its association with bed SSR PA5 is likely
+but not independently proven. CAN transport, LDC sample flow and host CPU
+load were normal immediately before shutdown. The same fault occurred at a
+steady 100 C bed on November 21, so repeating the hot calibration without
+diagnosis is not justified. Do not widen the MCU output timeout or heater
+safety limits to hide the failure.
+
 ## LDC1612 tap and print validation pending (2026-11-21)
 
 Current configuration holds bed temperature during QGL as requested by the
-operator. Bed power is paused during tap and the continuous 25x25 mesh. Print start waits for the bed before
+operator. Bed power is paused during tap and the adaptive rapid mesh. Print start waits for the bed before
 probing and before priming. The operator requested removal of the manual
 print gate. Saved scan and tap data are required before heating, and the
 leveling, tap and mesh commands must succeed before priming. `Khoi lap phuong_ABS_3m33s.gcode`
 completed with the preceding settings (bed power paused during QGL and
-13x14 adaptive scan). The 25x25 rapid print mesh, 55x55 rapid mesh from Mainsail
-and fine QGL using fixed-height scan still need an attended run. The underlying
+13x14 adaptive scan). Print start now calls `BED_MESH_CALIBRATE ADAPTIVE=1`;
+the wrapper selects rapid scan and Klipper scales the 55x55 base grid to each
+object region plus 10 mm. Orca process presets in this repository now enable
+object labels. The new print mesh, 55x55 rapid mesh from Mainsail and fine QGL
+using fixed-height scan still need an attended run. The underlying
 MCU digital-output timeout remains open.
 
 Before this change, a sixth main-MCU `Missed scheduling of next digital out event` shutdown

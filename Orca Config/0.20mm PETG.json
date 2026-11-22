@@ -1,7 +1,9 @@
 {
 	"brim_object_gap": "0.17",
 	"brim_type": "painted",
+	"exclude_object": "1",
 	"from": "User",
+	"gcode_label_objects": "1",
 	"inherits": "0.20mm Standard @Voron",
 	"min_skirt_length": "4",
 	"name": "0.20mm PETG",

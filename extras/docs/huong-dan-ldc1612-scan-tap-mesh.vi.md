@@ -1,6 +1,6 @@
 # Hiệu chuẩn LDC1612 trong Klipper trên Voron 5 Tool
 
-Dùng Console của Mainsail và chạy từng khối theo thứ tự. Hướng dẫn này dành cho T0, bàn ABS 100°C, vòi đo 150°C và cảm biến LDC1612 trên shuttle. Vị trí giữa bàn là X174 Y168. Lưới đối chiếu trong hướng dẫn là 15×15 ở Z2. Nút Calibrate trong Mainsail chạy quét liên tục 55×55 theo cấu hình máy; `PRINT_START` dùng adaptive mesh, quét vùng vật thể cộng lề 10 mm với mật độ tối đa 25×25. Nếu vùng in không chứa điểm X174 Y168, Klipper có thể đo thêm một điểm mốc Z ở giữa bàn.
+Dùng Console của Mainsail và chạy từng khối theo thứ tự. Hướng dẫn này dành cho T0, bàn ABS 100°C, vòi đo 150°C và cảm biến LDC1612 trên shuttle. Vị trí giữa bàn là X174 Y168. Lưới đối chiếu trong hướng dẫn là 15×15 ở Z2. Nút Calibrate trong Mainsail chạy quét liên tục 55×55 theo cấu hình máy; `PRINT_START` dùng adaptive mesh, quét vùng vật thể cộng lề 10 mm và tự thu nhỏ số điểm từ mật độ lưới 55×55 của cấu hình máy. Nếu vùng in không chứa điểm X174 Y168, Klipper có thể đo thêm một điểm mốc Z ở giữa bàn.
 
 **Sau khi thay bo/cuộn LDC1612:** drive current, mô hình chiều cao, ngưỡng tap và mesh của đầu dò cũ không phải kết quả hiệu chuẩn của đầu dò mới. Không chạy `G28 Z`, QGL, tap, mesh hoặc `PRINT_START` dựa trên các giá trị cũ. Xác nhận dây, offset và khoảng hở thật trước; dùng [quy trình hiệu chuẩn lần đầu của Klipper](https://www.klipper3d.org/Eddy_Probe.html#performing-initial-calibration-when-homing-with-probe) nếu đã xóa mô hình cũ. Các khối có `G28` bên dưới chỉ áp dụng sau khi mô hình Z của cảm biến mới đã được lưu và xác minh.
 
@@ -105,10 +105,10 @@ BED_MESH_OUTPUT
 
 Kiểm tra bản đồ trong mục Heightmap của Mainsail. Nếu muốn giữ mesh vừa đo để so sánh hoặc nạp lại, chạy `SAVE_CONFIG` để ghi profile `ldc1612_abs100_t0` đã đặt trong lệnh quét. Khi hiệu chuẩn xong và chưa in, chạy `TURN_OFF_HEATERS`. [Klipper Bed Mesh và profile](https://www.klipper3d.org/Bed_Mesh.html#bed-mesh-gcodes)
 
-Để dùng đúng kiểu quét của bản in, G-code phải khai báo vật thể bằng `EXCLUDE_OBJECT_DEFINE` **trước** `PRINT_START`. Khi in, Klipper tự thu nhỏ vùng quét và số điểm theo vùng vật thể cộng lề 10 mm; 25×25 là mức tối đa. Một lệnh gửi riêng từ Console không có khai báo vật thể nên không dùng `ADAPTIVE=1` để thử. `PRINT_START` bật và đợi bàn trở lại nhiệt độ yêu cầu trước prime. [Klipper adaptive mesh](https://www.klipper3d.org/Bed_Mesh.html#adaptive-meshes)
+Để dùng đúng kiểu quét của bản in, G-code phải khai báo vật thể bằng `EXCLUDE_OBJECT_DEFINE` **trước** `PRINT_START`. Bốn preset process Orca trong repository đã bật `exclude_object` và `gcode_label_objects`; file G-code cũ phải được slice lại nếu chưa có khai báo này. Khi in, Klipper tự thu nhỏ vùng quét và số điểm theo vùng vật thể cộng lề 10 mm, lấy lưới 55×55 trong `[bed_mesh]` làm mật độ tham chiếu. Một lệnh gửi riêng từ Console không có khai báo vật thể sẽ không có vùng adaptive. `PRINT_START` bật và đợi bàn trở lại nhiệt độ yêu cầu trước prime. [Klipper adaptive mesh](https://www.klipper3d.org/Bed_Mesh.html#adaptive-meshes)
 
 ```gcode
-BED_MESH_CALIBRATE METHOD=rapid_scan ADAPTIVE=1 HORIZONTAL_MOVE_Z=2 PROBE_COUNT=25,25 SCAN_SPEED=180 PROFILE=print_adaptive
+BED_MESH_CALIBRATE ADAPTIVE=1
 ```
 
-Khi bấm Calibrate trong Mainsail hoặc gửi `BED_MESH_CALIBRATE` sau QGL, máy mặc định quét liên tục 55×55 ở Z2, 150 mm/s. Có thể truyền `PROBE_COUNT=25,25` cho lượt kiểm tra ngắn hơn. `METHOD=scan` tường minh vẫn sử dụng được để đo đối chiếu tại chỗ. Hai lượt `rapid_scan` 55×55 trước đây đã gây shutdown MCU, nên quan sát lần chạy đầu với cấu hình hiện tại.
+Macro `BED_MESH_CALIBRATE` tự thêm `METHOD=rapid_scan`; các giá trị Z2, 150 mm/s và lưới tham chiếu 55×55 lấy từ `[bed_mesh]`. Khi bấm Calibrate trong Mainsail hoặc gửi `BED_MESH_CALIBRATE` sau QGL mà không có khai báo vật thể, máy dùng toàn vùng 55×55. Có thể truyền `PROBE_COUNT=25,25` cho lượt kiểm tra ngắn hơn. `METHOD=scan` tường minh vẫn sử dụng được để đo đối chiếu tại chỗ. Hai lượt `rapid_scan` 55×55 trước đây đã gây shutdown MCU, nên chỉ chạy bản in đầu có người quan sát sau khi xử lý lỗi lịch digital output.
