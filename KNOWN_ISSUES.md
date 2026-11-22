@@ -44,8 +44,28 @@ not verified the combined adjustment. See
 The -0.04 mm setting was deployed idle and verified in the live config after
 restart; both heater targets are zero. An attended hot tap and first-layer
 print remain to validate the physical result.
+The operator later changed the live tap_z_offset to +0.10 mm while Git remains
+at -0.04 mm. Do not overwrite that live change without reconciling intent.
+The latest attended print attempt reached a successful QGL but failed tap with
+`no contact found`; the operator reported no damage. This tap issue is separate
+from scan QGL convergence and remains unresolved.
 
 ## LDC1612 fine QGL repeatability (2026-11-22)
+
+Follow-up at the same X174 Y168 Z2 position and near 100 C bed / 150 C T0:
+12-second direct LDC captures with bed PWM on, off, then on showed linearly
+detrended Z standard deviations of 0.007950, 0.002079, and 0.010209 mm.
+The off phase had greater slow drift as the bed cooled. The replacement hot
+Z model was saved while coil temperature rose 45.6 to 48.3 C in about 38 s;
+subsequent hot QGL often runs at coil 60-66 C without drift compensation.
+The original coil's hot model was saved near a stable 59 C. Original sensor
+hot fine QGL succeeded in 18/22 historical sessions; replacement sensor after
+its hot model succeeded in 7/26 through the 12:25 log snapshot. One attended
+native default-method QGL at 100/150 C succeeded in four corrections, with
+a transient increase, so it is not a definitive method A/B. The proximal
+cause is unstable LDC measurement associated with bed power and thermal
+mismatch, with the physical coupling path unproven. See
+`extras/Nhat-ky-chinh-sua/2026-11-22-qgl-thermal-pwm-root-cause.md`.
 
 Review of 206 QGL rounds found 7/23 fine sessions at bed >=95 C met the
 0.0075 mm tolerance, versus 3/3 below 50 C. All 11 consecutive fine rounds

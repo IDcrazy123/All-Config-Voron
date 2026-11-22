@@ -1,5 +1,7 @@
 # 2026-11-22 — QGL LDC1612 khó hội tụ
 
+Đối chứng nóng mới hơn và phân tích nguyên nhân sau khi thay bo/cuộn: `extras/Nhat-ky-chinh-sua/2026-11-22-qgl-thermal-pwm-root-cause.md`. Điểm chính: số đo tĩnh khi PWM bàn bật nhiễu nhanh hơn khoảng 4–5 lần so với lúc tắt; mô hình nóng của đầu thay thế được ghi khi nhiệt cuộn còn tăng và đang dùng cách nhiệt hiệu chuẩn khoảng 13–20°C. Một lượt QGL native mặc định ở 100/150°C đạt 0,005078 mm sau bốn chỉnh. Không có bằng chứng quy riêng cho một motor Z.
+
 ## Phạm vi và trạng thái
 
 - Người vận hành đứng cạnh máy trong phép thử có chuyển động. Máy `ready`, T0 được nhận diện trên shuttle; đã G28 rồi đo tĩnh ở hai góc QGL tại Z2. Kết thúc, đầu in được nâng lên Z10 tại X330 Y280. Bàn và vòi có target 0.
