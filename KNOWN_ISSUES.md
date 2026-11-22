@@ -11,8 +11,9 @@ shut down the main MCU with the same digital-out scheduling error about 10.6 s
 after the QGL command. No corner results or retries were logged. Just before
 shutdown, bed was 100.0 C with PWM about 0.259, coil about 70.3 C, CAN error
 and retransmit counters were zero, LDC bulk overflows were zero, and main MCU
-awake rose to 0.892 during QGL. Klipper remains shut down; do not repeat hot
-QGL until the MCU output timing fault is investigated. See
+awake rose to 0.892 during QGL. Klipper later returned to `ready` after an
+external reset, with heater targets zero, XYZ unhomed, and QGL unapplied.
+Do not repeat hot QGL until the MCU output timing fault is investigated. See
 `extras/Nhat-ky-chinh-sua/2026-11-22-ldc1612-recalibration-live.md`.
 
 An attended attempt to test QGL at 100 C bed and 150 C T0 stopped before any
