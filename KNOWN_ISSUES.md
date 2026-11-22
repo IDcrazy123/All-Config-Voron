@@ -10,9 +10,10 @@ QGL command was issued. While stationary at X330 Y280 Z10, the main MCU
 reported `Missed scheduling of next digital out event` during a short hold at
 100.2 C bed / 150.0 C nozzle; coil was 43.8 C. Bed and nozzle PWM were
 0.684/0.108 immediately before the event. CAN counters were zero and LDC bulk
-reported no overflow. Firmware shut down heater outputs. The printer was left
-in shutdown without restarting or repeating heat. No new hot QGL convergence
-result was obtained. See
+reported no overflow. Firmware shut down heater outputs. The assistant stopped
+there without restarting or repeating heat; the operator later restarted and
+ran two hot QGL sessions, documented below. That initial attempt produced no
+QGL convergence result. See
 `extras/Nhat-ky-chinh-sua/2026-11-22-hot-qgl-attempt-mcu-shutdown.md`.
 
 ## T0 tap origin correction was skipped (2026-11-22)
@@ -40,6 +41,9 @@ The helper must still transfer the adjusted tap result to the kinematic Z
 origin; otherwise the new setting has no effect on the print. A new print has
 not verified the combined adjustment. See
 `extras/Nhat-ky-chinh-sua/2026-11-22-ldc-native-tap-z-offset.md`.
+The -0.04 mm setting was deployed idle and verified in the live config after
+restart; both heater targets are zero. An attended hot tap and first-layer
+print remain to validate the physical result.
 
 ## LDC1612 fine QGL repeatability (2026-11-22)
 
@@ -53,6 +57,11 @@ Z ranges and frequent amplitude error counts while the unpowered bed cooled.
 Thermal bed movement and LDC signal drift are not yet separated. Do not loosen
 QGL tolerance or assign a specific motor fault from these measurements. See
 `extras/diagnostics/2026-11-22-qgl/REPORT.vi.md`.
+Two operator-run hot QGL fine sessions after the MCU shutdown also failed:
+0.011274 -> 0.015374 -> 0.024121 mm and 0.008957 -> 0.022915 -> 0.014191
+-> 0.015951 -> 0.011883 -> 0.008284 -> 0.009666 -> 0.012253 mm. These live
+results confirm poor convergence at the print temperature but do not isolate
+a Z motor or prove incorrect motor numbering.
 
 ## Replacement LDC1612 thermal calibration stopped (2026-11-22)
 
