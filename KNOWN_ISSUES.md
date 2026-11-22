@@ -32,6 +32,14 @@ and a tap threshold of 25318.090 was saved. Preserve both on deployment.
 The renamed `_LDC_APPLY_TAP_Z` helper was deployed idle and is registered after
 restart. A new hot tap and first-layer print have not yet verified the physical
 correction. The operator's live T2 offset of -0.6203 mm was preserved.
+The operator subsequently selected a native `tap_z_offset` adjustment of
+-0.04 mm to supply the estimated remaining first-layer lift after the measured
+~0.06 mm tap-origin correction. The older `tap_adjust_z` name belongs to the
+retired eddy-ng plugin and is not supported in the active Klipper section.
+The helper must still transfer the adjusted tap result to the kinematic Z
+origin; otherwise the new setting has no effect on the print. A new print has
+not verified the combined adjustment. See
+`extras/Nhat-ky-chinh-sua/2026-11-22-ldc-native-tap-z-offset.md`.
 
 ## LDC1612 fine QGL repeatability (2026-11-22)
 

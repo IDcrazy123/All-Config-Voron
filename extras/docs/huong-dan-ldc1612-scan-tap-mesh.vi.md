@@ -94,6 +94,8 @@ PROBE_EDDY_CURRENT_TAP_CALIBRATE TAP=verify LIFT_SPEED=10
 
 Sau khi Klipper khởi động lại, chạy lại bước 1. Lau vòi lần cuối và đợi bàn trở lại gần 100°C nếu đã nguội. Lấy mốc Z bằng lệnh có sẵn của máy `LDC_TAP_HOME`. Lệnh này chạy `PROBE METHOD=tap` với 5 mẫu, áp dụng kết quả làm mốc Z và nhấc vòi lên. Lệnh `PROBE METHOD=tap` chạy riêng chỉ trả số đo, nên dùng `LDC_TAP_HOME` khi chuẩn bị mesh theo mốc vòi. Nếu tap báo lỗi, dừng trước khi quét. Home Z sau tap sẽ thay mốc vừa lấy.
 
+Klipper native trên máy dùng `tap_z_offset` trong `[probe_eddy_current ldc1612_eddy_coil]`. Tên `tap_adjust_z` thuộc plugin `eddy-ng` lưu trong `extras/LDC1612/` và không được Klipper native nạp. Khi nâng Z lúc in bằng babystep dương, offset native giảm cùng độ lớn; lệnh chính thức để lưu kết quả là `Z_OFFSET_APPLY_PROBE METHOD=tap` rồi `SAVE_CONFIG`. `tap_z_offset` thay đổi số Z mà lần tap sau trả về. Macro `LDC_TAP_HOME` vẫn cần áp dụng số đo đó vào mốc tọa độ Z; nếu chỉ bỏ bước áp dụng, offset sẽ không ảnh hưởng vị trí in. [Tham chiếu cấu hình Klipper](https://www.klipper3d.org/Config_Reference.html#probe_eddy_current), [lệnh lưu offset tap](https://www.klipper3d.org/G-Codes.html#probe_eddy_current).
+
 ```gcode
 M140 S0
 G4 P1000
