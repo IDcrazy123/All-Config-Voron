@@ -15,5 +15,7 @@
 
 ## Kiểm tra và giới hạn
 
-- Kiểm tra JSON, cú pháp Jinja, trạng thái live và đường quét giả lập không di chuyển. Chưa chạy bản in nóng hay mesh cơ khí mới vì đầu dò thay thế chưa có tap threshold và lỗi MCU digital output chưa xử lý.
+- Commit `e97a09d` đã push. Remote checkout sạch, dry-run installer chỉ báo thay `Printer-Setup/print-macros.cfg`; triển khai khi máy `ready/standby`, heater target 0. Backup production ở `/home/voron/printer_data/config_backups/config-install-20261122-071619-0lmvpN`. Sau `RESTART`, Klipper `ready`, không warning, macro live chứa đúng `BED_MESH_CALIBRATE ADAPTIVE=1`.
+- Kiểm tra JSON bốn preset process. Dùng lại bốn polygon trên máy sau triển khai để gọi `bed_mesh/dump_mesh` với `ADAPTIVE=1 METHOD=rapid_scan`, không gia nhiệt hoặc di chuyển: vùng X152..196/Y138,485..201,126, lưới 9×13 (117 điểm) thay vì toàn bàn 55×55. Đã `EXCLUDE_OBJECT_DEFINE RESET=1` sau thử.
+- Chưa chạy bản in nóng hay mesh cơ khí mới vì đầu dò thay thế chưa có tap threshold và lỗi MCU digital output chưa xử lý.
 - Với vùng in gần toàn bàn, native adaptive có thể dùng gần đủ 55×55 điểm; đây là mật độ tham chiếu của `[bed_mesh]`, không còn giới hạn 25×25 trong lệnh `PRINT_START`.
