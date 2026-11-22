@@ -5,6 +5,16 @@ entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
 
 ## Main MCU shutdown before hot QGL (2026-11-22)
 
+Another attended hot QGL after recalibrating the replacement LDC1612 drive
+current (19) and 101-point Z curve (coil calibration temperature 73.565570 C)
+shut down the main MCU with the same digital-out scheduling error about 10.6 s
+after the QGL command. No corner results or retries were logged. Just before
+shutdown, bed was 100.0 C with PWM about 0.259, coil about 70.3 C, CAN error
+and retransmit counters were zero, LDC bulk overflows were zero, and main MCU
+awake rose to 0.892 during QGL. Klipper remains shut down; do not repeat hot
+QGL until the MCU output timing fault is investigated. See
+`extras/Nhat-ky-chinh-sua/2026-11-22-ldc1612-recalibration-live.md`.
+
 An attended attempt to test QGL at 100 C bed and 150 C T0 stopped before any
 QGL command was issued. While stationary at X330 Y280 Z10, the main MCU
 reported `Missed scheduling of next digital out event` during a short hold at
@@ -55,6 +65,24 @@ override and saved tap_threshold 18555.665; see
 `extras/Nhat-ky-chinh-sua/2026-11-22-qgl-native-default.md`.
 
 ## LDC1612 fine QGL repeatability (2026-11-22)
+
+Latest live state supersedes the deployment paragraph below: the operator's
+current QGL macro again uses `METHOD=scan HORIZONTAL_MOVE_Z=2` with 0.01 mm
+tolerance and 20 retries. Git still has default-method QGL at Z10 with
+0.0075 mm and 10 retries. On an attended recalibration trial, Klipper's
+drive-current calibration returned 19 both near 90 C and 100 C bed, versus
+the saved 17. The operator authorized recalibration from scratch; 19 was
+saved live and synced to Git. The former 101-point Z model was acquired at
+current 17 and coil 46.68 C, so it became invalid at current 19. The model
+was then reacquired at coil 73.565570 C, but QGL validation was interrupted
+by the main MCU shutdown documented above. Do not run tap, mesh, or a print
+until QGL and the new model have been verified.
+At stationary X174 Y168 Z2 with current 19 and 100/150 C bed/nozzle, four
+12-second samples showed detrended Z standard deviations of 0.00864,
+0.01618, 0.01209, and 0.00732 mm while coil temperature rose from about
+66 to 75 C. Turning bed PWM off did not repeat the earlier noise reduction;
+electrical coupling to the SSR is therefore unproven. See
+`extras/Nhat-ky-chinh-sua/2026-11-22-ldc1612-recalibration-live.md`.
 
 The fine QGL macro was restored from `METHOD=scan HORIZONTAL_MOVE_Z=2`
 to Klipper's default Eddy method at the configured 10 mm travel height, as
