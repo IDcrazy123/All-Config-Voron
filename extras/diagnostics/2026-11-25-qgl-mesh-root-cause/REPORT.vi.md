@@ -12,10 +12,28 @@ Nguồn: cuộc trao đổi `https://chatgpt.com/share/6b06bba6-aac0-83ec-b113-4
 6. **Không thấy diff upstream ở đường Eddy/mesh.** `git diff HEAD -- klippy/extras/{bed_mesh,probe_eddy_current,ldc1612,temperature_probe,bulk_sensor}.py src/sensor_ldc1612.c` rỗng. `dirty` đến từ các module bổ sung chưa tracked như Axiscope/KTC/ShakeTune. Firmware MCU khác commit host tự nó không chứng minh không tương thích; không có dấu hiệu lỗi giao thức trong log. Chưa có cơ sở để flash firmware hoặc sửa runtime.
 7. **Cảnh báo biên độ có thật, nhưng không giải thích hết QGL.** Đầu chu trình QGL thành công sau restart (dòng 259025–259110) có khoảng 1.600 mẫu được log `Amplitude Low/High warning`, chủ yếu ở vòng thô khi hạ gần bàn. Vòng tinh `METHOD=scan` tiếp theo ít hoặc không có cảnh báo mà vẫn có range 0,007966 mm. Vậy không lấy cảnh báo biên độ làm lời giải duy nhất cho các vòng QGL tinh thất bại.
 
+## Phép đối chứng định lượng bổ sung
+
+Chạy `analyze_mesh.py` trên bản chụp `klippy.log` ngày 25/11 (89.163.459 byte, SHA-256 `9BF7153ED3A4424463EE17E955FECFF230059FD0931FF8D9FCD8231AC2281E4D`). Với từng ma trận `save_config` của **10 lượt rapid** (dòng 210557, 227000, 234595, 234760, 234977, 235334, 235570, 259277, 259450, 259754), lấy trung bình theo X cho mỗi hàng Y, trừ đa thức bậc ba mô tả độ cong bàn trên toàn Y, rồi khớp một sin/cos có biên độ và pha riêng cho mỗi lượt. Hai mô hình cùng số tham số: chu kỳ chung theo **số hàng** hoặc bước sóng chung theo **tọa độ Y**. Tối ưu trung bình R² trên 10 lượt:
+
+| Giả thuyết | Chu kỳ chung tốt nhất | R² trung bình của thành phần lặp |
+| --- | ---: | ---: |
+| Theo hàng quét | 6,855 hàng | 0,635 |
+| Theo tọa độ bàn | 35,50 mm Y | 0,386 |
+| Theo thời gian ước lượng từ Stats đầu/cuối lượt | 14,68 giây | 0,619 |
+
+Chu kỳ riêng của 10 lượt nằm trong **6,78–6,93 hàng**. Với bước hàng 9,33 / 7,00 / 5,18 mm, nó biến thành bước sóng vật lý khoảng **64 / 48 / 35 mm**, không thể là cùng một vệt cố định trên bàn. Ở các lưới 31×31, 41×41, 31×55, 11×31, mô hình cố định 35,5 mm chỉ giải thích R² **0,005 / 0,002 / 0,005 / 0,002**, còn mô hình theo hàng giải thích **0,666 / 0,630 / 0,544 / 0,669**. Lưới 55 hàng riêng lẻ không phân biệt được hai giả thuyết vì cùng số hàng và cùng bước Y; các lưới có mật độ khác mới tạo phép đối chứng.
+
+Biên độ sin theo hàng là **6,2 và 7,0 µm** trong hai lượt heater OFF, so với **5,5–7,4 µm** trong tám lượt heater ON. Đây là biên độ của *thành phần tuần hoàn đã khớp*, không phải peak-to-peak của cả mesh. Heater OFF vẫn còn khoảng cùng biên độ, bác bỏ giả thuyết PWM bàn là điều kiện cần để tạo sọc. Ước lượng thời gian dùng Stats độ phân giải khoảng 1 giây cho cả lượt, không có timestamp từng hàng, nên 14,68 giây là giá trị gần đúng; nhịp cố định theo hàng của thuật toán quét vẫn là một khả năng chưa loại trừ.
+
+Tại cùng X174/Y170, nhóm sáu phép `PROBE METHOD=scan SAMPLES=5` khi heater bật lại cho range **35,0 µm trong khoảng 12 giây** trong lúc nhiệt cuộn hiển thị chỉ 63,7–63,8°C. Một hệ số bù tuyến tính chỉ theo nhiệt cuộn đo được không đủ giải thích nhóm này; nhiệt độ cảm biến được làm tròn và có thể trễ nên không thể loại hẳn tác động nhiệt. Các nhóm đo khác có dấu tương quan Z/nhiệt khác nhau, cũng không ủng hộ một hệ số bù nhiệt đơn giản. Sai số nhanh này lớn hơn tolerance QGL 8 µm khoảng **4,4 lần**.
+
+**Kết quả định vị:** Sọc là sai số phụ thuộc thứ tự/thời gian lấy mẫu của phép quét, không phải hình dạng Y cố định của mặt bàn. PWM bàn và drift nhiệt cuộn đo được không giải thích toàn bộ. Dữ liệu hiện có vẫn không tách được dao động trong tín hiệu Eddy, dao động Z thật của gantry/bàn, và hiện tượng gắn với thuật toán lấy mẫu theo hàng; vì thế chưa chỉ đích danh linh kiện gốc. Cần raw LDC đứng yên cùng mốc cơ khí độc lập, hoặc đổi `SCAN_SPEED` thật, để phân biệt ba khả năng đó.
+
 ## Kết luận với mức chắc chắn
 
 - Nguyên nhân trực tiếp QGL không hội tụ: phép đo Eddy tại các góc có độ biến thiên lớn hơn tolerance 0,008 mm. Trôi theo nhiệt và trạng thái bù nhiệt bị tắt là một thành phần có bằng chứng, nhưng không phải toàn bộ sai số nhanh.
-- Nguyên nhân trực tiếp của sọc mesh: thành phần sai số theo thời gian trong chuỗi đo Eddy, với chu kỳ ước lượng khoảng 15 giây; thay `PROBE_COUNT` làm đổi bước sóng theo Y. Tác nhân vật lý tạo chu kỳ đó vẫn chưa được chỉ đích danh. Heater PWM, ray Y, đế nam châm và lỗi riêng của `rapid_scan` không đủ chứng cứ để kết luận là gốc duy nhất. Việc `scan` đứng tại từng điểm vẫn có gợn/sai lệch và kết quả Native Tap không trùng hoàn toàn với Eddy làm tăng nghi vấn đường tín hiệu Eddy.
+- Nguyên nhân trực tiếp của sọc mesh: thành phần sai số theo thứ tự hàng quét, tương ứng chu kỳ thời gian ước lượng khoảng 15 giây ở tốc độ hiện tại; thay `PROBE_COUNT` làm đổi bước sóng theo Y. Tác nhân vật lý tạo chu kỳ đó vẫn chưa được chỉ đích danh. Heater PWM, ray Y, đế nam châm và lỗi riêng của `rapid_scan` không đủ chứng cứ để kết luận là gốc duy nhất. Việc `scan` đứng tại từng điểm vẫn có gợn/sai lệch và kết quả Native Tap không trùng hoàn toàn với Eddy làm tăng nghi vấn đường tín hiệu Eddy.
 - Shutdown: hàng đợi digital output trên main MCU bị thiếu cập nhật. Đây là lỗi vận hành riêng, có thể cắt ngang QGL/mesh, và cần được xử lý trước các thử nóng dài hoặc hiệu chuẩn drift.
 
 ## Phép kiểm tra phân biệt còn thiếu
