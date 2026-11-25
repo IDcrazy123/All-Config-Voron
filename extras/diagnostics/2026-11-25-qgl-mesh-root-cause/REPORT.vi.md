@@ -64,12 +64,29 @@ Profile chẩn đoán không nạp bảng Z Eddy nên các file này báo `z=-99
 
 Sau khi người vận hành tắt nguồn, nối lại EBB0–EBB4 và bật máy, `klipper.env` vẫn đúng SHA-256 gốc. Klipper nạp lại `printer.cfg`, `ready`, nhận đủ `mcu` và `mcu EBB0`–`mcu EBB4`; CAN rx/tx error và retries đều 0. Cuối lượt `print_stats=standby`, heater bàn và cả năm extruder target/power 0, các trục chưa home, T0 được phát hiện nhưng toolchanger ở trạng thái `uninitialized` sau khởi động; không gửi lệnh initialize, home, QGL hay di chuyển.
 
+## Thay riêng bo LDC1612 cùng loại
+
+Người vận hành xác nhận **chỉ thay bo LDC1612**, giữ cuộn và dây. Sau thay, Klipper production `ready`, standby, XYZ chưa home, toàn bộ 11 stepper OFF, heater bàn target/power 0, quạt TMC và enclosure OFF. Không di chuyển đầu máy. Endpoint `ldc1612/dump_ldc1612` thu 36.024 mẫu trong 90,07 giây; tần số khoảng 11,74 MHz, 0 lỗi/overflow. Không sử dụng Z suy từ bảng hiệu chuẩn bo cũ. File `replacement-board/new-board-stationary-90s.csv.gz`, nhiệt/quạt trong `new-board-context.csv`, mã tái lập `analyze_replacement.py`.
+
+Lấy median tần số theo giây, bỏ xu hướng đa thức bậc ba, rồi khớp sin/cos trong dải 8–25 giây. Cùng phép tính áp vào hai chuỗi 90 giây của bo cũ:
+
+| Bo và trạng thái | Chu kỳ tốt nhất | Biên độ tần số thô | R² phần dư | Lỗi/overflow |
+| --- | ---: | ---: | ---: | ---: |
+| Cũ, quạt TMC ON | 14,19 s | 533,3 Hz | 0,700 | 0/0 |
+| Cũ, quạt TMC OFF | 14,35 s | 489,3 Hz | 0,630 | 0/0 |
+| **Mới**, quạt TMC OFF | **13,76 s** | **501,5 Hz** | **0,680** | **0/0** |
+
+Với chu kỳ 13,76 s, hai nửa 45 giây của lượt bo mới có biên độ 510,6 và 495,2 Hz, nên đây không phải một quá độ lúc bắt đầu stream. Trong 60 lần lấy status, bàn 30,56→30,28°C, cuộn 28,789→28,770°C; bed power và tmc fan đều 0, không stepper nào enable, CM4 fan chạy 9 lần ngắn. Thành phần nhiệt 13,76 s ở thermistor cuộn chỉ 0,00397°C (R² 0,064). Mức và chu kỳ dao động gần như giữ nguyên sau thay bo: **thay riêng bo LDC1612 không khắc phục lỗi**. Hai bo cùng loại vẫn có thể cùng chịu một tác nhân bên ngoài hoặc cùng đặc tính thiết kế; phép thử chưa tách được cuộn/dây giữ lại, nguồn/I²C Manta và khe hở cơ khí thật.
+
+Live vẫn nạp bảng Eddy 101 điểm và `reg_drive_current=19` của lần hiệu chuẩn trước. Phép so trên chỉ dùng tần số thô; không dùng bảng Z cũ để home, QGL hoặc kết luận độ cao của bo mới. Cần hiệu chuẩn lại cho bo thay thế trước khi dùng làm probe production, sau khi xử lý nhịp tuần hoàn.
+
 ## Kết luận với mức chắc chắn
 
 - Nguyên nhân trực tiếp QGL không hội tụ: phép đo Eddy tại các góc có độ biến thiên lớn hơn tolerance 0,008 mm. Trôi theo nhiệt và trạng thái bù nhiệt bị tắt là một thành phần có bằng chứng, nhưng không phải toàn bộ sai số nhanh.
 - Nguyên nhân trực tiếp của sọc mesh: tần số thô LDC dao động ở chu kỳ khoảng 14 giây ngay khi đứng yên, được lấy mẫu thành vệt theo thứ tự hàng; thay `PROBE_COUNT` làm đổi bước sóng theo Y. Tác nhân vật lý tạo chu kỳ đó vẫn chưa được chỉ đích danh. Heater PWM, ray Y, đế nam châm và riêng thuật toán `rapid_scan` không đủ chứng cứ để kết luận là gốc. Việc `scan` đứng tại từng điểm vẫn có gợn/sai lệch và kết quả Native Tap không trùng hoàn toàn với Eddy làm tăng nghi vấn đường tín hiệu Eddy.
+- Thay riêng bo LDC1612 cùng loại không đổi nhịp hoặc biên độ đáng kể; bo cũ hỏng riêng lẻ không phải lời giải thích đầy đủ. Cuộn, dây, nguồn/I²C trên Manta và thay đổi khe hở thật còn là các khả năng chung giữa hai lượt.
 - Shutdown: hàng đợi digital output trên main MCU bị thiếu cập nhật. Đây là lỗi vận hành riêng, có thể cắt ngang QGL/mesh, và cần được xử lý trước các thử nóng dài hoặc hiệu chuẩn drift.
 
 ## Phép kiểm tra phân biệt còn thiếu
 
-Để gọi tên linh kiện gốc cần một mốc cơ khí độc lập *đồng thời* với raw LDC, hoặc lặp phép đo đứng yên ở hai khoảng cách coil–bàn. Cách thứ hai cần home và di chuyển an toàn khi có người quan sát, trong khi hiện máy chưa home và từng có lỗi MCU ở các lượt nóng. Nếu dao động tần số raw gần như không đổi khi tăng khoảng cách đáng kể, nghi đường điện/coil; nếu nó giảm theo độ nhạy khoảng cách và mốc cơ khí cũng đổi, nghi chuyển động cơ khí. Sau khi xử lý lỗi MCU, đổi `SCAN_SPEED=50/150` thật sẽ xác minh cách nhịp đó hiện lên mesh nhưng không còn là điều kiện để chứng minh nhịp tồn tại khi đứng yên. Không hạ QGL tolerance hay đổi tham số LDC để che sai số trước khi xác định tác nhân vật lý.
+Để gọi tên linh kiện gốc, phép thay tiếp theo có giá trị là cuộn và dây với bộ đã biết tốt, giữ cố định gá và khoảng cách; hoặc đo một mốc cơ khí độc lập *đồng thời* với raw LDC. Đo ở hai khoảng cách coil–bàn cũng có thể phân biệt sai số điện và chuyển động cơ khí, nhưng cần home/di chuyển an toàn với model mới đã hiệu chuẩn và có người quan sát; hiện máy chưa home và từng có lỗi MCU ở các lượt nóng. Sau khi xử lý lỗi MCU, đổi `SCAN_SPEED=50/150` thật sẽ xác minh cách nhịp đó hiện lên mesh. Không hạ QGL tolerance hay đổi tham số LDC để che sai số trước khi xác định tác nhân vật lý.
