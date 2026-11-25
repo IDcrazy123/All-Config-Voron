@@ -45,6 +45,25 @@ Trong lượt hai, bàn nguội 49,21→48,41°C, thermistor cuộn 43,318→42,
 
 **Định vị sau thử live:** nguyên nhân gần nhất đã xác nhận là **tần số đo LDC1612 dao động tuần hoàn ngay tại một vị trí đứng yên**, vượt mức QGL cần và được biến thành sọc khi lấy mẫu theo đường scan. Heater bàn, biến thiên của các thermistor quan sát được và riêng mã mesh không giải thích được; không quan sát lỗi mẫu hoặc overflow từ LDC. Chưa thể quy cho riêng chip/coil/I²C, nguồn điện/nhiễu từ hay chuyển động tương đối thật giữa coil và bàn. Cần một cảm biến khoảng cách hoặc mốc tiếp xúc độc lập đo *đồng thời* tại cùng vị trí, hoặc một phép đo LDC ở hai khoảng cách coil–bàn đã home an toàn, mới phân biệt phần cơ khí với phần điện từ. Không tự home/di chuyển từ trạng thái chưa home này để thử hai khoảng cách.
 
+## Cô lập tải và EBB, 30 giây mỗi điều kiện
+
+Sau khi quạt TMC hết thời gian chờ và tự tắt, chuỗi đứng yên 90 giây thứ ba (`stationary-tmcfan-off-90s.csv.gz`) vẫn có chu kỳ 14,36 giây, biên độ 5,56 µm, R² 0,610; toàn bộ 11 stepper `stepper_enable=false`, heater/fan của T0–T4 target/power/speed=0 (ảnh trạng thái `isolated-status.json`). Quạt CM4 chạy khoảng 10 giây đầu của lượt này nhưng trong giây 30–90, khi nó đã OFF, thành phần 14,2 giây vẫn có biên độ khoảng 5,25 µm. TMC fan và quạt CM4 không phải điều kiện cần.
+
+Đối chứng LED tại cùng vị trí, `isolate_tool_leds.py` lưu màu 3 pixel của từng T0–T4, đo 30 giây, tắt cả 5 LED tool trong 30 giây, khôi phục đúng từng pixel và đo lại 30 giây. Khớp tần số 14,2 giây với xu hướng bậc hai trên median 0,25 giây cho biên độ Z **5,80 → 5,33 → 5,23 µm** (LED ON → OFF → ON). Tất cả lần đều 0 lỗi/overflow. Tắt LED tool không làm mất nhịp. Các MCU EBB vẫn được cấp điện trong loạt LED.
+
+Theo yêu cầu người vận hành, chuẩn bị cấu hình chẩn đoán `config/diagnostics/ldc-only.cfg` chỉ có Manta + EBB0, sau đó `config/diagnostics/ldc-main-only.cfg` chỉ có Manta; cả hai không khai báo stepper, heater hoặc LED. Bản `klipper.env` production được sao lưu trước khi tạm đổi điểm vào, và đã trả về SHA-256 gốc `F1A5D00872196EC546FAA2060DF58D4F182E31B8B4D7C1FFE92D3A53CA47CB7C` trước khi người vận hành nối lại phần cứng. Người vận hành tắt nguồn máy trước mỗi lần cô lập nguồn/CAN và xác nhận đã bật lại. Klipper `ready`, chỉ thấy MCU được khai báo ở từng cấu hình; CAN mcu `rx_error=tx_error=tx_retries=0` sau khi bốn EBB đã tách. Các file raw 30 giây và `analyze_ebb_isolation.py` cho kết quả sau khi khớp sin/cos **chu kỳ cố định 14,2 giây** cùng xu hướng bậc hai với median tần số mỗi 0,25 giây:
+
+| Cấu hình Klipper | Board EBB còn cấp điện | Biên độ 14,2 s | R² bổ sung | Lỗi/overflow |
+| --- | --- | ---: | ---: | ---: |
+| Manta + EBB0 | EBB0–EBB4 | 429,7 Hz | 0,562 | 0/0 |
+| Manta + EBB0 | EBB0 | 428,5 Hz | 0,578 | 0/0 |
+| Manta only | EBB0 | 432,9 Hz | 0,563 | 0/0 |
+| Manta only | Không EBB | 482,8 Hz | 0,596 | 0/0 |
+
+Profile chẩn đoán không nạp bảng Z Eddy nên các file này báo `z=-99,9` và **chỉ phân tích tần số thô**. Nhiệt cuộn giảm khoảng 34,4→33,4°C và bàn khoảng 34,7→33,9°C qua các lượt; 30 giây chỉ có khoảng hai chu kỳ, nên không dùng chênh 50 Hz cuối để quy tác động của EBB0. Điều chắc chắn là **nhịp không biến mất khi tắt nguồn/CAN cả năm EBB**. Vậy nguồn gốc không nằm ở board EBB, motor, heater, quạt hay LED tool. Phần chưa tách là LDC1612/coil/dây/I²C/nguồn trên Manta với chuyển động cơ khí của khe hở cuộn–bàn do môi trường bên ngoài. Cần mốc khoảng cách độc lập hoặc thay coil/board bằng mẫu đã biết ổn định trên cùng gá để gọi tên linh kiện gốc.
+
+Sau khi người vận hành tắt nguồn, nối lại EBB0–EBB4 và bật máy, `klipper.env` vẫn đúng SHA-256 gốc. Klipper nạp lại `printer.cfg`, `ready`, nhận đủ `mcu` và `mcu EBB0`–`mcu EBB4`; CAN rx/tx error và retries đều 0. Cuối lượt `print_stats=standby`, heater bàn và cả năm extruder target/power 0, các trục chưa home, T0 được phát hiện nhưng toolchanger ở trạng thái `uninitialized` sau khởi động; không gửi lệnh initialize, home, QGL hay di chuyển.
+
 ## Kết luận với mức chắc chắn
 
 - Nguyên nhân trực tiếp QGL không hội tụ: phép đo Eddy tại các góc có độ biến thiên lớn hơn tolerance 0,008 mm. Trôi theo nhiệt và trạng thái bù nhiệt bị tắt là một thành phần có bằng chứng, nhưng không phải toàn bộ sai số nhanh.

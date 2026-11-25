@@ -1,0 +1,64 @@
+{
+  "captured_utc": "2026-11-25T12:11:58.428046+00:00",
+  "print_state": "standby",
+  "homed_axes": "",
+  "commanded_position": [
+    320.0,
+    289.90000000000003,
+    2.0,
+    0.0
+  ],
+  "steppers": {
+    "stepper_x": false,
+    "stepper_y": false,
+    "stepper_z": false,
+    "stepper_z1": false,
+    "stepper_z2": false,
+    "stepper_z3": false,
+    "extruder": false,
+    "extruder1": false,
+    "extruder2": false,
+    "extruder3": false,
+    "extruder4": false
+  },
+  "bed": {
+    "temperature": 36.78,
+    "target": 0.0,
+    "power": 0.0
+  },
+  "tmc_fan_speed": 0.0,
+  "cm4_fan_speed": 0.0,
+  "enclosure_fan_speed": 0.0,
+  "tools": {
+    "T0": {
+      "heater_target": 0.0,
+      "heater_power": 0.0,
+      "hotend_fan": 0.0,
+      "part_fan": 0.0
+    },
+    "T1": {
+      "heater_target": 0.0,
+      "heater_power": 0.0,
+      "hotend_fan": 0.0,
+      "part_fan": 0.0
+    },
+    "T2": {
+      "heater_target": 0.0,
+      "heater_power": 0.0,
+      "hotend_fan": 0.0,
+      "part_fan": 0.0
+    },
+    "T3": {
+      "heater_target": 0.0,
+      "heater_power": 0.0,
+      "hotend_fan": 0.0,
+      "part_fan": 0.0
+    },
+    "T4": {
+      "heater_target": 0.0,
+      "heater_power": 0.0,
+      "hotend_fan": 0.0,
+      "part_fan": 0.0
+    }
+  }
+}
