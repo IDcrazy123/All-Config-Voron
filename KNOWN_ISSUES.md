@@ -16,17 +16,19 @@ pickups. This isolates a pickup-dependent height change, without identifying
 which mating or hotend component moved. The operator confirmed T3 also binds
 when manually mounted on the shuttle, so changing dock coordinates alone is
 not justified. Inspect T3's coupling, guide pins, and nozzle mount. Do not
-average or save T3's PF2 offset until the
-physical repeatability is restored and verified with repeated pickups. T1 and
-T4 batch results also vary and remain preliminary. T2 had a four-run cluster
-averaging -0.2902 mm after excluding a -0.3253 mm outlier, but first-layer
-testing still owns the final production Z offset. See
+use T3 for printing until physical repeatability is restored and verified
+with repeated pickups. T1 and T4 batch results also vary. T2 had a four-run
+cluster averaging -0.2902 mm after excluding a -0.3253 mm outlier. See
 `extras/Nhat-ky-chinh-sua/2026-11-27-all-tool-pf2-z-after-dock-alignment.md`.
 The operator could not yet resolve the manual binding and requested three more
 T3 pickup cycles. Each cycle measured T0 and T3 in the same homing frame;
 relative offsets were -0.3428, -0.3516, and -0.3088 mm (0.0428 mm range).
-Presence detection succeeded every time. Do not print with T3 until the
-binding is fixed and pickup height repeatability is verified.
+Presence detection succeeded every time. At the operator's later explicit
+request, the three-cycle mean -0.3344 mm was saved as a **temporary** T3 Z
+offset. T1/T2/T4 preliminary PF2 offsets -0.3913/-0.2902/-0.1943 mm were also
+saved. Saving these numbers does not establish first-layer quality or resolve
+T3's mechanical binding. See
+`extras/Nhat-ky-chinh-sua/2026-11-27-apply-pf2-z-offsets-temporary-t3.md`.
 
 ## Main MCU shutdown before hot QGL (2026-11-22)
 
