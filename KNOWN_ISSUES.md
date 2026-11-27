@@ -1,7 +1,32 @@
 # Current production issues
 
-Updated: 2026-11-22. This file records the active state of the printer. Older
+Updated: 2026-11-27. This file records the active state of the printer. Older
 entries in the parent workspace's `.agents/KNOWN_ISSUES.md` are historical.
+
+## T3 relative Z changes after dock pickup (2026-11-27)
+
+After the operator aligned all five live dock positions, attended PF2 batches
+successfully picked up and detected T0–T4, including T3. The preliminary Z
+results still varied across batches. With one T3 attachment and no G28/QGL or
+toolchange, three five-sample switch measurements spanned 0.0132 mm. After T3
+was docked and picked up again, its measured offset changed from -0.3432 to
+-0.4204 mm (a -0.0772 mm difference); T0's reference changed only +0.0048 mm
+after its own reseat. T3's presence input reported the tool attached on both
+pickups. This isolates a pickup-dependent height change, without identifying
+which mating or hotend component moved. The operator confirmed T3 also binds
+when manually mounted on the shuttle, so changing dock coordinates alone is
+not justified. Inspect T3's coupling, guide pins, and nozzle mount. Do not
+average or save T3's PF2 offset until the
+physical repeatability is restored and verified with repeated pickups. T1 and
+T4 batch results also vary and remain preliminary. T2 had a four-run cluster
+averaging -0.2902 mm after excluding a -0.3253 mm outlier, but first-layer
+testing still owns the final production Z offset. See
+`extras/Nhat-ky-chinh-sua/2026-11-27-all-tool-pf2-z-after-dock-alignment.md`.
+The operator could not yet resolve the manual binding and requested three more
+T3 pickup cycles. Each cycle measured T0 and T3 in the same homing frame;
+relative offsets were -0.3428, -0.3516, and -0.3088 mm (0.0428 mm range).
+Presence detection succeeded every time. Do not print with T3 until the
+binding is fixed and pickup height repeatability is verified.
 
 ## Main MCU shutdown before hot QGL (2026-11-22)
 
